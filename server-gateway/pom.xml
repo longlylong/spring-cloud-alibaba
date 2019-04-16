@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.thatday</groupId>
+        <artifactId>that-day-java</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>server-gateway</artifactId>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <!-- 服务发现 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <version>${spring-cloud-alibaba.version}</version>
+        </dependency>
+
+        <!-- 配置服务 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+            <version>${spring-cloud-alibaba.version}</version>
+        </dependency>
+
+        <!-- 服务网关 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
+        </dependency>
+
+        <!-- 重试机制 ，必须配，否则重试不生效 -->
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+        </dependency>
+
+        <!-- 熔断服务 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- 令牌桶限流 -->
+        <dependency>
+            <groupId>com.github.vladimir-bukhtoyarov</groupId>
+            <artifactId>bucket4j-core</artifactId>
+            <version>4.3.0</version>
+        </dependency>
+
+        <!-- 流量防卫1.5新版本 -->
+        <!--<dependency>-->
+        <!--<groupId>com.alibaba.csp</groupId>-->
+        <!--<artifactId>sentinel-core</artifactId>-->
+        <!--<version>1.5.0</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>com.alibaba.csp</groupId>-->
+        <!--<artifactId>sentinel-transport-simple-http</artifactId>-->
+        <!--<version>1.5.0</version>-->
+        <!--</dependency>-->
+
+        <!-- 健康检查 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!--<dependency>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-data-redis-reactive</artifactId>-->
+        <!--</dependency>-->
+    </dependencies>
+
+</project>
