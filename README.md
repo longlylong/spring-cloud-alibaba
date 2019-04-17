@@ -63,7 +63,7 @@ ServerGateway （网关）
 <br/>
 --config （swagger入口、跨域、熔断配置）
 <br/>
---filter （限流配置，可动态配置Nacos）
+--filter （限流配置，可在Nacos动态配置限流规则）
 <br/>
 <br/>
 
