@@ -1,6 +1,6 @@
 技术栈：
 <br/>
-Spring Cloud 2.1.3
+Spring Cloud 2.1.4
 <br/>
 Spring Cloud Gateway
 <br/>
@@ -18,7 +18,7 @@ Sentinel 1.5.0
 <br/>
 Feign
 <br/>
-JPA
+JPA + QueryDSL
 <br/>
 <br/>
 

@@ -2,7 +2,7 @@ package com.thatday.common.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.thatday.common.constant.StatusCode;
-import com.thatday.common.utils.TokenUtil;
+import com.thatday.common.validation.TokenUtil;
 import com.thatday.common.validation.CheckTokenValidity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

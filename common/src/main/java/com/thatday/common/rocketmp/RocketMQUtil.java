@@ -2,6 +2,7 @@ package com.thatday.common.rocketmp;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.thatday.common.exception.GlobalException;
 import com.thatday.common.utils.TemplateCodeUtil;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
@@ -86,7 +87,7 @@ public class RocketMQUtil {
 
     private static void isNull() {
         if (producer == null) {
-            throw new RuntimeException("Please InitProducer");
+            throw new GlobalException("Please InitProducer");
         }
     }
 }

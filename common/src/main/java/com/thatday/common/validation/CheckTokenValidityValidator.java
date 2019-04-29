@@ -1,7 +1,6 @@
 package com.thatday.common.validation;
 
 import com.thatday.common.model.RequestVo;
-import com.thatday.common.utils.TokenUtil;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -11,6 +10,6 @@ public class CheckTokenValidityValidator implements ConstraintValidator<CheckTok
 
     @Override
     public boolean isValid(RequestVo.UserInfo userInfo, ConstraintValidatorContext constraintValidatorContext) {
-        return TokenUtil.checkToken(userInfo.getToken());
+        return TokenUtil.checkToken(userInfo);
     }
 }

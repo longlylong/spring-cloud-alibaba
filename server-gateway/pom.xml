@@ -54,16 +54,22 @@
             <version>4.3.0</version>
         </dependency>
 
-        <!-- 流量防卫1.5新版本 -->
+        <!--<dependency>-->
+        <!--<groupId>com.alibaba.csp</groupId>-->
+        <!--<artifactId>sentinel-spring-cloud-gateway-adapter</artifactId>-->
+        <!--<version>1.6.0</version>-->
+        <!--</dependency>-->
+
+        <!-- 流量防卫1.6新版本 -->
         <!--<dependency>-->
         <!--<groupId>com.alibaba.csp</groupId>-->
         <!--<artifactId>sentinel-core</artifactId>-->
-        <!--<version>1.5.0</version>-->
+        <!--<version>1.6.0</version>-->
         <!--</dependency>-->
         <!--<dependency>-->
         <!--<groupId>com.alibaba.csp</groupId>-->
         <!--<artifactId>sentinel-transport-simple-http</artifactId>-->
-        <!--<version>1.5.0</version>-->
+        <!--<version>1.6.0</version>-->
         <!--</dependency>-->
 
         <!-- 健康检查 -->

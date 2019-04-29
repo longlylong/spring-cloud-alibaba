@@ -1,7 +1,7 @@
 package com.thatday.user.rocketmq;
 
 import com.thatday.common.rocketmp.RocketMQUtil;
-import com.thatday.user.entity.User;
+import com.thatday.user.entity.db.User;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;

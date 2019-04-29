@@ -16,7 +16,7 @@ import java.util.Base64;
 
 public class AESCrypt {
 
-    private static final String key = "afaf1^**^%82hkf8&^oif298jHFIFUO";
+    private static final String key = "afaf1^**^%82hkff8&^oif298jHFIFUO";
 
     private static Cipher getCipher(int decryptMode) throws NoSuchPaddingException, NoSuchAlgorithmException,
             InvalidAlgorithmParameterException, InvalidKeyException {

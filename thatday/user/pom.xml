@@ -69,9 +69,22 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!--JPA支持-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!--QueryDSL支持-->
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-jpa</artifactId>
+        </dependency>
+
+        <!--QueryDSL支持-->
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-apt</artifactId>
         </dependency>
 
         <dependency>
@@ -90,4 +103,25 @@
         <!--</dependency>-->
     </dependencies>
 
+    <build>
+        <plugins>
+            <!--querydsl因为是类型安全的，所以还需要加上Maven APT plugin，使用 APT 自动生成一些类:-->
+            <plugin>
+                <groupId>com.querydsl</groupId>
+                <artifactId>querydsl-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>jpa-export</goal>
+                        </goals>
+                        <configuration>
+                            <targetFolder>target/generated-sources</targetFolder>
+                            <packages>com.thatday.user.entity</packages>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

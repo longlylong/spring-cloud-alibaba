@@ -1,17 +1,15 @@
 package com.thatday.common.model;
 
 
-import com.alibaba.fastjson.JSONObject;
 import com.thatday.common.constant.StatusCode;
 import com.thatday.common.exception.CodeMsg;
 import com.thatday.common.exception.GlobalException;
 import lombok.Data;
-import lombok.var;
 
 import java.io.Serializable;
 
 @Data
-public class ResponseModel implements Serializable {
+public class ResponseModel<T> implements Serializable {
 
     private static final long serialVersionUID = 2882146120308441911L;
 
@@ -22,9 +20,9 @@ public class ResponseModel implements Serializable {
     protected String message;
 
     // 响应数据
-    protected Object data;
+    protected T data;
 
-    private ResponseModel(Integer code, String message, Object data) {
+    private ResponseModel(Integer code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;
@@ -34,11 +32,8 @@ public class ResponseModel implements Serializable {
         return build(StatusCode.Parameter_Error, paramName);
     }
 
-    public static String buildSentinelError() {
-        var r = new JSONObject();
-        r.put("code", StatusCode.Sentinel_Error);
-        r.put("message", "操作过快");
-        return r.toJSONString();
+    public static ResponseModel buildSentinelError() {
+        return build(429, "操作太快");
     }
 
     /**
@@ -64,12 +59,12 @@ public class ResponseModel implements Serializable {
         return buildSuccess(null);
     }
 
-    public static ResponseModel buildSuccess(Object data) {
+    public static <T> ResponseModel buildSuccess(T data) {
         return build(StatusCode.Success, "成功", data);
     }
 
-    private static ResponseModel build(Integer code, String message, Object data) {
-        return new ResponseModel(code, message, data);
+    private static <T> ResponseModel build(Integer code, String message, T data) {
+        return new ResponseModel<>(code, message, data);
     }
 
     public static ResponseModel build(Integer code, String message) {
