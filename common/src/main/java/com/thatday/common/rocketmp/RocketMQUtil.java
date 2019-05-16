@@ -18,7 +18,16 @@ import java.util.List;
 public class RocketMQUtil {
 
     public static String DefaultNameSrvAddr = "127.0.0.1:9876";
+    private static final String DefaultRocketMQGroup = "DefaultRocketMQGroup";
+
     private static DefaultMQProducer producer;
+
+    /**
+     * 用默认的参数
+     */
+    public static void initDefaultProducer() {
+        initProducer(DefaultRocketMQGroup, DefaultNameSrvAddr);
+    }
 
     public static void initProducer(String producerGroup, String nameSrvAddr) {
         try {
@@ -32,7 +41,18 @@ public class RocketMQUtil {
     }
 
     /**
+     * 用默认的参数
+     * 不同的消费者producerGroup也需要不一样
+     */
+    public static void initConsumer(int port, String topic, String tags,
+                                    MessageListenerConcurrently listener) {
+        initConsumer(port, DefaultRocketMQGroup + topic + tags, DefaultNameSrvAddr, topic, tags, listener);
+    }
+
+    /**
+     * port用来确保分布式的
      * port + producerGroup + topic + tags 为多实例的名字，确保不会重复消费与接收不到
+     * 不同的消费者producerGroup也需要不一样
      */
     public static void initConsumer(int port, String producerGroup, String nameSrvAddr, String topic, String tags,
                                     MessageListenerConcurrently listener) {
