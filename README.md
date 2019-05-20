@@ -1,5 +1,7 @@
 技术栈：
 <br/>
+Spring Cloud Alibaba 0.9.0
+<br/>
 Spring Cloud 2.1.4
 <br/>
 Spring Cloud Gateway
@@ -14,7 +16,7 @@ Nacos 1.0.0
 -Nacos-config
 <br/>
 <br/>
-Sentinel 1.5.0
+Sentinel 1.5.2
 <br/>
 Feign
 <br/>
