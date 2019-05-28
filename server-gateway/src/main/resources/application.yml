@@ -53,9 +53,15 @@ spring:
           filters:
             - StripPrefix=2
 
-ribbon:
-  ConnectTimeout: 60000
-  ReadTimeout: 60000
+#配置断路由的超时时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 5000
 
 #log
 logging:

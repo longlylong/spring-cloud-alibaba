@@ -26,9 +26,15 @@ batch:
   size:
     max: 100000
 
-ribbon:
-  ConnectTimeout: 60000
-  ReadTimeout: 60000
+#配置断路由的超时时间
+hystrix:
+  command:
+    defalut:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+
 
 #log
 logging:
