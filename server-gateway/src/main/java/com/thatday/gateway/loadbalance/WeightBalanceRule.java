@@ -42,16 +42,16 @@ public class WeightBalanceRule extends AvailabilityFilteringRule {
         }
 
         //以全部权重为总和随机
-        AtomicInteger nextInt = new AtomicInteger(random.nextInt(weight.get() + 1));
+        double random = Math.random() * weight.get();
 
         //如果随机数减去当前的权重<=0了就是说明他就是这个服务
         for (Server server : allServers) {
             if (server instanceof NacosServer) {
                 NacosServer nacosServer = ((NacosServer) server);
                 int w = (int) nacosServer.getInstance().getWeight();
-                nextInt.addAndGet(-w);
+                random -= w;
 
-                if (nextInt.get() <= 0) {
+                if (random <= 0) {
                     return server;
                 }
             }
