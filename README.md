@@ -8,6 +8,8 @@ Spring Cloud Gateway
 <br/>
 -Rate Limit
 <br/>
+-Weight Loadbalance
+<br/>
 <br/>
 Nacos 1.0.0
 <br/>
