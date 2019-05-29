@@ -7,16 +7,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 按照权重走的 配合nacos
  */
 @Component
 public class WeightBalanceRule extends AvailabilityFilteringRule {
-
-    private final static Random random = new Random();
 
     @Override
     public Server choose(Object key) {
@@ -28,21 +24,21 @@ public class WeightBalanceRule extends AvailabilityFilteringRule {
         }
 
         //全部权重相加
-        AtomicInteger weight = new AtomicInteger();
-        allServers.forEach(server -> {
+        int weight = 0;
+        for (Server server : allServers) {
             if (server instanceof NacosServer) {
                 NacosServer nacosServer = ((NacosServer) server);
-                weight.addAndGet((int) nacosServer.getInstance().getWeight());
+                weight += (int) nacosServer.getInstance().getWeight();
             }
-        });
+        }
 
         //如果不是nacos的话应该是0，权重都是1的情况就全部一样也走上级的方法
-        if (weight.get() == 0 || weight.get() == allServers.size()) {
+        if (weight == 0 || weight == allServers.size()) {
             return super.choose(key);
         }
 
         //以全部权重为总和随机
-        double random = Math.random() * weight.get();
+        double random = Math.random() * weight;
 
         //如果随机数减去当前的权重<=0了就是说明他就是这个服务
         for (Server server : allServers) {
