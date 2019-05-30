@@ -23,6 +23,11 @@ public class WeightBalanceRule extends AvailabilityFilteringRule {
             super.choose(key);
         }
 
+        //权重的规则路由
+        return weightChooseRule(key, allServers);
+    }
+
+    private Server weightChooseRule(Object key, List<Server> allServers) {
         //全部权重相加
         int weight = 0;
         for (Server server : allServers) {
