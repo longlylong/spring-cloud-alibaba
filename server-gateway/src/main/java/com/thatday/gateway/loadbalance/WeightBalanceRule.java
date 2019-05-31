@@ -11,14 +11,12 @@ import java.util.List;
 /**
  * 按照权重走的 配合nacos
  */
-//
-//@Component
+
+@Component
 public class WeightBalanceRule extends AvailabilityFilteringRule {
 
     @Override
     public Server choose(Object key) {
-        //连续几次请求不同模块api时
-        //这里有bug，获取到的loadbalance是不对的，所以得到的server也是不对的。
         List<Server> allServers = getLoadBalancer().getAllServers();
 
         //没可用服务或只有一个就交给上级处理
