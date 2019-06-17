@@ -6,10 +6,22 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 
+/**
+ * nacos properties config
+ * DEFAULT_GROUP
+ * Properties
+ * server-gateway-product.properties
+ * ---------------------------------
+ * enableIpRateLimit=true
+ * enableLog=true
+ * publicRefillTokens=100
+ * publicCapacity=500
+ * ipRefillTokens=1
+ * ipCapacity=50
+ */
 @Data
 @Component
 @RefreshScope
-//目前只有获取到DEFAULT_GROUP的配置，等github回复
 public class RateLimitPubConfig {
 
     @Value("${enableIpRateLimit:true}")
