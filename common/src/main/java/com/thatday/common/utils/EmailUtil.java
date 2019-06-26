@@ -8,6 +8,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.security.GeneralSecurityException;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 @Slf4j
@@ -15,53 +16,31 @@ public class EmailUtil {
 
     private static final String spring_mail_host = "smtp.exmail.qq.com";
     private static final String spring_mail_protocol = "smtp";
-    private static final String spring_mail_username = "huangjinlong@gdzol.com.cn";
-    private static final String spring_mail_password = "Zk888999";
     private static final String spring_mail_port = "465";
 
-    private static final String ToEmail4 = "huangjinlong@gdzol.com.cn";
-    private static final String ToEmail3 = "hu.yanlong@gdzol.com.cn";
-    private static final String ToEmail2 = "yang.long@gdzol.com.cn";
-    private static final String ToEmail1 = "13510256695@163.com";
+    private static final String spring_mail_username = "spring_mail_username";
+    private static final String spring_mail_password = "spring_mail_password";
 
-
-    public static void sendOrderEmail(String buyerName, String buyerPhone, String orderTime, String orderNum,
-                                      Double orderPrice, String goodsNames) {
+    private static void sendEmail(String fromAddress, String personal, List<String> toList, String subject, String content) {
         try {
             Session session = getSession();
             MimeMessage mimeMessage = new MimeMessage(session);
-            mimeMessage.setFrom(new InternetAddress(spring_mail_username, "SaaS小秘书"));
+            mimeMessage.setFrom(new InternetAddress(fromAddress, personal));
 
-            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(ToEmail1));
-            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(ToEmail2));
-            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(ToEmail3));
-            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(ToEmail4));
+            for (String to : toList) {
+                mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            }
 
-            String subject = "收款通知";
             mimeMessage.setSubject(subject);
             mimeMessage.setSentDate(new Date());
 
-            StringBuilder sb = new StringBuilder();
-            sb.append("您好：\n");
-            sb.append("客户下单啦，详情如下：\n\n");
-            sb.append("订单时间：" + orderTime + "\n");
-            sb.append("订单编号：" + orderNum + "\n\n");
-            sb.append("　收货人：" + buyerName + "\n");
-            sb.append("联系电话：" + buyerPhone + "\n\n");
-            sb.append("订单金额：" + orderPrice + "\n");
-            sb.append("订单详情：" + goodsNames + "\n\n");
-            sb.append("请前往后台，快速处理此订单，谢谢！\n");
-
-
-            mimeMessage.setText(sb.toString());
+            mimeMessage.setText(content);
             mimeMessage.saveChanges();
             Transport.send(mimeMessage);
 
-            log.info(subject);
         } catch (Exception i) {
-            log.info("---下单邮件通知报错----");
+            log.info("---发送邮件报错----");
         }
-
     }
 
     private static Session getSession() throws GeneralSecurityException {
