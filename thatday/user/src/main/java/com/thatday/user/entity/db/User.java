@@ -4,7 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Data
 @Entity
@@ -35,13 +35,13 @@ public class User {
 
     @NotNull
     @Column(columnDefinition = "timestamp default current_timestamp comment '登录时间'")
-    private Timestamp loginTime;
+    private Date loginTime;
 
     @NotNull
     @Column(columnDefinition = "timestamp default current_timestamp comment '注册时间'")
-    private Timestamp createTime;
+    private Date createTime;
 
     @NotNull
     @Column(columnDefinition = "timestamp default current_timestamp on update current_timestamp comment '更新时间'")
-    private Timestamp updateTime;
+    private Date updateTime;
 }
