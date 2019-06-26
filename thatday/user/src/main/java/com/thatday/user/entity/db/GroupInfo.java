@@ -4,7 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Data
 @Entity
@@ -23,8 +23,8 @@ public class GroupInfo {
     private String groupIcon;
 
     @Column(columnDefinition = "timestamp default current_timestamp comment '创建时间'")
-    private Timestamp createTime;
+    private Date createTime;
 
     @Column(columnDefinition = "timestamp default current_timestamp on update current_timestamp comment '更新时间'")
-    private Timestamp updateTime;
+    private Date updateTime;
 }
