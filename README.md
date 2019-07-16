@@ -11,7 +11,7 @@ Spring Cloud Gateway
 -Weight Loadbalance
 <br/>
 <br/>
-Nacos 1.0.0
+Nacos 1.1.0
 <br/>
 -DiscoveryClient
 <br/>
