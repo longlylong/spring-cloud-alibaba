@@ -1,8 +1,8 @@
 package com.thatday.gateway.loadbalance;
 
+import com.alibaba.cloud.nacos.ribbon.NacosServer;
 import com.netflix.loadbalancer.AvailabilityFilteringRule;
 import com.netflix.loadbalancer.Server;
-import org.springframework.cloud.alibaba.nacos.ribbon.NacosServer;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 

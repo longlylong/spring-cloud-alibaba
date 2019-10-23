@@ -16,7 +16,7 @@
     <dependencies>
         <!-- 服务发现 -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
+            <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
             <version>${spring-cloud-alibaba.version}</version>
         </dependency>
@@ -24,7 +24,7 @@
 
         <!-- 配置服务 -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
+            <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
             <version>${spring-cloud-alibaba.version}</version>
         </dependency>
