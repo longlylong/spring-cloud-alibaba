@@ -1,6 +1,6 @@
 package com.thatday.controller;
 
-import com.thatday.common.model.NextIdVo;
+import com.thatday.common.model.common.NextIdVo;
 import com.thatday.tinyid.base.entity.SegmentId;
 import com.thatday.tinyid.base.generator.IdGenerator;
 import com.thatday.tinyid.base.service.SegmentIdService;
@@ -36,6 +36,9 @@ public class IdController {
     @Value("${batch.size.max}")
     private Integer batchSizeMax;
 
+    @Value("${server.port}")
+    private int port;
+
     @Autowired
     public IdController(IdGeneratorFactoryServer idGeneratorFactoryServer, SegmentIdService segmentIdService, TinyIdTokenService tinyIdTokenService) {
         this.idGeneratorFactoryServer = idGeneratorFactoryServer;
@@ -45,7 +48,7 @@ public class IdController {
 
     @GetMapping("/getId")
     public String getId() {
-        return "/getId";
+        return port + "：/getId";
     }
 
     //返回格式化后的id前面补0的

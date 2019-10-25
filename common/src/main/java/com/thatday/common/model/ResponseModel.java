@@ -33,7 +33,7 @@ public class ResponseModel<T> implements Serializable {
     }
 
     public static ResponseModel buildSentinelError() {
-        return build(429, "操作太快");
+        return build(StatusCode.Sentinel_Error, "操作太快");
     }
 
     /**
@@ -60,7 +60,7 @@ public class ResponseModel<T> implements Serializable {
     }
 
     public static <T> ResponseModel buildSuccess(T data) {
-        return build(StatusCode.Success, "成功", data);
+        return build(StatusCode.SUCCESS, "成功", data);
     }
 
     private static <T> ResponseModel build(Integer code, String message, T data) {
@@ -72,7 +72,7 @@ public class ResponseModel<T> implements Serializable {
     }
 
     public boolean ok() {
-        return code.equals(StatusCode.Success);
+        return code.equals(StatusCode.SUCCESS);
     }
 
 

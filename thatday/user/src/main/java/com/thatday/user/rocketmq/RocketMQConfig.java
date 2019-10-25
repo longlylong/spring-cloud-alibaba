@@ -1,9 +1,5 @@
 package com.thatday.user.rocketmq;
 
-import com.thatday.common.rocketmp.RocketMQUtil;
-import com.thatday.user.entity.db.GroupInfo;
-import com.thatday.user.entity.db.User;
-import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -22,19 +18,21 @@ public class RocketMQConfig implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        RocketMQUtil.initDefaultProducer();
+//        RocketMQUtil.send(RocketMQConfig.Topic, RocketMQConfig.Tags_A, obj);
 
-        RocketMQUtil.initConsumer(port, Topic, Tags_A, (msgList, context) -> {
-            User user = RocketMQUtil.getData(msgList, User.class);
-            System.out.println(user);
-            return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
-        });
+//        RocketMQUtil.initDefaultProducer();
 
-        RocketMQUtil.initConsumer(port, Topic, Tags_B, (msgList, context) -> {
+//        RocketMQUtil.initConsumer(port, Topic, Tags_A, (msgList, context) -> {
+//            User user = RocketMQUtil.getData(msgList, User.class);
+//            System.out.println(user);
+//            return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+//        });
 
-            GroupInfo groupInfo = RocketMQUtil.getData(msgList, GroupInfo.class);
-            System.out.println(groupInfo);
-            return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
-        });
+//        RocketMQUtil.initConsumer(port, Topic, Tags_B, (msgList, context) -> {
+//
+//            FileGroup groupInfo = RocketMQUtil.getData(msgList, FileGroup.class);
+//            System.out.println(groupInfo);
+//            return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+//        });
     }
 }

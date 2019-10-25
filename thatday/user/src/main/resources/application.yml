@@ -1,5 +1,7 @@
 server:
   port: 7100
+  tomcat:
+    basedir: /home/temp
 
 spring:
   application:

@@ -1,6 +1,6 @@
 package com.thatday.common.validation;
 
-import com.thatday.common.constant.StatusCode;
+import com.thatday.common.token.TokenConstant;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CheckTokenValidity {
 
-    String message() default StatusCode.Des_User_Info;
+    String message() default TokenConstant.Msg_Access_Token_Error;
 
     Class<?>[] groups() default {};
 

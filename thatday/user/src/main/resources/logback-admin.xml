@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <configuration>
-    <springProperty name="logFile" source="log.file"/>
+    <springProperty name="logFileName" source="log.fileName"/>
 
     <!--引入默认的一些设置-->
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
@@ -17,7 +17,7 @@
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名,每天一个文件-->
-            <FileNamePattern>${logFile}.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>${logFileName}.%d{yyyy-MM-dd}.log</FileNamePattern>
             <!--日志文件保留天数-->
             <MaxHistory>15</MaxHistory>
             <totalSizeCap>7GB</totalSizeCap>

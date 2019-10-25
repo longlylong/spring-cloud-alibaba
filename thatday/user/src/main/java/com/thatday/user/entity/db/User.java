@@ -6,6 +6,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+/**
+ * 用户表
+ */
 @Data
 @Entity
 public class User {
@@ -30,7 +33,7 @@ public class User {
     private String weChatOpenId;
 
     @NotNull
-    @Column(columnDefinition = "int(11) default 0 comment '注册设备'")
+    @Column(columnDefinition = "int(8) default 0 comment '注册设备'")
     private Integer regDevice;
 
     @NotNull

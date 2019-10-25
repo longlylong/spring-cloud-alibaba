@@ -3,7 +3,6 @@ package com.thatday.gateway.loadbalance;
 import com.alibaba.cloud.nacos.ribbon.NacosServer;
 import com.netflix.loadbalancer.AvailabilityFilteringRule;
 import com.netflix.loadbalancer.Server;
-import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public class WeightBalanceRule extends AvailabilityFilteringRule {
 
         //没可用服务或只有一个就交给上级处理
         if (CollectionUtils.isEmpty(allServers) || allServers.size() == 1) {
-            super.choose(key);
+            return super.choose(key);
         }
 
         //权重的规则路由

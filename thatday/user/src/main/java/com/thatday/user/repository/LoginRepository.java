@@ -7,10 +7,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface LoginRepository extends JpaRepository<User, Long> {
 
-    List<User> findAll();
+    List<User> findUserByPhoneAndPassword(String phone, String psw);
 
-    User findByIdEquals(Long userId);
+    List<User> findUserByWeChatOpenId(String openId);
+
 
 }

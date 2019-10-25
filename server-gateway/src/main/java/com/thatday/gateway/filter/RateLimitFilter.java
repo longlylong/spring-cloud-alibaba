@@ -1,6 +1,7 @@
 package com.thatday.gateway.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.thatday.gateway.filter.bean.RateLimitResConfig;
 import io.github.bucket4j.Bucket;
 import lombok.extern.log4j.Log4j2;
 import lombok.var;
@@ -25,7 +26,7 @@ public class RateLimitFilter extends BaseRateLimitFilter implements GlobalFilter
     private static final Map<String, RateLimitResConfig.Res> resMap = new ConcurrentHashMap<>();
 
     private static final RateLimitResConfig.Res pubPathRes = new RateLimitResConfig.Res();
-    private static final RateLimitResConfig.Res punIPRes = new RateLimitResConfig.Res();
+    private static final RateLimitResConfig.Res pubIPRes = new RateLimitResConfig.Res();
 
     @Autowired
     public RateLimitFilter(Environment environment) {
@@ -67,33 +68,40 @@ public class RateLimitFilter extends BaseRateLimitFilter implements GlobalFilter
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         if (config.isEnableIpRateLimit()) {
-            List<String> realIps = exchange.getRequest().getHeaders().get("X-Real-IP");
-            if (CollectionUtils.isEmpty(realIps)) {
-                //过滤访问路径
-                return filterPath(exchange, chain);
-
-            } else {
-                String address = realIps.get(0);
-                var res = getRule(address, true);
-                Bucket bucket = get(address, res.getRefillTokens(), res.getCapacity());
-
-                if (config.isEnableLog()) {
-                    log.info("访问者IP: " + address + "，剩余请求次数: " + bucket.getAvailableTokens());
-                }
-
-                if (bucket.tryConsume(1)) {
-                    //过滤访问路径
-                    return filterPath(exchange, chain);
-                } else {
-                    return getRateLimitResponse(exchange);
-                }
-            }
+            //ip限流
+            return filterIP(exchange, chain);
         } else {
-            //过滤访问路径
+            //url限流
             return filterPath(exchange, chain);
         }
     }
 
+    //ip限流
+    private Mono<Void> filterIP(ServerWebExchange exchange, GatewayFilterChain chain) {
+        List<String> realIps = exchange.getRequest().getHeaders().get("X-Real-IP");
+        if (CollectionUtils.isEmpty(realIps)) {
+            //url限流
+            return filterPath(exchange, chain);
+
+        } else {
+            String address = realIps.get(0);
+            var res = getRule(address, true);
+            Bucket bucket = get(address, res.getRefillTokens(), res.getCapacity());
+
+            if (config.isEnableLog()) {
+                log.info("访问者IP: " + address + "，剩余请求次数: " + bucket.getAvailableTokens());
+            }
+
+            if (bucket.tryConsume(1)) {
+                //url限流
+                return filterPath(exchange, chain);
+            } else {
+                return getRateLimitResponse(exchange);
+            }
+        }
+    }
+
+    //url限流
     private Mono<Void> filterPath(ServerWebExchange exchange, GatewayFilterChain chain) {
         String path = exchange.getRequest().getURI().getPath();
         var res = getRule(path, false);
@@ -112,7 +120,7 @@ public class RateLimitFilter extends BaseRateLimitFilter implements GlobalFilter
         RateLimitResConfig.Res res = resMap.get(ip);
         if (res == null) {
             if (isIPRule) {
-                res = punIPRes;
+                res = pubIPRes;
                 res.setRefillTokens(config.getIpRefillTokens());
                 res.setCapacity(config.getIpCapacity());
             } else {
@@ -128,7 +136,7 @@ public class RateLimitFilter extends BaseRateLimitFilter implements GlobalFilter
 
     @Override
     public int getOrder() {
-        return BaseRateLimitFilter.FirstRateLimitOrder;
+        return FilterOrdered.RateLimitOrdered;
     }
 
 }
