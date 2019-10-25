@@ -1,7 +1,6 @@
 package com.thatday.common.token;
 
 import com.auth0.jwt.algorithms.Algorithm;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.util.Base64Utils;
@@ -69,7 +68,7 @@ public class TokenUtil {
 
             return String.format("%s.%s", base64Payload, signature);
 
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "";
