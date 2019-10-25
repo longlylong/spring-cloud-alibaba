@@ -24,6 +24,7 @@ import reactor.core.publisher.Mono;
 @AllArgsConstructor
 public class AuthFilter implements GlobalFilter, Ordered {
 
+    @Autowired
     private AuthProperties authProperties;
 
     @Override
