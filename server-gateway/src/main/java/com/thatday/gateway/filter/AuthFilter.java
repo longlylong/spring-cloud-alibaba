@@ -1,6 +1,5 @@
 package com.thatday.gateway.filter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thatday.common.token.TokenConstant;
 import com.thatday.common.token.TokenUtil;
 import com.thatday.gateway.props.AuthProperties;
@@ -24,8 +23,8 @@ import reactor.core.publisher.Mono;
 @Component
 @AllArgsConstructor
 public class AuthFilter implements GlobalFilter, Ordered {
+
     private AuthProperties authProperties;
-    private ObjectMapper objectMapper;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
