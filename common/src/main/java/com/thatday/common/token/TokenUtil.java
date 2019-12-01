@@ -1,6 +1,7 @@
 package com.thatday.common.token;
 
 import com.auth0.jwt.algorithms.Algorithm;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.util.Base64Utils;
@@ -15,7 +16,7 @@ import java.util.Map;
 public class TokenUtil {
 
     public static final long Token_Expires = 2 * 24 * 60 * 60 * 1000;
-    private static final String Secret = "hds##hsh55578*&1";
+    private static final String Secret = "hds##hsh55578*&1" ;
     private static Algorithm algorithm;
 
     static {
@@ -68,10 +69,10 @@ public class TokenUtil {
 
             return String.format("%s.%s", base64Payload, signature);
 
-        } catch (Exception e) {
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        return "";
+        return "" ;
     }
 
     private static String getSign(String base64Payload) {

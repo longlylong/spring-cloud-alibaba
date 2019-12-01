@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('字典树选择')"/>
+    <th:block th:include="include :: ztree-css"/>
+</head>
+<style>
+    body {
+        height: auto;
+        font-family: "Microsoft YaHei";
+    }
+
+    button {
+        font-family: "SimSun", "Helvetica Neue", Helvetica, Arial;
+    }
+</style>
+<body class="hold-transition box box-main">
+<input id="columnId" th:value="${columnId}" type="hidden"/>
+<input id="treeId" th:value="${dict?.dictId}" type="hidden"/>
+<input id="dictType" th:value="${dict?.dictType}" type="hidden"/>
+<div class="wrapper">
+    <div class="treeShowHideButton" onclick="$.tree.toggleSearch();">
+        <label id="btnShow" style="display:none;" title="显示搜索">︾</label>
+        <label id="btnHide" title="隐藏搜索">︽</label>
+    </div>
+    <div class="treeSearchInput" id="search">
+        <label for="keyword">关键字：</label><input class="empty" id="keyword" maxlength="50" type="text">
+        <button class="btn" id="btn" onclick="$.tree.searchNode()"> 搜索</button>
+    </div>
+    <div class="ztree treeselect" id="tree"></div>
+</div>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: ztree-js"/>
+<script th:inline="javascript">
+    $(function () {
+        var url = ctx + "system/dict/treeData";
+        var options = {
+            url: url,
+            onClick: zOnClick
+        };
+        $.tree.init(options);
+    });
+
+    function zOnClick(event, treeId, treeNode) {
+        $("#dictType").val(treeNode.title);
+    }
+</script>
+</body>
+</html>

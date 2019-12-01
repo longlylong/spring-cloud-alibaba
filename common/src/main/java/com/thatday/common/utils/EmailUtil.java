@@ -14,12 +14,12 @@ import java.util.Properties;
 @Slf4j
 public class EmailUtil {
 
-    private static final String spring_mail_host = "smtp.exmail.qq.com";
-    private static final String spring_mail_protocol = "smtp";
-    private static final String spring_mail_port = "465";
+    private static final String spring_mail_host = "smtp.exmail.qq.com" ;
+    private static final String spring_mail_protocol = "smtp" ;
+    private static final String spring_mail_port = "465" ;
 
-    private static final String spring_mail_username = "spring_mail_username";
-    private static final String spring_mail_password = "spring_mail_password";
+    private static final String spring_mail_username = "spring_mail_username" ;
+    private static final String spring_mail_password = "spring_mail_password" ;
 
     private static void sendEmail(String fromAddress, String personal, List<String> toList, String subject, String content) {
         try {

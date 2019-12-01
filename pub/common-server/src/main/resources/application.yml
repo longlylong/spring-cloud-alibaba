@@ -20,9 +20,9 @@ datasource:
     names: m
   tinyid.m:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/that_day?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false
+    url: jdbc:mysql://192.168.139.133:3306/that_day?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false
     username: root
-    password: root
+    password: 123456
 
 batch:
   size:

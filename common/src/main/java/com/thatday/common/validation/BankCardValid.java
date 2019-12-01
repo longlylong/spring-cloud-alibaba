@@ -14,7 +14,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface BankCardValid {
 
-    String message() default "请输入有效的银行卡号！";
+    String message() default "请输入有效的银行卡号！" ;
 
     Class<?>[] groups() default {};
 

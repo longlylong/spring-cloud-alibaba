@@ -16,7 +16,7 @@ import java.util.Base64;
 
 public class AESCrypt {
 
-    private static final String key = "afaf1^*^%82ahkff8&^oif29@8jHFIf*!FUO5";
+    private static final String key = "afaf1^*^%82ahkff8&^oif29@8jHFIf*!FUO5" ;
 
     private static Cipher getCipher(int decryptMode) throws NoSuchPaddingException, NoSuchAlgorithmException,
             InvalidAlgorithmParameterException, InvalidKeyException {
@@ -49,7 +49,7 @@ public class AESCrypt {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "";
+        return "" ;
     }
 
     public static String decrypt(String cryptedText) {
@@ -61,6 +61,6 @@ public class AESCrypt {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "";
+        return "" ;
     }
 }

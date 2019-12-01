@@ -12,7 +12,7 @@ public class HystrixFallbackConfiguration {
 
     @RequestMapping(value = "/globalFallback")
     public Map<String, Object> fallBackController() {
-        return ResponseProvider.responseMap(666666, "this services is upgrade");
+        return ResponseProvider.responseMap(666666, "this services is upgrading");
     }
 
 }

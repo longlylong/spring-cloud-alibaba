@@ -27,14 +27,15 @@ public class LoginController {
 
     @ApiOperation("手机号登录接口")
     @PostMapping(value = "/loginByPhone")
-    public ResponseModel loginByPhone(@Valid @RequestBody LoginPhoneVo loginPhoneVo) {
+    public ResponseModel<User> loginByPhone(@Valid @RequestBody LoginPhoneVo loginPhoneVo) {
         User user = loginService.loginByPhone(loginPhoneVo);
+
         return ResponseModel.buildSuccess(user);
     }
 
     @ApiOperation("微信登录接口")
     @PostMapping(value = "/loginByWeChat")
-    public ResponseModel loginByWeChat(@Valid @RequestBody LoginWeChatVo loginWeChatVo) {
+    public ResponseModel<User> loginByWeChat(@Valid @RequestBody LoginWeChatVo loginWeChatVo) {
         User user = loginService.loginByWeChat(loginWeChatVo);
         return ResponseModel.buildSuccess(user);
     }

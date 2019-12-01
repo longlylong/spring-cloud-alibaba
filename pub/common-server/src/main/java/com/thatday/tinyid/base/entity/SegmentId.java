@@ -103,6 +103,6 @@ public class SegmentId {
 
     @Override
     public String toString() {
-        return "[maxId=" + maxId + ",loadingId=" + loadingId + ",currentId=" + currentId + ",delta=" + delta + ",remainder=" + remainder + "]";
+        return "[maxId=" + maxId + ",loadingId=" + loadingId + ",currentId=" + currentId + ",delta=" + delta + ",remainder=" + remainder + "]" ;
     }
 }

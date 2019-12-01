@@ -10,7 +10,7 @@ import java.util.Date;
  * 用户表
  */
 @Data
-@Entity
+@Entity(name = "td_user")
 public class User {
 
     @Id

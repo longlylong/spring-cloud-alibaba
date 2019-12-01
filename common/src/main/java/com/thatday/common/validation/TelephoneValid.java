@@ -14,7 +14,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface TelephoneValid {
 
-    String message() default "请输入有效的手机号码！";
+    String message() default "请输入有效的手机号码！" ;
 
     Class<?>[] groups() default {};
 

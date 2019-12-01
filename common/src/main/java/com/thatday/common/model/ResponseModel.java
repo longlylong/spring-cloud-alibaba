@@ -59,15 +59,15 @@ public class ResponseModel<T> implements Serializable {
         return buildSuccess(null);
     }
 
-    public static <T> ResponseModel buildSuccess(T data) {
+    public static <T> ResponseModel<T> buildSuccess(T data) {
         return build(StatusCode.SUCCESS, "成功", data);
     }
 
-    private static <T> ResponseModel build(Integer code, String message, T data) {
+    private static <T> ResponseModel<T> build(Integer code, String message, T data) {
         return new ResponseModel<>(code, message, data);
     }
 
-    public static ResponseModel build(Integer code, String message) {
+    public static <T> ResponseModel<T> build(Integer code, String message) {
         return build(code, message, null);
     }
 

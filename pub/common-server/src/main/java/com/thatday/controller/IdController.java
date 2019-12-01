@@ -48,7 +48,7 @@ public class IdController {
 
     @GetMapping("/getId")
     public String getId() {
-        return port + "：/getId";
+        return port + "：/getId" ;
     }
 
     //返回格式化后的id前面补0的
@@ -57,7 +57,7 @@ public class IdController {
 
         var id = nextIdSimple(nextIdVo.getBizType(), nextIdVo.getBatchSize(), nextIdVo.getToken());
         if (StringUtils.isEmpty(id)) {
-            return "error";
+            return "error" ;
         }
 
         var sb = new StringBuilder();
@@ -95,14 +95,14 @@ public class IdController {
     public String nextIdSimple(String bizType, Integer batchSize, String token) {
         Integer newBatchSize = checkBatchSize(batchSize);
         if (!tinyIdTokenService.canVisit(bizType, token)) {
-            return "";
+            return "" ;
         }
-        String response = "";
+        String response = "" ;
         try {
             IdGenerator idGenerator = idGeneratorFactoryServer.getIdGenerator(bizType);
             if (newBatchSize == 1) {
                 Long id = idGenerator.nextId();
-                response = id + "";
+                response = id + "" ;
             } else {
                 List<Long> idList = idGenerator.nextId(newBatchSize);
                 StringBuilder sb = new StringBuilder();

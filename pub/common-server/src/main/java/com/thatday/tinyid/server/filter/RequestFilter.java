@@ -29,11 +29,11 @@ public class RequestFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        String params = "";
+        String params = "" ;
         Map<String, String[]> paramsMap = request.getParameterMap();
         if (paramsMap != null && !paramsMap.isEmpty()) {
             for (Map.Entry<String, String[]> entry : paramsMap.entrySet()) {
-                params += entry.getKey() + ":" + StringUtils.arrayToDelimitedString(entry.getValue(), ",") + ";";
+                params += entry.getKey() + ":" + StringUtils.arrayToDelimitedString(entry.getValue(), ",") + ";" ;
             }
         }
         long start = System.currentTimeMillis();

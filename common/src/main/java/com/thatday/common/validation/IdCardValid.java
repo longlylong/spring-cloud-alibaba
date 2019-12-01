@@ -14,7 +14,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface IdCardValid {
 
-    String message() default "请输入有效的身份证号码！";
+    String message() default "请输入有效的身份证号码！" ;
 
     Class<?>[] groups() default {};
 

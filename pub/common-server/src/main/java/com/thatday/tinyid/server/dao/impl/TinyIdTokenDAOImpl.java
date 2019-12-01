@@ -23,7 +23,7 @@ public class TinyIdTokenDAOImpl implements TinyIdTokenDAO {
     @Override
     public List<TinyIdToken> selectAll() {
         String sql = "select id, token, biz_type, remark, " +
-                "create_time, update_time from tiny_id_token";
+                "create_time, update_time from tiny_id_token" ;
         return jdbcTemplate.query(sql, new TinyIdTokenRowMapper());
     }
 

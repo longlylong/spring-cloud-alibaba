@@ -1,5 +1,5 @@
 server:
-  port: 7001
+  port: 7000
 
 spring:
   application:
@@ -49,7 +49,13 @@ spring:
         - id: common-server-v1
           uri: lb://common-server-v1
           predicates:
-            - Path=/v1/id-api/**
+            - Path=/v1/common-api/**
+          filters:
+            - StripPrefix=2
+        - id: rouyi-v1
+          uri: lb://rouyi-v1
+          predicates:
+            - Path=/v1/rouyi/**
           filters:
             - StripPrefix=2
 

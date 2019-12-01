@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class RocketMQConfig implements ApplicationRunner {
 
-    public static final String Topic = "bbb";
-    public static final String Topic_A = "aaa";
-    public static final String Tags_A = "a";
-    public static final String Tags_B = "b";
+    public static final String Topic = "bbb" ;
+    public static final String Topic_A = "aaa" ;
+    public static final String Tags_A = "a" ;
+    public static final String Tags_B = "b" ;
 
     @Value("${server.port}")
     private int port;

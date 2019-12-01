@@ -41,7 +41,7 @@ public class ResponseProvider {
     private static Mono<Void> response(ServerWebExchange exchange, int code, String message) {
         exchange.getResponse().setStatusCode(HttpStatus.OK);
         exchange.getResponse().getHeaders().add("Content-Type", "application/json;charset=UTF-8");
-        String result = "";
+        String result = "" ;
 
         try {
             result = objectMapper.writeValueAsString(responseMap(code, message));

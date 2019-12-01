@@ -7,7 +7,7 @@ public class Response<T> {
     public static final int SYS_ERROR = 500;
     private T data;
     private Integer code = 200;
-    private String message = "";
+    private String message = "" ;
 
     public T getData() {
         return data;

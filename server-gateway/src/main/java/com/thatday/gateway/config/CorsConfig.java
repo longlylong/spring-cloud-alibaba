@@ -25,7 +25,7 @@ import reactor.core.publisher.Mono;
 @Configuration
 public class CorsConfig {
 
-    private static final String MAX_AGE = "18000L";
+    private static final String MAX_AGE = "18000L" ;
 
     @Bean
     public WebFilter corsFilter() {

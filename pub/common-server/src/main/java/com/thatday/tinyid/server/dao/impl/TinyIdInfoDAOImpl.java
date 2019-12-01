@@ -24,7 +24,7 @@ public class TinyIdInfoDAOImpl implements TinyIdInfoDAO {
     public TinyIdInfo queryByBizType(String bizType) {
         String sql = "select id, biz_type, begin_id, max_id," +
                 " step, delta, remainder, create_time, update_time, version" +
-                " from tiny_id_info where biz_type = ?";
+                " from tiny_id_info where biz_type = ?" ;
         List<TinyIdInfo> list = jdbcTemplate.query(sql, new Object[]{bizType}, new TinyIdInfoRowMapper());
         if (list == null || list.isEmpty()) {
             return null;
@@ -36,7 +36,7 @@ public class TinyIdInfoDAOImpl implements TinyIdInfoDAO {
     public int updateMaxId(Long id, Long newMaxId, Long oldMaxId, Long version) {
         String sql = "update tiny_id_info set max_id= ?," +
                 " update_time=now(), version=version+1" +
-                " where id=? and max_id=? and version=?";
+                " where id=? and max_id=? and version=?" ;
         return jdbcTemplate.update(sql, newMaxId, id, oldMaxId, version);
     }
 

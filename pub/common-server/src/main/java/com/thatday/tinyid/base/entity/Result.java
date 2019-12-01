@@ -30,6 +30,6 @@ public class Result {
 
     @Override
     public String toString() {
-        return "[id:" + id + ",code:" + code + "]";
+        return "[id:" + id + ",code:" + code + "]" ;
     }
 }

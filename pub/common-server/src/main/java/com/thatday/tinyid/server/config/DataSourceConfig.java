@@ -22,10 +22,10 @@ import java.util.Map;
 public class DataSourceConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(DataSourceConfig.class);
-    private static final String SEP = ",";
-    private static final String DEFAULT_DATASOURCE_TYPE = "org.apache.tomcat.jdbc.pool.DataSource";
+    private static final String SEP = "," ;
+    private static final String DEFAULT_DATASOURCE_TYPE = "org.apache.tomcat.jdbc.pool.DataSource" ;
 
-    private static final String Prefix = "datasource.tinyid.";
+    private static final String Prefix = "datasource.tinyid." ;
 
     @Autowired
     private Environment environment;

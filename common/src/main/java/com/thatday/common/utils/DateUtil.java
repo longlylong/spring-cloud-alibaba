@@ -9,9 +9,9 @@ import java.util.GregorianCalendar;
 
 public class DateUtil {
 
-    private static final String Format_Today_Time = "yyyy-MM-dd-HH-mm-ss";
-    private static final String Format_CCB = "yyyyMMdd-HHmmss";
-    private static final String Format_YY_MM_DD = "yyyyMMdd";
+    private static final String Format_Today_Time = "yyyy-MM-dd-HH-mm-ss" ;
+    private static final String Format_CCB = "yyyyMMdd-HHmmss" ;
+    private static final String Format_YY_MM_DD = "yyyyMMdd" ;
 
     public static String[] getCCBTime() {
         Date date = new Date();

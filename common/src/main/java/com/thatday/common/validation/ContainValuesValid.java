@@ -14,7 +14,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ContainValuesValid {
 
-    String message() default "请输入有效的值！";
+    String message() default "请输入有效的值！" ;
 
     String[] values();
 

@@ -10,11 +10,11 @@ import java.util.Random;
 public class SerialUtils {
 
     private final static Random random = new Random();
-    private static final String Format_Order_Time = "yyMMddHHmmss";
+    private static final String Format_Order_Time = "yyMMddHHmmss" ;
     private final static SimpleDateFormat sdf = new SimpleDateFormat(Format_Order_Time);
 
     private static String getRandomString() {
-        String base = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String base = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ" ;
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 7; i++) {
             int number = random.nextInt(base.length());

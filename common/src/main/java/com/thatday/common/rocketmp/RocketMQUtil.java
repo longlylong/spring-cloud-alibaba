@@ -17,8 +17,8 @@ import java.util.List;
 
 public class RocketMQUtil {
 
-    private static final String DefaultRocketMQGroup = "DefaultRocketMQGroup";
-    public static String DefaultNameSrvAddr = "127.0.0.1:9876";
+    private static final String DefaultRocketMQGroup = "DefaultRocketMQGroup" ;
+    public static String DefaultNameSrvAddr = "127.0.0.1:9876" ;
     private static DefaultMQProducer producer;
 
     /**
