@@ -17,6 +17,7 @@ public class SwaggerController extends BaseController {
     @RequiresPermissions("tool:swagger:view")
     @GetMapping()
     public String index() {
-        return redirect("/swagger-ui.html");
+//        return redirect("/swagger-ui.html");
+        return redirect(DocumentationConfig.GateWayUrl + "/doc.html");
     }
 }

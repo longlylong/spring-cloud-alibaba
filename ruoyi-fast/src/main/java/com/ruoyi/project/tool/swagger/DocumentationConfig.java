@@ -12,7 +12,7 @@ import java.util.List;
 @Primary
 public class DocumentationConfig implements SwaggerResourcesProvider {
 
-    private final static String GateWayUrl = "http://127.0.0.1:7000";
+    public final static String GateWayUrl = "http://127.0.0.1:7000";
 
     @Override
     public List<SwaggerResource> get() {

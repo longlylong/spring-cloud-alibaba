@@ -2,6 +2,7 @@ package com.thatday;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -23,6 +24,7 @@ import java.text.SimpleDateFormat;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
+@EnableKnife4j
 public class CommonServerApplication {
 
     public static void main(String[] args) {
