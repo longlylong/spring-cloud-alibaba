@@ -1,6 +1,6 @@
 package com.thatday.user.controller.user;
 
-import com.thatday.common.model.ResponseModel;
+import com.thatday.common.model.Result;
 import com.thatday.user.entity.db.User;
 import com.thatday.user.entity.vo.LoginPhoneVo;
 import com.thatday.user.entity.vo.LoginWeChatVo;
@@ -27,16 +27,16 @@ public class LoginController {
 
     @ApiOperation("手机号登录接口")
     @PostMapping(value = "/loginByPhone")
-    public ResponseModel<User> loginByPhone(@Valid @RequestBody LoginPhoneVo loginPhoneVo) {
+    public Result<User> loginByPhone(@Valid @RequestBody LoginPhoneVo loginPhoneVo) {
         User user = loginService.loginByPhone(loginPhoneVo);
 
-        return ResponseModel.buildSuccess(user);
+        return Result.buildSuccess(user);
     }
 
     @ApiOperation("微信登录接口")
     @PostMapping(value = "/loginByWeChat")
-    public ResponseModel<User> loginByWeChat(@Valid @RequestBody LoginWeChatVo loginWeChatVo) {
+    public Result<User> loginByWeChat(@Valid @RequestBody LoginWeChatVo loginWeChatVo) {
         User user = loginService.loginByWeChat(loginWeChatVo);
-        return ResponseModel.buildSuccess(user);
+        return Result.buildSuccess(user);
     }
 }

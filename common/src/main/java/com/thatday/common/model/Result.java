@@ -9,7 +9,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class ResponseModel<T> implements Serializable {
+public class Result<T> implements Serializable {
 
     private static final long serialVersionUID = 2882146120308441911L;
 
@@ -22,24 +22,24 @@ public class ResponseModel<T> implements Serializable {
     // 响应数据
     protected T data;
 
-    private ResponseModel(Integer code, String message, T data) {
+    private Result(Integer code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;
     }
 
-    public static ResponseModel buildParamError(String paramName) {
+    public static Result buildParamError(String paramName) {
         return build(StatusCode.Parameter_Error, paramName);
     }
 
-    public static ResponseModel buildSentinelError() {
+    public static Result buildSentinelError() {
         return build(StatusCode.Sentinel_Error, "操作太快");
     }
 
     /**
      * 处理exception 错误
      */
-    public static ResponseModel buildError(Exception e) {
+    public static Result buildError(Exception e) {
         if (e instanceof GlobalException) {
             GlobalException globalException = (GlobalException) e;
             return buildError(globalException.getCodeMsg());
@@ -47,27 +47,27 @@ public class ResponseModel<T> implements Serializable {
         return buildParamError("操作失败！");
     }
 
-    public static ResponseModel buildError(CodeMsg err) {
+    public static Result buildError(CodeMsg err) {
         return build(err.getCode(), err.getMsg());
     }
 
-    public static ResponseModel buildError(String err) {
+    public static Result buildError(String err) {
         return buildParamError(err);
     }
 
-    public static ResponseModel buildSuccess() {
+    public static Result buildSuccess() {
         return buildSuccess(null);
     }
 
-    public static <T> ResponseModel<T> buildSuccess(T data) {
+    public static <T> Result<T> buildSuccess(T data) {
         return build(StatusCode.SUCCESS, "成功", data);
     }
 
-    private static <T> ResponseModel<T> build(Integer code, String message, T data) {
-        return new ResponseModel<>(code, message, data);
+    private static <T> Result<T> build(Integer code, String message, T data) {
+        return new Result<>(code, message, data);
     }
 
-    public static <T> ResponseModel<T> build(Integer code, String message) {
+    public static <T> Result<T> build(Integer code, String message) {
         return build(code, message, null);
     }
 

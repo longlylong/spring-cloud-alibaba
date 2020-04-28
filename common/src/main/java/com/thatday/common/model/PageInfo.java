@@ -1,22 +1,22 @@
 package com.thatday.common.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 public class PageInfo<T> {
-    /**
-     * 总条数
-     */
-    private Long total = 0L;
-    /**
-     * 当前页
-     */
-    private Integer page = 0;
-    /**
-     * 分页数据
-     */
-    private List<T> rows = new LinkedList<>();
+    
+    @ApiModelProperty(value = "当前页码")
+    private Integer curPage;
+
+    @ApiModelProperty(value = "总条数")
+    private Long totalCount;
+
+    @ApiModelProperty(value = "总页码")
+    private Integer totalPage;
+
+    private List<T> dataList = new ArrayList<>();
 }

@@ -17,7 +17,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5Dialect
     show-sql: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
 
   cloud:
     nacos:

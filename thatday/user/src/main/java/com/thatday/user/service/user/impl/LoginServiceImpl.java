@@ -12,11 +12,9 @@ import org.springframework.stereotype.Service;
 public class LoginServiceImpl implements LoginService {
 
     private LoginRepository loginRepository;
-    private JPAQueryFactory queryFactory;
 
-    public LoginServiceImpl(LoginRepository loginRepository, JPAQueryFactory queryFactory) {
+    public LoginServiceImpl(LoginRepository loginRepository) {
         this.loginRepository = loginRepository;
-        this.queryFactory = queryFactory;
     }
 
     @Override
@@ -28,4 +26,5 @@ public class LoginServiceImpl implements LoginService {
     public User loginByWeChat(LoginWeChatVo loginWeChatVo) {
         return null;
     }
+
 }

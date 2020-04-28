@@ -1,7 +1,8 @@
 package com.thatday.common.exception;
 
+import com.thatday.common.constant.StatusCode;
 import com.thatday.common.controller.BaseController;
-import com.thatday.common.model.ResponseModel;
+import com.thatday.common.model.Result;
 import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import org.springframework.validation.BindException;
@@ -10,14 +11,25 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 @Slf4j
 public class TDExceptionHandler {
 
+    public static GlobalException throwGlobalException(String path, Exception e) {
+        log.error("\nGlobalExceptionHandler | " + path);
+        e.printStackTrace();
+        throw GlobalException.createError(e.getMessage());
+    }
+
+    public static GlobalException throwPermissionException() {
+        return new GlobalException(StatusCode.Permission_Error, "权限不足!");
+    }
+
     /**
      * 异常处理逻辑
      */
-    public static ResponseModel handle(String path, Exception e) {
-        log.error("GlobalExceptionHandler >> {}", path, e);
+    public static Result handle(String path, Exception e) {
+        log.error("\nGlobalExceptionHandler | " + path);
+        e.printStackTrace();
         if (e instanceof GlobalException) {
             GlobalException ex = (GlobalException) e;
-            return ResponseModel.buildError(ex.getCodeMsg());
+            return Result.buildError(ex.getCodeMsg());
 
         } else if (e instanceof MethodArgumentNotValidException) {
             var exception = (MethodArgumentNotValidException) e;
@@ -28,7 +40,7 @@ public class TDExceptionHandler {
             return BaseController.buildParamErrorResponseModel(exception.getBindingResult());
 
         } else {
-            return ResponseModel.buildError("操作失败，请联系客服");
+            return Result.buildError("操作失败，请联系客服");
         }
     }
 }

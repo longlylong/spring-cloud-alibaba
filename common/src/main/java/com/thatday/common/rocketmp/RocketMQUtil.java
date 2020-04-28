@@ -106,7 +106,7 @@ public class RocketMQUtil {
 
     private static void isNull() {
         if (producer == null) {
-            throw new GlobalException("Please InitProducer");
+            throw GlobalException.createError("Please InitProducer");
         }
     }
 }

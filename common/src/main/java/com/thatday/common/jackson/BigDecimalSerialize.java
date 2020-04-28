@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 
 /**
  * jackson 对 BigDecimal 转换，使用2位小数，输出字符
+ *
+ * @JsonSerialize(using = BigDecimalSerialize.class)
  */
 public class BigDecimalSerialize extends JsonSerializer<BigDecimal> {
 

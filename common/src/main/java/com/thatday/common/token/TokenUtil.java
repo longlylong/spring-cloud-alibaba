@@ -88,7 +88,12 @@ public class TokenUtil {
             return null;
         }
 
-        String payloadJson = new String(Base64Utils.decodeFromUrlSafeString(token), StandardCharsets.UTF_8);
+        String[] tokens = token.split("\\.");
+        if (tokens.length != 2) {
+            return null;
+        }
+
+        String payloadJson = new String(Base64Utils.decodeFromUrlSafeString(tokens[0]), StandardCharsets.UTF_8);
         try {
             ObjectMapper mapper = new ObjectMapper();
             return mapper.readValue(payloadJson, UserInfo.class);
