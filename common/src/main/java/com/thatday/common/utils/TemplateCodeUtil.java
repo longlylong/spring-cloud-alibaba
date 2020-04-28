@@ -1,59 +1,57 @@
 package com.thatday.common.utils;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
+import com.thatday.common.exception.TDExceptionHandler;
 import org.apache.commons.beanutils.BeanUtils;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Slf4j
 public class TemplateCodeUtil {
 
     /**
      * 对象集合转换，两个对象的属性名字需要一样
      */
-    public static <T, E> List<T> transTo(List<E> fromList, Class<T> clazz) throws IllegalAccessException, InstantiationException, InvocationTargetException {
-        List<T> toList = new ArrayList<>();
-        for (E e : fromList) {
-            T entity = clazz.newInstance();
-            BeanUtils.copyProperties(entity, e);
-            toList.add(entity);
-        }
-        return toList;
+    public static <T, E> List<T> transTo(List<E> fromList, Class<T> clazz) {
+        return transTo(fromList, clazz, null);
     }
-
 
     /**
      * 对象集合转换，两个对象的属性名字需要一样，并可自定义设置一些参数
      */
-    public static <T, E> List<T> transTo(List<E> fromList, Class<T> clazz, OnTransListener<T, E> onTransListener) throws IllegalAccessException, InstantiationException, InvocationTargetException {
-        List<T> toList = new ArrayList<>();
-        for (E e : fromList) {
-            T entity = clazz.newInstance();
-            BeanUtils.copyProperties(entity, e);
-            if (onTransListener != null) {
-                onTransListener.doSomeThing(entity, e);
+    public static <T, E> List<T> transTo(List<E> fromList, Class<T> clazz, OnTransListener<T, E> onTransListener) {
+        try {
+            List<T> toList = new ArrayList<>();
+            for (E e : fromList) {
+                T entity = clazz.newInstance();
+                BeanUtils.copyProperties(entity, e);
+                if (onTransListener != null) {
+                    onTransListener.doSomeThing(entity, e);
+                }
+                toList.add(entity);
             }
-            toList.add(entity);
+            return toList;
+        } catch (Exception e) {
+            throw TDExceptionHandler.throwGlobalException("数据转换异常,请联系程序猿!", e);
         }
-        return toList;
     }
 
     /**
      * 对象转换，E转为t对象
      */
-    public static <T, E> T transTo(E e, Class<T> clazz) throws IllegalAccessException, InstantiationException, InvocationTargetException {
-        T t = clazz.newInstance();
-        BeanUtils.copyProperties(t, e);
-        return t;
+    public static <T, E> T transTo(E e, Class<T> clazz) {
+        try {
+            T t = clazz.newInstance();
+            BeanUtils.copyProperties(t, e);
+            return t;
+        } catch (Exception ex) {
+            throw TDExceptionHandler.throwGlobalException("数据转换异常,请联系程序猿!", ex);
+        }
     }
 
     /**
@@ -88,7 +86,7 @@ public class TemplateCodeUtil {
     /**
      * Map 转为对象，字段格式要一致
      */
-    public static <T> T mapTrasnToObject(Map<String, Object> map, Class<T> clazz) throws IOException {
+    public static <T> T mapTransToObject(Map<String, Object> map, Class<T> clazz) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonStr = objectMapper.writeValueAsString(map);
         T t = objectMapper.readValue(jsonStr, clazz);
@@ -112,21 +110,6 @@ public class TemplateCodeUtil {
         }
         return map;
     }
-
-    /**
-     * 把对象转为json,并输出到日志中
-     */
-    public static void logObject(String tag, Object object) {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            String json = objectMapper.writeValueAsString(object);
-            log.info("{}{}", tag, json);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            log.info("exception = {}", e);
-        }
-    }
-
 
     /**
      * 集合分组的关键词
