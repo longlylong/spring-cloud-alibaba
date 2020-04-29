@@ -37,6 +37,7 @@ public class SwaggerConfig {
                 .title("用户模块 RESTful APIs")// API 标题
                 .description("King科技有限公司出品")// API描述
                 .version("1.0")// 版本号
+                .contact("King")
                 .build();
     }
 
