@@ -1,5 +1,11 @@
 package com.thatday.user.repository;
 
+import com.thatday.common.model.PageResult;
+import com.thatday.common.model.PageInfoVo;
+import com.thatday.common.utils.TemplateCodeUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -23,6 +29,40 @@ public class JPAUtil {
             }
         };
         return specification;
+    }
+
+    public static PageRequest updateTimeDescPage(Integer curPage, Integer pageSize) {
+        return updateTimeDescPage(PageInfoVo.create(curPage, pageSize));
+    }
+
+    public static PageRequest updateTimeDescPage(PageInfoVo vo) {
+        Sort sort = new Sort(Sort.Direction.DESC, "updateTime");
+        return PageRequest.of(vo.getCurPage(), vo.getPageSize(), sort);
+    }
+
+    public static <T> PageResult<T> setInfo(Integer curPage, Page<T> fromPage) {
+        PageResult<T> pageResult = new PageResult<>();
+        pageResult.setCurPage(curPage);
+        pageResult.setTotalCount(fromPage.getTotalElements());
+        pageResult.setTotalPage(fromPage.getTotalPages());
+        pageResult.setDataList(fromPage.getContent());
+        return pageResult;
+    }
+
+    public static <T, Y> PageResult<T> setInfo(Integer curPage, Page<Y> fromPage, Class<T> clazz) {
+        return setInfo(curPage, fromPage, clazz, null);
+    }
+
+    public static <T, Y> PageResult<T> setInfo(Integer curPage, Page<Y> fromPage, Class<T> clazz, TemplateCodeUtil.OnTransListener<T, Y> onTransListener) {
+        PageResult<T> pageResult = new PageResult<>();
+        pageResult.setCurPage(curPage);
+        pageResult.setTotalCount(fromPage.getTotalElements());
+        pageResult.setTotalPage(fromPage.getTotalPages());
+
+        List<T> transTo = TemplateCodeUtil.transTo(fromPage.getContent(), clazz, onTransListener);
+        pageResult.setDataList(transTo);
+
+        return pageResult;
     }
 
     public interface SpecificationListener {

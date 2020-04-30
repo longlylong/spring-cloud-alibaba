@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class PageInfo<T> {
+public class PageResult<T> {
     
     @ApiModelProperty(value = "当前页码")
     private Integer curPage;
