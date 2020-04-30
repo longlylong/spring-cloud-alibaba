@@ -12,7 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 public class TDExceptionHandler {
 
     public static GlobalException throwGlobalException(String path, Exception e) {
-        log.error("\nGlobalExceptionHandler | " + path);
+        log.error("\nGlobalExceptionHandler | {}\n{}\n", path, e);
         e.printStackTrace();
         throw GlobalException.createError(e.getMessage());
     }
@@ -24,8 +24,8 @@ public class TDExceptionHandler {
     /**
      * 异常处理逻辑
      */
-    public static Result handle(String path, Exception e) {
-        log.error("\nGlobalExceptionHandler | " + path);
+    public static Result<Object> handle(String path, Exception e) {
+        log.error("\nGlobalExceptionHandler | {}\n{}\n", path, e);
         e.printStackTrace();
         if (e instanceof GlobalException) {
             GlobalException ex = (GlobalException) e;

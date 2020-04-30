@@ -70,17 +70,36 @@ public class TemplateCodeUtil {
     }
 
     /**
+     * 对象转为son
+     */
+    public static String objectToJson(Object object) {
+        try {
+            return new ObjectMapper().writeValueAsString(object);
+        } catch (IOException e) {
+            throw TDExceptionHandler.throwGlobalException("objectToJson", e);
+        }
+    }
+
+    /**
+     * json 转为对象
+     */
+    public static <T> T jsonToObject(String json, Class<T> clazz) {
+        try {
+            return new ObjectMapper().readValue(json, clazz);
+        } catch (IOException e) {
+            throw TDExceptionHandler.throwGlobalException("jsonToObject", e);
+        }
+    }
+
+    /**
      * json 转为对象
      */
     public static <T> T jsonToObject(byte[] jsonByte, Class<T> clazz) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        T t = null;
         try {
-            t = objectMapper.readValue(jsonByte, clazz);
+            return new ObjectMapper().readValue(jsonByte, clazz);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw TDExceptionHandler.throwGlobalException("jsonToObject", e);
         }
-        return t;
     }
 
     /**
@@ -89,8 +108,7 @@ public class TemplateCodeUtil {
     public static <T> T mapTransToObject(Map<String, Object> map, Class<T> clazz) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonStr = objectMapper.writeValueAsString(map);
-        T t = objectMapper.readValue(jsonStr, clazz);
-        return t;
+        return objectMapper.readValue(jsonStr, clazz);
     }
 
     /**

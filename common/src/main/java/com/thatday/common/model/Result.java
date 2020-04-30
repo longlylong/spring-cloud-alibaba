@@ -28,18 +28,18 @@ public class Result<T> implements Serializable {
         this.data = data;
     }
 
-    public static Result buildParamError(String paramName) {
+    public static <T> Result<T> buildParamError(String paramName) {
         return build(StatusCode.Parameter_Error, paramName);
     }
 
-    public static Result buildSentinelError() {
+    public static <T> Result<T> buildSentinelError() {
         return build(StatusCode.Sentinel_Error, "操作太快");
     }
 
     /**
      * 处理exception 错误
      */
-    public static Result buildError(Exception e) {
+    public static <T> Result<T> buildError(Exception e) {
         if (e instanceof GlobalException) {
             GlobalException globalException = (GlobalException) e;
             return buildError(globalException.getCodeMsg());
@@ -47,15 +47,15 @@ public class Result<T> implements Serializable {
         return buildParamError("操作失败！");
     }
 
-    public static Result buildError(CodeMsg err) {
+    public static <T> Result<T> buildError(CodeMsg err) {
         return build(err.getCode(), err.getMsg());
     }
 
-    public static Result buildError(String err) {
+    public static <T> Result<T> buildError(String err) {
         return buildParamError(err);
     }
 
-    public static Result buildSuccess() {
+    public static <T> Result<T> buildSuccess() {
         return buildSuccess(null);
     }
 

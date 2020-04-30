@@ -14,7 +14,7 @@ public class BaseController {
     /**
      * 创建参数参数错误的提示
      */
-    public static Result buildParamErrorResponseModel(BindingResult result) {
+    public static Result<Object> buildParamErrorResponseModel(BindingResult result) {
         var sb = new StringBuilder();
         for (ObjectError error : result.getAllErrors()) {
             sb.append(error.getDefaultMessage());
