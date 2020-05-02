@@ -10,7 +10,6 @@
         <module>common-server</module>
     </modules>
 
-
     <parent>
         <groupId>com.thatday</groupId>
         <artifactId>that-day-java</artifactId>
