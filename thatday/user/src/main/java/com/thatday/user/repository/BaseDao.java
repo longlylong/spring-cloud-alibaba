@@ -7,7 +7,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 @NoRepositoryBean
 public interface BaseDao<T, ID> extends JpaRepository<T, ID>, JpaSpecificationExecutor<T> {
 
-    T findFirstByIdEquals(Long id);
+    T findFirstByIdEquals(ID id);
 
 //    可变多条件查询
 //        JPAUtil.makeSpecification(new JPAUtil.SpecificationListener() {
