@@ -15,19 +15,28 @@
 
     <properties>
         <dom4j.version>1.6.1</dom4j.version>
+        <commons-lang3.version>3.7</commons-lang3.version>
+        <commons-beanutils.version>1.9.3</commons-beanutils.version>
+        <dom4j.version>1.6.1</dom4j.version>
+        <commons-io.version>2.6</commons-io.version>
+        <java-jwt.version>3.4.0</java-jwt.version>
+        <rocketmq-client.version>4.5.0</rocketmq-client.version>
+        <aliyun-sdk-oss.version>3.8.0</aliyun-sdk-oss.version>
+        <aliyun-java-sdk-core.version>3.7.1</aliyun-java-sdk-core.version>
+        <aliyun-java-sdk-dysmsapi.version>1.1.0</aliyun-java-sdk-dysmsapi.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.7</version>
+            <version>${commons-lang3.version}</version>
         </dependency>
 
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>1.9.3</version>
+            <version>${commons-beanutils.version}</version>
             <scope>compile</scope>
         </dependency>
 
@@ -40,13 +49,13 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.6</version>
+            <version>${commons-io.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
-            <version>3.4.0</version>
+            <version>${java-jwt.version}</version>
         </dependency>
 
         <dependency>
@@ -64,38 +73,38 @@
             <artifactId>spring-web</artifactId>
         </dependency>
 
-        <!--aop切面-->
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.boot</groupId>-->
-        <!--<artifactId>spring-boot-starter-aop</artifactId>-->
-        <!--</dependency>-->
-
         <!-- RocketMq客户端相关依赖 -->
         <dependency>
             <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-client</artifactId>
-            <version>4.5.0</version>
+            <version>${rocketmq-client.version}</version>
         </dependency>
 
         <!--阿里云的oss-->
         <dependency>
             <groupId>com.aliyun.oss</groupId>
             <artifactId>aliyun-sdk-oss</artifactId>
-            <version>3.8.0</version>
+            <version>${aliyun-sdk-oss.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>aliyun-java-sdk-core</artifactId>
-            <version>3.7.1</version>
+            <version>${aliyun-java-sdk-core.version}</version>
         </dependency>
 
         <!--阿里云的发短信-->
         <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
-            <version>1.1.0</version>
+            <version>${aliyun-java-sdk-dysmsapi.version}</version>
         </dependency>
+
+        <!--aop切面-->
+        <!--<dependency>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-aop</artifactId>-->
+        <!--</dependency>-->
     </dependencies>
 
 

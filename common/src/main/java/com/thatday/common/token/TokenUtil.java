@@ -83,7 +83,7 @@ public class TokenUtil {
     /**
      * 从token取得用户信息
      */
-    private static UserInfo getUserInfo(String token) {
+    public static UserInfo getUserInfo(String token) {
         if (StringUtils.isEmpty(token)) {
             return null;
         }

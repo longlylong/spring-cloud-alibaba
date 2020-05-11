@@ -1,10 +1,9 @@
 package com.thatday.gateway.filter.auth;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thatday.common.token.TokenConstant;
 import com.thatday.common.token.TokenUtil;
 import com.thatday.common.token.UserInfo;
+import com.thatday.common.utils.TemplateCodeUtil;
 import com.thatday.gateway.filter.FilterOrdered;
 import com.thatday.gateway.props.AuthProperties;
 import com.thatday.gateway.provider.AuthProvider;
@@ -83,7 +82,8 @@ public class AuthFilter implements GatewayFilter, Ordered {
 
     private ServerWebExchange makeNewExchange(ServerWebExchange oldExchange, ServerHttpRequest oldRequest) {
         String bodyStr = resolveBodyFromRequest(oldRequest);
-        String newBody = addUserInfo(bodyStr);
+        String headerToken = oldRequest.getHeaders().getFirst(AuthProvider.AUTH_KEY);
+        String newBody = addUserInfo(headerToken, bodyStr);
 
         URI uri = oldRequest.getURI();
         ServerHttpRequest requestNew = oldRequest.mutate().uri(uri).build();
@@ -99,17 +99,16 @@ public class AuthFilter implements GatewayFilter, Ordered {
         return oldExchange.mutate().request(requestNew).build();
     }
 
-    private String addUserInfo(String bodyStr) {
+    private String addUserInfo(String headerToken, String bodyStr) {
         StringBuilder sb = new StringBuilder(bodyStr);
-
         //鉴权过后就往请求body里面加入用户信息,方便后面的接口使用
-        try {
-            UserInfo userInfo = new UserInfo();
-            ObjectMapper objectMapper = new ObjectMapper();
-            String infoJson = objectMapper.writeValueAsString(userInfo);
-            sb.insert(1, ("userInfo:" + infoJson).toCharArray());
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+        UserInfo userInfo = TokenUtil.getUserInfo(headerToken);
+        String infoJson = TemplateCodeUtil.objectToJson(userInfo);
+        int i = sb.indexOf("{");
+        if (bodyStr.contains("\"")) {
+            sb.replace(i, i + 1, "{\n\"userInfo\":" + infoJson + ",\n");
+        } else {
+            sb.replace(i, i + 1, "{\n\"userInfo\":" + infoJson + "\n");
         }
         return sb.toString();
     }
