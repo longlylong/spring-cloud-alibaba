@@ -1,9 +1,11 @@
-    
-#####Plugins
+Plugins：
+
     Alibaba Java Coding Guidelines
     Lombok
-	GsonFormat
-####技术栈：
+    GsonFormat
+    
+技术栈：
+
 	Spring Cloud 2.1.9
 	Spring Cloud Alibaba 2.1.0
 
@@ -21,7 +23,8 @@
 	RocketMQ 4.5.0
 	Swagger 2.9.2
 
-#####项目结构介绍：
+项目结构介绍：
+
 	Common （公共模块）
 	--constant （常量）
 	--controller （controller基类）
