@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 鉴权配置
  */
-public class AuthProvider {
+public class AuthorSkipProvider {
 
     public static String TARGET = "/**" ;
     public static String REPLACEMENT = "" ;

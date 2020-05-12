@@ -5,12 +5,10 @@ import com.thatday.common.token.TokenUtil;
 import com.thatday.common.token.UserInfo;
 import com.thatday.common.utils.TemplateCodeUtil;
 import com.thatday.gateway.filter.FilterOrdered;
-import com.thatday.gateway.props.AuthProperties;
-import com.thatday.gateway.provider.AuthProvider;
+import com.thatday.gateway.provider.AuthorSkipProvider;
 import com.thatday.gateway.provider.ResponseProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.reactivestreams.Publisher;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.support.BodyInserterContext;
@@ -43,12 +41,9 @@ public class GlobalAuthorFilter implements GlobalFilter, Ordered {
 
     private final List<HttpMessageReader<?>> messageReaders = HandlerStrategies.withDefaults().messageReaders();
 
-    @Autowired
-    private AuthProperties authProperties;
-
     private boolean isSkip(String path) {
-        return AuthProvider.getDefaultSkipUrl().stream().map(url -> url.replace(AuthProvider.TARGET, AuthProvider.REPLACEMENT)).anyMatch(path::contains)
-                || authProperties.getSkipUrl().stream().map(url -> url.replace(AuthProvider.TARGET, AuthProvider.REPLACEMENT)).anyMatch(path::contains);
+        return AuthorSkipProvider.getDefaultSkipUrl().stream().map(
+                url -> url.replace(AuthorSkipProvider.TARGET, AuthorSkipProvider.REPLACEMENT)).anyMatch(path::contains);
     }
 
     @Override
@@ -59,7 +54,7 @@ public class GlobalAuthorFilter implements GlobalFilter, Ordered {
             return chain.filter(exchange);
         }
 
-        String headerToken = request.getHeaders().getFirst(AuthProvider.AUTH_KEY);
+        String headerToken = request.getHeaders().getFirst(AuthorSkipProvider.AUTH_KEY);
         if (StringUtils.isAllBlank(headerToken)) {
             return ResponseProvider.unAuth(exchange, TokenConstant.Msg_Access_Token_Empty);
         }
