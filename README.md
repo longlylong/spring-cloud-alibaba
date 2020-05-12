@@ -6,22 +6,22 @@ Plugins：
     
 技术栈：
 
-	Spring Cloud 2.1.9
-	Spring Cloud Alibaba 2.1.0
+	Spring Cloud 2.2.7
+	Spring Cloud Alibaba 2.2.1
 
 	Spring Cloud Gateway
 	-Rate Limit
 
-	Nacos 1.1.4
+	Nacos 1.2.1
 	-DiscoveryClient
 	-Nacos-config
 
-	Sentinel 1.6.3
+	Sentinel 1.7.1
 	Feign
 	JPA+QueryDsl
 
 	RocketMQ 4.5.0
-	Swagger 2.9.2
+	Knife4j 2.0.1(Swagger 2.9.2)
 
 项目结构介绍：
 

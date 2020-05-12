@@ -1,7 +1,7 @@
 package com.thatday.user.repository;
 
-import com.thatday.common.model.PageResult;
 import com.thatday.common.model.PageInfoVo;
+import com.thatday.common.model.PageResult;
 import com.thatday.common.utils.TemplateCodeUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,7 +36,7 @@ public class JPAUtil {
     }
 
     public static PageRequest updateTimeDescPage(PageInfoVo vo) {
-        Sort sort = new Sort(Sort.Direction.DESC, "updateTime");
+        Sort sort = Sort.by(Sort.Direction.DESC, "updateTime");
         return PageRequest.of(vo.getCurPage(), vo.getPageSize(), sort);
     }
 
