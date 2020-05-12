@@ -3,6 +3,7 @@ package com.thatday.common.exception;
 import com.thatday.common.constant.StatusCode;
 import com.thatday.common.controller.BaseController;
 import com.thatday.common.model.Result;
+import com.thatday.common.token.TokenConstant;
 import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import org.springframework.validation.BindException;
@@ -19,6 +20,10 @@ public class TDExceptionHandler {
 
     public static GlobalException throwPermissionException() {
         return new GlobalException(StatusCode.Permission_Error, "权限不足!");
+    }
+
+    public static GlobalException throwTokenException() {
+        return GlobalException.create(StatusCode.Token_Error, TokenConstant.Msg_Access_Token_Error);
     }
 
     /**

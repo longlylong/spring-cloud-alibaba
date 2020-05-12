@@ -1,13 +1,17 @@
 package com.thatday.user.controller.user;
 
 import com.thatday.common.model.Result;
+import com.thatday.common.token.UserInfo;
 import com.thatday.user.entity.db.User;
 import com.thatday.user.entity.vo.LoginPhoneVo;
 import com.thatday.user.entity.vo.LoginWeChatVo;
 import com.thatday.user.service.user.LoginService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
@@ -25,8 +29,8 @@ public class LoginController {
 
     @ApiOperation("手机号登录接口")
     @PostMapping(value = "/loginByPhone")
-    public Result<User> loginByPhone(@Valid @RequestBody LoginPhoneVo loginPhoneVo) {
-        User user = loginService.loginByPhone(loginPhoneVo);
+    public Result<User> loginByPhone(@Valid @RequestBody LoginPhoneVo vo) {
+        User user = loginService.loginByPhone(vo);
 
         return Result.buildSuccess(user);
     }

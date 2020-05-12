@@ -8,7 +8,7 @@ public interface TokenConstant {
 
     String AVATAR = "avatar" ;
 
-    String HEADER = "auth" ;
+    String TOKEN = "token";
 
     String ACCESS_TOKEN = "access_token" ;
     String REFRESH_TOKEN = "refresh_token" ;

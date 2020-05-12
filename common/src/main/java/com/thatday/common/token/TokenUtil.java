@@ -3,6 +3,7 @@ package com.thatday.common.token;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.thatday.common.exception.TDExceptionHandler;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
@@ -85,12 +86,12 @@ public class TokenUtil {
      */
     public static UserInfo getUserInfo(String token) {
         if (StringUtils.isEmpty(token)) {
-            return null;
+            throw TDExceptionHandler.throwTokenException();
         }
 
         String[] tokens = token.split("\\.");
         if (tokens.length != 2) {
-            return null;
+            throw TDExceptionHandler.throwTokenException();
         }
 
         String payloadJson = new String(Base64Utils.decodeFromUrlSafeString(tokens[0]), StandardCharsets.UTF_8);
@@ -98,8 +99,7 @@ public class TokenUtil {
             ObjectMapper mapper = new ObjectMapper();
             return mapper.readValue(payloadJson, UserInfo.class);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw TDExceptionHandler.throwGlobalException("getUserInfo", e);
         }
-        return null;
     }
 }

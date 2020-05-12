@@ -13,7 +13,7 @@ public class AuthProvider {
 
     public static String TARGET = "/**" ;
     public static String REPLACEMENT = "" ;
-    public static String AUTH_KEY = TokenConstant.HEADER;
+    public static String AUTH_KEY = TokenConstant.TOKEN;
     private static List<String> defaultSkipUrl = new ArrayList<>();
 
     static {

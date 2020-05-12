@@ -22,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 @Log4j2
-public class RateLimitFilter extends BaseRateLimitFilter implements GlobalFilter, Ordered {
+public class GlobalRateLimitFilter extends BaseRateLimitFilter implements GlobalFilter, Ordered {
 
     private static final Map<String, RateLimitResConfig.Res> resMap = new ConcurrentHashMap<>();
 
@@ -30,7 +30,7 @@ public class RateLimitFilter extends BaseRateLimitFilter implements GlobalFilter
     private static final RateLimitResConfig.Res pubIPRes = new RateLimitResConfig.Res();
 
     @Autowired
-    public RateLimitFilter(Environment environment) {
+    public GlobalRateLimitFilter(Environment environment) {
         String serverAddr = environment.getProperty("spring.cloud.nacos.discovery.server-addr");
         String profile = environment.getProperty("spring.profiles.active");
         String appName = environment.getProperty("spring.application.name");

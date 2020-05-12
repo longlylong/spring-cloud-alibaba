@@ -1,9 +1,9 @@
 server:
-  port: 7000
+  port: 8000
 
 spring:
   application:
-    name: server-gateway
+    name: server-gateway1
 
   main:
     allow-bean-definition-overriding: true
