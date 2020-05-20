@@ -69,6 +69,7 @@ public class GlobalAuthorFilter implements GlobalFilter, Ordered {
                     MediaType mediaType = request.getHeaders().getContentType();
 
                     //增加用户信息给微服务用
+                    //最好就是请求全部用json + post写起来比较优雅
                     if (MediaType.APPLICATION_JSON.isCompatibleWith(mediaType)) {
                         String newBody = addUserInfo(headerToken, body);
                         return Mono.just(newBody);
