@@ -10,18 +10,18 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserInfo implements Serializable {
 
-    @ApiModelProperty(value = "用户id")
+    @ApiModelProperty(value = "用户id", hidden = true)
     private Integer userId;
 
-    @ApiModelProperty(value = "角色id")
+    @ApiModelProperty(value = "角色id", hidden = true)
     private Integer roleId;
 
-    @ApiModelProperty(value = "设备id")
+    @ApiModelProperty(value = "设备id", hidden = true)
     private Integer deviceId;
 
-    @ApiModelProperty(value = "accessToken")
+    @ApiModelProperty(value = "accessToken", hidden = true)
     private String accessToken;
 
-    @ApiModelProperty(value = "过期时间")
+    @ApiModelProperty(value = "过期时间", hidden = true)
     private Long expireTime;
 }

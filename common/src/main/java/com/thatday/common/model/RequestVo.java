@@ -5,6 +5,7 @@ import com.thatday.common.token.UserInfo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -16,5 +17,6 @@ public class RequestVo implements Serializable {
 
     //这里地方的UserInfo是网关注入的,网关会鉴权
     @ApiModelProperty(hidden = true)
+    @NotNull
     private UserInfo userInfo;
 }

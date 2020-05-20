@@ -8,16 +8,16 @@ public interface StatusCode {
     //参数错误
     int Parameter_Error = 100;
 
-    //异常错误
-    int Exception_Error = 101;
-
     //权限错误
-    int Permission_Error = 102;
+    int Permission_Error = 300;
 
     //token校验错误
-    int Token_Error = 200;
+    int Token_Error = 400;
 
-    //操作过快
+    //异常错误
+    int Exception_Error = 500;
+
+    //限流
     int Sentinel_Error = 429;
 
 }
