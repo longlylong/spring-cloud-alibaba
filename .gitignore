@@ -14,6 +14,9 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+#生成的文件
+target/
+
 # Package Files #
 *.jar
 *.war
