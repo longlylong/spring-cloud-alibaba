@@ -16,6 +16,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferFactory;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ReactiveHttpOutputMessage;
 import org.springframework.http.codec.HttpMessageReader;
@@ -27,14 +28,13 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.HandlerStrategies;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.Arrays;
+import java.net.URI;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 @Component
 public class GlobalAuthorFilter implements GlobalFilter, Ordered {
@@ -63,18 +63,26 @@ public class GlobalAuthorFilter implements GlobalFilter, Ordered {
             return ResponseProvider.unAuth(exchange, TokenConstant.Msg_Access_Token_Error);
         }
 
+        //GET请求处理
+        if (request.getMethod() == HttpMethod.GET) {
+            return handleGet(exchange, chain, headerToken);
+        }
+
+        //POST请求处理
+        return handlePost(exchange, chain, headerToken);
+    }
+
+    private Mono<Void> handlePost(ServerWebExchange exchange, GatewayFilterChain chain, String headerToken) {
+        ServerHttpRequest request = exchange.getRequest();
+
         // read & modify body
         Mono<String> modifiedBody = ServerRequest.create(exchange, messageReaders).bodyToMono(String.class)
                 .flatMap(body -> {
                     MediaType mediaType = request.getHeaders().getContentType();
-
-                    //增加用户信息给微服务用
-                    //最好就是请求全部用json + post写起来比较优雅
                     if (MediaType.APPLICATION_JSON.isCompatibleWith(mediaType)) {
-                        String newBody = addUserInfo(headerToken, body);
+                        String newBody = addPostUserInfo(headerToken, body);
                         return Mono.just(newBody);
                     }
-
                     return Mono.just(body);
                 });
 
@@ -112,7 +120,59 @@ public class GlobalAuthorFilter implements GlobalFilter, Ordered {
                 }));
     }
 
-    private String addUserInfo(String headerToken, String bodyStr) {
+    private Mono<Void> handleGet(ServerWebExchange exchange, GatewayFilterChain chain, String headerToken) {
+        URI uri = exchange.getRequest().getURI();
+        StringBuilder query = new StringBuilder();
+        String originalQuery = uri.getRawQuery();
+
+        if (StringUtils.isNotEmpty(originalQuery)) {
+            query.append(originalQuery);
+            if (originalQuery.charAt(originalQuery.length() - 1) != '&') {
+                query.append('&');
+            }
+        }
+
+        //增加用户信息给微服务用
+        addGetUserInfo(query, headerToken);
+
+        URI newUri = UriComponentsBuilder.fromUri(uri).replaceQuery(query.toString()).build(true).toUri();
+        ServerHttpRequest newRequest = exchange.getRequest().mutate().uri(newUri).build();
+
+        return chain.filter(exchange.mutate().request(newRequest).build());
+    }
+
+    private void addGetUserInfo(StringBuilder query, String headerToken) {
+        UserInfo userInfo = TokenUtil.getUserInfo(headerToken);
+        query.append(TokenConstant.USER_ID);
+        query.append('=');
+        query.append(userInfo.getUserId());
+
+        query.append('&');
+
+        query.append(TokenConstant.ROLE_ID);
+        query.append('=');
+        query.append(userInfo.getRoleId());
+
+        query.append('&');
+
+        query.append(TokenConstant.ACCESS_TOKEN);
+        query.append('=');
+        query.append(userInfo.getAccessToken());
+
+        query.append('&');
+
+        query.append(TokenConstant.DEVICE_ID);
+        query.append('=');
+        query.append(userInfo.getDeviceId());
+
+        query.append('&');
+
+        query.append(TokenConstant.EXPIRES_TIME);
+        query.append('=');
+        query.append(userInfo.getExpireTime());
+    }
+
+    private String addPostUserInfo(String headerToken, String bodyStr) {
         StringBuilder sb = new StringBuilder(bodyStr);
         //鉴权过后就往请求body里面加入用户信息,方便后面的接口使用
         UserInfo userInfo = TokenUtil.getUserInfo(headerToken);
@@ -125,16 +185,6 @@ public class GlobalAuthorFilter implements GlobalFilter, Ordered {
             sb.replace(i, i + 1, "{\n\"userInfo\":" + infoJson + "\n");
         }
         return sb.toString();
-    }
-
-    private Map<String, Object> decodeBody(String body) {
-        return Arrays.stream(body.split("&"))
-                .map(s -> s.split("="))
-                .collect(Collectors.toMap(arr -> arr[0], arr -> arr[1]));
-    }
-
-    private String encodeBody(Map<String, Object> map) {
-        return map.entrySet().stream().map(e -> e.getKey() + "=" + e.getValue()).collect(Collectors.joining("&"));
     }
 
     static class CachedBodyOutputMessage implements ReactiveHttpOutputMessage {

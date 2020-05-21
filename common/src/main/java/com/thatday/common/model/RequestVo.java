@@ -17,6 +17,6 @@ public class RequestVo implements Serializable {
 
     //这里地方的UserInfo是网关注入的,网关会鉴权
     @ApiModelProperty(hidden = true)
-    @NotNull
+    @NotNull(message = "网关授权失败!")
     private UserInfo userInfo;
 }
