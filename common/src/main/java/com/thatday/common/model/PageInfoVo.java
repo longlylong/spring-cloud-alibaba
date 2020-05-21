@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-public class PageInfoVo extends RequestVo {
+public class PageInfoVo extends RequestPostVo {
 
     @ApiModelProperty(value = "当前页码")
     private Integer curPage = 0;

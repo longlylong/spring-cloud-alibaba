@@ -27,11 +27,11 @@ public class TokenUtil {
         }
     }
 
-    public static String getAccessToken(Integer uid, Integer role, Integer device) {
+    public static String getAccessToken(Long uid, Integer roleId, String deviceId) {
         Map<String, Object> map = new HashMap<>();
         map.put(TokenConstant.USER_ID, uid);
-        map.put(TokenConstant.ROLE_ID, role);
-        map.put(TokenConstant.DEVICE_ID, device);
+        map.put(TokenConstant.ROLE_ID, roleId);
+        map.put(TokenConstant.DEVICE_ID, deviceId);
         map.put(TokenConstant.EXPIRES_TIME, new Date().getTime() + Token_Expires);
         return makeToken(map);
     }

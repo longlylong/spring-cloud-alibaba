@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RequestVo implements Serializable {
+public class RequestPostVo implements Serializable {
 
     //这里地方的UserInfo是网关注入的,网关会鉴权
     @ApiModelProperty(hidden = true)
