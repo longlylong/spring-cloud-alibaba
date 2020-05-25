@@ -68,8 +68,13 @@ public class GlobalAuthorFilter implements GlobalFilter, Ordered {
             return handleGet(exchange, chain, headerToken);
         }
 
-        //POST请求处理
-        return handlePost(exchange, chain, headerToken);
+        MediaType mediaType = request.getHeaders().getContentType();
+        if (MediaType.APPLICATION_JSON.equals(mediaType)) {
+            //POST json 请求处理
+            return handlePost(exchange, chain, headerToken);
+        } else {
+            return chain.filter(exchange);
+        }
     }
 
     private Mono<Void> handlePost(ServerWebExchange exchange, GatewayFilterChain chain, String headerToken) {
