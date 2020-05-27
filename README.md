@@ -47,14 +47,24 @@ Plugins：
 	ServerGateway （网关）
 	--config （swagger入口、跨域、熔断配置）
 	--filter （限流配置，可在Nacos动态配置限流规则）
+	----author(鉴权的)
+	----ratelimit(限流的)
+	--provider(提供配置的类)
 
 	ThatDay （项目业务代码）
 	--user （用户服务）
 	----config （全局异常，swagger，websocket配置）
-	----controller （接口）
-	----entity （实体类）
-	----repository （jpa操作）
+	----modules （模块）
+	------user(用户模块)
+	--------controller(前台的api接口)
+	--------backend(后台的api接口)
+	--------dao(数据访问对象)
+	--------dto(数据传输对象)
+	--------entity(数据对象)
+	--------service(业务代码)
+	--------vo(请求对象)
+	----repository （基础的jpa操作）
 	----rocketmq （该服务的rocketmq配置）
-	----service （业务逻辑代码）
+	----service.feign （跨微业务的）
 	----util （工具类）
 

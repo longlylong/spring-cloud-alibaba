@@ -1,4 +1,4 @@
-package com.thatday.user.entity.db.old;
+package com.thatday.user.modules.user.entity.old;
 
 import lombok.Data;
 
@@ -10,11 +10,11 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
- * 便签表
+ * woop思维表
  */
 @Data
 //@Entity
-public class Memo {
+public class WoopThought {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,8 +27,20 @@ public class Memo {
     private Long fileGroupId;
 
     @NotNull
-    @Column(columnDefinition = "varchar(2048) default '' comment '内容'")
-    private String content;
+    @Column(columnDefinition = "varchar(256) default '' comment 'W-愿望'")
+    private String wish;
+
+    @NotNull
+    @Column(columnDefinition = "varchar(1024) default '' comment 'O-最好的结果'")
+    private String outcome;
+
+    @NotNull
+    @Column(columnDefinition = "varchar(1024) default '' comment 'O-设想可能遇到的障碍'")
+    private String obstacle;
+
+    @NotNull
+    @Column(columnDefinition = "varchar(1024) default '' comment 'P-计划'")
+    private String plan;
 
     @Column(columnDefinition = "timestamp default current_timestamp comment '创建时间'")
     private Date createTime;

@@ -1,4 +1,4 @@
-package com.thatday.user.entity.vo;
+package com.thatday.user.modules.user.vo;
 
 import lombok.Data;
 

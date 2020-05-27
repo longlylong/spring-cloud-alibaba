@@ -1,11 +1,10 @@
-package com.thatday.user.controller.user;
+package com.thatday.user.modules.user.controller;
 
 import com.thatday.common.model.Result;
-import com.thatday.common.token.UserInfo;
-import com.thatday.user.entity.db.User;
-import com.thatday.user.entity.vo.LoginPhoneVo;
-import com.thatday.user.entity.vo.LoginWeChatVo;
-import com.thatday.user.service.user.LoginService;
+import com.thatday.user.modules.user.entity.User;
+import com.thatday.user.modules.user.vo.LoginPhoneVo;
+import com.thatday.user.modules.user.vo.LoginWeChatVo;
+import com.thatday.user.modules.user.service.LoginService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;

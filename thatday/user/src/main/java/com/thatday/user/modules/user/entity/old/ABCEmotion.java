@@ -1,4 +1,4 @@
-package com.thatday.user.entity.db.old;
+package com.thatday.user.modules.user.entity.old;
 
 import lombok.Data;
 

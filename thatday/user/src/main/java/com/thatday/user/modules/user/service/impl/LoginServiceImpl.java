@@ -1,11 +1,10 @@
-package com.thatday.user.service.user.impl;
+package com.thatday.user.modules.user.service.impl;
 
-import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.thatday.user.entity.db.User;
-import com.thatday.user.entity.vo.LoginPhoneVo;
-import com.thatday.user.entity.vo.LoginWeChatVo;
-import com.thatday.user.repository.LoginRepository;
-import com.thatday.user.service.user.LoginService;
+import com.thatday.user.modules.user.entity.User;
+import com.thatday.user.modules.user.vo.LoginPhoneVo;
+import com.thatday.user.modules.user.vo.LoginWeChatVo;
+import com.thatday.user.modules.user.dao.LoginRepository;
+import com.thatday.user.modules.user.service.LoginService;
 import org.springframework.stereotype.Service;
 
 @Service

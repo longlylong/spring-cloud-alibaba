@@ -1,4 +1,4 @@
-package com.thatday.user.entity.dto;
+package com.thatday.user.modules.user.dto;
 
 import lombok.Data;
 
