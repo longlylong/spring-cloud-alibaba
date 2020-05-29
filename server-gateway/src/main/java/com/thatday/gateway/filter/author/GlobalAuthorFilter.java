@@ -71,7 +71,9 @@ public class GlobalAuthorFilter implements GlobalFilter, Ordered {
         }
 
         MediaType mediaType = request.getHeaders().getContentType();
-        if (MediaType.APPLICATION_JSON.equals(mediaType)) {
+        if (mediaType != null
+                && MediaType.APPLICATION_JSON.getType().equalsIgnoreCase(mediaType.getType())
+                && MediaType.APPLICATION_JSON.getSubtype().equalsIgnoreCase(mediaType.getSubtype())) {
             //POST json 请求处理
             return handlePost(exchange, chain, headerToken);
         } else {
