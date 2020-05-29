@@ -7,6 +7,7 @@ import com.thatday.common.utils.TemplateCodeUtil;
 import com.thatday.gateway.filter.FilterOrdered;
 import com.thatday.gateway.provider.AuthorSkipProvider;
 import com.thatday.gateway.provider.ResponseProvider;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.reactivestreams.Publisher;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -37,6 +38,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 @Component
+@Log4j2
 public class GlobalAuthorFilter implements GlobalFilter, Ordered {
 
     private final List<HttpMessageReader<?>> messageReaders = HandlerStrategies.withDefaults().messageReaders();
@@ -86,6 +88,9 @@ public class GlobalAuthorFilter implements GlobalFilter, Ordered {
                     MediaType mediaType = request.getHeaders().getContentType();
                     if (MediaType.APPLICATION_JSON.isCompatibleWith(mediaType)) {
                         String newBody = addPostUserInfo(headerToken, body);
+                        log.info("请求参数:");
+                        log.info(newBody);
+                        log.info("----------------------------------\n");
                         return Mono.just(newBody);
                     }
                     return Mono.just(body);
@@ -140,6 +145,10 @@ public class GlobalAuthorFilter implements GlobalFilter, Ordered {
         //增加用户信息给微服务用
         addGetUserInfo(query, headerToken);
 
+        log.info("请求参数:");
+        log.info(query.toString());
+        log.info("----------------------------------\n");
+
         URI newUri = UriComponentsBuilder.fromUri(uri).replaceQuery(query.toString()).build(true).toUri();
         ServerHttpRequest newRequest = exchange.getRequest().mutate().uri(newUri).build();
 
@@ -162,7 +171,7 @@ public class GlobalAuthorFilter implements GlobalFilter, Ordered {
 
         query.append(TokenConstant.ACCESS_TOKEN);
         query.append('=');
-        query.append(userInfo.getAccessToken());
+        query.append(headerToken);
 
         query.append('&');
 
