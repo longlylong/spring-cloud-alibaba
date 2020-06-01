@@ -58,8 +58,7 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
-        heart-beat-timeout: 6
-        ip-delete-timeout: 18
+
   # 模板引擎
   thymeleaf:
     mode: HTML
