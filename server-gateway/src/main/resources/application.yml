@@ -26,7 +26,7 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
         heart-beat-timeout: 6
-        ip-delete-timeout: 9
+        ip-delete-timeout: 18
 
     gateway:
       discovery:
