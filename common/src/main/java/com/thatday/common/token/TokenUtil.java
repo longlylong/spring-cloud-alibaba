@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class TokenUtil {
 
-    public static final long Token_Expires = 2 * 24 * 60 * 60 * 1000;
+    public static final long Token_Expires = 2 * 24 * 60 * 60 * 1000L;
     private static final String Secret = "hds##hsh55578*&1" ;
     private static Algorithm algorithm;
 
