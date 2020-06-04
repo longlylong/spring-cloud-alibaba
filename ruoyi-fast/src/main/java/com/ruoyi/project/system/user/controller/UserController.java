@@ -11,6 +11,7 @@ import com.ruoyi.framework.web.page.TableDataInfo;
 import com.ruoyi.project.system.post.service.IPostService;
 import com.ruoyi.project.system.role.service.IRoleService;
 import com.ruoyi.project.system.user.domain.User;
+import com.ruoyi.project.system.user.domain.UserRole;
 import com.ruoyi.project.system.user.service.IUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/system/user")
 public class UserController extends BaseController {
-    private String prefix = "system/user" ;
+    private String prefix = "system/user";
 
     @Autowired
     private IUserService userService;
@@ -44,7 +45,7 @@ public class UserController extends BaseController {
     @RequiresPermissions("system:user:view")
     @GetMapping()
     public String user() {
-        return prefix + "/user" ;
+        return prefix + "/user";
     }
 
     @RequiresPermissions("system:user:list")
@@ -92,7 +93,7 @@ public class UserController extends BaseController {
     public String add(ModelMap mmap) {
         mmap.put("roles", roleService.selectRoleAll());
         mmap.put("posts", postService.selectPostAll());
-        return prefix + "/add" ;
+        return prefix + "/add";
     }
 
     /**
@@ -121,7 +122,7 @@ public class UserController extends BaseController {
         mmap.put("user", userService.selectUserById(userId));
         mmap.put("roles", roleService.selectRolesByUserId(userId));
         mmap.put("posts", postService.selectPostsByUserId(userId));
-        return prefix + "/edit" ;
+        return prefix + "/edit";
     }
 
     /**
@@ -146,7 +147,7 @@ public class UserController extends BaseController {
     @GetMapping("/resetPwd/{userId}")
     public String resetPwd(@PathVariable("userId") Long userId, ModelMap mmap) {
         mmap.put("user", userService.selectUserById(userId));
-        return prefix + "/resetPwd" ;
+        return prefix + "/resetPwd";
     }
 
     @RequiresPermissions("system:user:resetPwd")
@@ -156,12 +157,37 @@ public class UserController extends BaseController {
     public AjaxResult resetPwdSave(User user) {
         userService.checkUserAllowed(user);
         if (userService.resetUserPwd(user) > 0) {
-            if (ShiroUtils.getUserId() == user.getUserId()) {
+            if (ShiroUtils.getUserId().longValue() == user.getUserId().longValue()) {
                 setSysUser(userService.selectUserById(user.getUserId()));
             }
             return success();
         }
         return error();
+    }
+
+    /**
+     * 进入授权角色页
+     */
+    @GetMapping("/authRole/{userId}")
+    public String authRole(@PathVariable("userId") Long userId, ModelMap mmap) {
+        User user = userService.selectUserById(userId);
+        // 获取用户所属的角色列表
+        List<UserRole> userRoles = userService.selectUserRoleByUserId(userId);
+        mmap.put("user", user);
+        mmap.put("userRoles", userRoles);
+        return prefix + "/authRole";
+    }
+
+    /**
+     * 用户授权角色
+     */
+    @RequiresPermissions("system:user:add")
+    @Log(title = "用户管理", businessType = BusinessType.GRANT)
+    @PostMapping("/authRole/insertAuthRole")
+    @ResponseBody
+    public AjaxResult insertAuthRole(Long userId, Long[] roleIds) {
+        userService.insertUserAuth(userId, roleIds);
+        return success();
     }
 
     @RequiresPermissions("system:user:remove")

@@ -17,27 +17,19 @@ import javax.validation.constraints.Size;
 public class Post extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 岗位序号
-     */
+    /** 岗位序号 */
     @Excel(name = "岗位序号", cellType = ColumnType.NUMERIC)
     private Long postId;
 
-    /**
-     * 岗位编码
-     */
+    /** 岗位编码 */
     @Excel(name = "岗位编码")
     private String postCode;
 
-    /**
-     * 岗位名称
-     */
+    /** 岗位名称 */
     @Excel(name = "岗位名称")
     private String postName;
 
-    /**
-     * 岗位排序
-     */
+    /** 岗位排序 */
     @Excel(name = "岗位排序")
     private String postSort;
 

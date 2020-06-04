@@ -1,6 +1,7 @@
 package com.ruoyi.project.system.dict.service;
 
 import com.ruoyi.framework.web.domain.Ztree;
+import com.ruoyi.project.system.dict.domain.DictData;
 import com.ruoyi.project.system.dict.domain.DictType;
 
 import java.util.List;
@@ -27,6 +28,14 @@ public interface IDictTypeService {
     List<DictType> selectDictTypeAll();
 
     /**
+     * 根据字典类型查询字典数据
+     *
+     * @param dictType 字典类型
+     * @return 字典数据集合信息
+     */
+    List<DictData> selectDictDataByType(String dictType);
+
+    /**
      * 根据字典类型ID查询信息
      *
      * @param dictId 字典类型ID
@@ -43,21 +52,18 @@ public interface IDictTypeService {
     DictType selectDictTypeByType(String dictType);
 
     /**
-     * 通过字典ID删除字典信息
-     *
-     * @param dictId 字典ID
-     * @return 结果
-     */
-    int deleteDictTypeById(Long dictId);
-
-    /**
      * 批量删除字典类型
      *
      * @param ids 需要删除的数据
      * @return 结果
      * @throws Exception 异常
      */
-    int deleteDictTypeByIds(String ids) throws Exception;
+    int deleteDictTypeByIds(String ids);
+
+    /**
+     * 清空缓存数据
+     */
+    void clearCache();
 
     /**
      * 新增保存字典类型信息

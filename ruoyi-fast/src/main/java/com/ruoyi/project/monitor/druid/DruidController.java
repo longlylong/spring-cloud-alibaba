@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/monitor/data")
 public class DruidController extends BaseController {
-    private String prefix = "/druid" ;
+    private String prefix = "/druid";
 
     @RequiresPermissions("monitor:data:view")
     @GetMapping()

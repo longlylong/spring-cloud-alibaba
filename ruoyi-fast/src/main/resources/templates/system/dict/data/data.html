@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <th:block th:include="include :: header('字典数据列表')"/>
     <th:block th:include="include :: select2-css"/>
@@ -12,13 +12,13 @@
                 <div class="select-list">
                     <ul>
                         <li>
-                            字典名称：<select class="form-control" id="dictType" name="dictType">
-                            <option th:each="dict : ${dictList}" th:field="*{dict.dictType}"
-                                    th:text="${dict['dictName']}" th:value="${dict['dictType']}"></option>
+                            字典名称：<select id="dictType" name="dictType" class="form-control">
+                            <option th:each="dict : ${dictList}" th:text="${dict['dictName']}"
+                                    th:value="${dict['dictType']}" th:field="*{dict.dictType}"></option>
                         </select>
                         </li>
                         <li>
-                            字典标签：<input name="dictLabel" type="text"/>
+                            字典标签：<input type="text" name="dictLabel"/>
                         </li>
                         <li>
                             数据状态：<select name="status" th:with="type=${@dict.getType('sys_normal_disable')}">
@@ -76,8 +76,8 @@
             removeUrl: prefix + "/remove",
             exportUrl: prefix + "/export",
             queryParams: queryParams,
-            sortName: "createTime",
-            sortOrder: "desc",
+            sortName: "dictSort",
+            sortOrder: "asc",
             modalName: "数据",
             columns: [{
                 checkbox: true
@@ -88,7 +88,11 @@
                 },
                 {
                     field: 'dictLabel',
-                    title: '字典标签'
+                    title: '字典标签',
+                    formatter: function (value, row, index) {
+                        var listClass = $.common.equals("default", row.listClass) || $.common.isEmpty(row.listClass) ? "" : "badge badge-" + row.listClass;
+                        return $.common.sprintf("<span class='%s'>%s</span>", listClass, value);
+                    }
                 },
                 {
                     field: 'dictValue',

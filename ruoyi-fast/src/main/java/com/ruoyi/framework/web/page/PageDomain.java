@@ -27,7 +27,7 @@ public class PageDomain {
 
     public String getOrderBy() {
         if (StringUtils.isEmpty(orderByColumn)) {
-            return "" ;
+            return "";
         }
         return StringUtils.toUnderScoreCase(orderByColumn) + " " + isAsc;
     }

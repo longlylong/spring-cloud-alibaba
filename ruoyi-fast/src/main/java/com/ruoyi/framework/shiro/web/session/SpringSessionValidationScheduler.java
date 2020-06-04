@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.ScheduledExecutorService;
@@ -21,8 +22,10 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public class SpringSessionValidationScheduler implements SessionValidationScheduler {
-    public static final long DEFAULT_SESSION_VALIDATION_INTERVAL = DefaultSessionManager.DEFAULT_SESSION_VALIDATION_INTERVAL;
     private static final Logger log = LoggerFactory.getLogger(SpringSessionValidationScheduler.class);
+
+    public static final long DEFAULT_SESSION_VALIDATION_INTERVAL = DefaultSessionManager.DEFAULT_SESSION_VALIDATION_INTERVAL;
+
     /**
      * 定时器，用于处理超时的挂起请求，也用于连接断开时的重连。
      */
@@ -37,6 +40,7 @@ public class SpringSessionValidationScheduler implements SessionValidationSchedu
      */
     @Autowired
     @Qualifier("sessionManager")
+    @Lazy
     private ValidatingSessionManager sessionManager;
 
     // 相隔多久检查一次session的有效性，单位毫秒，默认就是10分钟

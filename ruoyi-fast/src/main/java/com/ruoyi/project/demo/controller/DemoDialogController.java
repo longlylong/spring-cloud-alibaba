@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/demo/modal")
 public class DemoDialogController {
-    private String prefix = "demo/modal" ;
+    private String prefix = "demo/modal";
 
     /**
      * 模态窗口
      */
     @GetMapping("/dialog")
     public String dialog() {
-        return prefix + "/dialog" ;
+        return prefix + "/dialog";
     }
 
     /**
@@ -27,7 +27,7 @@ public class DemoDialogController {
      */
     @GetMapping("/layer")
     public String layer() {
-        return prefix + "/layer" ;
+        return prefix + "/layer";
     }
 
     /**
@@ -35,7 +35,7 @@ public class DemoDialogController {
      */
     @GetMapping("/form")
     public String form() {
-        return prefix + "/form" ;
+        return prefix + "/form";
     }
 
     /**
@@ -43,7 +43,7 @@ public class DemoDialogController {
      */
     @GetMapping("/table")
     public String table() {
-        return prefix + "/table" ;
+        return prefix + "/table";
     }
 
     /**
@@ -51,7 +51,7 @@ public class DemoDialogController {
      */
     @GetMapping("/check")
     public String check() {
-        return prefix + "/table/check" ;
+        return prefix + "/table/check";
     }
 
     /**
@@ -59,7 +59,7 @@ public class DemoDialogController {
      */
     @GetMapping("/radio")
     public String radio() {
-        return prefix + "/table/radio" ;
+        return prefix + "/table/radio";
     }
 
     /**
@@ -67,6 +67,6 @@ public class DemoDialogController {
      */
     @GetMapping("/parent")
     public String parent() {
-        return prefix + "/table/parent" ;
+        return prefix + "/table/parent";
     }
 }

@@ -28,8 +28,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("/demo/operate")
 public class DemoOperateController extends BaseController {
+    private String prefix = "demo/operate";
+
     private final static Map<Integer, UserOperateModel> users = new LinkedHashMap<Integer, UserOperateModel>();
-    private String prefix = "demo/operate" ;
 
     {
         users.put(1, new UserOperateModel(1, "1000001", "测试1", "0", "15888888888", "ry@qq.com", 150.0, "0"));
@@ -65,7 +66,7 @@ public class DemoOperateController extends BaseController {
      */
     @GetMapping("/table")
     public String table() {
-        return prefix + "/table" ;
+        return prefix + "/table";
     }
 
     /**
@@ -73,7 +74,7 @@ public class DemoOperateController extends BaseController {
      */
     @GetMapping("/other")
     public String other() {
-        return prefix + "/other" ;
+        return prefix + "/other";
     }
 
     /**
@@ -121,7 +122,7 @@ public class DemoOperateController extends BaseController {
      */
     @GetMapping("/add")
     public String add(ModelMap mmap) {
-        return prefix + "/add" ;
+        return prefix + "/add";
     }
 
     /**
@@ -141,7 +142,7 @@ public class DemoOperateController extends BaseController {
     @GetMapping("/edit/{userId}")
     public String edit(@PathVariable("userId") Integer userId, ModelMap mmap) {
         mmap.put("user", users.get(userId));
-        return prefix + "/edit" ;
+        return prefix + "/edit";
     }
 
     /**
@@ -205,7 +206,7 @@ public class DemoOperateController extends BaseController {
     @GetMapping("/detail/{userId}")
     public String detail(@PathVariable("userId") Integer userId, ModelMap mmap) {
         mmap.put("user", users.get(userId));
-        return prefix + "/detail" ;
+        return prefix + "/detail";
     }
 
     @PostMapping("/clean")
@@ -218,7 +219,7 @@ public class DemoOperateController extends BaseController {
     /**
      * 导入用户数据
      *
-     * @param userList        用户数据列表
+     * @param userList 用户数据列表
      * @param isUpdateSupport 是否更新支持，如果已存在，则进行更新数据
      * @return 结果
      */
@@ -256,7 +257,7 @@ public class DemoOperateController extends BaseController {
                 }
             } catch (Exception e) {
                 failureNum++;
-                String msg = "<br/>" + failureNum + "、账号 " + user.getUserName() + " 导入失败：" ;
+                String msg = "<br/>" + failureNum + "、账号 " + user.getUserName() + " 导入失败：";
                 failureMsg.append(msg + e.getMessage());
             }
         }

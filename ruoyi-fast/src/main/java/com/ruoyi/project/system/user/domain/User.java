@@ -25,26 +25,18 @@ import java.util.List;
 public class User extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 用户ID
-     */
+    /** 用户ID */
     @Excel(name = "用户序号", cellType = ColumnType.NUMERIC, prompt = "用户编号")
     private Long userId;
 
-    /**
-     * 部门ID
-     */
+    /** 部门ID */
     @Excel(name = "部门编号", type = Type.IMPORT)
     private Long deptId;
 
-    /**
-     * 部门父ID
-     */
+    /** 部门父ID */
     private Long parentId;
 
-    /**
-     * 角色ID
-     */
+    /** 角色ID */
     private Long roleId;
 
     /**
@@ -58,6 +50,11 @@ public class User extends BaseEntity {
      */
     @Excel(name = "用户名称")
     private String userName;
+
+    /**
+     * 用户类型
+     */
+    private String userType;
 
     /**
      * 用户邮箱
@@ -77,41 +74,27 @@ public class User extends BaseEntity {
     @Excel(name = "用户性别", readConverterExp = "0=男,1=女,2=未知")
     private String sex;
 
-    /**
-     * 用户头像
-     */
+    /** 用户头像 */
     private String avatar;
 
-    /**
-     * 密码
-     */
+    /** 密码 */
     private String password;
 
-    /**
-     * 盐加密
-     */
+    /** 盐加密 */
     private String salt;
 
-    /**
-     * 帐号状态（0正常 1停用）
-     */
+    /** 帐号状态（0正常 1停用） */
     @Excel(name = "帐号状态", readConverterExp = "0=正常,1=停用")
     private String status;
 
-    /**
-     * 删除标志（0代表存在 2代表删除）
-     */
+    /** 删除标志（0代表存在 2代表删除） */
     private String delFlag;
 
-    /**
-     * 最后登陆IP
-     */
+    /** 最后登陆IP */
     @Excel(name = "最后登陆IP", type = Type.EXPORT)
     private String loginIp;
 
-    /**
-     * 最后登陆时间
-     */
+    /** 最后登陆时间 */
     @Excel(name = "最后登陆时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss", type = Type.EXPORT)
     private Date loginDate;
 
@@ -144,10 +127,6 @@ public class User extends BaseEntity {
         this.userId = userId;
     }
 
-    public static boolean isAdmin(Long userId) {
-        return userId != null && 1L == userId;
-    }
-
     public Long getUserId() {
         return userId;
     }
@@ -158,6 +137,10 @@ public class User extends BaseEntity {
 
     public boolean isAdmin() {
         return isAdmin(this.userId);
+    }
+
+    public static boolean isAdmin(Long userId) {
+        return userId != null && 1L == userId;
     }
 
     public Long getDeptId() {
@@ -201,6 +184,14 @@ public class User extends BaseEntity {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     @Email(message = "邮箱格式不正确")
@@ -338,6 +329,7 @@ public class User extends BaseEntity {
                 .append("deptId", getDeptId())
                 .append("loginName", getLoginName())
                 .append("userName", getUserName())
+                .append("userType", getUserType())
                 .append("email", getEmail())
                 .append("phonenumber", getPhonenumber())
                 .append("sex", getSex())
@@ -354,6 +346,7 @@ public class User extends BaseEntity {
                 .append("updateTime", getUpdateTime())
                 .append("remark", getRemark())
                 .append("dept", getDept())
-                .toString();
+            .append("roles", getRoles())
+            .toString();
     }
 }

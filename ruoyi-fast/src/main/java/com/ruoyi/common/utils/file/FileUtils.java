@@ -10,13 +10,13 @@ import java.net.URLEncoder;
  * @author ruoyi
  */
 public class FileUtils {
-    public static String FILENAME_PATTERN = "[a-zA-Z0-9_\\-\\|\\.\\u4e00-\\u9fa5]+" ;
+    public static String FILENAME_PATTERN = "[a-zA-Z0-9_\\-\\|\\.\\u4e00-\\u9fa5]+";
 
     /**
      * 输出指定文件的byte数组
      *
      * @param filePath 文件路径
-     * @param os       输出流
+     * @param os 输出流
      * @return
      */
     public static void writeBytes(String filePath, OutputStream os) throws IOException {
@@ -82,7 +82,7 @@ public class FileUtils {
     /**
      * 下载文件名重新编码
      *
-     * @param request  请求对象
+     * @param request 请求对象
      * @param fileName 文件名
      * @return 编码后的文件名
      */

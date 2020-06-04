@@ -23,7 +23,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/system/notice")
 public class NoticeController extends BaseController {
-    private String prefix = "system/notice" ;
+    private String prefix = "system/notice";
 
     @Autowired
     private INoticeService noticeService;
@@ -31,7 +31,7 @@ public class NoticeController extends BaseController {
     @RequiresPermissions("system:notice:view")
     @GetMapping()
     public String notice() {
-        return prefix + "/notice" ;
+        return prefix + "/notice";
     }
 
     /**
@@ -51,7 +51,7 @@ public class NoticeController extends BaseController {
      */
     @GetMapping("/add")
     public String add() {
-        return prefix + "/add" ;
+        return prefix + "/add";
     }
 
     /**
@@ -71,7 +71,7 @@ public class NoticeController extends BaseController {
     @GetMapping("/edit/{noticeId}")
     public String edit(@PathVariable("noticeId") Long noticeId, ModelMap mmap) {
         mmap.put("notice", noticeService.selectNoticeById(noticeId));
-        return prefix + "/edit" ;
+        return prefix + "/edit";
     }
 
     /**

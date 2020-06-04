@@ -11,14 +11,10 @@ import java.util.Map;
  * @author ruoyi
  */
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
-    /**
-     * 空字符串
-     */
-    private static final String NULLSTR = "" ;
+    /** 空字符串 */
+    private static final String NULLSTR = "";
 
-    /**
-     * 下划线
-     */
+    /** 下划线 */
     private static final char SEPARATOR = '_';
 
     /**
@@ -55,7 +51,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * * 判断一个对象数组是否为空
      *
      * @param objects 要判断的对象数组
-     *                * @return true：为空 false：非空
+     ** @return true：为空 false：非空
      */
     public static boolean isEmpty(Object[] objects) {
         return isNull(objects) || (objects.length == 0);
@@ -151,7 +147,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     /**
      * 截取字符串
      *
-     * @param str   字符串
+     * @param str 字符串
      * @param start 开始
      * @return 结果
      */
@@ -177,9 +173,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     /**
      * 截取字符串
      *
-     * @param str   字符串
+     * @param str 字符串
      * @param start 开始
-     * @param end   结束
+     * @param end 结束
      * @return 结果
      */
     public static String substring(final String str, int start, int end) {
@@ -222,7 +218,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 转义\： format("this is \\\\{} for {}", "a", "b") -> this is \a for b<br>
      *
      * @param template 文本模板，被替换的部分用 {} 表示
-     * @param params   参数值
+     * @param params 参数值
      * @return 格式化后的文本
      */
     public static String format(String template, Object... params) {
@@ -273,7 +269,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     /**
      * 是否包含字符串
      *
-     * @param str  验证字符串
+     * @param str 验证字符串
      * @param strs 字符串组
      * @return 包含返回true
      */
@@ -299,7 +295,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         // 快速检查
         if (name == null || name.isEmpty()) {
             // 没必要转换
-            return "" ;
+            return "";
         } else if (!name.contains("_")) {
             // 不含下划线，仅将首字母大写
             return name.substring(0, 1).toUpperCase() + name.substring(1);
@@ -342,5 +338,10 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
             }
         }
         return sb.toString();
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T cast(Object obj) {
+        return (T) obj;
     }
 }

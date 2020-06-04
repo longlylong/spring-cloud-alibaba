@@ -53,28 +53,24 @@
             console.trace(e2);
         }
     }
-
     /**
      * 获取当前 tr 列的关键字数据
      */
     function getPointKeyword($list) {
         return $list.data();
     }
-
     /**
      * 设置或获取输入框的 alt 值
      */
     function setOrGetAlt($input, val) {
         return isUndefined(val) ? $input.attr('alt') : $input.attr('alt', val);
     }
-
     /**
      * 设置或获取输入框的 data-id 值
      */
     function setOrGetDataId($input, val) {
         return val !== (void 0) ? $input.attr('data-id', val) : $input.attr('data-id');
     }
-
     /**
      * 设置选中的值
      */
@@ -110,7 +106,6 @@
         $input.data('pre-val', $input.val())
             .trigger('onSetSelectValue', [keywords, (options.data.value || options._lastData.value)[keywords.index]]);
     }
-
     /**
      * 调整选择菜单位置
      * @param {Object} $input
@@ -180,7 +175,6 @@
 
         return $input;
     }
-
     /**
      * 设置输入框背景色
      * 当设置了 indexId，而输入框的 data-id 为空时，输入框加载警告色
@@ -217,7 +211,6 @@
 
         return $input;
     }
-
     /**
      * 调整滑动条
      */
@@ -239,14 +232,12 @@
             $dropdownMenu.scrollTop(pos);
         }
     }
-
     /**
      * 解除所有列表 hover 样式
      */
     function unHoverAll($dropdownMenu, options) {
         $dropdownMenu.find('tr.' + options.listHoverCSS).removeClass(options.listHoverCSS);
     }
-
     /**
      * 验证 $input 对象是否符合条件
      *   1. 必须为 bootstrap 下拉式菜单
@@ -266,7 +257,6 @@
 
         return TRUE;
     }
-
     /**
      * 数据格式检测
      * 检测 ajax 返回成功数据或 data 参数数据是否有效
@@ -292,7 +282,6 @@
 
         return data;
     }
-
     /**
      * 判断字段名是否在 options.effectiveFields 配置项中
      * @param  {String} field   要判断的字段名
@@ -306,14 +295,12 @@
             effectiveFields.length &&
             !~$.inArray(field, effectiveFields));
     }
-
     /**
      * 判断字段名是否在 options.searchFields 搜索字段配置中
      */
     function inSearchFields(field, options) {
         return ~$.inArray(field, options.searchFields);
     }
-
     /**
      * 通过下拉菜单显示提示文案
      */
@@ -321,7 +308,6 @@
         $dropdownMenu.html('<div style="padding:10px 5px 5px">' + tip + '</div>').show();
         adjustDropMenuPos($input, $dropdownMenu, options);
     }
-
     /**
      * 显示下拉列表
      */
@@ -333,7 +319,6 @@
             $input.trigger('onShowDropdown', [options ? options.data.value : []]);
         }
     }
-
     /**
      * 隐藏下拉列表
      */
@@ -345,7 +330,6 @@
             $input.trigger('onHideDropdown', [options ? options.data.value : []]);
         }
     }
-
     /**
      * 下拉列表刷新
      * 作为 fnGetData 的 callback 函数调用
@@ -461,7 +445,6 @@
 
         return $input;
     }
-
     /**
      * ajax 获取数据
      * @param  {Object} options
@@ -527,7 +510,6 @@
             }
         });
     }
-
     /**
      * 检测 keyword 与 value 是否存在互相包含
      * @param  {String}  keyword 用户输入的关键字
@@ -551,7 +533,6 @@
                 options.twoWayMatch && ~keyword.indexOf(value) // 关键字包含匹配值
             );
     }
-
     /**
      * 通过 ajax 或 json 参数获取数据
      */
@@ -616,7 +597,6 @@
             callback($input, filterData, options);
         } // else
     }
-
     /**
      * 数据处理
      * url 获取数据时，对数据的处理，作为 fnGetData 之后的回调处理
@@ -624,7 +604,6 @@
     function processData(data) {
         return checkData(data);
     }
-
     /**
      * 取得 clearable 清除按钮
      */
@@ -650,7 +629,6 @@
             fontSize: 12
         }).hide();
     }
-
     /**
      * 默认的配置选项
      * @type {Object}

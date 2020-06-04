@@ -25,11 +25,11 @@ public class ExceptionUtil {
         Throwable root = ExceptionUtils.getRootCause(e);
         root = (root == null ? e : root);
         if (root == null) {
-            return "" ;
+            return "";
         }
         String msg = root.getMessage();
         if (msg == null) {
-            return "null" ;
+            return "null";
         }
         return StringUtils.defaultString(msg);
     }

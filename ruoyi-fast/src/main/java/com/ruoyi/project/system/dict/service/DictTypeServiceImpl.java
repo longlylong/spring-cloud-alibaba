@@ -6,13 +6,16 @@ import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.common.utils.security.ShiroUtils;
 import com.ruoyi.common.utils.text.Convert;
 import com.ruoyi.framework.web.domain.Ztree;
+import com.ruoyi.project.system.dict.domain.DictData;
 import com.ruoyi.project.system.dict.domain.DictType;
 import com.ruoyi.project.system.dict.mapper.DictDataMapper;
 import com.ruoyi.project.system.dict.mapper.DictTypeMapper;
+import com.ruoyi.project.system.dict.utils.DictUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +31,18 @@ public class DictTypeServiceImpl implements IDictTypeService {
 
     @Autowired
     private DictDataMapper dictDataMapper;
+
+    /**
+     * 项目启动时，初始化字典到缓存
+     */
+    @PostConstruct
+    public void init() {
+        List<DictType> dictTypeList = dictTypeMapper.selectDictTypeAll();
+        for (DictType dictType : dictTypeList) {
+            List<DictData> dictDatas = dictDataMapper.selectDictDataByType(dictType.getDictType());
+            DictUtils.setDictCache(dictType.getDictType(), dictDatas);
+        }
+    }
 
     /**
      * 根据条件分页查询字典类型
@@ -51,6 +66,26 @@ public class DictTypeServiceImpl implements IDictTypeService {
     }
 
     /**
+     * 根据字典类型查询字典数据
+     *
+     * @param dictType 字典类型
+     * @return 字典数据集合信息
+     */
+    @Override
+    public List<DictData> selectDictDataByType(String dictType) {
+        List<DictData> dictDatas = DictUtils.getDictCache(dictType);
+        if (StringUtils.isNotNull(dictDatas)) {
+            return dictDatas;
+        }
+        dictDatas = dictDataMapper.selectDictDataByType(dictType);
+        if (StringUtils.isNotNull(dictDatas)) {
+            DictUtils.setDictCache(dictType, dictDatas);
+            return dictDatas;
+        }
+        return null;
+    }
+
+    /**
      * 根据字典类型ID查询信息
      *
      * @param dictId 字典类型ID
@@ -67,19 +102,9 @@ public class DictTypeServiceImpl implements IDictTypeService {
      * @param dictType 字典类型
      * @return 字典类型
      */
+    @Override
     public DictType selectDictTypeByType(String dictType) {
         return dictTypeMapper.selectDictTypeByType(dictType);
-    }
-
-    /**
-     * 通过字典ID删除字典信息
-     *
-     * @param dictId 字典ID
-     * @return 结果
-     */
-    @Override
-    public int deleteDictTypeById(Long dictId) {
-        return dictTypeMapper.deleteDictTypeById(dictId);
     }
 
     /**
@@ -89,7 +114,7 @@ public class DictTypeServiceImpl implements IDictTypeService {
      * @return 结果
      */
     @Override
-    public int deleteDictTypeByIds(String ids) throws BusinessException {
+    public int deleteDictTypeByIds(String ids) {
         Long[] dictIds = Convert.toLongArray(ids);
         for (Long dictId : dictIds) {
             DictType dictType = selectDictTypeById(dictId);
@@ -97,8 +122,19 @@ public class DictTypeServiceImpl implements IDictTypeService {
                 throw new BusinessException(String.format("%1$s已分配,不能删除", dictType.getDictName()));
             }
         }
+        int count = dictTypeMapper.deleteDictTypeByIds(dictIds);
+        if (count > 0) {
+            DictUtils.clearDictCache();
+        }
+        return count;
+    }
 
-        return dictTypeMapper.deleteDictTypeByIds(dictIds);
+    /**
+     * 清空缓存数据
+     */
+    @Override
+    public void clearCache() {
+        DictUtils.clearDictCache();
     }
 
     /**
@@ -110,7 +146,11 @@ public class DictTypeServiceImpl implements IDictTypeService {
     @Override
     public int insertDictType(DictType dictType) {
         dictType.setCreateBy(ShiroUtils.getLoginName());
-        return dictTypeMapper.insertDictType(dictType);
+        int row = dictTypeMapper.insertDictType(dictType);
+        if (row > 0) {
+            DictUtils.clearDictCache();
+        }
+        return row;
     }
 
     /**
@@ -125,7 +165,11 @@ public class DictTypeServiceImpl implements IDictTypeService {
         dictType.setUpdateBy(ShiroUtils.getLoginName());
         DictType oldDict = dictTypeMapper.selectDictTypeById(dictType.getDictId());
         dictDataMapper.updateDictDataType(oldDict.getDictType(), dictType.getDictType());
-        return dictTypeMapper.updateDictType(dictType);
+        int row = dictTypeMapper.updateDictType(dictType);
+        if (row > 0) {
+            DictUtils.clearDictCache();
+        }
+        return row;
     }
 
     /**
@@ -150,6 +194,7 @@ public class DictTypeServiceImpl implements IDictTypeService {
      * @param dictType 字典类型
      * @return 所有字典类型
      */
+    @Override
     public List<Ztree> selectDictTree(DictType dictType) {
         List<Ztree> ztrees = new ArrayList<Ztree>();
         List<DictType> dictList = dictTypeMapper.selectDictTypeList(dictType);

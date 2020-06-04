@@ -28,7 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ProfileController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(ProfileController.class);
 
-    private String prefix = "system/user/profile" ;
+    private String prefix = "system/user/profile";
 
     @Autowired
     private IUserService userService;
@@ -45,7 +45,7 @@ public class ProfileController extends BaseController {
         mmap.put("user", user);
         mmap.put("roleGroup", userService.selectUserRoleGroup(user.getUserId()));
         mmap.put("postGroup", userService.selectUserPostGroup(user.getUserId()));
-        return prefix + "/profile" ;
+        return prefix + "/profile";
     }
 
     @GetMapping("/checkPassword")
@@ -59,7 +59,7 @@ public class ProfileController extends BaseController {
     public String resetPwd(ModelMap mmap) {
         User user = getSysUser();
         mmap.put("user", userService.selectUserById(user.getUserId()));
-        return prefix + "/resetPwd" ;
+        return prefix + "/resetPwd";
     }
 
     @Log(title = "重置密码", businessType = BusinessType.UPDATE)
@@ -87,7 +87,7 @@ public class ProfileController extends BaseController {
     public String edit(ModelMap mmap) {
         User user = getSysUser();
         mmap.put("user", userService.selectUserById(user.getUserId()));
-        return prefix + "/edit" ;
+        return prefix + "/edit";
     }
 
     /**
@@ -97,7 +97,7 @@ public class ProfileController extends BaseController {
     public String avatar(ModelMap mmap) {
         User user = getSysUser();
         mmap.put("user", userService.selectUserById(user.getUserId()));
-        return prefix + "/avatar" ;
+        return prefix + "/avatar";
     }
 
     /**

@@ -51,25 +51,25 @@
                     <div class="alert alert-info">
                         拖拽左侧的表单元素到右侧区域，即可生成相应的HTML代码，表单代码，轻松搞定！
                     </div>
-                    <form class="form-horizontal m-t" role="form">
+                    <form role="form" class="form-horizontal m-t">
                         <div class="form-group draggable">
                             <label class="col-sm-3 control-label">文本框：</label>
                             <div class="col-sm-9">
-                                <input class="form-control" name="" placeholder="请输入文本" type="text">
+                                <input type="text" name="" class="form-control" placeholder="请输入文本">
                             </div>
                         </div>
 
                         <div class="form-group draggable">
                             <label class="col-sm-3 control-label">多行文本框：</label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" name="" placeholder="请输入文本" type="text"></textarea>
+                                <textarea type="text" name="" class="form-control" placeholder="请输入文本"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group draggable">
                             <label class="col-sm-3 control-label">密码框：</label>
                             <div class="col-sm-9">
-                                <input class="form-control" name="password" placeholder="请输入密码" type="password">
+                                <input type="password" class="form-control" name="password" placeholder="请输入密码">
                             </div>
                         </div>
                         <div class="form-group draggable">
@@ -95,10 +95,10 @@
                             </label>
 
                             <div class="col-sm-9">
-                                <label class="radio-box"><input checked="" id="optionsRadios1" name="optionsRadios"
-                                                                type="radio" value="option1">选项1</label>
-                                <label class="radio-box"><input id="optionsRadios2" name="optionsRadios" type="radio"
-                                                                value="option2">选项2</label>
+                                <label class="radio-box"><input type="radio" checked="" value="option1"
+                                                                id="optionsRadios1" name="optionsRadios">选项1</label>
+                                <label class="radio-box"><input type="radio" value="option2" id="optionsRadios2"
+                                                                name="optionsRadios">选项2</label>
                             </div>
                         </div>
                         <div class="form-group draggable">
@@ -106,11 +106,11 @@
 
                             <div class="col-sm-9">
                                 <label class="check-box">
-                                    <input id="inlineCheckbox1" type="checkbox" value="option1">选项1</label>
+                                    <input type="checkbox" value="option1" id="inlineCheckbox1">选项1</label>
                                 <label class="check-box">
-                                    <input id="inlineCheckbox2" type="checkbox" value="option2">选项2</label>
+                                    <input type="checkbox" value="option2" id="inlineCheckbox2">选项2</label>
                                 <label class="check-box">
-                                    <input id="inlineCheckbox3" type="checkbox" value="option3">选项3</label>
+                                    <input type="checkbox" value="option3" id="inlineCheckbox3">选项3</label>
                             </div>
                         </div>
                         <div class="form-group draggable">
@@ -119,7 +119,7 @@
 
                             <div class="col-sm-9">
                                 <label class="toggle-switch switch-solid">
-                                    <input checked id="status" type="checkbox">
+                                    <input type="checkbox" id="status" checked>
                                     <span></span>
                                 </label>
                             </div>
@@ -130,15 +130,15 @@
                             <div class="col-sm-9">
                                 <div class="input-group date">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                    <input class="form-control" type="text" value="2018-04-20">
+                                    <input type="text" class="form-control" value="2018-04-20">
                                 </div>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group draggable">
                             <div class="col-sm-12 col-sm-offset-3">
-                                <button class="btn btn-primary" type="submit">提交</button>
-                                <button class="btn btn-danger" onclick="$.modal.close()" type="button">关闭</button>
+                                <button type="submit" class="btn btn-primary">提交</button>
+                                <button onclick="$.modal.close()" class="btn btn-danger" type="button">关闭</button>
                             </div>
                         </div>
                     </form>
@@ -168,7 +168,7 @@
                         <div class="col-md-6 droppable sortable" style="display: none;">
                         </div>
                     </div>
-                    <button class="btn btn-warning" data-clipboard-text="testing" id="copy-to-clipboard" type="submit">
+                    <button type="submit" class="btn btn-warning" data-clipboard-text="testing" id="copy-to-clipboard">
                         复制代码
                     </button>
                 </div>

@@ -1,11 +1,10 @@
-package ${packageName}import com.ruoyi.framework.web.domain.Ztree;
+package ${packageName}.${businessName}.service;
 
 import java.util.List;
 
-        .${businessName}.service;
-            ${packageName}
-                .${businessName}.domain.${ClassName};
+import ${packageName}.${businessName}.domain.${ClassName};
 #if($table.tree)
+import com.ruoyi.framework.web.domain.Ztree;
 #end
 
 /**

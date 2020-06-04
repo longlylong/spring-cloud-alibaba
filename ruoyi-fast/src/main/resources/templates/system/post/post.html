@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <th:block th:include="include :: header('岗位列表')"/>
 </head>
@@ -11,10 +11,10 @@
                 <div class="select-list">
                     <ul>
                         <li>
-                            岗位编码：<input name="postCode" type="text"/>
+                            岗位编码：<input type="text" name="postCode"/>
                         </li>
                         <li>
-                            岗位名称：<input name="postName" type="text"/>
+                            岗位名称：<input type="text" name="postName"/>
                         </li>
                         <li>
                             岗位状态：<select name="status" th:with="type=${@dict.getType('sys_normal_disable')}">

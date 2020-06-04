@@ -1,7 +1,6 @@
 html {
     height: 100%
 }
-
 body.signin {
     height: auto;
     background: url(../img/login-background.jpg) no-repeat center fixed;
@@ -11,50 +10,41 @@ body.signin {
     background-size: cover;
     color: rgba(255, 255, 255, .95)
 }
-
 .signinpanel {
     width: 750px;
     margin: 10% auto 0
 }
-
 .signinpanel .logopanel {
     float: none;
     width: auto;
     padding: 0;
     background: 0 0
 }
-
 .signinpanel .signin-info ul {
     list-style: none;
     padding: 0;
     margin: 20px 0
 }
-
 .signinpanel .form-control {
     display: block;
     margin-top: 15px
 }
-
 .signinpanel .uname {
     background: #fff url(../img/user.png) no-repeat 95% center;
     color: #333
 }
-
 .signinpanel .pword {
     background: #fff url(../img/locked.png) no-repeat 95% center;
     color: #333
 }
-
 .signinpanel .code {
     background: #fff no-repeat 95% center;
     color: #333;
     margin: 0 0 15px 0;
 }
-
 .signinpanel .btn {
     margin-top: 15px
 }
-
 .signinpanel form {
     background: rgba(255, 255, 255, .2);
     border: 1px solid rgba(255, 255, 255, .3);
@@ -114,7 +104,6 @@ body.signin {
     margin-bottom: 7px;
     display: inline-block;
 }
-
 /*
 将初始的checkbox的样式改变
 */
@@ -127,7 +116,6 @@ body.signin {
     top: 50%;
     left: 3px;
 }
-
 /*
 设计新的checkbox，位置
 */
@@ -144,7 +132,6 @@ body.signin {
     border: 1px solid #bbb;
     background: #fff;
 }
-
 /*
 点击初始的checkbox，将新的checkbox关联起来
 */
@@ -162,7 +149,6 @@ body.signin {
     height: 16px;
     color: #333;
 }
-
 .checkbox-custom label {
     cursor: pointer;
     line-height: 1.2;

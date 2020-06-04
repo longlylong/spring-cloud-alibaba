@@ -27,7 +27,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/monitor/job")
 public class JobController extends BaseController {
-    private String prefix = "monitor/job" ;
+    private String prefix = "monitor/job";
 
     @Autowired
     private IJobService jobService;
@@ -35,7 +35,7 @@ public class JobController extends BaseController {
     @RequiresPermissions("monitor:job:view")
     @GetMapping()
     public String job() {
-        return prefix + "/job" ;
+        return prefix + "/job";
     }
 
     @RequiresPermissions("monitor:job:list")
@@ -71,7 +71,7 @@ public class JobController extends BaseController {
     public String detail(@PathVariable("jobId") Long jobId, ModelMap mmap) {
         mmap.put("name", "job");
         mmap.put("job", jobService.selectJobById(jobId));
-        return prefix + "/detail" ;
+        return prefix + "/detail";
     }
 
     /**
@@ -104,7 +104,7 @@ public class JobController extends BaseController {
      */
     @GetMapping("/add")
     public String add() {
-        return prefix + "/add" ;
+        return prefix + "/add";
     }
 
     /**
@@ -124,7 +124,7 @@ public class JobController extends BaseController {
     @GetMapping("/edit/{jobId}")
     public String edit(@PathVariable("jobId") Long jobId, ModelMap mmap) {
         mmap.put("job", jobService.selectJobById(jobId));
-        return prefix + "/edit" ;
+        return prefix + "/edit";
     }
 
     /**

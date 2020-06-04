@@ -9,13 +9,9 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author ruoyi
  */
 public class UserPost {
-    /**
-     * 用户ID
-     */
+    /** 用户ID */
     private Long userId;
-    /**
-     * 岗位ID
-     */
+    /** 岗位ID */
     private Long postId;
 
     public Long getUserId() {

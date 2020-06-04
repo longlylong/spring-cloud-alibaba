@@ -30,9 +30,10 @@ import java.util.List;
  */
 @Configuration
 public class MyBatisConfig {
-    static final String DEFAULT_RESOURCE_PATTERN = "**/*.class" ;
     @Autowired
     private Environment env;
+
+    static final String DEFAULT_RESOURCE_PATTERN = "**/*.class";
 
     public static String setTypeAliasesPackage(String typeAliasesPackage) {
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();

@@ -18,14 +18,14 @@ import java.beans.PropertyDescriptor;
  */
 @Service("permission")
 public class PermissionService {
-    /**
-     * 没有权限，hidden用于前端隐藏按钮
-     */
-    public static final String NOACCESS = "hidden" ;
     private static final Logger log = LoggerFactory.getLogger(PermissionService.class);
-    private static final String ROLE_DELIMETER = "," ;
 
-    private static final String PERMISSION_DELIMETER = "," ;
+    /** 没有权限，hidden用于前端隐藏按钮 */
+    public static final String NOACCESS = "hidden";
+
+    private static final String ROLE_DELIMETER = ",";
+
+    private static final String PERMISSION_DELIMETER = ",";
 
     /**
      * 验证用户是否具备某权限，无权限返回hidden用于前端隐藏（如需返回Boolean使用isPermitted）
@@ -131,7 +131,7 @@ public class PermissionService {
      * 验证用户是否具有以下任意一个权限。
      *
      * @param permissions 以 delimeter 为分隔符的权限列表
-     * @param delimeter   权限列表分隔符
+     * @param delimeter 权限列表分隔符
      * @return 用户是否具有以下任意一个权限
      */
     public boolean hasAnyPermissions(String permissions, String delimeter) {
@@ -185,7 +185,7 @@ public class PermissionService {
     /**
      * 验证用户是否具有以下任意一个角色。
      *
-     * @param roles     以 delimeter 为分隔符的角色列表
+     * @param roles 以 delimeter 为分隔符的角色列表
      * @param delimeter 角色列表分隔符
      * @return 用户是否具有以下任意一个角色
      */

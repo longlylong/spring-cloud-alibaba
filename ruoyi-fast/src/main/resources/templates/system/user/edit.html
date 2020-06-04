@@ -7,26 +7,26 @@
 <body>
 <div class="main-content">
     <form class="form-horizontal" id="form-user-edit" th:object="${user}">
-        <input name="userId" th:field="*{userId}" type="hidden"/>
-        <input id="treeId" name="deptId" th:field="*{deptId}" type="hidden"/>
+        <input name="userId" type="hidden" th:field="*{userId}"/>
+        <input name="deptId" type="hidden" th:field="*{deptId}" id="treeId"/>
         <h4 class="form-header h4">基本信息</h4>
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label"><span style="color: red; ">*</span>用户名称：</label>
+                    <label class="col-sm-4 control-label is-required">用户名称：</label>
                     <div class="col-sm-8">
-                        <input class="form-control" maxlength="30" name="userName" placeholder="请输入用户名称" required
-                               th:field="*{userName}" type="text">
+                        <input name="userName" placeholder="请输入用户名称" class="form-control" type="text" maxlength="30"
+                               th:field="*{userName}" required>
                     </div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label"><span style="color: red; ">*</span>归属部门：</label>
+                    <label class="col-sm-4 control-label is-required">归属部门：</label>
                     <div class="col-sm-8">
                         <div class="input-group">
-                            <input class="form-control" id="treeName" name="deptName" onclick="selectDeptTree()"
-                                   required th:field="*{dept.deptName}" type="text">
+                            <input class="form-control" type="text" name="deptName" onclick="selectDeptTree()"
+                                   id="treeName" th:field="*{dept.deptName}" required>
                             <span class="input-group-addon"><i class="fa fa-search"></i></span>
                         </div>
                     </div>
@@ -36,19 +36,19 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label"><span style="color: red; ">*</span>手机号码：</label>
+                    <label class="col-sm-4 control-label is-required">手机号码：</label>
                     <div class="col-sm-8">
-                        <input class="form-control" maxlength="11" name="phonenumber" placeholder="请输入手机号码" required
-                               th:field="*{phonenumber}" type="text">
+                        <input name="phonenumber" placeholder="请输入手机号码" class="form-control" type="text" maxlength="11"
+                               th:field="*{phonenumber}" required>
                     </div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label"><span style="color: red; ">*</span>邮箱：</label>
+                    <label class="col-sm-4 control-label is-required">邮箱：</label>
                     <div class="col-sm-8">
-                        <input class="form-control email" maxlength="50" name="email" placeholder="请输入邮箱" required
-                               th:field="*{email}" type="text">
+                        <input name="email" class="form-control email" type="text" maxlength="20" placeholder="请输入邮箱"
+                               th:field="*{email}" required>
                     </div>
                 </div>
             </div>
@@ -56,9 +56,9 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label"><span style="color: red; ">*</span>登录账号：</label>
+                    <label class="col-sm-4 control-label is-required">登录账号：</label>
                     <div class="col-sm-8">
-                        <input class="form-control" readonly="true" th:field="*{loginName}" type="text"/>
+                        <input class="form-control" type="text" readonly="true" th:field="*{loginName}"/>
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                     <label class="col-sm-4 control-label">用户状态：</label>
                     <div class="col-sm-8">
                         <label class="toggle-switch switch-solid">
-                            <input id="status" th:checked="${user.status == '0' ? true : false}" type="checkbox">
+                            <input type="checkbox" id="status" th:checked="${user.status == '0' ? true : false}">
                             <span></span>
                         </label>
                     </div>
@@ -79,10 +79,9 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">岗位：</label>
                     <div class="col-sm-8">
-                        <select class="form-control select2-multiple" id="post" multiple>
-                            <option th:disabled="${post.status == '1'}" th:each="post:${posts}"
-                                    th:selected="${post.flag}"
-                                    th:text="${post.postName}" th:value="${post.postId}"></option>
+                        <select id="post" class="form-control select2-multiple" multiple>
+                            <option th:each="post:${posts}" th:value="${post.postId}" th:text="${post.postName}"
+                                    th:selected="${post.flag}" th:disabled="${post.status == '1'}"></option>
                         </select>
                     </div>
                 </div>
@@ -91,9 +90,9 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">用户性别：</label>
                     <div class="col-sm-8">
-                        <select class="form-control m-b" name="sex" th:with="type=${@dict.getType('sys_user_sex')}">
-                            <option th:each="dict : ${type}" th:field="*{sex}" th:text="${dict.dictLabel}"
-                                    th:value="${dict.dictValue}"></option>
+                        <select name="sex" class="form-control m-b" th:with="type=${@dict.getType('sys_user_sex')}">
+                            <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"
+                                    th:field="*{sex}"></option>
                         </select>
                     </div>
                 </div>
@@ -104,10 +103,9 @@
                 <div class="form-group">
                     <label class="col-xs-2 control-label">角色：</label>
                     <div class="col-xs-10">
-                        <label class="check-box" th:each="role:${roles}">
-                            <input name="role" th:checked="${role.flag}" th:disabled="${role.status == '1'}"
-                                   th:text="${role.roleName}"
-                                   th:value="${role.roleId}" type="checkbox">
+                        <label th:each="role:${roles}" class="check-box">
+                            <input name="role" type="checkbox" th:value="${role.roleId}" th:text="${role.roleName}"
+                                   th:checked="${role.flag}" th:disabled="${role.status == '1'}">
                         </label>
                     </div>
                 </div>
@@ -119,7 +117,7 @@
                 <div class="form-group">
                     <label class="col-xs-2 control-label">备注：</label>
                     <div class="col-xs-10">
-                        <textarea class="form-control" maxlength="500" name="remark" rows="3">[[*{remark}]]</textarea>
+                        <textarea name="remark" maxlength="500" class="form-control" rows="3">[[*{remark}]]</textarea>
                     </div>
                 </div>
             </div>
@@ -128,9 +126,9 @@
 </div>
 <div class="row">
     <div class="col-sm-offset-5 col-sm-10">
-        <button class="btn btn-sm btn-primary" onclick="submitHandler()" type="button"><i class="fa fa-check"></i>保 存
+        <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler()"><i class="fa fa-check"></i>保 存
         </button>&nbsp;
-        <button class="btn btn-sm btn-danger" onclick="closeItem()" type="button"><i class="fa fa-reply-all"></i>关 闭
+        <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i class="fa fa-reply-all"></i>关 闭
         </button>
     </div>
 </div>

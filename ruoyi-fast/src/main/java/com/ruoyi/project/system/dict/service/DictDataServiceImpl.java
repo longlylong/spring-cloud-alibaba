@@ -4,6 +4,7 @@ import com.ruoyi.common.utils.security.ShiroUtils;
 import com.ruoyi.common.utils.text.Convert;
 import com.ruoyi.project.system.dict.domain.DictData;
 import com.ruoyi.project.system.dict.mapper.DictDataMapper;
+import com.ruoyi.project.system.dict.utils.DictUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,20 +32,9 @@ public class DictDataServiceImpl implements IDictDataService {
     }
 
     /**
-     * 根据字典类型查询字典数据
-     *
-     * @param dictType 字典类型
-     * @return 字典数据集合信息
-     */
-    @Override
-    public List<DictData> selectDictDataByType(String dictType) {
-        return dictDataMapper.selectDictDataByType(dictType);
-    }
-
-    /**
      * 根据字典类型和字典键值查询字典数据信息
      *
-     * @param dictType  字典类型
+     * @param dictType 字典类型
      * @param dictValue 字典键值
      * @return 字典标签
      */
@@ -65,17 +55,6 @@ public class DictDataServiceImpl implements IDictDataService {
     }
 
     /**
-     * 通过字典ID删除字典数据信息
-     *
-     * @param dictCode 字典数据ID
-     * @return 结果
-     */
-    @Override
-    public int deleteDictDataById(Long dictCode) {
-        return dictDataMapper.deleteDictDataById(dictCode);
-    }
-
-    /**
      * 批量删除字典数据
      *
      * @param ids 需要删除的数据
@@ -83,7 +62,11 @@ public class DictDataServiceImpl implements IDictDataService {
      */
     @Override
     public int deleteDictDataByIds(String ids) {
-        return dictDataMapper.deleteDictDataByIds(Convert.toStrArray(ids));
+        int row = dictDataMapper.deleteDictDataByIds(Convert.toStrArray(ids));
+        if (row > 0) {
+            DictUtils.clearDictCache();
+        }
+        return row;
     }
 
     /**
@@ -95,7 +78,11 @@ public class DictDataServiceImpl implements IDictDataService {
     @Override
     public int insertDictData(DictData dictData) {
         dictData.setCreateBy(ShiroUtils.getLoginName());
-        return dictDataMapper.insertDictData(dictData);
+        int row = dictDataMapper.insertDictData(dictData);
+        if (row > 0) {
+            DictUtils.clearDictCache();
+        }
+        return row;
     }
 
     /**
@@ -107,6 +94,10 @@ public class DictDataServiceImpl implements IDictDataService {
     @Override
     public int updateDictData(DictData dictData) {
         dictData.setUpdateBy(ShiroUtils.getLoginName());
-        return dictDataMapper.updateDictData(dictData);
+        int row = dictDataMapper.updateDictData(dictData);
+        if (row > 0) {
+            DictUtils.clearDictCache();
+        }
+        return row;
     }
 }

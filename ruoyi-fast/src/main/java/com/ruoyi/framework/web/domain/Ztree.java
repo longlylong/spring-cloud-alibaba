@@ -10,24 +10,16 @@ import java.io.Serializable;
 public class Ztree implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 节点ID
-     */
+    /** 节点ID */
     private Long id;
 
-    /**
-     * 节点父ID
-     */
+    /** 节点父ID */
     private Long pId;
 
-    /**
-     * 节点名称
-     */
+    /** 节点名称 */
     private String name;
 
-    /**
-     * 节点标题
-     */
+    /** 节点标题 */
     private String title;
 
     /**

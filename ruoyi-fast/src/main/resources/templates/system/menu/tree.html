@@ -15,16 +15,16 @@
         }
     </style>
     <body class="hold-transition box box-main">
-        <input id="treeId" name="treeId" th:value="${menu.menuId}" type="hidden"/>
-        <input id="treeName" name="treeName" th:value="${menu.menuName}" type="hidden"/>
+        <input id="treeId" name="treeId" type="hidden" th:value="${menu.menuId}"/>
+        <input id="treeName" name="treeName" type="hidden" th:value="${menu.menuName}"/>
         <div class="wrapper">
             <div class="treeShowHideButton" onclick="$.tree.toggleSearch();">
-                <label id="btnShow" style="display:none;" title="显示搜索">︾</label>
+                <label id="btnShow" title="显示搜索" style="display:none;">︾</label>
                 <label id="btnHide" title="隐藏搜索">︽</label>
             </div>
             <div class="treeSearchInput" id="search">
                 <label for="keyword">关键字：</label>
-                <input class="empty" id="keyword" maxlength="50" type="text">
+                <input type="text" class="empty" id="keyword" maxlength="50">
                 <button class="btn" id="btn" onclick="$.tree.searchNode()">搜索</button>
             </div>
             <div class="treeExpandCollapse">
@@ -32,7 +32,7 @@
                 /
                 <a href="#" onclick="$.tree.collapse()">折叠</a>
             </div>
-            <div class="ztree treeselect" id="tree"></div>
+            <div id="tree" class="ztree treeselect"></div>
         </div>
         <th:block th:include="include :: footer"/>
         <th:block th:include="include :: ztree-js"/>

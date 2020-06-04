@@ -1,25 +1,28 @@
-package ${packageName}import com.ruoyi.common.utils.StringUtils;
-import com.ruoyi.common.utils.poi.ExcelUtil;
-import com.ruoyi.framework.aspectj.lang.annotation.Log;
-import com.ruoyi.framework.aspectj.lang.enums.BusinessType;
-import com.ruoyi.framework.web.controller.BaseController;
-import com.ruoyi.framework.web.domain.AjaxResult;
-import com.ruoyi.framework.web.domain.Ztree;
-import com.ruoyi.framework.web.page.TableDataInfo;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+package ${packageName}.${businessName}.controller;
 
 import java.util.List;
 
-        .${businessName}.controller;
-            ${packageName}
-                .${businessName}.domain.${ClassName};
-            ${packageName}
-                .${businessName}.service.I${ClassName}Service;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import com.ruoyi.framework.aspectj.lang.annotation.Log;
+import com.ruoyi.framework.aspectj.lang.enums.BusinessType;
+import ${packageName}.${businessName}.domain.${ClassName};
+import ${packageName}.${businessName}.service.I${ClassName}Service;
+import com.ruoyi.framework.web.controller.BaseController;
+import com.ruoyi.framework.web.domain.AjaxResult;
+import com.ruoyi.common.utils.poi.ExcelUtil;
 #if($table.crud)
+import com.ruoyi.framework.web.page.TableDataInfo;
 #elseif($table.tree)
+import com.ruoyi.common.utils.StringUtils;
+import com.ruoyi.framework.web.domain.Ztree;
 #end
 
 /**
@@ -31,7 +34,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/${moduleName}/${businessName}")
 public class ${ClassName}Controller extends BaseController {
-    private String prefix = "${moduleName}/${businessName}" ;
+    private String prefix = "${moduleName}/${businessName}";
 
     @Autowired
     private I${ClassName}Service ${className}Service;
@@ -39,21 +42,10 @@ public class ${ClassName}Controller extends BaseController {
     @RequiresPermissions("${permissionPrefix}:view")
     @GetMapping()
     public String ${businessName}() {
-        return prefix + "/${businessName}" ;
+        return prefix + "/${businessName}";
     }
 
-    #if($table.tree)
-        /**
-         * 查询${functionName}树列表
-         */
-        @RequiresPermissions("${permissionPrefix}:list")
-        @PostMapping("/list")
-        @ResponseBody
-        public List<${ClassName}> list(${ClassName} ${className}) {
-            List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
-            return list;
-        }
-    #elseif($table.crud)
+    #if($table.crud)
         /**
          * 查询${functionName}列表
          */
@@ -64,6 +56,17 @@ public class ${ClassName}Controller extends BaseController {
             startPage();
             List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
             return getDataTable(list);
+        }
+    #elseif($table.tree)
+        /**
+         * 查询${functionName}树列表
+         */
+        @RequiresPermissions("${permissionPrefix}:list")
+        @PostMapping("/list")
+        @ResponseBody
+        public List<${ClassName}> list(${ClassName} ${className}) {
+            List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
+            return list;
         }
     #end
 
@@ -86,7 +89,7 @@ public class ${ClassName}Controller extends BaseController {
          */
         @GetMapping("/add")
         public String add() {
-            return prefix + "/add" ;
+            return prefix + "/add";
         }
     #elseif($table.tree)
         /**
@@ -97,7 +100,7 @@ public class ${ClassName}Controller extends BaseController {
             if (StringUtils.isNotNull(${pkColumn.javaField})) {
                 mmap.put("${className}", ${className}Service.select${ClassName}ById(${pkColumn.javaField}));
             }
-            return prefix + "/add" ;
+            return prefix + "/add";
         }
     #end
 
@@ -119,7 +122,7 @@ public class ${ClassName}Controller extends BaseController {
     public String edit(@PathVariable("${pkColumn.javaField}") ${pkColumn.javaType} ${pkColumn.javaField}, ModelMap mmap) {
         ${ClassName} ${className} =${className}Service.select${ClassName}ById(${pkColumn.javaField});
         mmap.put("${className}", ${className});
-        return prefix + "/edit" ;
+        return prefix + "/edit";
     }
 
     /**
@@ -167,7 +170,7 @@ public class ${ClassName}Controller extends BaseController {
             if (StringUtils.isNotNull(${pkColumn.javaField})) {
                 mmap.put("${className}", ${className}Service.select${ClassName}ById(${pkColumn.javaField}));
             }
-            return prefix + "/tree" ;
+            return prefix + "/tree";
         }
 
         /**

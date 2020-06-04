@@ -29,7 +29,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/system/role")
 public class RoleController extends BaseController {
-    private String prefix = "system/role" ;
+    private String prefix = "system/role";
 
     @Autowired
     private IRoleService roleService;
@@ -40,7 +40,7 @@ public class RoleController extends BaseController {
     @RequiresPermissions("system:role:view")
     @GetMapping()
     public String role() {
-        return prefix + "/role" ;
+        return prefix + "/role";
     }
 
     @RequiresPermissions("system:role:list")
@@ -67,7 +67,7 @@ public class RoleController extends BaseController {
      */
     @GetMapping("/add")
     public String add() {
-        return prefix + "/add" ;
+        return prefix + "/add";
     }
 
     /**
@@ -93,7 +93,7 @@ public class RoleController extends BaseController {
     @GetMapping("/edit/{roleId}")
     public String edit(@PathVariable("roleId") Long roleId, ModelMap mmap) {
         mmap.put("role", roleService.selectRoleById(roleId));
-        return prefix + "/edit" ;
+        return prefix + "/edit";
     }
 
     /**
@@ -119,7 +119,7 @@ public class RoleController extends BaseController {
     @GetMapping("/authDataScope/{roleId}")
     public String authDataScope(@PathVariable("roleId") Long roleId, ModelMap mmap) {
         mmap.put("role", roleService.selectRoleById(roleId));
-        return prefix + "/dataScope" ;
+        return prefix + "/dataScope";
     }
 
     /**
@@ -173,7 +173,7 @@ public class RoleController extends BaseController {
      */
     @GetMapping("/selectMenuTree")
     public String selectMenuTree() {
-        return prefix + "/tree" ;
+        return prefix + "/tree";
     }
 
     /**
@@ -195,7 +195,7 @@ public class RoleController extends BaseController {
     @GetMapping("/authUser/{roleId}")
     public String authUser(@PathVariable("roleId") Long roleId, ModelMap mmap) {
         mmap.put("role", roleService.selectRoleById(roleId));
-        return prefix + "/authUser" ;
+        return prefix + "/authUser";
     }
 
     /**
@@ -236,7 +236,7 @@ public class RoleController extends BaseController {
     @GetMapping("/authUser/selectUser/{roleId}")
     public String selectUser(@PathVariable("roleId") Long roleId, ModelMap mmap) {
         mmap.put("role", roleService.selectRoleById(roleId));
-        return prefix + "/selectUser" ;
+        return prefix + "/selectUser";
     }
 
     /**

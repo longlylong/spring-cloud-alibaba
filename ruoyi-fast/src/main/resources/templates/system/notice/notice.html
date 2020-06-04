@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <th:block th:include="include :: header('通知公告列表')"/>
 </head>
@@ -11,10 +11,10 @@
                 <div class="select-list">
                     <ul>
                         <li>
-                            公告标题：<input name="noticeTitle" type="text"/>
+                            公告标题：<input type="text" name="noticeTitle"/>
                         </li>
                         <li>
-                            操作人员：<input name="createBy" type="text"/>
+                            操作人员：<input type="text" name="createBy"/>
                         </li>
                         <li>
                             公告类型：<select name="noticeType" th:with="type=${@dict.getType('sys_notice_type')}">

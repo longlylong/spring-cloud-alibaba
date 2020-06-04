@@ -33,6 +33,8 @@
 
             var vFormAvd = createFormAvd(pColumns, searchText, that),
                 timeoutId = 0;
+
+
             $('#avdSearchModalContent' + "_" + that.options.idTable).append(vFormAvd.join(''));
 
             $('#' + that.options.idForm).off('keyup blur', 'input').on('keyup blur', 'input', function (event) {

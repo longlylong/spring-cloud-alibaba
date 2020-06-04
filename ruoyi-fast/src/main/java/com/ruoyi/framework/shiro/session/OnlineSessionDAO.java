@@ -21,14 +21,16 @@ import java.util.Date;
  */
 public class OnlineSessionDAO extends EnterpriseCacheSessionDAO {
     /**
-     * 上次同步数据库的时间戳
-     */
-    private static final String LAST_SYNC_DB_TIMESTAMP = OnlineSessionDAO.class.getName() + "LAST_SYNC_DB_TIMESTAMP" ;
-    /**
      * 同步session到数据库的周期 单位为毫秒（默认1分钟）
      */
     @Value("${shiro.session.dbSyncPeriod}")
     private int dbSyncPeriod;
+
+    /**
+     * 上次同步数据库的时间戳
+     */
+    private static final String LAST_SYNC_DB_TIMESTAMP = OnlineSessionDAO.class.getName() + "LAST_SYNC_DB_TIMESTAMP";
+
     @Autowired
     private IUserOnlineService onlineService;
 
@@ -79,11 +81,11 @@ public class OnlineSessionDAO extends EnterpriseCacheSessionDAO {
             boolean isGuest = onlineSession.getUserId() == null || onlineSession.getUserId() == 0L;
 
             // session 数据变更了 同步
-            if (isGuest == false && onlineSession.isAttributeChanged()) {
+            if (!isGuest && onlineSession.isAttributeChanged()) {
                 needSync = true;
             }
 
-            if (needSync == false) {
+            if (!needSync) {
                 return;
             }
         }

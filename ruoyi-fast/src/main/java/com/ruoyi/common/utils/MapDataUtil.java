@@ -17,18 +17,18 @@ public class MapDataUtil {
         Map<String, Object> returnMap = new HashMap<String, Object>();
         Iterator<?> entries = properties.entrySet().iterator();
         Map.Entry<?, ?> entry;
-        String name = "" ;
-        String value = "" ;
+        String name = "";
+        String value = "";
         while (entries.hasNext()) {
             entry = (Entry<?, ?>) entries.next();
             name = (String) entry.getKey();
             Object valueObj = entry.getValue();
             if (null == valueObj) {
-                value = "" ;
+                value = "";
             } else if (valueObj instanceof String[]) {
                 String[] values = (String[]) valueObj;
                 for (int i = 0; i < values.length; i++) {
-                    value = values[i] + "," ;
+                    value = values[i] + ",";
                 }
                 value = value.substring(0, value.length() - 1);
             } else {

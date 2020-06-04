@@ -2,13 +2,13 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>统计</title>
-    <link href="favicon.ico" rel="shortcut icon">
-    <link href="../static/css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
-    <link href="../static/css/font-awesome.min.css" rel="stylesheet" th:href="@{/css/font-awesome.min.css}"/>
-    <link href="../static/css/main/animate.min.css" rel="stylesheet" th:href="@{/css/main/animate.min.css}"/>
-    <link href="../static/css/main/style.min862f.css" rel="stylesheet" th:href="@{/css/main/style.min862f.css}"/>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
+    <link href="../static/css/main/animate.min.css" th:href="@{/css/main/animate.min.css}" rel="stylesheet"/>
+    <link href="../static/css/main/style.min862f.css" th:href="@{/css/main/style.min862f.css}" rel="stylesheet"/>
 </head>
 
 <body class="gray-bg">
@@ -80,9 +80,9 @@
                     <h5>订单</h5>
                     <div class="pull-right">
                         <div class="btn-group">
-                            <button class="btn btn-xs btn-white active" type="button">天</button>
-                            <button class="btn btn-xs btn-white" type="button">月</button>
-                            <button class="btn btn-xs btn-white" type="button">年</button>
+                            <button type="button" class="btn btn-xs btn-white active">天</button>
+                            <button type="button" class="btn btn-xs btn-white">月</button>
+                            <button type="button" class="btn btn-xs btn-white">年</button>
                         </div>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                                     <div class="stat-percent">48% <i class="fa fa-level-up text-navy"></i>
                                     </div>
                                     <div class="progress progress-mini">
-                                        <div class="progress-bar" style="width: 48%;"></div>
+                                        <div style="width: 48%;" class="progress-bar"></div>
                                     </div>
                                 </li>
                                 <li>
@@ -110,7 +110,7 @@
                                     <div class="stat-percent">60% <i class="fa fa-level-down text-navy"></i>
                                     </div>
                                     <div class="progress progress-mini">
-                                        <div class="progress-bar" style="width: 60%;"></div>
+                                        <div style="width: 60%;" class="progress-bar"></div>
                                     </div>
                                 </li>
                                 <li>
@@ -119,7 +119,7 @@
                                     <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i>
                                     </div>
                                     <div class="progress progress-mini">
-                                        <div class="progress-bar" style="width: 22%;"></div>
+                                        <div style="width: 22%;" class="progress-bar"></div>
                                     </div>
                                 </li>
                             </ul>

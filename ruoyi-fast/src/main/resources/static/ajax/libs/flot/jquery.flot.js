@@ -1254,8 +1254,8 @@
             if (typeof opts.ticks == "number" && opts.ticks > 0)
                 noTicks = opts.ticks;
             else
-            // heuristic based on the model a*sqrt(x) fitted to
-            // some data points that seemed reasonable
+                // heuristic based on the model a*sqrt(x) fitted to
+                // some data points that seemed reasonable
                 noTicks = 0.3 * Math.sqrt(axis.direction == "x" ? canvasWidth : canvasHeight);
 
             var delta = (axis.max - axis.min) / noTicks,
@@ -1519,7 +1519,7 @@
                 ticks = axis.tickGenerator(axis);
             else if (oticks) {
                 if ($.isFunction(oticks))
-                // generate the ticks
+                    // generate the ticks
                     ticks = oticks({min: axis.min, max: axis.max});
                 else
                     ticks = oticks;

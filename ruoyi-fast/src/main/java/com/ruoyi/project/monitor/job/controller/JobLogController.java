@@ -1,13 +1,16 @@
 package com.ruoyi.project.monitor.job.controller;
 
+import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.framework.aspectj.lang.annotation.Log;
 import com.ruoyi.framework.aspectj.lang.enums.BusinessType;
 import com.ruoyi.framework.web.controller.BaseController;
 import com.ruoyi.framework.web.domain.AjaxResult;
 import com.ruoyi.framework.web.page.TableDataInfo;
+import com.ruoyi.project.monitor.job.domain.Job;
 import com.ruoyi.project.monitor.job.domain.JobLog;
 import com.ruoyi.project.monitor.job.service.IJobLogService;
+import com.ruoyi.project.monitor.job.service.IJobService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,15 +27,22 @@ import java.util.List;
 @Controller
 @RequestMapping("/monitor/jobLog")
 public class JobLogController extends BaseController {
-    private String prefix = "monitor/job" ;
+    private String prefix = "monitor/job";
+
+    @Autowired
+    private IJobService jobService;
 
     @Autowired
     private IJobLogService jobLogService;
 
     @RequiresPermissions("monitor:job:view")
     @GetMapping()
-    public String jobLog() {
-        return prefix + "/jobLog" ;
+    public String jobLog(@RequestParam(value = "jobId", required = false) Long jobId, ModelMap mmap) {
+        if (StringUtils.isNotNull(jobId)) {
+            Job job = jobService.selectJobById(jobId);
+            mmap.put("job", job);
+        }
+        return prefix + "/jobLog";
     }
 
     @RequiresPermissions("monitor:job:list")
@@ -67,7 +77,7 @@ public class JobLogController extends BaseController {
     public String detail(@PathVariable("jobLogId") Long jobLogId, ModelMap mmap) {
         mmap.put("name", "jobLog");
         mmap.put("jobLog", jobLogService.selectJobLogById(jobLogId));
-        return prefix + "/detail" ;
+        return prefix + "/detail";
     }
 
     @Log(title = "调度日志", businessType = BusinessType.CLEAN)

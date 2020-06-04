@@ -1,26 +1,28 @@
 <!-- 通用CSS -->
 <head th:fragment=header(title)>
     <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
     <title th:text="${title}"></title>
-    <link href="favicon.ico" rel="shortcut icon">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}"/>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
     <!-- bootstrap-table 表格插件样式 -->
-    <link rel="stylesheet" th:href="@{/ajax/libs/bootstrap-table/bootstrap-table.min.css}"/>
-    <link rel="stylesheet" th:href="@{/css/animate.css}"/>
-    <link rel="stylesheet" th:href="@{/css/style.css}"/>
-    <link rel="stylesheet" th:href="@{/ruoyi/css/ry-ui.css}"/>
+    <link th:href="@{/ajax/libs/bootstrap-table/bootstrap-table.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/animate.css}" rel="stylesheet"/>
+    <link th:href="@{/css/style.css?v=20200318}" rel="stylesheet"/>
+    <link th:href="@{/ruoyi/css/ry-ui.css}" rel="stylesheet"/>
 </head>
 
 <!-- 通用JS -->
 <div th:fragment="footer">
+    <a id="scroll-up" href="#" class="btn btn-sm display"><i class="fa fa-angle-double-up"></i></a>
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
     <!-- bootstrap-table 表格插件 -->
-    <script th:src="@{/ajax/libs/bootstrap-table/bootstrap-table.min.js}"></script>
+    <script th:src="@{/ajax/libs/bootstrap-table/bootstrap-table.min.js?v=20200529}"></script>
     <script th:src="@{/ajax/libs/bootstrap-table/locale/bootstrap-table-zh-CN.min.js}"></script>
     <script th:src="@{/ajax/libs/bootstrap-table/extensions/mobile/bootstrap-table-mobile.js}"></script>
     <script th:src="@{/ajax/libs/bootstrap-table/extensions/toolbar/bootstrap-table-toolbar.min.js}"></script>
@@ -39,14 +41,14 @@
     <script th:src="@{/ajax/libs/iCheck/icheck.min.js}"></script>
     <script th:src="@{/ajax/libs/layer/layer.min.js}"></script>
     <script th:src="@{/ajax/libs/layui/layui.js}"></script>
-    <script th:src="@{/ruoyi/js/common.js?v=4.1.0}"></script>
-    <script th:src="@{/ruoyi/js/ry-ui.js?v=4.1.0}"></script>
-    <script th:inline="javascript"> var ctx = window.location.protocol + "//" + window.location.host + "/";</script>
+    <script th:src="@{/ruoyi/js/common.js?v=4.2.0}"></script>
+    <script th:src="@{/ruoyi/js/ry-ui.js?v=4.2.0}"></script>
+    <script th:inline="javascript"> var ctx = [[@{/}]]; </script>
 </div>
 
 <!-- ztree树插件 -->
 <div th:fragment="ztree-css">
-    <link rel="stylesheet" th:href="@{/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css}"/>
+    <link th:href="@{/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css}" rel="stylesheet"/>
 </div>
 <div th:fragment="ztree-js">
     <script th:src="@{/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js}"></script>
@@ -54,8 +56,8 @@
 
 <!-- select2下拉框插件 -->
 <div th:fragment="select2-css">
-    <link rel="stylesheet" th:href="@{/ajax/libs/select2/select2.min.css}"/>
-    <link rel="stylesheet" th:href="@{/ajax/libs/select2/select2-bootstrap.css}"/>
+    <link th:href="@{/ajax/libs/select2/select2.min.css}" rel="stylesheet"/>
+    <link th:href="@{/ajax/libs/select2/select2-bootstrap.css}" rel="stylesheet"/>
 </div>
 <div th:fragment="select2-js">
     <script th:src="@{/ajax/libs/select2/select2.min.js}"></script>
@@ -63,7 +65,7 @@
 
 <!-- bootstrap-select下拉框插件 -->
 <div th:fragment="bootstrap-select-css">
-    <link rel="stylesheet" th:href="@{/ajax/libs/bootstrap-select/bootstrap-select.css}"/>
+    <link th:href="@{/ajax/libs/bootstrap-select/bootstrap-select.css}" rel="stylesheet"/>
 </div>
 <div th:fragment="bootstrap-select-js">
     <script th:src="@{/ajax/libs/bootstrap-select/bootstrap-select.js}"></script>
@@ -71,15 +73,15 @@
 
 <!-- datetimepicker日期和时间插件 -->
 <div th:fragment="datetimepicker-css">
-    <link rel="stylesheet" th:href="@{/ajax/libs/datapicker/bootstrap-datetimepicker.min.css}"/>
+    <link th:href="@{/ajax/libs/datapicker/bootstrap-datetimepicker.min.css}" rel="stylesheet"/>
 </div>
 <div th:fragment="datetimepicker-js">
-    <script th:src="@{/ajax/libs//datapicker/bootstrap-datetimepicker.min.js}"></script>
+    <script th:src="@{/ajax/libs/datapicker/bootstrap-datetimepicker.min.js}"></script>
 </div>
 
 <!-- ui布局插件 -->
 <div th:fragment="layout-latest-css">
-    <link rel="stylesheet" th:href="@{/ajax/libs/jquery-layout/jquery.layout-latest.css}"/>
+    <link th:href="@{/ajax/libs/jquery-layout/jquery.layout-latest.css}" rel="stylesheet"/>
 </div>
 <div th:fragment="layout-latest-js">
     <script th:src="@{/ajax/libs/jquery-layout/jquery.layout-latest.js}"></script>
@@ -87,8 +89,8 @@
 
 <!-- summernote富文本编辑器插件 -->
 <div th:fragment="summernote-css">
-    <link rel="stylesheet" th:href="@{/ajax/libs/summernote/summernote.css}"/>
-    <link rel="stylesheet" th:href="@{/ajax/libs/summernote/summernote-bs3.css}"/>
+    <link th:href="@{/ajax/libs/summernote/summernote.css}" rel="stylesheet"/>
+    <link th:href="@{/ajax/libs/summernote/summernote-bs3.css}" rel="stylesheet"/>
 </div>
 <div th:fragment="summernote-js">
     <script th:src="@{/ajax/libs/summernote/summernote.min.js}"></script>
@@ -97,7 +99,7 @@
 
 <!-- cropbox图像裁剪插件 -->
 <div th:fragment="cropbox-css">
-    <link rel="stylesheet" th:href="@{/ajax/libs/cropbox/cropbox.css}"/>
+    <link th:href="@{/ajax/libs/cropbox/cropbox.css}" rel="stylesheet"/>
 </div>
 <div th:fragment="cropbox-js">
     <script th:src="@{/ajax/libs/cropbox/cropbox.js}"></script>
@@ -105,7 +107,7 @@
 
 <!-- jasny功能扩展插件 -->
 <div th:fragment="jasny-bootstrap-css">
-    <link rel="stylesheet" th:href="@{/ajax/libs/jasny/jasny-bootstrap.min.css}"/>
+    <link th:href="@{/ajax/libs/jasny/jasny-bootstrap.min.css}" rel="stylesheet"/>
 </div>
 <div th:fragment="jasny-bootstrap-js">
     <script th:src="@{/ajax/libs/jasny/jasny-bootstrap.min.js}"></script>
@@ -113,7 +115,7 @@
 
 <!-- fileinput文件上传插件 -->
 <div th:fragment="bootstrap-fileinput-css">
-    <link rel="stylesheet" th:href="@{/ajax/libs/bootstrap-fileinput/fileinput.min.css}"/>
+    <link th:href="@{/ajax/libs/bootstrap-fileinput/fileinput.min.css}" rel="stylesheet"/>
 </div>
 <div th:fragment="bootstrap-fileinput-js">
     <script th:src="@{/ajax/libs/bootstrap-fileinput/fileinput.min.js}"></script>
@@ -121,7 +123,7 @@
 
 <!-- duallistbox双列表框插件 -->
 <div th:fragment="bootstrap-duallistbox-css">
-    <link rel="stylesheet" th:href="@{/ajax/libs/duallistbox/bootstrap-duallistbox.min.css}"/>
+    <link th:href="@{/ajax/libs/duallistbox/bootstrap-duallistbox.min.css}" rel="stylesheet"/>
 </div>
 <div th:fragment="bootstrap-duallistbox-js">
     <script th:src="@{/ajax/libs/duallistbox/bootstrap-duallistbox.min.js}"></script>
@@ -137,9 +139,14 @@
     <script th:src="@{/ajax/libs/typeahead/bootstrap3-typeahead.min.js}"></script>
 </div>
 
+<!-- 多级联动下拉 -->
+<div th:fragment="jquery-cxselect-js">
+    <script th:src="@{/ajax/libs/cxselect/jquery.cxselect.min.js}"></script>
+</div>
+
 <!-- jsonview格式化和语法高亮JSON格式数据查看插件 -->
 <div th:fragment="jsonview-css">
-    <link rel="stylesheet" th:href="@{/ajax/libs/jsonview/jquery.jsonview.css}"/>
+    <link th:href="@{/ajax/libs/jsonview/jquery.jsonview.css}" rel="stylesheet"/>
 </div>
 <div th:fragment="jsonview-js">
     <script th:src="@{/ajax/libs/jsonview/jquery.jsonview.js}"></script>
@@ -147,7 +154,7 @@
 
 <!-- jquery.steps表单向导插件 -->
 <div th:fragment="jquery-steps-css">
-    <link rel="stylesheet" th:href="@{/ajax/libs/staps/jquery.steps.css}"/>
+    <link th:href="@{/ajax/libs/staps/jquery.steps.css}" rel="stylesheet"/>
 </div>
 <div th:fragment="jquery-steps-js">
     <script th:src="@{/ajax/libs/staps/jquery.steps.min.js}"></script>
@@ -176,7 +183,7 @@
 
 <!-- 表格行内编辑插件 -->
 <div th:fragment="bootstrap-editable-css">
-    <link rel="stylesheet" th:href="@{/ajax/libs/bootstrap-table/extensions/editable/bootstrap-editable.css}"/>
+    <link th:href="@{/ajax/libs/bootstrap-table/extensions/editable/bootstrap-editable.css}" rel="stylesheet"/>
 </div>
 <div th:fragment="bootstrap-table-editable-js">
     <script th:src="@{/ajax/libs/bootstrap-table/extensions/editable/bootstrap-editable.min.js}"></script>

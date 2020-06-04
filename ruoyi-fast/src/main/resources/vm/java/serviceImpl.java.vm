@@ -1,26 +1,23 @@
-package ${packageName}import com.ruoyi.common.utils.DateUtils;
-import com.ruoyi.common.utils.text.Convert;
-import com.ruoyi.framework.web.domain.Ztree;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+package ${packageName}.${businessName}.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
-
-.${businessName}.service.impl;
     #if($table.tree)
+    import java.util.ArrayList;
+
+    import com.ruoyi.framework.web.domain.Ztree;
     #end
-    #foreach($column in $columns)
-        #if($column.javaField=='createTime'||$column.javaField=='updateTime')
+    #foreach ($column in $columns)
+        #if($column.javaField == 'createTime' || $column.javaField == 'updateTime')
+        import com.ruoyi.common.utils.DateUtils;
             #break
         #end
     #end
-    ${packageName}
-        .${businessName}.mapper.${ClassName}Mapper;
-    ${packageName}
-        .${businessName}.domain.${ClassName};
-    ${packageName}
-        .${businessName}.service.I${ClassName}Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import ${packageName}.${businessName}.mapper.${ClassName}Mapper;
+import ${packageName}.${businessName}.domain.${ClassName};
+import ${packageName}.${businessName}.service.I${ClassName}Service;
+import com.ruoyi.common.utils.text.Convert;
 
 /**
  * ${functionName}Service业务层处理

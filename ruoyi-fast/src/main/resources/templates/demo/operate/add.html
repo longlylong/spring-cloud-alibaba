@@ -9,20 +9,20 @@
         <div class="form-group">
             <label class="col-sm-3 control-label">用户编号：</label>
             <div class="col-sm-8">
-                <input class="form-control" id="userCode" name="userCode" required type="text">
+                <input class="form-control" type="text" name="userCode" id="userCode" required>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label ">用户姓名：</label>
+            <label class="col-sm-3 control-label">用户姓名：</label>
             <div class="col-sm-8">
-                <input class="form-control" id="userName" name="userName" required type="text">
+                <input class="form-control" type="text" name="userName" id="userName" required>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label">用户性别：</label>
             <div class="col-sm-8">
                 <div class="input-group" style="width: 100%">
-                    <select class="form-control m-b" name="userSex" th:with="type=${@dict.getType('sys_user_sex')}">
+                    <select name="userSex" class="form-control m-b" th:with="type=${@dict.getType('sys_user_sex')}">
                         <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
                                 th:value="${dict.dictValue}"></option>
                     </select>
@@ -32,22 +32,21 @@
         <div class="form-group">
             <label class="col-sm-3 control-label">用户手机：</label>
             <div class="col-sm-8">
-                <input class="form-control" id="userPhone" name="userPhone" type="text">
+                <input class="form-control" type="text" name="userPhone" id="userPhone">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label">用户邮箱：</label>
             <div class="col-sm-8">
-                <input class="form-control" id="userEmail" name="userEmail" type="text">
+                <input class="form-control" type="text" name="userEmail" id="userEmail">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label">用户状态：</label>
             <div class="col-sm-8">
                 <div class="radio-box" th:each="dict : ${@dict.getType('sys_normal_disable')}">
-                    <input name="status" th:checked="${dict.default}" th:id="${dict.dictCode}"
-                           th:value="${dict.dictValue}"
-                           type="radio">
+                    <input type="radio" th:id="${dict.dictCode}" name="status" th:value="${dict.dictValue}"
+                           th:checked="${dict.default}">
                     <label th:for="${dict.dictCode}" th:text="${dict.dictLabel}"></label>
                 </div>
             </div>

@@ -17,9 +17,9 @@
     </resultMap>
 
     <insert id="insertLogininfor" parameterType="Logininfor">
-		insert into sys_logininfor (login_name, status, ipaddr, login_location, browser, os, msg, login_time)
-		values (#{loginName}, #{status}, #{ipaddr}, #{loginLocation}, #{browser}, #{os}, #{msg}, sysdate())
-	</insert>
+        insert into sys_logininfor (login_name, status, ipaddr, login_location, browser, os, msg, login_time)
+        values (#{loginName}, #{status}, #{ipaddr}, #{loginLocation}, #{browser}, #{os}, #{msg}, sysdate())
+    </insert>
 
     <select id="selectLogininforList" parameterType="Logininfor" resultMap="LogininforResult">
         select info_id,login_name,ipaddr,login_location,browser,os,status,msg,login_time from sys_logininfor

@@ -23,7 +23,7 @@ import java.util.*;
  */
 @Service
 public class MenuServiceImpl implements IMenuService {
-    public static final String PREMISSION_STRING = "perms[\"{0}\"]" ;
+    public static final String PREMISSION_STRING = "perms[\"{0}\"]";
 
     @Autowired
     private MenuMapper menuMapper;
@@ -164,9 +164,9 @@ public class MenuServiceImpl implements IMenuService {
     /**
      * 对象转菜单树
      *
-     * @param menuList     菜单列表
+     * @param menuList 菜单列表
      * @param roleMenuList 角色已存在菜单列表
-     * @param permsFlag    是否需要显示权限标识
+     * @param permsFlag 是否需要显示权限标识
      * @return 树结构列表
      */
     public List<Ztree> initZtree(List<Menu> menuList, List<String> roleMenuList, boolean permsFlag) {

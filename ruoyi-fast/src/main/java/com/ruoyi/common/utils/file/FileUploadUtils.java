@@ -37,12 +37,12 @@ public class FileUploadUtils {
 
     private static int counter = 0;
 
-    public static String getDefaultBaseDir() {
-        return defaultBaseDir;
-    }
-
     public static void setDefaultBaseDir(String defaultBaseDir) {
         FileUploadUtils.defaultBaseDir = defaultBaseDir;
+    }
+
+    public static String getDefaultBaseDir() {
+        return defaultBaseDir;
     }
 
     /**
@@ -64,7 +64,7 @@ public class FileUploadUtils {
      * 根据文件路径上传
      *
      * @param baseDir 相对应用的基目录
-     * @param file    上传的文件
+     * @param file 上传的文件
      * @return 文件名称
      * @throws IOException
      */
@@ -79,14 +79,14 @@ public class FileUploadUtils {
     /**
      * 文件上传
      *
-     * @param baseDir   相对应用的基目录
-     * @param file      上传的文件
-     * @param extension 上传文件类型
+     * @param baseDir 相对应用的基目录
+     * @param file 上传的文件
+     * @param allowedExtension 上传文件类型
      * @return 返回上传成功的文件名
-     * @throws FileSizeLimitExceededException       如果超出最大大小
+     * @throws FileSizeLimitExceededException 如果超出最大大小
      * @throws FileNameLengthLimitExceededException 文件名太长
-     * @throws IOException                          比如读写文件出错时
-     * @throws InvalidExtensionException            文件校验异常
+     * @throws IOException 比如读写文件出错时
+     * @throws InvalidExtensionException 文件校验异常
      */
     public static final String upload(String baseDir, MultipartFile file, String[] allowedExtension)
             throws FileSizeLimitExceededException, IOException, FileNameLengthLimitExceededException,

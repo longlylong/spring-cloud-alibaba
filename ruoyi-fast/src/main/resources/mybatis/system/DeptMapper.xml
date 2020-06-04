@@ -23,17 +23,29 @@
     </resultMap>
 
     <sql id="selectDeptVo">
-        select d.dept_id, d.parent_id, d.ancestors, d.dept_name, d.order_num, d.leader, d.phone, d.email, d.status, d.del_flag, d.create_by, d.create_time 
+        select d.dept_id,
+               d.parent_id,
+               d.ancestors,
+               d.dept_name,
+               d.order_num,
+               d.leader,
+               d.phone,
+               d.email,
+               d.status,
+               d.del_flag,
+               d.create_by,
+               d.create_time
         from sys_dept d
     </sql>
 
     <select id="selectRoleDeptTree" parameterType="Long" resultType="String">
-		select concat(d.dept_id, d.dept_name) as dept_name
-		from sys_dept d
-			left join sys_role_dept rd on d.dept_id = rd.dept_id
-		where d.del_flag = '0' and rd.role_id = #{roleId}
-		order by d.parent_id, d.order_num
-	</select>
+        select concat(d.dept_id, d.dept_name) as dept_name
+        from sys_dept d
+                 left join sys_role_dept rd on d.dept_id = rd.dept_id
+        where d.del_flag = '0'
+          and rd.role_id = #{roleId}
+        order by d.parent_id, d.order_num
+    </select>
 
     <select id="selectDeptList" parameterType="Dept" resultMap="DeptResult">
         <include refid="selectDeptVo"/>
@@ -53,8 +65,11 @@
     </select>
 
     <select id="checkDeptExistUser" parameterType="Long" resultType="int">
-		select count(1) from sys_user where dept_id = #{deptId} and del_flag = '0'
-	</select>
+        select count(1)
+        from sys_user
+        where dept_id = #{deptId}
+          and del_flag = '0'
+    </select>
 
     <select id="selectDeptCount" parameterType="Dept" resultType="int">
         select count(1) from sys_dept
@@ -69,15 +84,33 @@
     </select>
 
     <select id="selectDeptById" parameterType="Long" resultMap="DeptResult">
-		select d.dept_id, d.parent_id, d.ancestors, d.dept_name, d.order_num, d.leader, d.phone, d.email, d.status,
-			(select dept_name from sys_dept where dept_id = d.parent_id) parent_name
-		from sys_dept d
-		where d.dept_id = #{deptId}
-	</select>
+        select d.dept_id,
+               d.parent_id,
+               d.ancestors,
+               d.dept_name,
+               d.order_num,
+               d.leader,
+               d.phone,
+               d.email,
+               d.status,
+               (select dept_name from sys_dept where dept_id = d.parent_id) parent_name
+        from sys_dept d
+        where d.dept_id = #{deptId}
+    </select>
 
     <select id="selectChildrenDeptById" parameterType="Long" resultMap="DeptResult">
-		select * from sys_dept where find_in_set(#{deptId}, ancestors)
-	</select>
+        select *
+        from sys_dept
+        where find_in_set(#{deptId}, ancestors)
+    </select>
+
+    <select id="selectNormalChildrenDeptById" parameterType="Long" resultType="int">
+        select count(*)
+        from sys_dept
+        where status = 0
+          and del_flag = '0'
+          and find_in_set(#{deptId}, ancestors)
+    </select>
 
     <insert id="insertDept" parameterType="Dept">
         insert into sys_dept(
@@ -138,8 +171,10 @@
     </update>
 
     <delete id="deleteDeptById" parameterType="Long">
-		update sys_dept set del_flag = '2' where dept_id = #{deptId}
-	</delete>
+        update sys_dept
+        set del_flag = '2'
+        where dept_id = #{deptId}
+    </delete>
 
     <update id="updateDeptStatus" parameterType="Dept">
         update sys_dept

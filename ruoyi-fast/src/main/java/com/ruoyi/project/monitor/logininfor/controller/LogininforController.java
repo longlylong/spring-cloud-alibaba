@@ -27,7 +27,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/monitor/logininfor")
 public class LogininforController extends BaseController {
-    private String prefix = "monitor/logininfor" ;
+    private String prefix = "monitor/logininfor";
 
     @Autowired
     private ILogininforService logininforService;
@@ -38,7 +38,7 @@ public class LogininforController extends BaseController {
     @RequiresPermissions("monitor:logininfor:view")
     @GetMapping()
     public String logininfor() {
-        return prefix + "/logininfor" ;
+        return prefix + "/logininfor";
     }
 
     @RequiresPermissions("monitor:logininfor:list")

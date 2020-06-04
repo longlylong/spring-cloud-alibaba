@@ -167,6 +167,7 @@
                     success: function (data, textStatus, jqXHR) {
                         data = calculateObjectValue(options, options.responseHandler, [data], data);
                         renderTable(data);
+                        calculateObjectValue(options, options.onLoadSuccess, [data], data);
                     },
                     error: function (xhr, textStatus) {
                         var _errorMsg = '<tr><td colspan="' + options.columns.length + '"><div style="display: block;text-align: center;">' + xhr.responseText + '</div></td></tr>';
@@ -241,18 +242,25 @@
         // 缓存并格式化数据
         var formatData = function (data) {
             var _root = options.rootIdValue ? options.rootIdValue : null;
-            var firstCode = data[0][options.parentCode];
+            // 父节点属性列表
+            var parentCodes = [];
+            var rootFlag = false;
+            $.each(data, function (index, item) {
+                if ($.inArray(item[options.parentCode], parentCodes) == -1) {
+                    parentCodes.push(item[options.parentCode]);
+                }
+            });
             $.each(data, function (index, item) {
                 // 添加一个默认属性，用来判断当前节点有没有被显示
                 item.isShow = false;
-                // 这里兼容几种常见Root节点写法
-                // 默认的几种判断
+                // 顶级节点校验判断，兼容0,'0','',null
                 var _defaultRootFlag = item[options.parentCode] == '0' ||
                     item[options.parentCode] == 0 ||
                     item[options.parentCode] == null ||
-                    item[options.parentCode] == firstCode ||
-                    item[options.parentCode] == '';
+                    item[options.parentCode] == '' ||
+                    $.inArray(item[options.code], parentCodes) > 0 && !rootFlag;
                 if (!item[options.parentCode] || (_root ? (item[options.parentCode] == options.rootIdValue) : _defaultRootFlag)) {
+                    rootFlag = true;
                     if (!target.data_list["_root_"]) {
                         target.data_list["_root_"] = [];
                     }
@@ -730,6 +738,9 @@
         expanderExpandedClass: 'glyphicon glyphicon-chevron-down', // 展开的按钮的图标
         expanderCollapsedClass: 'glyphicon glyphicon-chevron-right', // 缩起的按钮的图标
         responseHandler: function (res) {
+            return false;
+        },
+        onLoadSuccess: function (res) {
             return false;
         }
     };

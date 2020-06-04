@@ -17,21 +17,15 @@ import javax.validation.constraints.Size;
 public class Config extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 参数主键
-     */
+    /** 参数主键 */
     @Excel(name = "参数主键", cellType = ColumnType.NUMERIC)
     private Long configId;
 
-    /**
-     * 参数名称
-     */
+    /** 参数名称 */
     @Excel(name = "参数名称")
     private String configName;
 
-    /**
-     * 参数键名
-     */
+    /** 参数键名 */
     @Excel(name = "参数键名")
     private String configKey;
 

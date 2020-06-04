@@ -25,7 +25,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/system/dict/data")
 public class DictDataController extends BaseController {
-    private String prefix = "system/dict/data" ;
+    private String prefix = "system/dict/data";
 
     @Autowired
     private IDictDataService dictDataService;
@@ -33,7 +33,7 @@ public class DictDataController extends BaseController {
     @RequiresPermissions("system:dict:view")
     @GetMapping()
     public String dictData() {
-        return prefix + "/data" ;
+        return prefix + "/data";
     }
 
     @PostMapping("/list")
@@ -61,7 +61,7 @@ public class DictDataController extends BaseController {
     @GetMapping("/add/{dictType}")
     public String add(@PathVariable("dictType") String dictType, ModelMap mmap) {
         mmap.put("dictType", dictType);
-        return prefix + "/add" ;
+        return prefix + "/add";
     }
 
     /**
@@ -81,7 +81,7 @@ public class DictDataController extends BaseController {
     @GetMapping("/edit/{dictCode}")
     public String edit(@PathVariable("dictCode") Long dictCode, ModelMap mmap) {
         mmap.put("dict", dictDataService.selectDictDataById(dictCode));
-        return prefix + "/edit" ;
+        return prefix + "/edit";
     }
 
     /**

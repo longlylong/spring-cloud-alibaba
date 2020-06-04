@@ -33,11 +33,6 @@ public class PasswordService {
     @Value(value = "${user.password.maxRetryCount}")
     private String maxRetryCount;
 
-    public static void main(String[] args) {
-        System.out.println(new PasswordService().encryptPassword("admin", "admin123", "111111"));
-        System.out.println(new PasswordService().encryptPassword("ry", "admin123", "222222"));
-    }
-
     @PostConstruct
     public void init() {
         loginRecordCache = cacheManager.getCache(ShiroConstants.LOGINRECORDCACHE);
@@ -80,5 +75,10 @@ public class PasswordService {
 
     public void unlock(String loginName) {
         loginRecordCache.remove(loginName);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new PasswordService().encryptPassword("admin", "admin123", "111111"));
+        System.out.println(new PasswordService().encryptPassword("ry", "admin123", "222222"));
     }
 }

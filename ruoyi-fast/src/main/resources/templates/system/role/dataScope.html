@@ -7,30 +7,30 @@
 <body class="white-bg">
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
     <form class="form-horizontal m" id="form-role-edit" th:object="${role}">
-        <input id="roleId" name="roleId" th:field="*{roleId}" type="hidden"/>
+        <input id="roleId" name="roleId" type="hidden" th:field="*{roleId}"/>
         <div class="form-group">
-            <label class="col-sm-3 control-label ">角色名称：</label>
+            <label class="col-sm-3 control-label">角色名称：</label>
             <div class="col-sm-8">
-                <input class="form-control" id="roleName" name="roleName" readonly="true" th:field="*{roleName}"
-                       type="text"/>
+                <input class="form-control" type="text" name="roleName" id="roleName" th:field="*{roleName}"
+                       readonly="true"/>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label">权限字符：</label>
             <div class="col-sm-8">
-                <input class="form-control" id="roleKey" name="roleKey" readonly="true" th:field="*{roleKey}"
-                       type="text">
+                <input class="form-control" type="text" name="roleKey" id="roleKey" th:field="*{roleKey}"
+                       readonly="true">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label">数据范围：</label>
             <div class="col-sm-8">
-                <select class="form-control m-b" id="dataScope" name="dataScope">
-                    <option th:field="*{dataScope}" value="1">全部数据权限</option>
-                    <option th:field="*{dataScope}" value="2">自定数据权限</option>
-                    <option th:field="*{dataScope}" value="3">本部门数据权限</option>
-                    <option th:field="*{dataScope}" value="4">本部门及以下数据权限</option>
-                    <option th:field="*{dataScope}" value="5">仅本人数据权限</option>
+                <select id="dataScope" name="dataScope" class="form-control m-b">
+                    <option value="1" th:field="*{dataScope}">全部数据权限</option>
+                    <option value="2" th:field="*{dataScope}">自定数据权限</option>
+                    <option value="3" th:field="*{dataScope}">本部门数据权限</option>
+                    <option value="4" th:field="*{dataScope}">本部门及以下数据权限</option>
+                    <option value="5" th:field="*{dataScope}">仅本人数据权限</option>
                 </select>
                 <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 特殊情况下，设置为“自定数据权限”</span>
             </div>
@@ -39,7 +39,7 @@
              th:style="'display:' + @{(*{dataScope=='2'} ? 'block' : 'none')} + ''">
             <label class="col-sm-3 control-label">数据权限</label>
             <div class="col-sm-8">
-                <div class="ztree" id="deptTrees"></div>
+                <div id="deptTrees" class="ztree"></div>
             </div>
         </div>
     </form>

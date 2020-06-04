@@ -2,6 +2,7 @@ package com.ruoyi.framework.web.service;
 
 import com.ruoyi.project.system.dict.domain.DictData;
 import com.ruoyi.project.system.dict.service.IDictDataService;
+import com.ruoyi.project.system.dict.service.IDictTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,9 @@ import java.util.List;
 @Service("dict")
 public class DictService {
     @Autowired
+    private IDictTypeService dictTypeService;
+
+    @Autowired
     private IDictDataService dictDataService;
 
     /**
@@ -24,13 +28,13 @@ public class DictService {
      * @return 参数键值
      */
     public List<DictData> getType(String dictType) {
-        return dictDataService.selectDictDataByType(dictType);
+        return dictTypeService.selectDictDataByType(dictType);
     }
 
     /**
      * 根据字典类型和字典键值查询字典数据信息
      *
-     * @param dictType  字典类型
+     * @param dictType 字典类型
      * @param dictValue 字典键值
      * @return 字典标签
      */

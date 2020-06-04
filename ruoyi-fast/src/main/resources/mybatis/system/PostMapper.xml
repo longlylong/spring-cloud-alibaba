@@ -18,8 +18,15 @@
     </resultMap>
 
     <sql id="selectPostVo">
-        select post_id, post_code, post_name, post_sort, status, create_by, create_time, remark 
-		from sys_post
+        select post_id,
+               post_code,
+               post_name,
+               post_sort,
+               status,
+               create_by,
+               create_time,
+               remark
+        from sys_post
     </sql>
 
     <select id="selectPostList" parameterType="Post" resultMap="PostResult">
@@ -42,12 +49,12 @@
     </select>
 
     <select id="selectPostsByUserId" parameterType="Long" resultMap="PostResult">
-		SELECT p.post_id, p.post_name, p.post_code
-		FROM sys_user u
-			 LEFT JOIN sys_user_post up ON u.user_id = up.user_id
-			 LEFT JOIN sys_post p ON up.post_id = p.post_id
-		WHERE up.user_id = #{userId}
-	</select>
+        SELECT p.post_id, p.post_name, p.post_code
+        FROM sys_user u
+                 LEFT JOIN sys_user_post up ON u.user_id = up.user_id
+                 LEFT JOIN sys_post p ON up.post_id = p.post_id
+        WHERE up.user_id = #{userId}
+    </select>
 
     <select id="selectPostById" parameterType="Long" resultMap="PostResult">
         <include refid="selectPostVo"/>

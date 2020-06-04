@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <th:block th:include="include :: header('参数列表')"/>
 </head>
@@ -11,10 +11,10 @@
                 <div class="select-list">
                     <ul>
                         <li>
-                            参数名称：<input name="configName" type="text"/>
+                            参数名称：<input type="text" name="configName"/>
                         </li>
                         <li>
-                            参数键名：<input name="configKey" type="text"/>
+                            参数键名：<input type="text" name="configKey"/>
                         </li>
                         <li>
                             系统内置：<select name="configType" th:with="type=${@dict.getType('sys_yes_no')}">
@@ -25,11 +25,11 @@
                         </li>
                         <li class="select-time">
                             <label>创建时间： </label>
-                            <input class="time-input" id="startTime" name="params[beginTime]" placeholder="开始时间"
-                                   type="text"/>
+                            <input type="text" class="time-input" id="startTime" placeholder="开始时间"
+                                   name="params[beginTime]"/>
                             <span>-</span>
-                            <input class="time-input" id="endTime" name="params[endTime]" placeholder="结束时间"
-                                   type="text"/>
+                            <input type="text" class="time-input" id="endTime" placeholder="结束时间"
+                                   name="params[endTime]"/>
                         </li>
                         <li>
                             <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
@@ -56,6 +56,9 @@
             </a>
             <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:config:export">
                 <i class="fa fa-download"></i> 导出
+            </a>
+            <a class="btn btn-danger" onclick="clearCache()" shiro:hasPermission="system:config:remove">
+                <i class="fa fa-refresh"></i> 清理缓存
             </a>
         </div>
         <div class="col-sm-12 select-table table-striped">
@@ -138,6 +141,11 @@
         };
         $.table.init(options);
     });
+
+    /** 清理参数缓存 */
+    function clearCache() {
+        $.operate.get(prefix + "/clearCache");
+    }
 </script>
 </body>
 </html>

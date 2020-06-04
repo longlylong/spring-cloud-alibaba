@@ -16,17 +16,17 @@ public class VelocityUtils {
     /**
      * 项目空间路径
      */
-    private static final String PROJECT_PATH = "main/java" ;
+    private static final String PROJECT_PATH = "main/java";
 
     /**
      * mybatis空间路径
      */
-    private static final String MYBATIS_PATH = "main/resources/mybatis" ;
+    private static final String MYBATIS_PATH = "main/resources/mybatis";
 
     /**
      * html空间路径
      */
-    private static final String TEMPLATES_PATH = "main/resources/templates" ;
+    private static final String TEMPLATES_PATH = "main/resources/templates";
 
     /**
      * 设置模板变量信息
@@ -112,7 +112,7 @@ public class VelocityUtils {
      */
     public static String getFileName(String template, GenTable genTable) {
         // 文件名称
-        String fileName = "" ;
+        String fileName = "";
         // 包路径
         String packageName = genTable.getPackageName();
         // 模块名
@@ -149,7 +149,7 @@ public class VelocityUtils {
         } else if (template.contains("edit.html.vm")) {
             fileName = StringUtils.format("{}/edit.html", htmlPath);
         } else if (template.contains("sql.vm")) {
-            fileName = businessName + "Menu.sql" ;
+            fileName = businessName + "Menu.sql";
         }
         return fileName;
     }
@@ -206,7 +206,7 @@ public class VelocityUtils {
         if (paramsObj.containsKey(GenConstants.TREE_CODE)) {
             return StringUtils.toCamelCase(paramsObj.getString(GenConstants.TREE_CODE));
         }
-        return "" ;
+        return "";
     }
 
     /**
@@ -219,7 +219,7 @@ public class VelocityUtils {
         if (paramsObj.containsKey(GenConstants.TREE_PARENT_CODE)) {
             return StringUtils.toCamelCase(paramsObj.getString(GenConstants.TREE_PARENT_CODE));
         }
-        return "" ;
+        return "";
     }
 
     /**
@@ -232,7 +232,7 @@ public class VelocityUtils {
         if (paramsObj.containsKey(GenConstants.TREE_NAME)) {
             return StringUtils.toCamelCase(paramsObj.getString(GenConstants.TREE_NAME));
         }
-        return "" ;
+        return "";
     }
 
     /**

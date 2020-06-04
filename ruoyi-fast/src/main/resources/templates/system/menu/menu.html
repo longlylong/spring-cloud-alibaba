@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
     <head>
         <th:block th:include="include :: header('菜单列表')"/>
     </head>
@@ -12,7 +12,7 @@
                             <ul>
                                 <li>
                                     菜单名称：
-                                    <input name="menuName" type="text"/>
+                                    <input type="text" name="menuName"/>
                                 </li>
                                 <li>
                                     菜单状态：
@@ -101,7 +101,10 @@
                             field: 'url',
                             title: '请求地址',
                             width: '15%',
-                            align: "left"
+                            align: "left",
+                            formatter: function (value, row, index) {
+                                return $.table.tooltip(value);
+                            }
                         },
                         {
                             title: '类型',
@@ -135,6 +138,9 @@
                             title: '权限标识',
                             width: '15%',
                             align: "left",
+                            formatter: function (value, row, index) {
+                                return $.table.tooltip(value);
+                            }
                         },
                         {
                             title: '操作',

@@ -14,10 +14,10 @@ public @interface DataScope {
     /**
      * 部门表的别名
      */
-    String deptAlias() default "" ;
+    String deptAlias() default "";
 
     /**
      * 用户表的别名
      */
-    String userAlias() default "" ;
+    String userAlias() default "";
 }

@@ -6,15 +6,15 @@ package com.ruoyi.common.utils.file;
  * @author ruoyi
  */
 public class MimeTypeUtils {
-    public static final String IMAGE_PNG = "image/png" ;
+    public static final String IMAGE_PNG = "image/png";
 
-    public static final String IMAGE_JPG = "image/jpg" ;
+    public static final String IMAGE_JPG = "image/jpg";
 
-    public static final String IMAGE_JPEG = "image/jpeg" ;
+    public static final String IMAGE_JPEG = "image/jpeg";
 
-    public static final String IMAGE_BMP = "image/bmp" ;
+    public static final String IMAGE_BMP = "image/bmp";
 
-    public static final String IMAGE_GIF = "image/gif" ;
+    public static final String IMAGE_GIF = "image/gif";
 
     public static final String[] IMAGE_EXTENSION = {"bmp", "gif", "jpg", "jpeg", "png"};
 
@@ -36,17 +36,17 @@ public class MimeTypeUtils {
     public static String getExtension(String prefix) {
         switch (prefix) {
             case IMAGE_PNG:
-                return "png" ;
+                return "png";
             case IMAGE_JPG:
-                return "jpg" ;
+                return "jpg";
             case IMAGE_JPEG:
-                return "jpeg" ;
+                return "jpeg";
             case IMAGE_BMP:
-                return "bmp" ;
+                return "bmp";
             case IMAGE_GIF:
-                return "gif" ;
+                return "gif";
             default:
-                return "" ;
+                return "";
         }
     }
 }

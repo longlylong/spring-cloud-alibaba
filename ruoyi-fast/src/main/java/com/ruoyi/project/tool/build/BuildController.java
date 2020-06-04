@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/tool/build")
 public class BuildController extends BaseController {
-    private String prefix = "tool/build" ;
+    private String prefix = "tool/build";
 
     @RequiresPermissions("tool:build:view")
     @GetMapping()
     public String build() {
-        return prefix + "/build" ;
+        return prefix + "/build";
     }
 }

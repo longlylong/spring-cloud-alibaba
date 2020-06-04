@@ -22,39 +22,27 @@ import java.util.Date;
 public class Job extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 任务ID
-     */
+    /** 任务ID */
     @Excel(name = "任务序号", cellType = ColumnType.NUMERIC)
     private Long jobId;
 
-    /**
-     * 任务名称
-     */
+    /** 任务名称 */
     @Excel(name = "任务名称")
     private String jobName;
 
-    /**
-     * 任务组名
-     */
+    /** 任务组名 */
     @Excel(name = "任务组名")
     private String jobGroup;
 
-    /**
-     * 调用目标字符串
-     */
+    /** 调用目标字符串 */
     @Excel(name = "调用目标字符串")
     private String invokeTarget;
 
-    /**
-     * cron执行表达式
-     */
+    /** cron执行表达式 */
     @Excel(name = "执行表达式 ")
     private String cronExpression;
 
-    /**
-     * cron计划策略
-     */
+    /** cron计划策略 */
     @Excel(name = "计划策略 ", readConverterExp = "0=默认,1=立即触发执行,2=触发一次执行,3=不触发立即执行")
     private String misfirePolicy = ScheduleConstants.MISFIRE_DEFAULT;
 

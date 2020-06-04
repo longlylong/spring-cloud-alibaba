@@ -8,6 +8,7 @@ import com.ruoyi.framework.web.page.PageDomain;
 import com.ruoyi.framework.web.page.TableDataInfo;
 import com.ruoyi.framework.web.page.TableSupport;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +24,9 @@ import java.util.*;
 @Controller
 @RequestMapping("/demo/table")
 public class DemoTableController extends BaseController {
+    private String prefix = "demo/table";
+
     private final static List<UserTableModel> users = new ArrayList<UserTableModel>();
-    private String prefix = "demo/table" ;
 
     {
         users.add(new UserTableModel(1, "1000001", "测试1", "0", "15888888888", "ry@qq.com", 150.0, "0"));
@@ -60,7 +62,7 @@ public class DemoTableController extends BaseController {
      */
     @GetMapping("/search")
     public String search() {
-        return prefix + "/search" ;
+        return prefix + "/search";
     }
 
     /**
@@ -68,7 +70,7 @@ public class DemoTableController extends BaseController {
      */
     @GetMapping("/footer")
     public String footer() {
-        return prefix + "/footer" ;
+        return prefix + "/footer";
     }
 
     /**
@@ -76,7 +78,7 @@ public class DemoTableController extends BaseController {
      */
     @GetMapping("/groupHeader")
     public String groupHeader() {
-        return prefix + "/groupHeader" ;
+        return prefix + "/groupHeader";
     }
 
     /**
@@ -84,7 +86,7 @@ public class DemoTableController extends BaseController {
      */
     @GetMapping("/export")
     public String export() {
-        return prefix + "/export" ;
+        return prefix + "/export";
     }
 
     /**
@@ -92,7 +94,7 @@ public class DemoTableController extends BaseController {
      */
     @GetMapping("/remember")
     public String remember() {
-        return prefix + "/remember" ;
+        return prefix + "/remember";
     }
 
     /**
@@ -100,7 +102,7 @@ public class DemoTableController extends BaseController {
      */
     @GetMapping("/pageGo")
     public String pageGo() {
-        return prefix + "/pageGo" ;
+        return prefix + "/pageGo";
     }
 
     /**
@@ -108,7 +110,7 @@ public class DemoTableController extends BaseController {
      */
     @GetMapping("/params")
     public String params() {
-        return prefix + "/params" ;
+        return prefix + "/params";
     }
 
     /**
@@ -116,7 +118,7 @@ public class DemoTableController extends BaseController {
      */
     @GetMapping("/multi")
     public String multi() {
-        return prefix + "/multi" ;
+        return prefix + "/multi";
     }
 
     /**
@@ -124,7 +126,16 @@ public class DemoTableController extends BaseController {
      */
     @GetMapping("/button")
     public String button() {
-        return prefix + "/button" ;
+        return prefix + "/button";
+    }
+
+    /**
+     * 直接加载表格数据
+     */
+    @GetMapping("/data")
+    public String data(ModelMap mmap) {
+        mmap.put("users", users);
+        return prefix + "/data";
     }
 
     /**
@@ -132,7 +143,7 @@ public class DemoTableController extends BaseController {
      */
     @GetMapping("/fixedColumns")
     public String fixedColumns() {
-        return prefix + "/fixedColumns" ;
+        return prefix + "/fixedColumns";
     }
 
     /**
@@ -140,7 +151,7 @@ public class DemoTableController extends BaseController {
      */
     @GetMapping("/event")
     public String event() {
-        return prefix + "/event" ;
+        return prefix + "/event";
     }
 
     /**
@@ -148,7 +159,7 @@ public class DemoTableController extends BaseController {
      */
     @GetMapping("/detail")
     public String detail() {
-        return prefix + "/detail" ;
+        return prefix + "/detail";
     }
 
     /**
@@ -156,7 +167,7 @@ public class DemoTableController extends BaseController {
      */
     @GetMapping("/child")
     public String child() {
-        return prefix + "/child" ;
+        return prefix + "/child";
     }
 
     /**
@@ -164,7 +175,7 @@ public class DemoTableController extends BaseController {
      */
     @GetMapping("/image")
     public String image() {
-        return prefix + "/image" ;
+        return prefix + "/image";
     }
 
     /**
@@ -172,7 +183,7 @@ public class DemoTableController extends BaseController {
      */
     @GetMapping("/curd")
     public String curd() {
-        return prefix + "/curd" ;
+        return prefix + "/curd";
     }
 
     /**
@@ -180,7 +191,7 @@ public class DemoTableController extends BaseController {
      */
     @GetMapping("/reorder")
     public String reorder() {
-        return prefix + "/reorder" ;
+        return prefix + "/reorder";
     }
 
     /**
@@ -188,7 +199,7 @@ public class DemoTableController extends BaseController {
      */
     @GetMapping("/editable")
     public String editable() {
-        return prefix + "/editable" ;
+        return prefix + "/editable";
     }
 
     /**
@@ -196,7 +207,7 @@ public class DemoTableController extends BaseController {
      */
     @GetMapping("/other")
     public String other() {
-        return prefix + "/other" ;
+        return prefix + "/other";
     }
 
     /**
@@ -366,7 +377,8 @@ class UserTableModel {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Date createTime)
+    {
         this.createTime = createTime;
     }
 }

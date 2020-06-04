@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <th:block th:include="include :: header('代码生成列表')"/>
 </head>
@@ -11,18 +11,18 @@
                 <div class="select-list">
                     <ul>
                         <li>
-                            表名称：<input name="tableName" type="text"/>
+                            表名称：<input type="text" name="tableName"/>
                         </li>
                         <li>
-                            表描述：<input name="tableComment" type="text"/>
+                            表描述：<input type="text" name="tableComment"/>
                         </li>
                         <li class="select-time">
                             <label>表时间： </label>
-                            <input class="time-input" id="startTime" name="params[beginTime]" placeholder="开始时间"
-                                   type="text"/>
+                            <input type="text" class="time-input" id="startTime" placeholder="开始时间"
+                                   name="params[beginTime]"/>
                             <span>-</span>
-                            <input class="time-input" id="endTime" name="params[endTime]" placeholder="结束时间"
-                                   type="text"/>
+                            <input type="text" class="time-input" id="endTime" placeholder="结束时间"
+                                   name="params[endTime]"/>
                         </li>
                         <li>
                             <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
@@ -95,12 +95,18 @@
                 {
                     field: 'tableName',
                     title: '表名称',
-                    sortable: true
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        return $.table.tooltip(value);
+                    }
                 },
                 {
                     field: 'tableComment',
                     title: '表描述',
-                    sortable: true
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        return $.table.tooltip(value, 15);
+                    }
                 },
                 {
                     field: 'className',

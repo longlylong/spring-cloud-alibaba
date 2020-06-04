@@ -26,7 +26,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/system/config")
 public class ConfigController extends BaseController {
-    private String prefix = "system/config" ;
+    private String prefix = "system/config";
 
     @Autowired
     private IConfigService configService;
@@ -34,7 +34,7 @@ public class ConfigController extends BaseController {
     @RequiresPermissions("system:config:view")
     @GetMapping()
     public String config() {
-        return prefix + "/config" ;
+        return prefix + "/config";
     }
 
     /**
@@ -64,7 +64,7 @@ public class ConfigController extends BaseController {
      */
     @GetMapping("/add")
     public String add() {
-        return prefix + "/add" ;
+        return prefix + "/add";
     }
 
     /**
@@ -87,7 +87,7 @@ public class ConfigController extends BaseController {
     @GetMapping("/edit/{configId}")
     public String edit(@PathVariable("configId") Long configId, ModelMap mmap) {
         mmap.put("config", configService.selectConfigById(configId));
-        return prefix + "/edit" ;
+        return prefix + "/edit";
     }
 
     /**
@@ -113,6 +113,18 @@ public class ConfigController extends BaseController {
     @ResponseBody
     public AjaxResult remove(String ids) {
         return toAjax(configService.deleteConfigByIds(ids));
+    }
+
+    /**
+     * 清空缓存
+     */
+    @RequiresPermissions("system:config:remove")
+    @Log(title = "参数管理", businessType = BusinessType.CLEAN)
+    @GetMapping("/clearCache")
+    @ResponseBody
+    public AjaxResult clearCache() {
+        configService.clearCache();
+        return success();
     }
 
     /**

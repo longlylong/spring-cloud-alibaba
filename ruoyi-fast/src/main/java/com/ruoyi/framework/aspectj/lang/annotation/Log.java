@@ -15,9 +15,9 @@ import java.lang.annotation.*;
 @Documented
 public @interface Log {
     /**
-     * 模块
+     * 模块 
      */
-    String title() default "" ;
+    String title() default "";
 
     /**
      * 功能

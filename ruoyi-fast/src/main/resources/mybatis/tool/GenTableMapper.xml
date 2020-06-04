@@ -50,7 +50,23 @@
     </resultMap>
 
     <sql id="selectGenTableVo">
-        select table_id, table_name, table_comment, class_name, tpl_category, package_name, module_name, business_name, function_name, function_author, options, create_by, create_time, update_by, update_time, remark from gen_table
+        select table_id,
+               table_name,
+               table_comment,
+               class_name,
+               tpl_category,
+               package_name,
+               module_name,
+               business_name,
+               function_name,
+               function_author,
+               options,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               remark
+        from gen_table
     </sql>
 
     <select id="selectGenTableList" parameterType="GenTable" resultMap="GenTableResult">
@@ -88,26 +104,84 @@
     </select>
 
     <select id="selectTableByName" parameterType="String" resultMap="GenTableResult">
-		select table_name, table_comment, create_time, update_time from information_schema.tables
-		where table_comment <![CDATA[ <> ]]> '' and table_schema = (select database())
-		and table_name = #{tableName}
-	</select>
+        select table_name, table_comment, create_time, update_time
+        from information_schema.tables
+        where table_comment <![CDATA[ <> ]]> ''
+          and table_schema = (select database())
+          and table_name = #{tableName}
+    </select>
 
     <select id="selectGenTableById" parameterType="Long" resultMap="GenTableResult">
-	    SELECT t.table_id, t.table_name, t.table_comment, t.class_name, t.tpl_category, t.package_name, t.module_name, t.business_name, t.function_name, t.function_author, t.options, t.remark,
-			   c.column_id, c.column_name, c.column_comment, c.column_type, c.java_type, c.java_field, c.is_pk, c.is_increment, c.is_required, c.is_insert, c.is_edit, c.is_list, c.is_query, c.query_type, c.html_type, c.dict_type, c.sort
-		FROM gen_table t
-			 LEFT JOIN gen_table_column c ON t.table_id = c.table_id
-		where t.table_id = #{tableId}
-	</select>
+        SELECT t.table_id,
+               t.table_name,
+               t.table_comment,
+               t.class_name,
+               t.tpl_category,
+               t.package_name,
+               t.module_name,
+               t.business_name,
+               t.function_name,
+               t.function_author,
+               t.options,
+               t.remark,
+               c.column_id,
+               c.column_name,
+               c.column_comment,
+               c.column_type,
+               c.java_type,
+               c.java_field,
+               c.is_pk,
+               c.is_increment,
+               c.is_required,
+               c.is_insert,
+               c.is_edit,
+               c.is_list,
+               c.is_query,
+               c.query_type,
+               c.html_type,
+               c.dict_type,
+               c.sort
+        FROM gen_table t
+                 LEFT JOIN gen_table_column c ON t.table_id = c.table_id
+        where t.table_id = #{tableId}
+        order by c.sort
+    </select>
 
     <select id="selectGenTableByName" parameterType="String" resultMap="GenTableResult">
-	    SELECT t.table_id, t.table_name, t.table_comment, t.class_name, t.tpl_category, t.package_name, t.module_name, t.business_name, t.function_name, t.function_author, t.options, t.remark,
-			   c.column_id, c.column_name, c.column_comment, c.column_type, c.java_type, c.java_field, c.is_pk, c.is_increment, c.is_required, c.is_insert, c.is_edit, c.is_list, c.is_query, c.query_type, c.html_type, c.dict_type, c.sort
-		FROM gen_table t
-			 LEFT JOIN gen_table_column c ON t.table_id = c.table_id
-		where t.table_name = #{tableName}
-	</select>
+        SELECT t.table_id,
+               t.table_name,
+               t.table_comment,
+               t.class_name,
+               t.tpl_category,
+               t.package_name,
+               t.module_name,
+               t.business_name,
+               t.function_name,
+               t.function_author,
+               t.options,
+               t.remark,
+               c.column_id,
+               c.column_name,
+               c.column_comment,
+               c.column_type,
+               c.java_type,
+               c.java_field,
+               c.is_pk,
+               c.is_increment,
+               c.is_required,
+               c.is_insert,
+               c.is_edit,
+               c.is_list,
+               c.is_query,
+               c.query_type,
+               c.html_type,
+               c.dict_type,
+               c.sort
+        FROM gen_table t
+                 LEFT JOIN gen_table_column c ON t.table_id = c.table_id
+        where t.table_name = #{tableName}
+        order by c.sort
+    </select>
 
     <insert id="insertGenTable" parameterType="GenTable" useGeneratedKeys="true" keyProperty="tableId">
         insert into gen_table (

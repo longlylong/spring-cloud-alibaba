@@ -12,12 +12,10 @@ import java.util.List;
  * @author ruoyi
  */
 public class TreeUtils {
-    List<Menu> returnList = new ArrayList<Menu>();
-
     /**
      * 根据父节点的ID获取所有子节点
      *
-     * @param list     分类表
+     * @param list 分类表
      * @param parentId 传入的父节点ID
      * @return String
      */
@@ -72,17 +70,12 @@ public class TreeUtils {
         return tlist;
     }
 
-    /**
-     * 判断是否有子节点
-     */
-    private static boolean hasChild(List<Menu> list, Menu t) {
-        return getChildList(list, t).size() > 0;
-    }
+    List<Menu> returnList = new ArrayList<Menu>();
 
     /**
      * 根据父节点的ID获取所有子节点
      *
-     * @param list   分类表
+     * @param list 分类表
      * @param typeId 传入的父节点ID
      * @param prefix 子节点前缀
      */
@@ -119,5 +112,12 @@ public class TreeUtils {
         } else {
             returnList.add(node);
         }
+    }
+
+    /**
+     * 判断是否有子节点
+     */
+    private static boolean hasChild(List<Menu> list, Menu t) {
+        return getChildList(list, t).size() > 0;
     }
 }

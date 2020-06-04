@@ -10,10 +10,34 @@ import java.util.HashMap;
  * @author ruoyi
  */
 public class AjaxResult extends HashMap<String, Object> {
-    public static final String CODE_TAG = "code" ;
-    public static final String MSG_TAG = "msg" ;
-    public static final String DATA_TAG = "data" ;
     private static final long serialVersionUID = 1L;
+
+    public static final String CODE_TAG = "code";
+
+    public static final String MSG_TAG = "msg";
+
+    public static final String DATA_TAG = "data";
+
+    /**
+     * 状态类型
+     */
+    public enum Type {
+        /** 成功 */
+        SUCCESS(0),
+        /** 警告 */
+        WARN(301),
+        /** 错误 */
+        ERROR(500);
+        private final int value;
+
+        Type(int value) {
+            this.value = value;
+        }
+
+        public int value() {
+            return this.value;
+        }
+    }
 
     /**
      * 初始化一个新创建的 AjaxResult 对象，使其表示一个空消息。
@@ -25,7 +49,7 @@ public class AjaxResult extends HashMap<String, Object> {
      * 初始化一个新创建的 AjaxResult 对象
      *
      * @param type 状态类型
-     * @param msg  返回内容
+     * @param msg 返回内容
      */
     public AjaxResult(Type type, String msg) {
         super.put(CODE_TAG, type.value);
@@ -36,7 +60,7 @@ public class AjaxResult extends HashMap<String, Object> {
      * 初始化一个新创建的 AjaxResult 对象
      *
      * @param type 状态类型
-     * @param msg  返回内容
+     * @param msg 返回内容
      * @param data 数据对象
      */
     public AjaxResult(Type type, String msg, Object data) {
@@ -78,7 +102,7 @@ public class AjaxResult extends HashMap<String, Object> {
     /**
      * 返回成功消息
      *
-     * @param msg  返回内容
+     * @param msg 返回内容
      * @param data 数据对象
      * @return 成功消息
      */
@@ -99,7 +123,7 @@ public class AjaxResult extends HashMap<String, Object> {
     /**
      * 返回警告消息
      *
-     * @param msg  返回内容
+     * @param msg 返回内容
      * @param data 数据对象
      * @return 警告消息
      */
@@ -129,38 +153,11 @@ public class AjaxResult extends HashMap<String, Object> {
     /**
      * 返回错误消息
      *
-     * @param msg  返回内容
+     * @param msg 返回内容
      * @param data 数据对象
      * @return 警告消息
      */
     public static AjaxResult error(String msg, Object data) {
         return new AjaxResult(Type.ERROR, msg, data);
-    }
-
-    /**
-     * 状态类型
-     */
-    public enum Type {
-        /**
-         * 成功
-         */
-        SUCCESS(0),
-        /**
-         * 警告
-         */
-        WARN(301),
-        /**
-         * 错误
-         */
-        ERROR(500);
-        private final int value;
-
-        Type(int value) {
-            this.value = value;
-        }
-
-        public int value() {
-            return this.value;
-        }
     }
 }

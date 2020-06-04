@@ -17,15 +17,15 @@ import java.util.Map;
  */
 @Component
 public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
-    public final String REPEAT_PARAMS = "repeatParams" ;
+    public final String REPEAT_PARAMS = "repeatParams";
 
-    public final String REPEAT_TIME = "repeatTime" ;
+    public final String REPEAT_TIME = "repeatTime";
 
-    public final String SESSION_REPEAT_KEY = "repeatData" ;
+    public final String SESSION_REPEAT_KEY = "repeatData";
 
     /**
      * 间隔时间，单位:秒 默认10秒
-     * <p>
+     *
      * 两次相同参数的请求，如果间隔时间大于该参数，系统不会认定为重复提交的数据
      */
     private int intervalTime = 10;

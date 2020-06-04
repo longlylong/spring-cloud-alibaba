@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <th:block th:include="include :: header('操作日志列表')"/>
     <th:block th:include="include :: bootstrap-select-css"/>
@@ -12,16 +12,15 @@
                 <div class="select-list">
                     <ul>
                         <li>
-                            <label>系统模块： </label><input name="title" type="text"/>
+                            <label>系统模块： </label><input type="text" name="title"/>
                         </li>
                         <li>
-                            <label>操作人员： </label><input name="operName" type="text"/>
+                            <label>操作人员： </label><input type="text" name="operName"/>
                         </li>
                         <li class="select-selectpicker">
-                            <label>操作类型： </label><select class="selectpicker"
-                                                         data-none-selected-text="请选择"
-                                                         id="businessTypes" multiple
-                                                         th:with="type=${@dict.getType('sys_oper_type')}">
+                            <label>操作类型： </label><select id="businessTypes"
+                                                         th:with="type=${@dict.getType('sys_oper_type')}"
+                                                         class="selectpicker" data-none-selected-text="请选择" multiple>
                             <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
                                     th:value="${dict.dictValue}"></option>
                         </select>
@@ -36,11 +35,11 @@
                         </li>
                         <li class="select-time">
                             <label>操作时间： </label>
-                            <input class="time-input" id="startTime" name="params[beginTime]" placeholder="开始时间"
-                                   type="text"/>
+                            <input type="text" class="time-input" id="startTime" placeholder="开始时间"
+                                   name="params[beginTime]"/>
                             <span>-</span>
-                            <input class="time-input" id="endTime" name="params[endTime]" placeholder="结束时间"
-                                   type="text"/>
+                            <input type="text" class="time-input" id="endTime" placeholder="结束时间"
+                                   name="params[endTime]"/>
                         </li>
                         <li>
                             <a class="btn btn-primary btn-rounded btn-sm" onclick="searchPre()"><i
@@ -166,8 +165,9 @@
     }
 
     function resetPre() {
-        $.form.reset();
+        $("#operlog-form")[0].reset();
         $("#businessTypes").selectpicker('refresh');
+        $.table.search('operlog-form', 'bootstrap-table');
     }
 </script>
 </body>

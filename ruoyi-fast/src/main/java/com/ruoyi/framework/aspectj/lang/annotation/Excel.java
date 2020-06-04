@@ -16,17 +16,17 @@ public @interface Excel {
     /**
      * 导出到Excel中的名字.
      */
-    String name() default "" ;
+    String name() default "";
 
     /**
      * 日期格式, 如: yyyy-MM-dd
      */
-    String dateFormat() default "" ;
+    String dateFormat() default "";
 
     /**
      * 读取内容转表达式 (如: 0=男,1=女,2=未知)
      */
-    String readConverterExp() default "" ;
+    String readConverterExp() default "";
 
     /**
      * 导出类型（0数字 1字符串）
@@ -46,17 +46,17 @@ public @interface Excel {
     /**
      * 文字后缀,如% 90 变成90%
      */
-    String suffix() default "" ;
+    String suffix() default "";
 
     /**
      * 当值为空时,字段的默认值
      */
-    String defaultValue() default "" ;
+    String defaultValue() default "";
 
     /**
      * 提示信息
      */
-    String prompt() default "" ;
+    String prompt() default "";
 
     /**
      * 设置只能选择不能输入的列内容.
@@ -71,7 +71,7 @@ public @interface Excel {
     /**
      * 另一个类中的属性名称,支持多级获取,以小数点隔开
      */
-    String targetAttr() default "" ;
+    String targetAttr() default "";
 
     /**
      * 字段类型（0：导出导入；1：仅导出；2：仅导入）

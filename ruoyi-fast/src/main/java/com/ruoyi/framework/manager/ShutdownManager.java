@@ -1,6 +1,8 @@
 package com.ruoyi.framework.manager;
 
 import com.ruoyi.framework.shiro.web.session.SpringSessionValidationScheduler;
+import net.sf.ehcache.CacheManager;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +22,14 @@ public class ShutdownManager {
     @Autowired(required = false)
     private SpringSessionValidationScheduler springSessionValidationScheduler;
 
+    @Autowired(required = false)
+    private EhCacheManager ehCacheManager;
+
     @PreDestroy
     public void destroy() {
         shutdownSpringSessionValidationScheduler();
         shutdownAsyncManager();
+        shutdownEhCacheManager();
     }
 
     /**
@@ -47,6 +53,18 @@ public class ShutdownManager {
         try {
             logger.info("====关闭后台任务任务线程池====");
             AsyncManager.me().shutdown();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+    }
+
+    private void shutdownEhCacheManager() {
+        try {
+            logger.info("====关闭缓存====");
+            if (ehCacheManager != null) {
+                CacheManager cacheManager = ehCacheManager.getCacheManager();
+                cacheManager.shutdown();
+            }
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }

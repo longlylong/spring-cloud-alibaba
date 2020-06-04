@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
-    <th:block th:include="include :: header('角色用户分配')"/>
+    <th:block th:include="include :: header('角色分配用户')"/>
 </head>
 <body class="gray-bg">
 <div class="container-div">
     <div class="row">
         <div class="col-sm-12 search-collapse">
             <form id="role-form">
-                <input id="roleId" name="roleId" th:value="${role.roleId}" type="hidden">
+                <input type="hidden" id="roleId" name="roleId" th:value="${role.roleId}">
                 <div class="select-list">
                     <ul>
                         <li>
-                            登录名称：<input name="loginName" type="text"/>
+                            登录名称：<input type="text" name="loginName"/>
                         </li>
                         <li>
-                            手机号码：<input name="phonenumber" type="text"/>
+                            手机号码：<input type="text" name="phonenumber"/>
                         </li>
                         <li>
                             <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i

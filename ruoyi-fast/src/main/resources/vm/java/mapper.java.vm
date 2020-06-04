@@ -1,8 +1,8 @@
-package ${packageName}import java.util.List;
+package ${packageName}.${businessName}.mapper;
 
-.${businessName}.mapper;
-    ${packageName}
-        .${businessName}.domain.${ClassName};
+import java.util.List;
+
+import ${packageName}.${businessName}.domain.${ClassName};
 
 /**
  * ${functionName}Mapper接口

@@ -32,14 +32,15 @@ public class JobServiceImpl implements IJobService {
     private JobMapper jobMapper;
 
     /**
-     * 项目启动时，初始化定时器
+     * 项目启动时，初始化定时器 
      * 主要是防止手动修改数据库导致未同步到定时任务处理（注：不能手动修改数据库ID和任务组名，否则会导致脏数据）
      */
     @PostConstruct
     public void init() throws SchedulerException, TaskException {
+        scheduler.clear();
         List<Job> jobList = jobMapper.selectJobAll();
         for (Job job : jobList) {
-            updateSchedulerJob(job, job.getJobGroup());
+            ScheduleUtils.createScheduleJob(scheduler, job);
         }
     }
 
@@ -161,12 +162,11 @@ public class JobServiceImpl implements IJobService {
     @Transactional
     public void run(Job job) throws SchedulerException {
         Long jobId = job.getJobId();
-        String jobGroup = job.getJobGroup();
-        Job properties = selectJobById(job.getJobId());
+        Job tmpObj = selectJobById(job.getJobId());
         // 参数
         JobDataMap dataMap = new JobDataMap();
-        dataMap.put(ScheduleConstants.TASK_PROPERTIES, properties);
-        scheduler.triggerJob(ScheduleUtils.getJobKey(jobId, jobGroup), dataMap);
+        dataMap.put(ScheduleConstants.TASK_PROPERTIES, tmpObj);
+        scheduler.triggerJob(ScheduleUtils.getJobKey(jobId, tmpObj.getJobGroup()), dataMap);
     }
 
     /**
@@ -204,7 +204,7 @@ public class JobServiceImpl implements IJobService {
     /**
      * 更新任务
      *
-     * @param job      调度信息
+     * @param job 调度信息
      * @param jobGroup 任务组名
      */
     public void updateSchedulerJob(Job job, String jobGroup) throws SchedulerException, TaskException {

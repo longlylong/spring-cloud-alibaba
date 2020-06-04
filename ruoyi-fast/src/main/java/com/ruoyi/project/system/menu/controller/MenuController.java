@@ -26,7 +26,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/system/menu")
 public class MenuController extends BaseController {
-    private String prefix = "system/menu" ;
+    private String prefix = "system/menu";
 
     @Autowired
     private IMenuService menuService;
@@ -34,7 +34,7 @@ public class MenuController extends BaseController {
     @RequiresPermissions("system:menu:view")
     @GetMapping()
     public String menu() {
-        return prefix + "/menu" ;
+        return prefix + "/menu";
     }
 
     @RequiresPermissions("system:menu:list")
@@ -76,7 +76,7 @@ public class MenuController extends BaseController {
             menu.setMenuName("主目录");
         }
         mmap.put("menu", menu);
-        return prefix + "/add" ;
+        return prefix + "/add";
     }
 
     /**
@@ -99,7 +99,7 @@ public class MenuController extends BaseController {
     @GetMapping("/edit/{menuId}")
     public String edit(@PathVariable("menuId") Long menuId, ModelMap mmap) {
         mmap.put("menu", menuService.selectMenuById(menuId));
-        return prefix + "/edit" ;
+        return prefix + "/edit";
     }
 
     /**
@@ -121,7 +121,7 @@ public class MenuController extends BaseController {
      */
     @GetMapping("/icon")
     public String icon() {
-        return prefix + "/icon" ;
+        return prefix + "/icon";
     }
 
     /**
@@ -159,6 +159,6 @@ public class MenuController extends BaseController {
     @GetMapping("/selectMenuTree/{menuId}")
     public String selectMenuTree(@PathVariable("menuId") Long menuId, ModelMap mmap) {
         mmap.put("menu", menuService.selectMenuById(menuId));
-        return prefix + "/tree" ;
+        return prefix + "/tree";
     }
 }

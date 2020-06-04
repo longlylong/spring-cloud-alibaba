@@ -6,7 +6,7 @@
 
 <body class="gray-bg"
       style="font: 14px Helvetica Neue, Helvetica, PingFang SC, 微软雅黑, Tahoma, Arial, sans-serif !important;">
-<input id="userId" name="userId" th:value="${user.userId}" type="hidden"/>
+<input id="userId" name="userId" type="hidden" th:value="${user.userId}"/>
 <section class="section-content">
     <div class="row">
         <div class="col-sm-3 pr5">
@@ -29,14 +29,15 @@
                             <b class="font-noraml">手机号码：</b>
                             <p class="pull-right">[[${user.phonenumber}]]</p>
                         </li>
-                        <li class="list-group-item"><i class="fa fa-group"></i>
+                        <li class="list-group-item" th:if="${user.dept?.deptName != null}"><i class="fa fa-group"></i>
                             <b class="font-noraml">所属部门：</b>
                             <p class="pull-right">[[${user.dept?.deptName}]] /
                                 [[${#strings.defaultString(postGroup,'无岗位')}]]</p>
                         </li>
                         <li class="list-group-item"><i class="fa fa-envelope-o"></i>
                             <b class="font-noraml">邮箱地址：</b>
-                            <p class="pull-right">[[${user.email}]]</p>
+                            <p class="pull-right" th:title="${user.email}">[[${#strings.abbreviate(user.email,
+                                16)}]]</p>
                         </li>
                         <li class="list-group-item"><i class="fa fa-calendar"></i>
                             <b class="font-noraml">创建时间：</b>
@@ -55,57 +56,55 @@
                 <div class="ibox-content">
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a aria-expanded="true" data-toggle="tab" href="#user_info">基本资料</a></li>
-                            <li><a aria-expanded="false" data-toggle="tab" href="#modify_password">修改密码</a></li>
+                            <li class="active"><a href="#user_info" data-toggle="tab" aria-expanded="true">基本资料</a></li>
+                            <li><a href="#modify_password" data-toggle="tab" aria-expanded="false">修改密码</a></li>
                         </ul>
                         <div class="tab-content">
                             <!--用户信息-->
                             <div class="tab-pane active" id="user_info" th:object="${user}">
                                 <form class="form-horizontal" id="form-user-edit">
                                     <!--隐藏ID-->
-                                    <input id="id" name="id" type="hidden">
+                                    <input name="id" id="id" type="hidden">
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">用户名称：</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" name="userName" placeholder="请输入用户名称"
-                                                   th:field="*{userName}" type="text">
+                                            <input type="text" class="form-control" name="userName"
+                                                   th:field="*{userName}" placeholder="请输入用户名称">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">手机号码：</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" maxlength="11" name="phonenumber"
-                                                   placeholder="请输入手机号码"
-                                                   th:field="*{phonenumber}" type="text">
+                                            <input type="text" class="form-control" name="phonenumber" maxlength="11"
+                                                   th:field="*{phonenumber}" placeholder="请输入手机号码">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">邮箱：</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" name="email" placeholder="请输入邮箱"
-                                                   th:field="*{email}"
-                                                   type="text">
+                                            <input type="text" class="form-control" name="email" th:field="*{email}"
+                                                   placeholder="请输入邮箱">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">性别：</label>
                                         <div class="col-sm-10">
                                             <div class="radio-box">
-                                                <input id="radio1" name="sex" th:field="*{sex}" type="radio" value="0">
+                                                <input type="radio" id="radio1" th:field="*{sex}" name="sex" value="0">
                                                 <label for="radio1">男</label>
                                             </div>
                                             <div class="radio-box">
-                                                <input id="radio2" name="sex" th:field="*{sex}" type="radio" value="1">
+                                                <input type="radio" id="radio2" th:field="*{sex}" name="sex" value="1">
                                                 <label for="radio2">女</label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button class="btn btn-sm btn-primary" onclick="submitUserInfo()"
-                                                    type="button"><i class="fa fa-check"></i>保 存
+                                            <button type="button" class="btn btn-sm btn-primary"
+                                                    onclick="submitUserInfo()"><i class="fa fa-check"></i>保 存
                                             </button>&nbsp;
-                                            <button class="btn btn-sm btn-danger" onclick="closeItem()" type="button"><i
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i
                                                     class="fa fa-reply-all"></i>关 闭
                                             </button>
                                         </div>
@@ -119,30 +118,30 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">旧密码：</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" name="oldPassword" placeholder="请输入旧密码"
-                                                   type="password">
+                                            <input type="password" class="form-control" name="oldPassword"
+                                                   placeholder="请输入旧密码">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">新密码：</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" id="newPassword" name="newPassword"
-                                                   placeholder="请输入新密码" type="password">
+                                            <input type="password" class="form-control" name="newPassword"
+                                                   id="newPassword" placeholder="请输入新密码">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">确认密码：</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" name="confirmPassword" placeholder="请确认密码"
-                                                   type="password">
+                                            <input type="password" class="form-control" name="confirmPassword"
+                                                   placeholder="请确认密码">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button class="btn btn-sm btn-primary" onclick="submitChangPassword()"
-                                                    type="button"><i class="fa fa-check"></i>保 存
+                                            <button type="button" class="btn btn-sm btn-primary"
+                                                    onclick="submitChangPassword()"><i class="fa fa-check"></i>保 存
                                             </button>&nbsp;
-                                            <button class="btn btn-sm btn-danger" onclick="closeItem()" type="button"><i
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i
                                                     class="fa fa-reply-all"></i>关 闭
                                             </button>
                                         </div>

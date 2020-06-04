@@ -117,10 +117,12 @@ public class UserOperateModel extends BaseEntity {
         this.status = status;
     }
 
+    @Override
     public Date getCreateTime() {
         return createTime;
     }
 
+    @Override
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }

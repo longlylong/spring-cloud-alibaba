@@ -11,8 +11,8 @@
             <div class="jumbotron">
                 <h1>表单向导</h1>
                 <p>Smart UI 部件允许您快速创建表单向导接口。</p>
-                <p><a class="btn btn-primary btn-lg" href="https://github.com/rstaib/jquery-steps" role="button"
-                      target="_blank">了解 jQuery Steps</a>
+                <p><a href="https://github.com/rstaib/jquery-steps" target="_blank" class="btn btn-primary btn-lg"
+                      role="button">了解 jQuery Steps</a>
                 </p>
             </div>
         </div>
@@ -75,7 +75,7 @@
                         下面这个示例展示了如何在表单向导中使用 jQuery Validation 插件
                     </p>
 
-                    <form action="" class="wizard-big" id="form">
+                    <form id="form" action="" class="wizard-big">
                         <h1>账户</h1>
                         <fieldset>
                             <h2>账户信息</h2>
@@ -83,15 +83,15 @@
                                 <div class="col-sm-8">
                                     <div class="form-group">
                                         <label>用户名 *</label>
-                                        <input class="form-control required" id="userName" name="userName" type="text">
+                                        <input id="userName" name="userName" type="text" class="form-control required">
                                     </div>
                                     <div class="form-group">
                                         <label>密码 *</label>
-                                        <input class="form-control required" id="password" name="password" type="text">
+                                        <input id="password" name="password" type="text" class="form-control required">
                                     </div>
                                     <div class="form-group">
                                         <label>确认密码 *</label>
-                                        <input class="form-control required" id="confirm" name="confirm" type="text">
+                                        <input id="confirm" name="confirm" type="text" class="form-control required">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -111,17 +111,17 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>姓名 *</label>
-                                        <input class="form-control required" id="name" name="name" type="text">
+                                        <input id="name" name="name" type="text" class="form-control required">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Email *</label>
-                                        <input class="form-control required email" id="email" name="email" type="text">
+                                        <input id="email" name="email" type="text" class="form-control required email">
                                     </div>
                                     <div class="form-group">
                                         <label>地址 *</label>
-                                        <input class="form-control" id="address" name="address" type="text">
+                                        <input id="address" name="address" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -137,7 +137,7 @@
                         <h1>完成</h1>
                         <fieldset>
                             <h2>条款</h2>
-                            <input class="required" id="acceptTerms" name="acceptTerms" type="checkbox">
+                            <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required">
                             <label for="acceptTerms">我同意注册条款</label>
                         </fieldset>
                     </form>

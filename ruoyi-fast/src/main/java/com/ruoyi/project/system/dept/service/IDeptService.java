@@ -29,6 +29,14 @@ public interface IDeptService {
     List<Ztree> selectDeptTree(Dept dept);
 
     /**
+     * 查询部门管理树（排除下级）
+     *
+     * @param dept 部门信息
+     * @return 所有部门信息
+     */
+    List<Ztree> selectDeptTreeExcludeChild(Dept dept);
+
+    /**
      * 根据角色ID查询菜单
      *
      * @param role 角色对象
@@ -83,6 +91,14 @@ public interface IDeptService {
      * @return 部门信息
      */
     Dept selectDeptById(Long deptId);
+
+    /**
+     * 根据ID查询所有子部门（正常状态）
+     *
+     * @param deptId 部门ID
+     * @return 子部门数
+     */
+    int selectNormalChildrenDeptById(Long deptId);
 
     /**
      * 校验部门名称是否唯一

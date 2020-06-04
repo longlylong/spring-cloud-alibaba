@@ -12,6 +12,14 @@ import java.util.List;
  */
 public interface UserRoleMapper {
     /**
+     * 通过用户ID查询用户和角色关联
+     *
+     * @param userId 用户ID
+     * @return 用户和角色关联列表
+     */
+    List<UserRole> selectUserRoleByUserId(Long userId);
+
+    /**
      * 通过用户ID删除用户和角色关联
      *
      * @param userId 用户ID
@@ -54,7 +62,7 @@ public interface UserRoleMapper {
     /**
      * 批量取消授权用户角色
      *
-     * @param roleId  角色ID
+     * @param roleId 角色ID
      * @param userIds 需要删除的用户数据ID
      * @return 结果
      */

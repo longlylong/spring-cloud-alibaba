@@ -9,11 +9,13 @@ import com.ruoyi.framework.web.domain.Ztree;
 import com.ruoyi.project.system.dept.domain.Dept;
 import com.ruoyi.project.system.dept.mapper.DeptMapper;
 import com.ruoyi.project.system.role.domain.Role;
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -53,6 +55,29 @@ public class DeptServiceImpl implements IDeptService {
     }
 
     /**
+     * 查询部门管理树（排除下级）
+     *
+     * @param deptId 部门ID
+     * @return 所有部门信息
+     */
+    @Override
+    @DataScope(deptAlias = "d")
+    public List<Ztree> selectDeptTreeExcludeChild(Dept dept) {
+        Long deptId = dept.getDeptId();
+        List<Dept> deptList = deptMapper.selectDeptList(dept);
+        Iterator<Dept> it = deptList.iterator();
+        while (it.hasNext()) {
+            Dept d = it.next();
+            if (d.getDeptId().intValue() == deptId
+                    || ArrayUtils.contains(StringUtils.split(d.getAncestors(), ","), deptId + "")) {
+                it.remove();
+            }
+        }
+        List<Ztree> ztrees = initZtree(deptList);
+        return ztrees;
+    }
+
+    /**
      * 根据角色ID查询部门（数据权限）
      *
      * @param role 角色对象
@@ -85,7 +110,7 @@ public class DeptServiceImpl implements IDeptService {
     /**
      * 对象转部门树
      *
-     * @param deptList     部门列表
+     * @param deptList 部门列表
      * @param roleDeptList 角色已存在菜单列表
      * @return 树结构列表
      */
@@ -203,7 +228,7 @@ public class DeptServiceImpl implements IDeptService {
     /**
      * 修改子元素关系
      *
-     * @param deptId       被修改的部门ID
+     * @param deptId 被修改的部门ID
      * @param newAncestors 新的父ID集合
      * @param oldAncestors 旧的父ID集合
      */
@@ -220,7 +245,7 @@ public class DeptServiceImpl implements IDeptService {
     /**
      * 修改子元素关系
      *
-     * @param deptId    部门ID
+     * @param deptId 部门ID
      * @param ancestors 元素列表
      */
     public void updateDeptChildren(Long deptId, String ancestors) {
@@ -244,6 +269,17 @@ public class DeptServiceImpl implements IDeptService {
     @Override
     public Dept selectDeptById(Long deptId) {
         return deptMapper.selectDeptById(deptId);
+    }
+
+    /**
+     * 根据ID查询所有子部门（正常状态）
+     *
+     * @param deptId 部门ID
+     * @return 子部门数
+     */
+    @Override
+    public int selectNormalChildrenDeptById(Long deptId) {
+        return deptMapper.selectNormalChildrenDeptById(deptId);
     }
 
     /**

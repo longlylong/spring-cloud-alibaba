@@ -7,87 +7,67 @@
 .pt5 {
     padding-top: 5px;
 }
-
 .pr5 {
     padding-right: 5px;
 }
-
 .pb5 {
     padding-bottom: 5px;
 }
-
 .mt5 {
     margin-top: 5px;
 }
-
 .mr5 {
     margin-right: 5px;
 }
-
 .mb5 {
     margin-bottom: 5px;
 }
-
 .ml5 {
     margin-left: 5px;
 }
-
 .mt10 {
     margin-top: 10px;
 }
-
 .mr10 {
     margin-right: 10px;
 }
-
 .mb10 {
     margin-bottom: 10px;
 }
-
 .ml0 {
     margin-left: 10px;
 }
-
 .mt20 {
     margin-top: 20px;
 }
-
 .mr20 {
     margin-right: 20px;
 }
-
 .mb20 {
     margin-bottom: 20px;
 }
-
 .m20 {
     margin-left: 20px;
 }
-
 .m50 {
     margin-left: 50px;
 }
-
 .img-xs {
     width: 32px;
     height: 32px;
 }
-
 .img-sm {
     width: 64px;
     height: 64px;
 }
-
 .img-md {
     width: 96px;
     height: 96px;
 }
-
 .img-lg {
     width: 120px;
     height: 120px;
 }
-
 .section-content {
     min-height: 250px;
     margin-right: auto;
@@ -342,12 +322,18 @@
 }
 
 /** 表单验证 样式布局 **/
+.control-label.is-required:before {
+    content: '* ';
+    color: red;
+}
+
 label.error {
     position: absolute;
     right: 18px;
     top: 10px;
     color: #ef392b;
-    font-size: 12px
+    font-size: 12px;
+    z-index: 99;
 }
 
 .input-group label.error {
@@ -466,14 +452,12 @@ label.error {
     margin-bottom: 0;
     padding-top: 8px;
 }
-
 .toggle-switch input {
     height: 0;
     width: 0;
     position: absolute;
     opacity: 0;
 }
-
 .toggle-switch span {
     display: inline-block;
     position: relative;
@@ -488,7 +472,6 @@ label.error {
     -o-transition: all .1s ease;
     transition: all .1s ease
 }
-
 .toggle-switch span:after {
     content: '';
     height: 20px;
@@ -665,7 +648,7 @@ label {
     margin: 5px 15px 5px 0px;
 }
 
-.select-list li p {
+.select-list li p, .select-list li label:not(.radio-box):not(:select-time) {
     float: left;
     width: 65px;
     margin: 5px 5px 5px 0px;
@@ -839,10 +822,24 @@ label {
     border: 0px !important;
 }
 
-.table-striped .table, .table-striped .table, .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+.table-striped table > thead > tr > th, .table-striped table > tbody > tr > th, .table-striped table > tfoot > tr > th, .table-striped table > thead > tr > td, .table-striped table > tbody > tr > td, .table-striped table > tfoot > tr > td {
     border-bottom: 1px solid #e7eaec !important;
     background-color: transparent;
     border: 0px;
+}
+
+
+.table-bordered table > thead > tr > th:first-child, .table-bordered table > tbody > tr > td:first-child {
+    border-left: 1px solid #ddd;
+}
+
+.table-bordered table > thead > tr > th:last-child, .table-bordered table > tbody > tr > td:last-child {
+    border-right: 1px solid #ddd;
+}
+
+.table-bordered table > thead > tr > th, .table-bordered table > tbody > tr > td {
+    border-top: 1px solid #ddd !important;
+    border-bottom: 1px solid #ddd;
 }
 
 .fixed-table-footer {
@@ -865,10 +862,6 @@ label {
 
 .table-striped table thead {
     background-color: #eff3f8;
-}
-
-.table-bordered td, .table-bordered th {
-    border: 1px solid #ddd !important
 }
 
 .fixed-table-container thead th > .both {
@@ -911,6 +904,16 @@ label {
     border-left: 1px solid #ddd;
     display: none;
     z-index: 100;
+}
+
+/** 表格全屏样式 **/
+.bootstrap-table.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    width: 100% !important;
+    background: #FFF;
 }
 
 /** 表格树样式 **/
@@ -964,7 +967,6 @@ label {
 }
 
 .bootstrap-tree-table .treetable-tbody td {
-    overflow: hidden;
     border: 0 !important;
     border-left: 0px solid #e7eaec !important;
     border-bottom: 1px solid #e7eaec !important;
@@ -1013,7 +1015,6 @@ label {
     display: none;
     color: #ccc;
 }
-
 .navbar-right > .user-menu > .dropdown-menu {
     border-top-right-radius: 0;
     border-top-left-radius: 0;
@@ -1083,7 +1084,6 @@ label {
     display: block;
     float: left;
 }
-
 .pageGo button {
     height: 32px;
     display: block;
@@ -1107,6 +1107,50 @@ label {
 /** 滚动条样式 **/
 ::-webkit-scrollbar-track {
     background-color: #F5F5F5;
+}
+
+/** 气泡弹出框样式 **/
+.popover {
+    font-size: 13px;
+    max-width: unset;
+}
+
+.popover-title {
+    padding: 8px 14px;
+    margin: 0 !important;
+    font-size: 14px;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ebebeb;
+    border-radius: 5px 5px 0 0;
+}
+
+.popover-content {
+    padding: 5px;
+}
+
+/** 向上滚动样式 **/
+#scroll-up {
+    border-width: 0;
+    position: fixed;
+    right: 2px;
+    z-index: 99;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    bottom: -24px;
+    visibility: hidden;
+    background-color: #aaa;
+    color: #fff;
+    font-size: 14px;
+    display: none;
+}
+
+#scroll-up.display {
+    opacity: .7;
+    filter: alpha(opacity=70);
+    bottom: 2px;
+    visibility: visible;
 }
 
 ::-webkit-scrollbar {

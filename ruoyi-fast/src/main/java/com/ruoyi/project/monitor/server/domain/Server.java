@@ -90,28 +90,6 @@ public class Server {
         this.sysFiles = sysFiles;
     }
 
-    /**
-     * 设置磁盘信息
-     */
-    private void setSysFiles(OperatingSystem os) {
-        FileSystem fileSystem = os.getFileSystem();
-        OSFileStore[] fsArray = fileSystem.getFileStores();
-        for (OSFileStore fs : fsArray) {
-            long free = fs.getUsableSpace();
-            long total = fs.getTotalSpace();
-            long used = total - free;
-            SysFile sysFile = new SysFile();
-            sysFile.setDirName(fs.getMount());
-            sysFile.setSysTypeName(fs.getType());
-            sysFile.setTypeName(fs.getName());
-            sysFile.setTotal(convertFileSize(total));
-            sysFile.setFree(convertFileSize(free));
-            sysFile.setUsed(convertFileSize(used));
-            sysFile.setUsage(Arith.mul(Arith.div(used, total, 4), 100));
-            sysFiles.add(sysFile);
-        }
-    }
-
     public void copyTo() throws Exception {
         SystemInfo si = new SystemInfo();
         HardwareAbstractionLayer hal = si.getHardware();
@@ -183,6 +161,28 @@ public class Server {
         jvm.setFree(Runtime.getRuntime().freeMemory());
         jvm.setVersion(props.getProperty("java.version"));
         jvm.setHome(props.getProperty("java.home"));
+    }
+
+    /**
+     * 设置磁盘信息
+     */
+    private void setSysFiles(OperatingSystem os) {
+        FileSystem fileSystem = os.getFileSystem();
+        OSFileStore[] fsArray = fileSystem.getFileStores();
+        for (OSFileStore fs : fsArray) {
+            long free = fs.getUsableSpace();
+            long total = fs.getTotalSpace();
+            long used = total - free;
+            SysFile sysFile = new SysFile();
+            sysFile.setDirName(fs.getMount());
+            sysFile.setSysTypeName(fs.getType());
+            sysFile.setTypeName(fs.getName());
+            sysFile.setTotal(convertFileSize(total));
+            sysFile.setFree(convertFileSize(free));
+            sysFile.setUsed(convertFileSize(used));
+            sysFile.setUsage(Arith.mul(Arith.div(used, total, 4), 100));
+            sysFiles.add(sysFile);
+        }
     }
 
     /**

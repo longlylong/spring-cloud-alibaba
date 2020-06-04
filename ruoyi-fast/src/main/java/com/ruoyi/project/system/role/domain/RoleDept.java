@@ -9,14 +9,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author ruoyi
  */
 public class RoleDept {
-    /**
-     * 角色ID
-     */
+    /** 角色ID */
     private Long roleId;
 
-    /**
-     * 部门ID
-     */
+    /** 部门ID */
     private Long deptId;
 
     public Long getRoleId() {

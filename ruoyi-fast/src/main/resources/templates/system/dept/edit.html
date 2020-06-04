@@ -6,55 +6,54 @@
 <body class="white-bg">
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
     <form class="form-horizontal m" id="form-dept-edit" th:object="${dept}">
-        <input name="deptId" th:field="*{deptId}" type="hidden"/>
-        <input id="treeId" name="parentId" th:field="*{parentId}" type="hidden"/>
+        <input name="deptId" type="hidden" th:field="*{deptId}"/>
+        <input id="treeId" name="parentId" type="hidden" th:field="*{parentId}"/>
         <div class="form-group">
-            <label class="col-sm-3 control-label ">上级部门：</label>
+            <label class="col-sm-3 control-label">上级部门：</label>
             <div class="col-sm-8">
                 <div class="input-group">
-                    <input class="form-control" id="treeName" onclick="selectDeptTree()" readonly="true"
-                           th:field="*{parentName}"
-                           type="text">
+                    <input class="form-control" type="text" id="treeName" onclick="selectDeptTree()" readonly="true"
+                           th:field="*{parentName}">
                     <span class="input-group-addon"><i class="fa fa-search"></i></span>
                 </div>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">部门名称：</label>
+            <label class="col-sm-3 control-label is-required">部门名称：</label>
             <div class="col-sm-8">
-                <input class="form-control" id="deptName" name="deptName" required th:field="*{deptName}" type="text">
+                <input class="form-control" type="text" name="deptName" th:field="*{deptName}" id="deptName" required>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">显示排序：</label>
+            <label class="col-sm-3 control-label is-required">显示排序：</label>
             <div class="col-sm-8">
-                <input class="form-control" name="orderNum" required th:field="*{orderNum}" type="text">
+                <input class="form-control" type="text" name="orderNum" th:field="*{orderNum}" required>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label">负责人：</label>
             <div class="col-sm-8">
-                <input class="form-control" name="leader" th:field="*{leader}" type="text">
+                <input class="form-control" type="text" name="leader" th:field="*{leader}">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label">联系电话：</label>
             <div class="col-sm-8">
-                <input class="form-control" name="phone" th:field="*{phone}" type="text">
+                <input class="form-control" type="text" name="phone" th:field="*{phone}">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label">邮箱：</label>
             <div class="col-sm-8">
-                <input class="form-control" name="email" th:field="*{email}" type="text">
+                <input class="form-control" type="text" name="email" th:field="*{email}">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label">部门状态：</label>
             <div class="col-sm-8">
                 <div class="radio-box" th:each="dict : ${@dict.getType('sys_normal_disable')}">
-                    <input name="status" th:field="*{status}" th:id="${dict.dictCode}" th:value="${dict.dictValue}"
-                           type="radio">
+                    <input type="radio" th:id="${dict.dictCode}" name="status" th:value="${dict.dictValue}"
+                           th:field="*{status}">
                     <label th:for="${dict.dictCode}" th:text="${dict.dictLabel}"></label>
                 </div>
             </div>
@@ -116,11 +115,12 @@
     /*部门管理-修改-选择部门树*/
     function selectDeptTree() {
         var deptId = $("#treeId").val();
+        var excludeId = $("input[name='deptId']").val();
         if (deptId > 0) {
             var options = {
                 title: '部门选择',
                 width: "380",
-                url: prefix + "/selectDeptTree/" + $("#treeId").val(),
+                url: prefix + "/selectDeptTree/" + $("#treeId").val() + "/" + excludeId,
                 callBack: doSubmit
             };
             $.modal.openOptions(options);

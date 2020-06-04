@@ -27,7 +27,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/system/dict")
 public class DictTypeController extends BaseController {
-    private String prefix = "system/dict/type" ;
+    private String prefix = "system/dict/type";
 
     @Autowired
     private IDictTypeService dictTypeService;
@@ -35,7 +35,7 @@ public class DictTypeController extends BaseController {
     @RequiresPermissions("system:dict:view")
     @GetMapping()
     public String dictType() {
-        return prefix + "/type" ;
+        return prefix + "/type";
     }
 
     @PostMapping("/list")
@@ -63,7 +63,7 @@ public class DictTypeController extends BaseController {
      */
     @GetMapping("/add")
     public String add() {
-        return prefix + "/add" ;
+        return prefix + "/add";
     }
 
     /**
@@ -86,7 +86,7 @@ public class DictTypeController extends BaseController {
     @GetMapping("/edit/{dictId}")
     public String edit(@PathVariable("dictId") Long dictId, ModelMap mmap) {
         mmap.put("dict", dictTypeService.selectDictTypeById(dictId));
-        return prefix + "/edit" ;
+        return prefix + "/edit";
     }
 
     /**
@@ -108,11 +108,19 @@ public class DictTypeController extends BaseController {
     @PostMapping("/remove")
     @ResponseBody
     public AjaxResult remove(String ids) {
-        try {
-            return toAjax(dictTypeService.deleteDictTypeByIds(ids));
-        } catch (Exception e) {
-            return error(e.getMessage());
-        }
+        return toAjax(dictTypeService.deleteDictTypeByIds(ids));
+    }
+
+    /**
+     * 清空缓存
+     */
+    @RequiresPermissions("system:dict:remove")
+    @Log(title = "字典类型", businessType = BusinessType.CLEAN)
+    @GetMapping("/clearCache")
+    @ResponseBody
+    public AjaxResult clearCache() {
+        dictTypeService.clearCache();
+        return success();
     }
 
     /**
@@ -123,7 +131,7 @@ public class DictTypeController extends BaseController {
     public String detail(@PathVariable("dictId") Long dictId, ModelMap mmap) {
         mmap.put("dict", dictTypeService.selectDictTypeById(dictId));
         mmap.put("dictList", dictTypeService.selectDictTypeAll());
-        return "system/dict/data/data" ;
+        return "system/dict/data/data";
     }
 
     /**
@@ -143,7 +151,7 @@ public class DictTypeController extends BaseController {
                                  ModelMap mmap) {
         mmap.put("columnId", columnId);
         mmap.put("dict", dictTypeService.selectDictTypeByType(dictType));
-        return prefix + "/tree" ;
+        return prefix + "/tree";
     }
 
     /**

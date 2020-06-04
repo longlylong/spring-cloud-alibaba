@@ -7,9 +7,9 @@
  */
 !function ($, window, document, undefined) {
 
-    var startEvent = 'touchstart mousedown',
-        moveEvent = 'touchmove mousemove',
-        endEvent = 'touchend mouseup';
+var startEvent = 'touchstart mousedown',
+    moveEvent = 'touchmove mousemove',
+    endEvent = 'touchend mouseup';
 
     $(document).ready(function () {
         function parseStyle(css) {
@@ -408,8 +408,8 @@
                 }
                 // Because we always have to insert before, we need to offset the height a bit
                 if (y > (rowY - rowHeight) && y < (rowY + rowHeight))
-                // that's the row we're over
-                // If it's the same as the current row, ignore it
+                    // that's the row we're over
+                    // If it's the same as the current row, ignore it
                     if (draggedRow.is(row)
                         || (config.onAllowDrop
                             && !config.onAllowDrop(draggedRow, row))
