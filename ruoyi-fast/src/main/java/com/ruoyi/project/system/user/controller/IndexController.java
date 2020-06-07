@@ -55,6 +55,6 @@ public class IndexController extends BaseController {
     @GetMapping("/system/main")
     public String main(ModelMap mmap) {
         mmap.put("version", ruoYiConfig.getVersion());
-        return "main";
+        return "main_v1";
     }
 }
