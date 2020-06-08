@@ -1,6 +1,7 @@
 package com.ruoyi.common.utils.html;
 
 import com.ruoyi.common.utils.StringUtils;
+import org.bouncycastle.i18n.filter.HTMLFilter;
 
 /**
  * 转义和反转义工具类
@@ -52,7 +53,7 @@ public class EscapeUtil {
      * @return 清除标签后的文本
      */
     public static String clean(String content) {
-        return new HTMLFilter().filter(content);
+        return new HTMLFilter().doFilter(content);
     }
 
     /**
