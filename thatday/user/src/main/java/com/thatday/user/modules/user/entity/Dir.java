@@ -11,10 +11,9 @@ import java.util.Date;
  */
 @Data
 @Entity(name = "td_dir_group")
-public class DirGroup {
+public class Dir {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
@@ -25,9 +24,7 @@ public class DirGroup {
 
     private String groupIcon;
 
-    @Column(columnDefinition = "timestamp default current_timestamp comment '创建时间'")
     private Date createTime;
 
-    @Column(columnDefinition = "timestamp default current_timestamp on update current_timestamp comment '更新时间'")
     private Date updateTime;
 }
