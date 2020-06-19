@@ -8,7 +8,7 @@ public class SnowFlakeUtil {
     /**
      * 起始的时间戳
      */
-    private final static long START_STMP = 656827932000L;
+    private final static long START_STMP = DateUtils.parseDate("2020-06-01").getTime();
 
     /**
      * 每一部分占用的位数
@@ -110,4 +110,7 @@ public class SnowFlakeUtil {
         return String.valueOf(this.nextId());
     }
 
+    public static void main(String[] args) {
+        System.out.println(getInstance().id());
+    }
 }
