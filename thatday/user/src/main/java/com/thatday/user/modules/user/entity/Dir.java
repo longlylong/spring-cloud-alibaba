@@ -14,10 +14,10 @@ import java.util.Date;
 public class Dir {
 
     @Id
-    private Long id;
+    private String id;
 
     @NotNull
-    private Long userId;
+    private String userId;
 
     @NotNull
     private String groupTitle;

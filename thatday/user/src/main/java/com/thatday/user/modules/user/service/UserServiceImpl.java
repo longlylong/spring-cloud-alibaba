@@ -22,14 +22,14 @@ public class UserServiceImpl extends BaseService<UserDao, User> implements UserS
     }
 
     @Override
-    public String save(String id) {
+    public User save(String id) {
         User user = new User();
         user.setId(id);
 
         user.setNickname(System.currentTimeMillis() + "");
         saveOrUpdate(user);
 
-        return user.getId();
+        return user;
     }
 
 }

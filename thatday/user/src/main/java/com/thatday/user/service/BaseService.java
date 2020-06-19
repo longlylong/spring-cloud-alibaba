@@ -13,16 +13,20 @@ public class BaseService<DAO extends BaseDao, ENTITY> {
     @Autowired
     protected DAO dao;
 
-    public String saveOrUpdate(ENTITY entity) {
+    //可自己定义id
+    protected String customDatabaseId() {
+        return IdGen.uuid();
+    }
+
+    public void saveOrUpdate(ENTITY entity) {
         String id = getId(entity);
         if (StringUtils.isEmpty(id)) {
-            id = IdGen.uuid();
+            id = customDatabaseId();
             setId(id, entity);
             dao.save(entity);
         } else {
             dao.saveAndFlush(entity);
         }
-        return id;
     }
 
     private void setId(String id, ENTITY entity) {
