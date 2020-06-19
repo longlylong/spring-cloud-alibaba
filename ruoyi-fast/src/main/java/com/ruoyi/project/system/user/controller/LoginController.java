@@ -4,6 +4,7 @@ import com.ruoyi.common.utils.ServletUtils;
 import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.framework.web.controller.BaseController;
 import com.ruoyi.framework.web.domain.AjaxResult;
+import lombok.Data;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -23,12 +24,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 public class LoginController extends BaseController {
+
+
     @GetMapping("/login")
     public String login(HttpServletRequest request, HttpServletResponse response) {
         // 如果是Ajax请求，返回Json字符串。
         if (ServletUtils.isAjaxRequest(request)) {
             return ServletUtils.renderString(response, "{\"code\":\"1\",\"msg\":\"未登录或登录超时。请重新登录\"}");
         }
+        request.setAttribute("captchaEnabled",false);
 
         return "login";
     }
