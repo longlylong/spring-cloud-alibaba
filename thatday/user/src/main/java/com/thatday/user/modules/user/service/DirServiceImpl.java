@@ -8,7 +8,7 @@ import com.thatday.user.service.BaseService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DirServiceImpl extends BaseService<DirDao, Dir> implements DirService {
+public class DirServiceImpl extends BaseService<Dir,String,DirDao> implements DirService {
 
     @Override
     public Dir save(String userId) {

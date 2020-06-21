@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.Field;
 
-public class BaseService<DAO extends BaseDao, ENTITY> {
+public class BaseService<ENTITY, ID, DAO extends BaseDao<ENTITY, ID>> {
 
     @Autowired
     protected DAO dao;
@@ -16,6 +16,10 @@ public class BaseService<DAO extends BaseDao, ENTITY> {
     //可自己定义id
     protected String customDatabaseId() {
         return IdGen.uuid();
+    }
+
+    public ENTITY getOne(ID id) {
+        return dao.findFirstByIdEquals(id);
     }
 
     public void saveOrUpdate(ENTITY entity) {
