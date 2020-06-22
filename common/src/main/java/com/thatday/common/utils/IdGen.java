@@ -6,6 +6,8 @@ package com.thatday.common.utils;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 /**
@@ -34,14 +36,15 @@ public class IdGen {
 		return UUID.randomUUID().toString().replaceAll("-", "");
 	}
 
-	public static String getNextCode() {
+	//根据时间生成的数据库id
+	public static String getNextTimeCode() {
 		long seconds = (System.currentTimeMillis() - startTime) / 1000;
 		long day = seconds / (86400);
 		long m = seconds % (86400);
-		return (day * 10000 + m / 10) + String.format("%04d", nextInt());
+		return (day * 10000 + m / 10) + String.format("%04d", nextTimeInt());
 	}
 
-	private static synchronized int nextInt() {
+	private static synchronized int nextTimeInt() {
 		if (num >= 9999) {
 			num = 1;
 		} else {
@@ -51,8 +54,31 @@ public class IdGen {
 		return num;
 	}
 
+	private static HashMap<String, ArrayList<Integer>> offsetMap = new HashMap<>();
+	private static HashMap<String, Long> lastIdMap = new HashMap<>();
+
+	//随机自增的
+	public static synchronized Long autoId(String key, Long lastId) {
+		int i = random.nextInt(20) + 1;
+		Long lastLastId = lastIdMap.get(key);
+
+		lastIdMap.put(key, lastId);
+		ArrayList<Integer> integers = offsetMap.computeIfAbsent(key, k -> new ArrayList<>());
+
+		if (lastId.equals(lastLastId)) {
+			for (Integer integer : integers) {
+				lastId += integer;
+			}
+		} else {
+			integers.clear();
+		}
+		integers.add(i);
+		return lastId + i;
+	}
+
+
 	public static void main(String[] args) {
-		System.out.println(getNextCode());
+		System.out.println(getNextTimeCode());
 	}
 
 }
