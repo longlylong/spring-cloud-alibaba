@@ -10,5 +10,5 @@ public interface UserService {
 
     User loginByWeChat(LoginWeChatVo loginWeChatVo);
 
-    String save(String id);
+    User save(String id);
 }
