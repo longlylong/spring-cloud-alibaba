@@ -8,8 +8,7 @@ import com.thatday.user.service.BaseService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl extends BaseService<UserDao, User> implements UserService {
-
+public class UserServiceImpl extends BaseService<User, String, UserDao> implements UserService {
 
     @Override
     public User loginByPhone(LoginPhoneVo loginPhoneVo) {

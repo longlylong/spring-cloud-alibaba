@@ -19,7 +19,7 @@ public class BaseService<ENTITY, ID, DAO extends BaseDao<ENTITY, ID>> {
     }
 
     public ENTITY getOne(ID id) {
-        return dao.findFirstByIdEquals(id);
+        return dao.getOne(id);
     }
 
     public void saveOrUpdate(ENTITY entity) {

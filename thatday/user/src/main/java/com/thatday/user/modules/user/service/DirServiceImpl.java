@@ -23,6 +23,6 @@ public class DirServiceImpl extends BaseService<Dir,String,DirDao> implements Di
 
     @Override
     protected String customDatabaseId() {
-        return "DR" + IdGen.getNextCode();
+        return "DR" + IdGen.getNextTimeCode();
     }
 }
