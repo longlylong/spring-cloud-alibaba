@@ -16,7 +16,7 @@
     <properties>
         <dom4j.version>1.6.1</dom4j.version>
         <commons-lang3.version>3.7</commons-lang3.version>
-        <commons-beanutils.version>1.9.3</commons-beanutils.version>
+        <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <dom4j.version>1.6.1</dom4j.version>
         <commons-io.version>2.6</commons-io.version>
         <java-jwt.version>3.4.0</java-jwt.version>
