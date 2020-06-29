@@ -8,6 +8,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+import com.thatday.common.utils.IdGen;
 import lombok.Data;
 
 /**
@@ -49,7 +50,7 @@ public class AliSMSCodeUtil {
 
         //友情提示:如果JSON中需要带换行符,请参照标准的JSON协议对换行符的要求,
         // 比如短信内容中包含\r\n的情况在JSON中需要表示成\\r\\n,否则会导致JSON在服务端解析失败
-        String num = getRandomNumber();
+        String num = IdGen.getRandom4Num();
         request.setTemplateParam("{\"number\":\"" + num + "\"}");
 
         //可选-上行短信扩展码(扩展码字段控制在7位或以下，无特殊需求用户请忽略此字段)
@@ -63,15 +64,6 @@ public class AliSMSCodeUtil {
         smsResponse.setCode(sendSmsResponse.getCode());
         smsResponse.setNumber(num);
         return smsResponse;
-    }
-
-    private static String getRandomNumber() {
-        // 生成随机4位码
-        StringBuilder s = new StringBuilder();
-        while (s.length() < 4) {
-            s.append((int) (Math.random() * 10));
-        }
-        return s.toString();
     }
 
     @Data
