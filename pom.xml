@@ -14,7 +14,7 @@
         <module>server-gateway</module>
         <module>thatday</module>
         <module>pub</module>
-        <module>ruoyi-fast</module>
+        <module>mm-admin-backend</module>
     </modules>
 
     <parent>

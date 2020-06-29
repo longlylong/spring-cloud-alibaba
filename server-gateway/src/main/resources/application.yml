@@ -58,10 +58,10 @@ spring:
             - Path=/v1/common-api/**
           filters:
             - StripPrefix=2
-        - id: rouyi-v1
-          uri: lb://rouyi-v1
+        - id: mm-admin-v1
+          uri: lb://mm-admin-v1
           predicates:
-            - Path=/v1/rouyi/**
+            - Path=/v1/admin-api/**
           filters:
             - StripPrefix=2
 

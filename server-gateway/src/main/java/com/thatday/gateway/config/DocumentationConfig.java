@@ -21,8 +21,9 @@ public class DocumentationConfig implements SwaggerResourcesProvider {
         List<SwaggerResource> resources = new ArrayList<>();
 
         if (enableSwagger) {
-            resources.add(swaggerResource("用户模块", "/v1/user-api/v2/api-docs"));
-            resources.add(swaggerResource("公用模块", "/v1/id-api/v2/api-docs"));
+            resources.add(swaggerResource("用户模块" , "/v1/user-api/v2/api-docs"));
+            resources.add(swaggerResource("后台管理" , "/v1/admin-api/v2/api-docs"));
+            resources.add(swaggerResource("公用模块" , "/v1/id-api/v2/api-docs"));
         }
 
         return resources;

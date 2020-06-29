@@ -34,7 +34,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {// 创建API的基本信息，这些信息会在Swagger UI中进行显示
         return new ApiInfoBuilder()
-                .title("用户模块 RESTful APIs")// API 标题
+                .title("用户模块 APIs")// API 标题
                 .description("King科技有限公司出品")// API描述
                 .version("1.0")// 版本号
                 .contact("King")
