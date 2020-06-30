@@ -1,6 +1,4 @@
 import com.thatday.user.UserApplication;
-import com.thatday.user.modules.user.entity.Dir;
-import com.thatday.user.modules.user.entity.User;
 import com.thatday.user.modules.user.service.DirService;
 import com.thatday.user.modules.user.service.UserService;
 import org.junit.Test;
@@ -21,9 +19,6 @@ public class TestApp {
 
     @Test
     public void a() {
-        User user = userService.save("");
-        Dir dir = dirService.save(user.getId());
-        System.out.println(dir);
 
     }
 }
