@@ -40,8 +40,9 @@ Plugins：
 	----tinyid （滴滴开源的序列ID生成器）
 	----controller （接口）
 
-	RouYi-Fast
-	(加了springcloud的若依管理系统http://www.ruoyi.vip,
+	mm-admin-backend 管理后台后端
+	mm-admin-front 管理后台前端 Vue 最简化功能
+	(前后端分离后台管理系统http://www.ruoyi.vip,
 	如果前期没业务需求可以不跑)
 
 	ServerGateway （网关）
