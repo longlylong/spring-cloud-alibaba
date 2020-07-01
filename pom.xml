@@ -37,6 +37,7 @@
         <knife4j-version>2.0.1</knife4j-version>
         <mysql-connector.version>8.0.15</mysql-connector.version>
         <guava-version>20.0</guava-version>
+        <quartz-version>2.3.2</quartz-version>
     </properties>
 
     <dependencies>
