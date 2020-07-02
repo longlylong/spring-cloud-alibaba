@@ -45,7 +45,7 @@ public class TDExceptionHandler {
             return BaseController.buildParamErrorResponseModel(exception.getBindingResult());
 
         } else {
-            return Result.buildError("操作失败，请联系客服");
+            return Result.buildError("操作失败，请联系客服（" + e.getClass().getSimpleName() + "）");
         }
     }
 }
