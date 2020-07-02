@@ -5,11 +5,18 @@ import com.thatday.user.modules.user.entity.User;
 import com.thatday.user.modules.user.vo.LoginPhoneVo;
 import com.thatday.user.modules.user.vo.LoginWeChatVo;
 import com.thatday.user.service.BaseService;
+import org.springframework.stereotype.Service;
 
-public interface UserService extends BaseService<User, String, UserDao> {
+@Service
+public class UserService extends BaseService<User, String, UserDao> {
 
-    User loginByPhone(LoginPhoneVo loginPhoneVo);
+    public User loginByPhone(LoginPhoneVo loginPhoneVo) {
+        return null;
+    }
 
-    User loginByWeChat(LoginWeChatVo loginWeChatVo);
+    public User loginByWeChat(LoginWeChatVo loginWeChatVo) {
+        return null;
+    }
+
 
 }
