@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface BaseService<ENTITY, ID, DAO extends BaseDao<ENTITY, ID>> {
 
-    DAO getDao();
-
     //可自己定义id
-    String customDatabaseId();
+    ID customDatabaseId();
+
+    DAO getDao();
 
     ENTITY getOne(ID id);
 

@@ -19,4 +19,8 @@ public class UserServiceImpl extends BaseServiceImpl<User, String, UserDao> impl
     }
 
 
+    @Override
+    public String customDatabaseId() {
+        return null;
+    }
 }
