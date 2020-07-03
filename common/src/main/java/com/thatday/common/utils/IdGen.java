@@ -59,20 +59,12 @@ public class IdGen {
         long seconds = (System.currentTimeMillis() - startTime) / 1000;
         long day = seconds / (86400);
         long m = seconds % (86400);
-        long prefix = day * 10000 + m / 10;
-
-        int nextInt = nextTimeInt();
-        if (nextInt >= 100000) {
-            return prefix + String.format("%06d", nextInt);
-        } else if (nextInt >= 10000) {
-            return prefix + String.format("%05d", nextInt);
-        } else {
-            return prefix + String.format("%04d", nextInt);
-        }
+        long prefix = day * 100000 + m;
+        return prefix + String.format("%04d", nextTimeInt());
     }
 
     private static synchronized int nextTimeInt() {
-        if (num >= 999999) {
+        if (num >= 9999) {
             num = 1;
         } else {
             int i = random.nextInt(5) + 1;
