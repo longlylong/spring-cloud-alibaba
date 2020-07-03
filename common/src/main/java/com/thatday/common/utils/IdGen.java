@@ -18,7 +18,7 @@ public class IdGen {
 
     private static SecureRandom random = new SecureRandom();
 
-    private static final long startTime = DateUtils.parseDate("2020-06-01").getTime();
+    private static final long startTime = DateUtils.parseDate("2020-07-01").getTime();
 
     private static volatile int num;
     private final static String baseNum = "0123456789";
@@ -59,14 +59,23 @@ public class IdGen {
         long seconds = (System.currentTimeMillis() - startTime) / 1000;
         long day = seconds / (86400);
         long m = seconds % (86400);
-        return (day * 10000 + m / 10) + String.format("%04d", nextTimeInt());
+        long prefix = day * 10000 + m / 10;
+
+        int nextInt = nextTimeInt();
+        if (nextInt >= 100000) {
+            return prefix + String.format("%06d", nextInt);
+        } else if (nextInt >= 10000) {
+            return prefix + String.format("%05d", nextInt);
+        } else {
+            return prefix + String.format("%04d", nextInt);
+        }
     }
 
     private static synchronized int nextTimeInt() {
-        if (num >= 9999) {
+        if (num >= 999999) {
             num = 1;
         } else {
-            int i = random.nextInt(10) + 1;
+            int i = random.nextInt(5) + 1;
             num = num + i;
         }
         return num;
@@ -77,7 +86,7 @@ public class IdGen {
 
     //随机自增的需要提供上一个id
     public static synchronized Long autoId(String key, Long lastId) {
-        int i = random.nextInt(20) + 1;
+        int i = random.nextInt(5) + 1;
         Long lastLastId = lastIdMap.get(key);
 
         lastIdMap.put(key, lastId);
