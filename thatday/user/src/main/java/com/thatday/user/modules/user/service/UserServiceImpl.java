@@ -10,15 +10,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl extends BaseServiceImpl<User, String, UserDao> implements UserService {
 
-    @Override
     public User loginByPhone(LoginPhoneVo loginPhoneVo) {
         return null;
     }
 
-    @Override
     public User loginByWeChat(LoginWeChatVo loginWeChatVo) {
         return null;
     }
 
 
+    @Override
+    public String customDatabaseId() {
+        return null;
+    }
 }

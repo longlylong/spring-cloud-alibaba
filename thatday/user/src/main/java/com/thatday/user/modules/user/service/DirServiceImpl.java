@@ -8,21 +8,10 @@ import com.thatday.user.service.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DirServiceImpl extends BaseServiceImpl<Dir,String,DirDao> implements DirService {
+public class DirServiceImpl extends BaseServiceImpl<Dir, String, DirDao> implements DirService {
 
     @Override
-    public Dir save(String userId) {
-        Dir dir = new Dir();
-
-        dir.setGroupTitle(System.currentTimeMillis() + "");
-        dir.setUserId(userId);
-        saveOrUpdate(dir);
-
-        return dir;
-    }
-
-    @Override
-    protected String customDatabaseId() {
+    public String customDatabaseId() {
         return "DR" + IdGen.getNextTimeCode();
     }
 }
