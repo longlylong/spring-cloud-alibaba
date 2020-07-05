@@ -396,20 +396,19 @@
             },
             /** 提交按钮 */
             submitForm: function () {
-                this.#[[$]]
-                #refs["form"].validate(valid => {
-                    if (valid) {
-                        if (this.form.${pkColumn.javaField} != undefined) {
+                this.#[[$]]#refs["form"].validate(valid => {
+                    #[[i]]#f (valid) {
+                        #[[i]]#f (this.form.${pkColumn.javaField} != undefined) {
                             update${BusinessName}(this.form).then(response => {
-                                if (response.code === 200) {
+                                #[[i]]#f (response.code === 200) {
                                     this.msgSuccess("修改成功");
                                     this.open = false;
                                     this.getList();
                                 }
                             });
-                        } else {
+                        }  #[[e]]#lse {
                             add${BusinessName}(this.form).then(response => {
-                                if (response.code === 200) {
+                                #[[i]]#f (response.code === 200) {
                                     this.msgSuccess("新增成功");
                                     this.open = false;
                                     this.getList();
