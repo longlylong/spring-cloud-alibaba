@@ -25,6 +25,13 @@ public abstract class BaseServiceImpl<ENTITY, ID, DAO extends BaseDao<ENTITY, ID
     }
 
     @Override
+    public ENTITY getOneAndCheckNull(ID id, String msg) {
+        ENTITY entity = getOne(id);
+        checkNull(entity, msg);
+        return entity;
+    }
+
+    @Override
     public void saveOrUpdate(ENTITY entity) {
         ID id = getId(entity);
         if (id == null || StringUtils.isEmpty(id.toString())) {
