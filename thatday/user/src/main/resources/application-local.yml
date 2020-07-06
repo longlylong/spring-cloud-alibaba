@@ -1,8 +1,8 @@
 spring:
     datasource:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://192.168.220.130:3306/yytest?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false
-      username: yytest
+      url: jdbc:mysql://192.168.220.130:3306/that_day?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false
+      username: that_day
       password: 123456
 
 swagger:
