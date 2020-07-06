@@ -68,4 +68,26 @@ public class JPAUtil {
     public interface SpecificationListener {
         void addSpecification(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder builder, List<Predicate> predicates);
     }
+
+    public static class StickPageRequest extends PageRequest {
+
+        long stickOffset = 0;
+
+        public void setStickOffset(long stickOffset) {
+            this.stickOffset = stickOffset;
+        }
+
+        @Override
+        public long getOffset() {
+            return super.getOffset() - stickOffset;
+        }
+
+        public StickPageRequest(PageInfoVo vo) {
+            super(vo.getCurPage(), vo.getPageSize(), Sort.by(Sort.Direction.DESC, "createTime"));
+        }
+
+        public StickPageRequest(int page, int size, Sort sort) {
+            super(page, size, sort);
+        }
+    }
 }
