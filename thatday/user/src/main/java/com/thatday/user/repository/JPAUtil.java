@@ -40,7 +40,7 @@ public class JPAUtil {
         return PageRequest.of(vo.getCurPage(), vo.getPageSize(), sort);
     }
 
-    public static <T> PageResult<T> setInfo(Integer curPage, Page<T> fromPage) {
+    public static <T> PageResult<T> setPageInfo(Integer curPage, Page<T> fromPage) {
         PageResult<T> pageResult = new PageResult<>();
         pageResult.setCurPage(curPage);
         pageResult.setTotalCount(fromPage.getTotalElements());
@@ -49,11 +49,11 @@ public class JPAUtil {
         return pageResult;
     }
 
-    public static <T, Y> PageResult<T> setInfo(Integer curPage, Page<Y> fromPage, Class<T> clazz) {
-        return setInfo(curPage, fromPage, clazz, null);
+    public static <T, Y> PageResult<T> setPageInfo(Integer curPage, Page<Y> fromPage, Class<T> clazz) {
+        return setPageInfo(curPage, fromPage, clazz, null);
     }
 
-    public static <T, Y> PageResult<T> setInfo(Integer curPage, Page<Y> fromPage, Class<T> clazz, TemplateCodeUtil.OnTransListener<T, Y> onTransListener) {
+    public static <T, Y> PageResult<T> setPageInfo(Integer curPage, Page<Y> fromPage, Class<T> clazz, TemplateCodeUtil.OnTransListener<T, Y> onTransListener) {
         PageResult<T> pageResult = new PageResult<>();
         pageResult.setCurPage(curPage);
         pageResult.setTotalCount(fromPage.getTotalElements());

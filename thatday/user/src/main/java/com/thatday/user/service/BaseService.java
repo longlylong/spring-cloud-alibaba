@@ -28,24 +28,28 @@ public interface BaseService<ENTITY, ID, DAO extends BaseDao<ENTITY, ID>> {
     <S extends ENTITY> List<S> saveAll(Iterable<S> list);
 
     /**
-     * 获取DTO分页列表
-     */
-    <TARGET> PageResult<TARGET> getPageDTOList(PageRequest pageRequest, Class<TARGET> targetClass,
-                                               TemplateCodeUtil.OnTransListener<TARGET, ENTITY> transDTOListener,
-                                               JPAUtil.SpecificationListener otherConditionListener);
-
-    /**
      * 获取Entity分页列表
      */
     Page<ENTITY> getPageList(PageRequest pageRequest, JPAUtil.SpecificationListener otherConditionListener);
 
     /**
-     * 获取DTO顶置数据列表
+     * 获取Entity分页列表
      */
-    <TARGET> PageResult<TARGET> getStickDTOList(PageInfoVo vo, @NotNull Set<ID> stickIds, Class<TARGET> targetClass,
-                                                TemplateCodeUtil.OnTransListener<TARGET, ENTITY> stickDTOListener,
-                                                TemplateCodeUtil.OnTransListener<TARGET, ENTITY> otherDTOListener,
-                                                JPAUtil.SpecificationListener otherConditionListener);
+    PageResult<ENTITY> getPageResultList(PageRequest pageRequest, JPAUtil.SpecificationListener otherConditionListener);
 
+    /**
+     * 获取DTO分页列表
+     */
+    <TARGET> PageResult<TARGET> getPageResultDTOList(PageRequest pageRequest, Class<TARGET> targetClass,
+                                                     TemplateCodeUtil.OnTransListener<TARGET, ENTITY> transDTOListener,
+                                                     JPAUtil.SpecificationListener otherConditionListener);
+
+    /**
+     * 获取DTO顶置分页列表
+     */
+    <TARGET> PageResult<TARGET> getPageResultStickDTOList(PageInfoVo vo, @NotNull Set<ID> stickIds, Class<TARGET> targetClass,
+                                                          TemplateCodeUtil.OnTransListener<TARGET, ENTITY> stickDTOListener,
+                                                          TemplateCodeUtil.OnTransListener<TARGET, ENTITY> otherDTOListener,
+                                                          JPAUtil.SpecificationListener otherConditionListener);
 
 }

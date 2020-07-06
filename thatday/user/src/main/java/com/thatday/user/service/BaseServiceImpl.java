@@ -58,14 +58,6 @@ public abstract class BaseServiceImpl<ENTITY, ID, DAO extends BaseDao<ENTITY, ID
     }
 
     @Override
-    public <TARGET> PageResult<TARGET> getPageDTOList(PageRequest pageRequest, Class<TARGET> targetClass,
-                                                      TemplateCodeUtil.OnTransListener<TARGET, ENTITY> transDTOListener,
-                                                      JPAUtil.SpecificationListener otherConditionListener) {
-        Page<ENTITY> pageList = getPageList(pageRequest, otherConditionListener);
-        return JPAUtil.setInfo(pageRequest.getPageNumber(), pageList, targetClass, transDTOListener);
-    }
-
-    @Override
     public Page<ENTITY> getPageList(PageRequest pageRequest, JPAUtil.SpecificationListener otherConditionListener) {
         Specification<ENTITY> specification = JPAUtil.makeSpecification((root, criteriaQuery, builder, predicates) -> {
             if (otherConditionListener != null) {
@@ -76,19 +68,33 @@ public abstract class BaseServiceImpl<ENTITY, ID, DAO extends BaseDao<ENTITY, ID
     }
 
     @Override
-    public <TARGET> PageResult<TARGET> getStickDTOList(PageInfoVo vo, @NotNull Set<ID> stickIds, Class<TARGET> targetClass,
-                                                       TemplateCodeUtil.OnTransListener<TARGET, ENTITY> stickDTOListener,
-                                                       TemplateCodeUtil.OnTransListener<TARGET, ENTITY> otherDTOListener,
-                                                       JPAUtil.SpecificationListener otherConditionListener) {
+    public PageResult<ENTITY> getPageResultList(PageRequest pageRequest, JPAUtil.SpecificationListener otherConditionListener) {
+        Page<ENTITY> page = getPageList(pageRequest, otherConditionListener);
+        return JPAUtil.setPageInfo(pageRequest.getPageNumber(), page);
+    }
+
+    @Override
+    public <TARGET> PageResult<TARGET> getPageResultDTOList(PageRequest pageRequest, Class<TARGET> targetClass,
+                                                            TemplateCodeUtil.OnTransListener<TARGET, ENTITY> transDTOListener,
+                                                            JPAUtil.SpecificationListener otherConditionListener) {
+        Page<ENTITY> pageList = getPageList(pageRequest, otherConditionListener);
+        return JPAUtil.setPageInfo(pageRequest.getPageNumber(), pageList, targetClass, transDTOListener);
+    }
+
+    @Override
+    public <TARGET> PageResult<TARGET> getPageResultStickDTOList(PageInfoVo vo, @NotNull Set<ID> stickIds, Class<TARGET> targetClass,
+                                                                 TemplateCodeUtil.OnTransListener<TARGET, ENTITY> stickDTOListener,
+                                                                 TemplateCodeUtil.OnTransListener<TARGET, ENTITY> otherDTOListener,
+                                                                 JPAUtil.SpecificationListener otherConditionListener) {
         Integer pageSize = vo.getPageSize();
 
         Page<ENTITY> page = getStickList(vo, stickIds, new JPAUtil.StickPageRequest(vo), false, otherConditionListener);
-        PageResult<TARGET> dtoPageResult = JPAUtil.setInfo(vo.getCurPage(), page, targetClass, stickDTOListener);
+        PageResult<TARGET> dtoPageResult = JPAUtil.setPageInfo(vo.getCurPage(), page, targetClass, stickDTOListener);
 
         if (page.getContent().size() < vo.getPageSize()) {
             vo.setPageSize(vo.getPageSize() - page.getContent().size());
             Page<ENTITY> otherPage = getStickList(vo, stickIds, new JPAUtil.StickPageRequest(vo), true, otherConditionListener);
-            PageResult<TARGET> otherDto = JPAUtil.setInfo(vo.getCurPage(), otherPage, targetClass, otherDTOListener);
+            PageResult<TARGET> otherDto = JPAUtil.setPageInfo(vo.getCurPage(), otherPage, targetClass, otherDTOListener);
 
             dtoPageResult.setTotalCount(dtoPageResult.getTotalCount() + otherDto.getTotalCount());
             dtoPageResult.getDataList().addAll(otherDto.getDataList());
