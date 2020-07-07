@@ -8,8 +8,8 @@ ruoyi:
   copyrightYear: 2020
   # 实例演示开关
   demoEnabled: true
-  # 文件路径 示例（ Windows配置D:/mm/uploadPath，Linux配置 /home/mm/uploadPath）
-  profile: D:/mm/uploadPath
+  # 文件路径 示例（ Windows配置D:/home/that-day/uploadPath，Linux配置 /home/that-day/uploadPath）
+  profile: /home/that-day/uploadPath
   # 获取ip地址开关
   addressEnabled: false
 
