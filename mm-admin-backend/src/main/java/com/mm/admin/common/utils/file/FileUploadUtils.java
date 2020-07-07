@@ -16,8 +16,6 @@ import java.io.IOException;
 
 /**
  * 文件上传工具类
- *
- * @author ruoyi
  */
 public class FileUploadUtils {
     /**

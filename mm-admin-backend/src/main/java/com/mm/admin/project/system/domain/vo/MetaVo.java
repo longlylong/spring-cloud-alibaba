@@ -2,8 +2,6 @@ package com.mm.admin.project.system.domain.vo;
 
 /**
  * 路由显示信息
- *
- * @author ruoyi
  */
 public class MetaVo {
     /**

@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * 代码生成 操作处理
  *
- * @author ruoyi
+ *
  */
 @RestController
 @RequestMapping("/tool/gen")
@@ -160,7 +160,7 @@ public class GenController extends BaseController {
      */
     private void genCode(HttpServletResponse response, byte[] data) throws IOException {
         response.reset();
-        response.setHeader("Content-Disposition", "attachment; filename=\"ruoyi.zip\"");
+        response.setHeader("Content-Disposition", "attachment; filename=\"that-day.zip\"");
         response.addHeader("Content-Length", "" + data.length);
         response.setContentType("application/octet-stream; charset=UTF-8");
         IOUtils.write(data, response.getOutputStream());

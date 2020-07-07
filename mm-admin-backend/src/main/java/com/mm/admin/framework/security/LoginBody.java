@@ -2,8 +2,6 @@ package com.mm.admin.framework.security;
 
 /**
  * 用户登录对象
- *
- * @author ruoyi
  */
 public class LoginBody {
     /**

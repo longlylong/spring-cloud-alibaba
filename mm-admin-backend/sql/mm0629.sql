@@ -1,10 +1,10 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 若依管理系统
+Source Server         : 某某管理系统
 Source Server Version : 50632
 Source Host           : 192.168.220.130:3306
-Source Database       : ruoyi
+Source Database       : that_day
 
 Target Server Type    : MYSQL
 Target Server Version : 50632

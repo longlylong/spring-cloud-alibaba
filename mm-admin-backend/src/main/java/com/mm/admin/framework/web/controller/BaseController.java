@@ -21,8 +21,6 @@ import java.util.List;
 
 /**
  * web层通用数据处理
- *
- * @author ruoyi
  */
 public class BaseController {
     protected final Logger logger = LoggerFactory.getLogger(BaseController.class);

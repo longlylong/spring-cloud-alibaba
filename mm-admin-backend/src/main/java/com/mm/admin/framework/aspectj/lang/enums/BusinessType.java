@@ -2,8 +2,6 @@ package com.mm.admin.framework.aspectj.lang.enums;
 
 /**
  * 业务操作类型
- *
- * @author ruoyi
  */
 public enum BusinessType {
     /**

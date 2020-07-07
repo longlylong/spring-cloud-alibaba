@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 服务相关配置
- *
- * @author ruoyi
  */
 @Component
 public class ServerConfig {

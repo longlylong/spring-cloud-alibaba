@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <!-- 日志存放路径 -->
-    <property name="log.path" value="/home/ruoyi/logs"/>
+    <property name="log.path" value="/home/that-day/logs"/>
     <!-- 日志输出格式 -->
     <property name="log.pattern" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{20} - [%method,%line] - %msg%n"/>
 
@@ -72,7 +72,7 @@
     </appender>
 
     <!-- 系统模块日志级别控制  -->
-    <logger name="com.ruoyi" level="info"/>
+    <logger name="com.mm.admin" level="info"/>
     <!-- Spring日志级别控制  -->
     <logger name="org.springframework" level="warn"/>
 

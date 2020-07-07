@@ -13,8 +13,6 @@ import java.nio.charset.Charset;
 
 /**
  * 通用http工具封装
- *
- * @author ruoyi
  */
 public class HttpHelper {
     private static final Logger LOGGER = LoggerFactory.getLogger(HttpHelper.class);

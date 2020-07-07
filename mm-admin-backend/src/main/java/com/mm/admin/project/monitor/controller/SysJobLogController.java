@@ -16,8 +16,6 @@ import java.util.List;
 
 /**
  * 调度日志操作处理
- *
- * @author ruoyi
  */
 @RestController
 @RequestMapping("/monitor/jobLog")

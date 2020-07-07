@@ -4,8 +4,6 @@ import com.mm.admin.common.core.lang.UUID;
 
 /**
  * ID生成器工具类
- *
- * @author ruoyi
  */
 public class IdUtils {
     /**

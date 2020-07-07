@@ -20,8 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 通用请求处理
- *
- * @author ruoyi
  */
 @RestController
 public class CommonController {

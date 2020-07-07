@@ -2,8 +2,6 @@ package com.mm.admin.project.monitor.domain;
 
 /**
  * 当前在线会话
- *
- * @author ruoyi
  */
 public class SysUserOnline {
     /**

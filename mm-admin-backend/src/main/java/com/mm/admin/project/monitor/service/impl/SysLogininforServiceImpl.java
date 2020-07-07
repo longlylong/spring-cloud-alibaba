@@ -10,8 +10,6 @@ import java.util.List;
 
 /**
  * 系统访问日志情况信息 服务层处理
- *
- * @author ruoyi
  */
 @Service
 public class SysLogininforServiceImpl implements ISysLogininforService {

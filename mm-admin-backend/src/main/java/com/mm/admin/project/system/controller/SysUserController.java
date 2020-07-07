@@ -26,8 +26,6 @@ import java.util.List;
 
 /**
  * 用户信息
- *
- * @author ruoyi
  */
 @RestController
 @RequestMapping("/system/user")

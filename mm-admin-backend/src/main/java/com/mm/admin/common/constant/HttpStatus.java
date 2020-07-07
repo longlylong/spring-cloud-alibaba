@@ -2,8 +2,6 @@ package com.mm.admin.common.constant;
 
 /**
  * 返回状态码
- *
- * @author ruoyi
  */
 public class HttpStatus {
     /**

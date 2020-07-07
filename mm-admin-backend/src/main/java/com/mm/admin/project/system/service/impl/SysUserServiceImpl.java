@@ -20,8 +20,6 @@ import java.util.List;
 
 /**
  * 用户 业务层处理
- *
- * @author ruoyi
  */
 @Service
 public class SysUserServiceImpl implements ISysUserService {

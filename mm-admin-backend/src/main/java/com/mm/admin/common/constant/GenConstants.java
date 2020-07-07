@@ -2,8 +2,6 @@ package com.mm.admin.common.constant;
 
 /**
  * 代码生成通用常量
- *
- * @author ruoyi
  */
 public class GenConstants {
     /**

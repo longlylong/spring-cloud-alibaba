@@ -8,8 +8,6 @@ import java.util.List;
 
 /**
  * 定时任务调度信息信息 服务层
- *
- * @author ruoyi
  */
 public interface ISysJobService {
     /**

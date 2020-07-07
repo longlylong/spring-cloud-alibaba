@@ -4,8 +4,6 @@ import com.mm.admin.common.utils.StringUtils;
 
 /**
  * 字符串格式化
- *
- * @author ruoyi
  */
 public class StrFormatter {
     public static final String EMPTY_JSON = "{}";
