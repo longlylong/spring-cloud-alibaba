@@ -1,5 +1,6 @@
 package com.thatday.user.service;
 
+import com.thatday.common.exception.TDExceptionHandler;
 import org.quartz.*;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +23,19 @@ public class SchedulerService {
         addJob(jobName, jobGroup, targetClass, data, new Date());
     }
 
+    private void deleteJob(String jobName, String jobGroup) {
+        try {
+            scheduler.deleteJob(new JobKey(jobName, jobGroup));
+        } catch (SchedulerException e) {
+            throw TDExceptionHandler.throwGlobalException("deleteJob", e);
+        }
+    }
+
     //固定时间的
     private void addJob(String jobName, String jobGroup, String targetClass, Object data, Date fixedTime) {
         try {
+            deleteJob(jobName, jobGroup);
+
             JobDataMap dataMap = new JobDataMap();
             dataMap.put(data.getClass().getSimpleName(), data);
 
@@ -44,6 +55,8 @@ public class SchedulerService {
     //周期性的
     private void addJob(String jobName, String jobGroup, String targetClass, Object data, int afterSecondStart, String cron) {
         try {
+            deleteJob(jobName, jobGroup);
+
             JobDataMap dataMap = new JobDataMap();
             dataMap.put(data.getClass().getSimpleName(), data);
 

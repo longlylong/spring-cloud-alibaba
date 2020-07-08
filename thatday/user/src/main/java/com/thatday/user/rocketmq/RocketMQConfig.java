@@ -13,8 +13,6 @@ public class RocketMQConfig implements ApplicationRunner {
     public static final String Tags_A = "a" ;
     public static final String Tags_B = "b" ;
 
-    @Value("${server.port}")
-    private int port;
 
     @Override
     public void run(ApplicationArguments args) {

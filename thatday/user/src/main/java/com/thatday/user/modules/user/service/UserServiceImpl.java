@@ -39,7 +39,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, String, UserDao> impl
         });
 
 
-        PageResult<UserDTO> pageDTOList = getPageDTOList(pageRequest, UserDTO.class, (userDTO, user) -> {
+        PageResult<UserDTO> pageDTOList = getPageResultDTOList(pageRequest, UserDTO.class, (userDTO, user) -> {
 
             userDTO.setOtherField("some field");
 
