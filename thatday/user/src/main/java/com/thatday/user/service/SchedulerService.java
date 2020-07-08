@@ -30,7 +30,7 @@ public class SchedulerService {
 
             Trigger trigger = TriggerBuilder.newTrigger().withIdentity(jobName, jobGroup)
                     .startAt(fixedTime)
-                    .usingJobData(dataMap).startNow().build();
+                    .usingJobData(dataMap).build();
 
             scheduler.scheduleJob(getJobDetail(jobName, jobGroup, targetClass), trigger);
             if (!scheduler.isShutdown()) {
@@ -50,7 +50,7 @@ public class SchedulerService {
             Trigger trigger = TriggerBuilder.newTrigger().withIdentity(jobName, jobGroup)
                     .startAt(DateBuilder.futureDate(afterSecondStart, DateBuilder.IntervalUnit.SECOND))
                     .usingJobData(dataMap)
-                    .withSchedule(CronScheduleBuilder.cronSchedule(cron)).startNow().build();
+                    .withSchedule(CronScheduleBuilder.cronSchedule(cron)).build();
 
             scheduler.scheduleJob(getJobDetail(jobName, jobGroup, targetClass), trigger);
             if (!scheduler.isShutdown()) {
