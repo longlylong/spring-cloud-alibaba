@@ -133,7 +133,7 @@
                         </goals>
                         <configuration>
                             <targetFolder>target/generated-sources</targetFolder>
-                            <packages>com.thatday.user.entity.db</packages>
+                            <packages>com.thatday.user.*</packages>
                         </configuration>
                     </execution>
                 </executions>
