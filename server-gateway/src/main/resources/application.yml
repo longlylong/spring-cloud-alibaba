@@ -78,5 +78,9 @@ hystrix:
 #log
 logging:
   config: classpath:logback-admin.xml
-log:
-  file: /home/that-day/logs/${spring.application.name}
+
+td:
+  swagger:
+    enable: true
+  log:
+    fileName: /home/that-day/logs/${spring.application.name}

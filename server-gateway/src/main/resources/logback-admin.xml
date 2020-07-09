@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <configuration>
-    <springProperty name="logFile" source="log.file"/>
+    <springProperty name="logFile" source="td.log.file"/>
 
     <!--引入默认的一些设置-->
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>

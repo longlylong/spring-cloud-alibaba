@@ -1,4 +1,4 @@
-package com.thatday.user.config;
+package com.thatday.gateway.config;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;

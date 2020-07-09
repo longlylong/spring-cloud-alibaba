@@ -7,3 +7,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+
+td:
+  swagger:
+    enable: false

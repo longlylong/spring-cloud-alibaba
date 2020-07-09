@@ -1,6 +1,6 @@
 package com.thatday.gateway.config;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import springfox.documentation.swagger.web.SwaggerResource;
@@ -13,14 +13,14 @@ import java.util.List;
 @Primary
 public class DocumentationConfig implements SwaggerResourcesProvider {
 
-    @Value("${swagger.enable}")
-    private boolean enableSwagger;
+    @Autowired
+    EnvConfig envConfig;
 
     @Override
     public List<SwaggerResource> get() {
         List<SwaggerResource> resources = new ArrayList<>();
 
-        if (enableSwagger) {
+        if (envConfig.isEnableSwagger()) {
             resources.add(swaggerResource("用户模块" , "/v1/user-api/v2/api-docs"));
             resources.add(swaggerResource("后台管理" , "/v1/admin-api/v2/api-docs"));
             resources.add(swaggerResource("公用模块" , "/v1/id-api/v2/api-docs"));

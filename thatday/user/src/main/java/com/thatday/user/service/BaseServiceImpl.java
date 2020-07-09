@@ -54,7 +54,7 @@ public abstract class BaseServiceImpl<ENTITY, ID, DAO extends BaseDao<ENTITY, ID
 
     @Override
     public <S extends ENTITY> List<S> saveAll(Iterable<S> list) {
-        return saveAll(list);
+        return dao.saveAll(list);
     }
 
     @Override

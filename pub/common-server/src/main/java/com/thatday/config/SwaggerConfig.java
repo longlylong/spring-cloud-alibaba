@@ -1,6 +1,6 @@
 package com.thatday.config;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -15,14 +15,14 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
-    @Value("${swagger.enable}")
-    private boolean enableSwagger;
+    @Autowired
+    EnvConfig envConfig;
 
     @Bean
     public Docket createRestApi() {// 创建API基本信息
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
-                .enable(enableSwagger)
+                .enable(envConfig.isEnableSwagger())
                 .select()
                 // 扫描该包下的所有需要在Swagger中展示的API，@ApiIgnore注解标注的除外
                 .apis(RequestHandlerSelectors.basePackage("com.thatday.controller"))
