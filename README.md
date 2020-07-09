@@ -37,8 +37,6 @@ Plugins：
 
 	Pub （公共服务目录,如果前期没业务需求可以不跑）
 	--Common-Server （公共服务）
-	----tinyid （滴滴开源的序列ID生成器）
-	----controller （接口）
 
 	mm-admin-backend 管理后台后端
 	mm-admin-front 管理后台前端 Vue 最简化功能

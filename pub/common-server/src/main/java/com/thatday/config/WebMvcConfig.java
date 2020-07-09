@@ -1,6 +1,6 @@
 package com.thatday.config;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -8,12 +8,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    @Value("${swagger.enable}")
-    private boolean enableSwagger;
+    @Autowired
+    EnvConfig envConfig;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        if (this.enableSwagger) {
+        if (envConfig.isEnableSwagger()) {
             registry.addResourceHandler("swagger-ui.html")
                     .addResourceLocations("classpath:/META-INF/resources/");
 
