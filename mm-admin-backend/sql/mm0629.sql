@@ -629,30 +629,6 @@ INSERT INTO `sys_menu` VALUES ('1059', '预览代码', '114', '4', '#', '', '1',
 INSERT INTO `sys_menu` VALUES ('1060', '生成代码', '114', '5', '#', '', '1', 'F', '0', '0', 'tool:gen:code', '#', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '');
 
 -- ----------------------------
--- Table structure for sys_notice
--- ----------------------------
-DROP TABLE IF EXISTS `sys_notice`;
-CREATE TABLE `sys_notice` (
-  `notice_id` int(4) NOT NULL AUTO_INCREMENT COMMENT '公告ID',
-  `notice_title` varchar(50) NOT NULL COMMENT '公告标题',
-  `notice_type` char(1) NOT NULL COMMENT '公告类型（1通知 2公告）',
-  `notice_content` varchar(2000) DEFAULT NULL COMMENT '公告内容',
-  `status` char(1) DEFAULT '0' COMMENT '公告状态（0正常 1关闭）',
-  `create_by` varchar(64) DEFAULT '' COMMENT '创建者',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) DEFAULT '' COMMENT '更新者',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`notice_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='通知公告表';
-
--- ----------------------------
--- Records of sys_notice
--- ----------------------------
-INSERT INTO `sys_notice` VALUES ('1', '温馨提醒：2018-07-01 若依新版本发布啦', '2', '新版本内容', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '管理员');
-INSERT INTO `sys_notice` VALUES ('2', '维护通知：2018-07-01 若依系统凌晨维护', '1', '维护内容', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '管理员');
-
--- ----------------------------
 -- Table structure for sys_oper_log
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_oper_log`;
