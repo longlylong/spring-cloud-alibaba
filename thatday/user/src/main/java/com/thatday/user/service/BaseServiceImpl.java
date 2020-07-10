@@ -41,6 +41,16 @@ public abstract class BaseServiceImpl<ENTITY, ID, DAO extends BaseDao<ENTITY, ID
     }
 
     @Override
+    public ENTITY getLastOneById() {
+        PageRequest pageRequest = JPAUtil.prIdDesc(0, 1);
+        Page<ENTITY> page = getPageList(pageRequest, null);
+        if (page.getContent().isEmpty()) {
+            return null;
+        }
+        return page.getContent().get(0);
+    }
+
+    @Override
     public void saveOrUpdate(ENTITY entity) {
         ID id = getId(entity);
         if (id == null || StringUtils.isEmpty(id.toString())) {
@@ -70,7 +80,7 @@ public abstract class BaseServiceImpl<ENTITY, ID, DAO extends BaseDao<ENTITY, ID
     @Override
     public PageResult<ENTITY> getPageResultList(PageRequest pageRequest, JPAUtil.SpecificationListener otherConditionListener) {
         Page<ENTITY> page = getPageList(pageRequest, otherConditionListener);
-        return JPAUtil.setPageInfo(pageRequest.getPageNumber(), page);
+        return JPAUtil.setPageResult(pageRequest.getPageNumber(), page);
     }
 
     @Override
@@ -78,7 +88,7 @@ public abstract class BaseServiceImpl<ENTITY, ID, DAO extends BaseDao<ENTITY, ID
                                                             TemplateCodeUtil.OnTransListener<TARGET, ENTITY> transDTOListener,
                                                             JPAUtil.SpecificationListener otherConditionListener) {
         Page<ENTITY> pageList = getPageList(pageRequest, otherConditionListener);
-        return JPAUtil.setPageInfo(pageRequest.getPageNumber(), pageList, targetClass, transDTOListener);
+        return JPAUtil.setPageResult(pageRequest.getPageNumber(), pageList, targetClass, transDTOListener);
     }
 
     @Override
@@ -89,12 +99,12 @@ public abstract class BaseServiceImpl<ENTITY, ID, DAO extends BaseDao<ENTITY, ID
         Integer pageSize = vo.getPageSize();
 
         Page<ENTITY> page = getStickList(vo, stickIds, new JPAUtil.StickPageRequest(vo), false, otherConditionListener);
-        PageResult<TARGET> dtoPageResult = JPAUtil.setPageInfo(vo.getCurPage(), page, targetClass, stickDTOListener);
+        PageResult<TARGET> dtoPageResult = JPAUtil.setPageResult(vo.getCurPage(), page, targetClass, stickDTOListener);
 
         if (page.getContent().size() < vo.getPageSize()) {
             vo.setPageSize(vo.getPageSize() - page.getContent().size());
             Page<ENTITY> otherPage = getStickList(vo, stickIds, new JPAUtil.StickPageRequest(vo), true, otherConditionListener);
-            PageResult<TARGET> otherDto = JPAUtil.setPageInfo(vo.getCurPage(), otherPage, targetClass, otherDTOListener);
+            PageResult<TARGET> otherDto = JPAUtil.setPageResult(vo.getCurPage(), otherPage, targetClass, otherDTOListener);
 
             dtoPageResult.setTotalCount(dtoPageResult.getTotalCount() + otherDto.getTotalCount());
             dtoPageResult.getDataList().addAll(otherDto.getDataList());
