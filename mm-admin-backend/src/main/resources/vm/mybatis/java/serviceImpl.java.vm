@@ -26,9 +26,7 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service {
 
     /**
      * 查询${functionName}
-     *
      * @param ${pkColumn.javaField} ${functionName}ID
-     * @return ${functionName}
      */
     @Override
     public ${ClassName} select${ClassName}ById(${pkColumn.javaType} ${pkColumn.javaField}) {
@@ -37,9 +35,7 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service {
 
     /**
      * 查询${functionName}列表
-     *
      * @param ${className} ${functionName}
-     * @return ${functionName}
      */
     @Override
     public List<${ClassName}> select${ClassName}List(${ClassName} ${className}) {
@@ -48,9 +44,7 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service {
 
     /**
      * 新增${functionName}
-     *
      * @param ${className} ${functionName}
-     * @return 结果
      */
     @Override
     public int insert${ClassName}(${ClassName} ${className}) {
@@ -64,9 +58,7 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service {
 
     /**
      * 修改${functionName}
-     *
      * @param ${className} ${functionName}
-     * @return 结果
      */
     @Override
     public int update${ClassName}(${ClassName} ${className}) {
@@ -80,9 +72,7 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service {
 
     /**
      * 批量删除${functionName}
-     *
      * @param ${pkColumn.javaField}s 需要删除的${functionName}ID
-     * @return 结果
      */
     @Override
     public int delete${ClassName}ByIds(${pkColumn.javaType}[] ${pkColumn.javaField}s) {
@@ -91,9 +81,7 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service {
 
     /**
      * 删除${functionName}信息
-     *
      * @param ${pkColumn.javaField} ${functionName}ID
-     * @return 结果
      */
     @Override
     public int delete${ClassName}ById(${pkColumn.javaType} ${pkColumn.javaField}) {
