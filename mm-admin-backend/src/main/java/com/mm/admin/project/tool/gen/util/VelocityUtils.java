@@ -85,12 +85,12 @@ public class VelocityUtils {
      */
     public static List<String> getTemplateList(String tplCategory) {
         List<String> templates = new ArrayList<String>();
-        templates.add("vm/java/domain.java.vm");
-        templates.add("vm/java/mapper.java.vm");
-        templates.add("vm/java/service.java.vm");
-        templates.add("vm/java/serviceImpl.java.vm");
-        templates.add("vm/java/controller.java.vm");
-        templates.add("vm/xml/mapper.xml.vm");
+        templates.add("vm/mybatis/java/domain.java.vm");
+        templates.add("vm/mybatis/java/mapper.java.vm");
+        templates.add("vm/mybatis/java/service.java.vm");
+        templates.add("vm/mybatis/java/serviceImpl.java.vm");
+        templates.add("vm/mybatis/java/controller.java.vm");
+        templates.add("vm/mybatis/xml/mapper.xml.vm");
         templates.add("vm/sql/sql.vm");
         templates.add("vm/js/api.js.vm");
         if (GenConstants.TPL_CRUD.equals(tplCategory)) {
