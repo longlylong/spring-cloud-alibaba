@@ -1,0 +1,16 @@
+package ${packageName}.service;
+
+import com.thatday.user.service.BaseService;
+
+import ${packageName}.dao.${ClassName}Dao;
+import ${packageName}.domain.${ClassName};
+
+/**
+ * ${functionName}Service接口
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface ${ClassName}Service extends BaseService<${ClassName}, String, ${ClassName}Dao> {
+
+}

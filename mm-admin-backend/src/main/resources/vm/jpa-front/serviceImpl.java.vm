@@ -1,0 +1,19 @@
+package ${packageName}.service.impl;
+
+
+import org.springframework.stereotype.Service;
+
+import ${packageName}.domain.${ClassName};
+import ${packageName}.service.I${ClassName}Service;
+import com.thatday.user.service.BaseServiceImpl;
+
+/**
+ * ${functionName}Service业务层处理
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Service
+public class ${ClassName}ServiceImpl extends BaseServiceImpl<${ClassName}, String, ${ClassName}Dao> implements ${ClassName}Service {
+
+}

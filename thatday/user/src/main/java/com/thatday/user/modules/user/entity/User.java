@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * 用户表
@@ -19,6 +20,10 @@ public class User {
     @NotNull
     private String nickname;
 
+    @NotNull
+    private Date createTime = new Date();
 
+    @NotNull
+    private Date updateTime = new Date();
 
 }

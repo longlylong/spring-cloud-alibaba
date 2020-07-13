@@ -127,8 +127,8 @@ public class GenController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('tool:gen:preview')")
     @GetMapping("/preview/{tableId}")
-    public AjaxResult preview(@PathVariable("tableId") Long tableId) throws IOException {
-        Map<String, String> dataMap = genTableService.previewCode(tableId);
+    public AjaxResult preview(@PathVariable("tableId") Long tableId, Integer type) throws IOException {
+        Map<String, String> dataMap = genTableService.previewCode(tableId, type);
         return AjaxResult.success(dataMap);
     }
 
@@ -138,9 +138,9 @@ public class GenController extends BaseController {
     @PreAuthorize("@ss.hasPermi('tool:gen:code')")
     @Log(title = "代码生成", businessType = BusinessType.GENCODE)
     @GetMapping("/genCode/{tableName}")
-    public void genCode(HttpServletResponse response, @PathVariable("tableName") String tableName) throws IOException {
-        byte[] data = genTableService.generatorCode(tableName);
-        genCode(response, data);
+    public void genCode(HttpServletResponse response, @PathVariable("tableName") String tableName, Integer type) throws IOException {
+        byte[] data = genTableService.generatorCode(tableName, type);
+        genCode(response, data, type);
     }
 
     /**
@@ -149,18 +149,22 @@ public class GenController extends BaseController {
     @PreAuthorize("@ss.hasPermi('tool:gen:code')")
     @Log(title = "代码生成", businessType = BusinessType.GENCODE)
     @GetMapping("/batchGenCode")
-    public void batchGenCode(HttpServletResponse response, String tables) throws IOException {
+    public void batchGenCode(HttpServletResponse response, String tables, Integer type) throws IOException {
         String[] tableNames = Convert.toStrArray(tables);
-        byte[] data = genTableService.generatorCode(tableNames);
-        genCode(response, data);
+        byte[] data = genTableService.generatorCode(tableNames, type);
+        genCode(response, data, type);
     }
 
     /**
      * 生成zip文件
      */
-    private void genCode(HttpServletResponse response, byte[] data) throws IOException {
+    private void genCode(HttpServletResponse response, byte[] data, Integer type) throws IOException {
         response.reset();
-        response.setHeader("Content-Disposition", "attachment; filename=\"that-day.zip\"");
+        if (type == 1) {
+            response.setHeader("Content-Disposition", "attachment; filename=\"that-day-mybatis.zip\"");
+        } else if (type == 3) {
+            response.setHeader("Content-Disposition", "attachment; filename=\"that-day-jpa-front.zip\"");
+        }
         response.addHeader("Content-Length", "" + data.length);
         response.setContentType("application/octet-stream; charset=UTF-8");
         IOUtils.write(data, response.getOutputStream());

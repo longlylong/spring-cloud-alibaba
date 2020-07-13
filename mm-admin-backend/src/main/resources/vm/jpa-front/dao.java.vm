@@ -1,0 +1,19 @@
+package ${packageName}.service;
+
+import com.thatday.user.repository.BaseDao;
+import org.springframework.stereotype.Repository;
+
+
+
+import ${packageName}.domain.${ClassName};
+
+/**
+ * ${functionName}DAO接口
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Repository
+public interface ${ClassName}Dao extends BaseDao<${ClassName}, String> {
+
+}

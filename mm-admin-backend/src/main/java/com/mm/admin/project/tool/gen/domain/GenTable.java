@@ -104,6 +104,10 @@ public class GenTable extends BaseEntity {
      */
     private String treeName;
 
+    public static boolean isId(String javaField) {
+        return "id".equals(javaField);
+    }
+
     public static boolean isTree(String tplCategory) {
         return tplCategory != null && StringUtils.equals(GenConstants.TPL_TREE, tplCategory);
     }

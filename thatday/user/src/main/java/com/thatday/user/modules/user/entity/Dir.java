@@ -2,7 +2,8 @@ package com.thatday.user.modules.user.entity;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -10,7 +11,7 @@ import java.util.Date;
  * 文件夹表
  */
 @Data
-@Entity(name = "td_dir_group")
+@Entity(name = "td_dir")
 public class Dir {
 
     @Id
@@ -20,11 +21,13 @@ public class Dir {
     private String userId;
 
     @NotNull
-    private String groupTitle;
+    private String title;
 
-    private String groupIcon;
+    private String icon;
 
-    private Date createTime;
+    @NotNull
+    private Date createTime = new Date();
 
-    private Date updateTime;
+    @NotNull
+    private Date updateTime = new Date();
 }

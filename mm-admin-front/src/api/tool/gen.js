@@ -43,10 +43,15 @@ export function importTable(data) {
   })
 }
 // 预览生成代码
-export function previewTable(tableId) {
+export function previewTable(tableId,type) {
+  let data = {
+    tableId:tableId,
+    type:type
+  };
   return request({
     url: '/tool/gen/preview/' + tableId,
-    method: 'get'
+    method: 'get',
+    params:data
   })
 }
 // 删除表数据

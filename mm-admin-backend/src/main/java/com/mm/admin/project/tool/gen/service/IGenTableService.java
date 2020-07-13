@@ -68,9 +68,10 @@ public interface IGenTableService {
      * 预览代码
      *
      * @param tableId 表编号
+     * @param type
      * @return 预览数据列表
      */
-    public Map<String, String> previewCode(Long tableId);
+    public Map<String, String> previewCode(Long tableId, Integer type);
 
     /**
      * 生成代码
@@ -78,7 +79,7 @@ public interface IGenTableService {
      * @param tableName 表名称
      * @return 数据
      */
-    public byte[] generatorCode(String tableName);
+    public byte[] generatorCode(String tableName, Integer type);
 
     /**
      * 批量生成代码
@@ -86,7 +87,7 @@ public interface IGenTableService {
      * @param tableNames 表数组
      * @return 数据
      */
-    public byte[] generatorCode(String[] tableNames);
+    public byte[] generatorCode(String[] tableNames, Integer type);
 
     /**
      * 修改保存参数校验

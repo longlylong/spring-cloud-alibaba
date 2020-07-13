@@ -83,21 +83,30 @@ public class VelocityUtils {
      *
      * @return 模板列表
      */
-    public static List<String> getTemplateList(String tplCategory) {
-        List<String> templates = new ArrayList<String>();
-        templates.add("vm/mybatis/java/domain.java.vm");
-        templates.add("vm/mybatis/java/mapper.java.vm");
-        templates.add("vm/mybatis/java/service.java.vm");
-        templates.add("vm/mybatis/java/serviceImpl.java.vm");
-        templates.add("vm/mybatis/java/controller.java.vm");
-        templates.add("vm/mybatis/xml/mapper.xml.vm");
-        templates.add("vm/sql/sql.vm");
-        templates.add("vm/js/api.js.vm");
-        if (GenConstants.TPL_CRUD.equals(tplCategory)) {
-            templates.add("vm/vue/index.vue.vm");
-        } else if (GenConstants.TPL_TREE.equals(tplCategory)) {
-            templates.add("vm/vue/index-tree.vue.vm");
+    public static List<String> getTemplateList(String tplCategory, Integer type) {
+        List<String> templates = new ArrayList<>();
+
+        if (type == 1) {
+            templates.add("vm/mybatis/java/domain.java.vm");
+            templates.add("vm/mybatis/java/mapper.java.vm");
+            templates.add("vm/mybatis/java/service.java.vm");
+            templates.add("vm/mybatis/java/serviceImpl.java.vm");
+            templates.add("vm/mybatis/java/controller.java.vm");
+            templates.add("vm/mybatis/xml/mapper.xml.vm");
+            templates.add("vm/sql/sql.vm");
+            templates.add("vm/js/api.js.vm");
+            if (GenConstants.TPL_CRUD.equals(tplCategory)) {
+                templates.add("vm/vue/index.vue.vm");
+            } else if (GenConstants.TPL_TREE.equals(tplCategory)) {
+                templates.add("vm/vue/index-tree.vue.vm");
+            }
+        } else if (type == 3) {
+            templates.add("vm/jpa-front/dao.java.vm");
+            templates.add("vm/jpa-front/entity.java.vm");
+            templates.add("vm/jpa-front/service.java.vm");
+            templates.add("vm/jpa-front/serviceImpl.java.vm");
         }
+
         return templates;
     }
 
@@ -120,7 +129,12 @@ public class VelocityUtils {
         String mybatisPath = MYBATIS_PATH + "/" + moduleName;
         String vuePath = "vue";
 
-        if (template.contains("domain.java.vm")) {
+        if (template.contains("dao.java.vm")) {
+            fileName = StringUtils.format("{}/dao/{}Dao.java", javaPath, className);
+        }else if (template.contains("entity.java.vm")) {
+            fileName = StringUtils.format("{}/entity/{}.java", javaPath, className);
+
+        }else if (template.contains("domain.java.vm")) {
             fileName = StringUtils.format("{}/domain/{}.java", javaPath, className);
         } else if (template.contains("mapper.java.vm")) {
             fileName = StringUtils.format("{}/mapper/{}Mapper.java", javaPath, className);

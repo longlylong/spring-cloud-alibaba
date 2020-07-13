@@ -156,10 +156,11 @@ public class GenTableServiceImpl implements IGenTableService {
      * 预览代码
      *
      * @param tableId 表编号
+     * @param type
      * @return 预览数据列表
      */
     @Override
-    public Map<String, String> previewCode(Long tableId) {
+    public Map<String, String> previewCode(Long tableId, Integer type) {
         Map<String, String> dataMap = new LinkedHashMap<>();
         // 查询表信息
         GenTable table = genTableMapper.selectGenTableById(tableId);
@@ -171,7 +172,7 @@ public class GenTableServiceImpl implements IGenTableService {
         VelocityContext context = VelocityUtils.prepareContext(table);
 
         // 获取模板列表
-        List<String> templates = VelocityUtils.getTemplateList(table.getTplCategory());
+        List<String> templates = VelocityUtils.getTemplateList(table.getTplCategory(), type);
         for (String template : templates) {
             // 渲染模板
             StringWriter sw = new StringWriter();
@@ -189,10 +190,10 @@ public class GenTableServiceImpl implements IGenTableService {
      * @return 数据
      */
     @Override
-    public byte[] generatorCode(String tableName) {
+    public byte[] generatorCode(String tableName, Integer type) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ZipOutputStream zip = new ZipOutputStream(outputStream);
-        generatorCode(tableName, zip);
+        generatorCode(tableName, zip, type);
         IOUtils.closeQuietly(zip);
         return outputStream.toByteArray();
     }
@@ -204,11 +205,11 @@ public class GenTableServiceImpl implements IGenTableService {
      * @return 数据
      */
     @Override
-    public byte[] generatorCode(String[] tableNames) {
+    public byte[] generatorCode(String[] tableNames, Integer type) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ZipOutputStream zip = new ZipOutputStream(outputStream);
         for (String tableName : tableNames) {
-            generatorCode(tableName, zip);
+            generatorCode(tableName, zip, type);
         }
         IOUtils.closeQuietly(zip);
         return outputStream.toByteArray();
@@ -217,7 +218,7 @@ public class GenTableServiceImpl implements IGenTableService {
     /**
      * 查询表信息并生成代码
      */
-    private void generatorCode(String tableName, ZipOutputStream zip) {
+    private void generatorCode(String tableName, ZipOutputStream zip, Integer type) {
         // 查询表信息
         GenTable table = genTableMapper.selectGenTableByName(tableName);
         // 查询列信息
@@ -229,7 +230,7 @@ public class GenTableServiceImpl implements IGenTableService {
         VelocityContext context = VelocityUtils.prepareContext(table);
 
         // 获取模板列表
-        List<String> templates = VelocityUtils.getTemplateList(table.getTplCategory());
+        List<String> templates = VelocityUtils.getTemplateList(table.getTplCategory(), type);
         for (String template : templates) {
             // 渲染模板
             StringWriter sw = new StringWriter();
