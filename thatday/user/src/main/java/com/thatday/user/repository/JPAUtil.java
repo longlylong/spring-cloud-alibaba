@@ -17,6 +17,60 @@ import java.util.List;
 
 public class JPAUtil {
 
+    public static PageRequest prIdDesc(PageInfoVo vo) {
+        return prIdDesc(vo.getCurPage(), vo.getPageSize());
+    }
+
+    public static PageRequest prUpdateTimeDesc(PageInfoVo vo) {
+        return prUpdateTimeDesc(vo.getCurPage(), vo.getPageSize());
+    }
+
+    public static PageRequest prCreateTimeDesc(PageInfoVo vo) {
+        return prCreateTimeDesc(vo.getCurPage(), vo.getPageSize());
+    }
+
+    public static PageRequest prIdDesc(Integer curPage, Integer pageSize) {
+        return setPR(curPage, pageSize, Sort.Direction.DESC, "id");
+    }
+
+    public static PageRequest prUpdateTimeDesc(Integer curPage, Integer pageSize) {
+        return setPR(curPage, pageSize, Sort.Direction.DESC, "createTime");
+    }
+
+    public static PageRequest prCreateTimeDesc(Integer curPage, Integer pageSize) {
+        return setPR(curPage, pageSize, Sort.Direction.DESC, "createTime");
+    }
+
+    private static PageRequest setPR(Integer curPage, Integer pageSize, Sort.Direction direction, String... properties) {
+        Sort sort = Sort.by(direction, properties);
+        return PageRequest.of(curPage, pageSize, sort);
+    }
+
+    public static <T> PageResult<T> setPageResult(Integer curPage, Page<T> fromPage) {
+        PageResult<T> pageResult = new PageResult<>();
+        pageResult.setCurPage(curPage);
+        pageResult.setTotalCount(fromPage.getTotalElements());
+        pageResult.setTotalPage(fromPage.getTotalPages());
+        pageResult.setDataList(fromPage.getContent());
+        return pageResult;
+    }
+
+    public static <T, Y> PageResult<T> setPageResult(Integer curPage, Page<Y> fromPage, Class<T> clazz) {
+        return setPageResult(curPage, fromPage, clazz, null);
+    }
+
+    public static <T, Y> PageResult<T> setPageResult(Integer curPage, Page<Y> fromPage, Class<T> clazz, TemplateCodeUtil.OnTransListener<T, Y> onTransListener) {
+        PageResult<T> pageResult = new PageResult<>();
+        pageResult.setCurPage(curPage);
+        pageResult.setTotalCount(fromPage.getTotalElements());
+        pageResult.setTotalPage(fromPage.getTotalPages());
+
+        List<T> transTo = TemplateCodeUtil.transTo(fromPage.getContent(), clazz, onTransListener);
+        pageResult.setDataList(transTo);
+
+        return pageResult;
+    }
+
     public static <T> Specification<T> makeSpecification(SpecificationListener listener) {
         Specification<T> specification = new Specification() {
             @Override
@@ -29,40 +83,6 @@ public class JPAUtil {
             }
         };
         return specification;
-    }
-
-    public static PageRequest updateTimeDescPage(Integer curPage, Integer pageSize) {
-        return updateTimeDescPage(PageInfoVo.create(curPage, pageSize));
-    }
-
-    public static PageRequest updateTimeDescPage(PageInfoVo vo) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "updateTime");
-        return PageRequest.of(vo.getCurPage(), vo.getPageSize(), sort);
-    }
-
-    public static <T> PageResult<T> setPageInfo(Integer curPage, Page<T> fromPage) {
-        PageResult<T> pageResult = new PageResult<>();
-        pageResult.setCurPage(curPage);
-        pageResult.setTotalCount(fromPage.getTotalElements());
-        pageResult.setTotalPage(fromPage.getTotalPages());
-        pageResult.setDataList(fromPage.getContent());
-        return pageResult;
-    }
-
-    public static <T, Y> PageResult<T> setPageInfo(Integer curPage, Page<Y> fromPage, Class<T> clazz) {
-        return setPageInfo(curPage, fromPage, clazz, null);
-    }
-
-    public static <T, Y> PageResult<T> setPageInfo(Integer curPage, Page<Y> fromPage, Class<T> clazz, TemplateCodeUtil.OnTransListener<T, Y> onTransListener) {
-        PageResult<T> pageResult = new PageResult<>();
-        pageResult.setCurPage(curPage);
-        pageResult.setTotalCount(fromPage.getTotalElements());
-        pageResult.setTotalPage(fromPage.getTotalPages());
-
-        List<T> transTo = TemplateCodeUtil.transTo(fromPage.getContent(), clazz, onTransListener);
-        pageResult.setDataList(transTo);
-
-        return pageResult;
     }
 
     public interface SpecificationListener {

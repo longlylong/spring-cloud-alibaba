@@ -23,6 +23,8 @@ public interface BaseService<ENTITY, ID, DAO extends BaseDao<ENTITY, ID>> {
 
     ENTITY getOneAndCheckNull(ID id, String msg);
 
+    ENTITY getLastOneById();
+
     void saveOrUpdate(ENTITY entity);
 
     <S extends ENTITY> List<S> saveAll(Iterable<S> list);
