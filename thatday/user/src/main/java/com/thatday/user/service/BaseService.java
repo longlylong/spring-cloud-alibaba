@@ -43,15 +43,15 @@ public interface BaseService<ENTITY, ID, DAO extends BaseDao<ENTITY, ID>> {
      * 获取DTO分页列表
      */
     <TARGET> PageResult<TARGET> getPageResultDTOList(PageRequest pageRequest, Class<TARGET> targetClass,
-                                                     TemplateCodeUtil.OnTransListener<TARGET, ENTITY> transDTOListener,
-                                                     JPAUtil.SpecificationListener otherConditionListener);
+                                                     JPAUtil.SpecificationListener otherConditionListener,
+                                                     TemplateCodeUtil.OnTransListener<TARGET, ENTITY> transDTOListener);
 
     /**
      * 获取DTO顶置分页列表
      */
     <TARGET> PageResult<TARGET> getPageResultStickDTOList(PageInfoVo vo, @NotNull Set<ID> stickIds, Class<TARGET> targetClass,
+                                                          JPAUtil.SpecificationListener otherConditionListener,
                                                           TemplateCodeUtil.OnTransListener<TARGET, ENTITY> stickDTOListener,
-                                                          TemplateCodeUtil.OnTransListener<TARGET, ENTITY> otherDTOListener,
-                                                          JPAUtil.SpecificationListener otherConditionListener);
+                                                          TemplateCodeUtil.OnTransListener<TARGET, ENTITY> otherDTOListener);
 
 }

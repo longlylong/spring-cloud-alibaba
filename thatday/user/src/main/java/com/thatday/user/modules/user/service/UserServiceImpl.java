@@ -59,15 +59,12 @@ public class UserServiceImpl extends BaseServiceImpl<User, String, UserDao> impl
         });
 
 
-        PageResult<UserDTO> pageDTOList = getPageResultDTOList(pageRequest, UserDTO.class, (userDTO, user) -> {
-
-            userDTO.setOtherField("some field");
-
-        }, (root, criteriaQuery, builder, predicates) -> {
-
+        PageResult<UserDTO> pageDTOList = getPageResultDTOList(pageRequest, UserDTO.class, (root, criteriaQuery, builder, predicates) -> {
             predicates.add(builder.equal(root.get("id"), "1"));
             //......
             //.....
+        }, (userDTO, user) -> {
+            userDTO.setOtherField("some field");
         });
     }
 }

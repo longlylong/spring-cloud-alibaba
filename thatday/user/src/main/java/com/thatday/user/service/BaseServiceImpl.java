@@ -85,17 +85,17 @@ public abstract class BaseServiceImpl<ENTITY, ID, DAO extends BaseDao<ENTITY, ID
 
     @Override
     public <TARGET> PageResult<TARGET> getPageResultDTOList(PageRequest pageRequest, Class<TARGET> targetClass,
-                                                            TemplateCodeUtil.OnTransListener<TARGET, ENTITY> transDTOListener,
-                                                            JPAUtil.SpecificationListener otherConditionListener) {
+                                                            JPAUtil.SpecificationListener otherConditionListener,
+                                                            TemplateCodeUtil.OnTransListener<TARGET, ENTITY> transDTOListener) {
         Page<ENTITY> pageList = getPageList(pageRequest, otherConditionListener);
         return JPAUtil.setPageResult(pageRequest.getPageNumber(), pageList, targetClass, transDTOListener);
     }
 
     @Override
     public <TARGET> PageResult<TARGET> getPageResultStickDTOList(PageInfoVo vo, @NotNull Set<ID> stickIds, Class<TARGET> targetClass,
+                                                                 JPAUtil.SpecificationListener otherConditionListener,
                                                                  TemplateCodeUtil.OnTransListener<TARGET, ENTITY> stickDTOListener,
-                                                                 TemplateCodeUtil.OnTransListener<TARGET, ENTITY> otherDTOListener,
-                                                                 JPAUtil.SpecificationListener otherConditionListener) {
+                                                                 TemplateCodeUtil.OnTransListener<TARGET, ENTITY> otherDTOListener) {
         Integer pageSize = vo.getPageSize();
 
         Page<ENTITY> page = getStickList(vo, stickIds, new JPAUtil.StickPageRequest(vo), false, otherConditionListener);
