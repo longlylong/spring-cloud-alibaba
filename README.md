@@ -64,6 +64,6 @@ Plugins：
 	--------vo(请求对象)
 	----repository （基础的jpa操作）
 	----rocketmq （该服务的rocketmq配置）
-	----service.feign （跨微业务的）
+	----service  （基本的增删改查基类）
 	----util （工具类）
 
