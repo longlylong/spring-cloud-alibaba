@@ -7,6 +7,7 @@ import com.thatday.common.model.Result;
 import com.thatday.common.token.TokenConstant;
 import lombok.extern.slf4j.Slf4j;
 import lombok.var;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
@@ -31,11 +32,16 @@ public class TDExceptionHandler {
      * 异常处理逻辑
      */
     public static Result<Object> handle(String path, Exception e) {
-        log.error("\nGlobalExceptionHandler | {}\n{}\n", path, e);
-        e.printStackTrace();
+        if (e instanceof GlobalException) {
+            log.error("\nGlobalExceptionHandler | {}\n", path + " | " + e.getMessage());
+        } else {
+            log.error("\nGlobalExceptionHandler | {}\n{}\n", path, e);
+            e.printStackTrace();
+        }
+
         if (e instanceof GlobalException) {
             GlobalException ex = (GlobalException) e;
-            return Result.buildError(ex.getCodeMsg());
+            return Result.buildExceptionError(ex.getCodeMsg());
 
         } else if (e instanceof MethodArgumentNotValidException) {
             var exception = (MethodArgumentNotValidException) e;
@@ -46,10 +52,16 @@ public class TDExceptionHandler {
             return BaseController.buildParamErrorResponseModel(exception.getBindingResult());
 
         } else if (e instanceof InvalidFormatException) {
-            return Result.buildError("不能输入小数或非法字符");
-            
+            return Result.buildExceptionError("不能输入小数或非法字符");
+
+        } else if (e instanceof HttpMessageNotReadableException) {
+            if (e.getMessage().contains("InvalidFormatException")) {
+                return Result.buildParamError("不能输入小数或非法字符");
+            } else {
+                return Result.buildExceptionError("操作失败，请联系客服. " + e.getMessage());
+            }
         } else {
-            return Result.buildError("操作失败，请联系客服（" + e.getClass().getSimpleName() + "）");
+            return Result.buildExceptionError("操作失败，请联系客服（" + e.getClass().getSimpleName() + "）");
         }
     }
 }

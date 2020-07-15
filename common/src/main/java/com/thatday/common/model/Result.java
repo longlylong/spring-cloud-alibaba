@@ -4,6 +4,7 @@ package com.thatday.common.model;
 import com.thatday.common.constant.StatusCode;
 import com.thatday.common.exception.CodeMsg;
 import com.thatday.common.exception.GlobalException;
+import com.thatday.common.token.TokenConstant;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -28,31 +29,37 @@ public class Result<T> implements Serializable {
         this.data = data;
     }
 
+    public void set(Integer code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    public static Result<Object> buildTokenError() {
+        return Result.build(StatusCode.Token_Error, TokenConstant.Msg_Access_Token_Error);
+    }
+
     public static <T> Result<T> buildParamError(String paramName) {
         return build(StatusCode.Parameter_Error, paramName);
+    }
+
+    public static <T> Result<T> buildExceptionError(String errorMsg) {
+        return build(StatusCode.Exception_Error, errorMsg);
     }
 
     public static <T> Result<T> buildSentinelError() {
         return build(StatusCode.Sentinel_Error, "操作太快");
     }
 
-    /**
-     * 处理exception 错误
-     */
-    public static <T> Result<T> buildError(Exception e) {
+    public static <T> Result<T> buildExceptionError(Exception e) {
         if (e instanceof GlobalException) {
             GlobalException globalException = (GlobalException) e;
-            return buildError(globalException.getCodeMsg());
+            return buildExceptionError(globalException.getCodeMsg());
         }
         return buildParamError("操作失败！");
     }
 
-    public static <T> Result<T> buildError(CodeMsg err) {
+    public static <T> Result<T> buildExceptionError(CodeMsg err) {
         return build(err.getCode(), err.getMsg());
-    }
-
-    public static <T> Result<T> buildError(String err) {
-        return buildParamError(err);
     }
 
     public static <T> Result<T> buildSuccess() {
@@ -63,7 +70,7 @@ public class Result<T> implements Serializable {
         return build(StatusCode.SUCCESS, "成功", data);
     }
 
-    private static <T> Result<T> build(Integer code, String message, T data) {
+    public static <T> Result<T> build(Integer code, String message, T data) {
         return new Result<>(code, message, data);
     }
 
