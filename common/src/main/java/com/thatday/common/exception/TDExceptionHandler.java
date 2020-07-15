@@ -1,5 +1,6 @@
 package com.thatday.common.exception;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.thatday.common.constant.StatusCode;
 import com.thatday.common.controller.BaseController;
 import com.thatday.common.model.Result;
@@ -44,6 +45,9 @@ public class TDExceptionHandler {
             var exception = ((BindException) e);
             return BaseController.buildParamErrorResponseModel(exception.getBindingResult());
 
+        } else if (e instanceof InvalidFormatException) {
+            return Result.buildError("不能输入小数或非法字符");
+            
         } else {
             return Result.buildError("操作失败，请联系客服（" + e.getClass().getSimpleName() + "）");
         }
