@@ -2,13 +2,14 @@ package com.thatday.common.exception;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.thatday.common.constant.StatusCode;
-import com.thatday.common.controller.BaseController;
 import com.thatday.common.model.Result;
 import com.thatday.common.token.TokenConstant;
 import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
 @Slf4j
@@ -45,11 +46,11 @@ public class TDExceptionHandler {
 
         } else if (e instanceof MethodArgumentNotValidException) {
             var exception = (MethodArgumentNotValidException) e;
-            return BaseController.buildParamErrorResponseModel(exception.getBindingResult());
+            return buildParamErrorResponseModel(exception.getBindingResult());
 
         } else if (e instanceof BindException) {
             var exception = ((BindException) e);
-            return BaseController.buildParamErrorResponseModel(exception.getBindingResult());
+            return buildParamErrorResponseModel(exception.getBindingResult());
 
         } else if (e instanceof InvalidFormatException) {
             return Result.buildExceptionError("不能输入小数或非法字符");
@@ -63,5 +64,20 @@ public class TDExceptionHandler {
         } else {
             return Result.buildExceptionError("操作失败，请联系客服（" + e.getClass().getSimpleName() + "）");
         }
+    }
+
+    private static Result<Object> buildParamErrorResponseModel(BindingResult result) {
+        var sb = new StringBuilder();
+        for (ObjectError error : result.getAllErrors()) {
+            sb.append(error.getDefaultMessage());
+            break;
+        }
+
+        String msg = sb.toString();
+        if (TokenConstant.Msg_Access_Token_Error.equals(msg)) {
+            return Result.build(StatusCode.Token_Error, msg);
+        }
+
+        return Result.buildParamError(sb.toString());
     }
 }
