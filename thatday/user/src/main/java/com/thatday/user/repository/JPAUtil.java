@@ -46,6 +46,15 @@ public class JPAUtil {
         return PageRequest.of(curPage, pageSize, sort);
     }
 
+    public static <T> PageResult<T> setPageResult(List<T> list) {
+        PageResult<T> pageResult = new PageResult<>();
+        pageResult.setCurPage(0);
+        pageResult.setTotalCount((long) list.size());
+        pageResult.setTotalPage(1);
+        pageResult.setDataList(list);
+        return pageResult;
+    }
+
     public static <T> PageResult<T> setPageResult(Integer curPage, Page<T> fromPage) {
         PageResult<T> pageResult = new PageResult<>();
         pageResult.setCurPage(curPage);
