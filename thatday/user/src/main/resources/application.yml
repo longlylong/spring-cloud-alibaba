@@ -5,7 +5,7 @@ server:
 
 spring:
   application:
-    name: user-v1
+    name: api-v1
   profiles:
     active: local
 

@@ -2,9 +2,9 @@ package com.thatday.user.modules.user.controller;
 
 import com.thatday.common.model.Result;
 import com.thatday.user.modules.user.entity.User;
+import com.thatday.user.modules.user.service.UserService;
 import com.thatday.user.modules.user.vo.LoginPhoneVo;
 import com.thatday.user.modules.user.vo.LoginWeChatVo;
-import com.thatday.user.modules.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/app/user/login")
 @Api(tags = "登录类API")
 public class LoginController {
 

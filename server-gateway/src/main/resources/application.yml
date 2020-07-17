@@ -37,11 +37,11 @@ spring:
             name: fallbackcmd
             fallbackUri: forward:/globalFallback
       routes:
-        #用户服务
-        - id: user-v1
-          uri: lb://user-v1
+        #api服务
+        - id: api-v1
+          uri: lb://api-v1
           predicates:
-            - Path=/v1/user-api/**
+            - Path=/v1/api/**
           filters:
             - StripPrefix=2
         #socket服务
@@ -55,13 +55,13 @@ spring:
         - id: common-server-v1
           uri: lb://common-server-v1
           predicates:
-            - Path=/v1/common-api/**
+            - Path=/v1/common/**
           filters:
             - StripPrefix=2
         - id: mm-admin-v1
           uri: lb://mm-admin-v1
           predicates:
-            - Path=/v1/admin-api/**
+            - Path=/v1/admin/**
           filters:
             - StripPrefix=2
 
