@@ -18,7 +18,7 @@ Plugins：
 
 	Sentinel 1.7.1
 	Feign
-	JPA+QueryDsl
+	JPA+QueryDsl(免去直接写SQL,用法和写sql一样灵活)
 
 	RocketMQ 4.5.0
 	Knife4j 2.0.1(Swagger 2.9.2)
