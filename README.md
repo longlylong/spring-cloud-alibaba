@@ -23,6 +23,12 @@ Plugins：
 	RocketMQ 4.5.0
 	Knife4j 2.0.1(Swagger 2.9.2)
 
+
+单体应用改造：
+
+	关注这个类,里面有详细方法修改3步完事,就不用跑网关和nacos了
+	com.thatday.user.filter.SingleAppTokenAspect
+
 项目结构介绍：
 
 	Common （公共模块）
