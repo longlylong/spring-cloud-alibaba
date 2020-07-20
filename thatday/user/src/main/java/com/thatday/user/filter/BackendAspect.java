@@ -1,18 +1,23 @@
 package com.thatday.user.filter;
 
-import com.thatday.common.model.Result;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
 @Aspect
+@Order(2000)
 @Component
 public class BackendAspect {
 
-    @Around("execution(* com.thatday.user.modules.*.backend.*.*(..))")
+    @Pointcut("execution(* com.thatday.user.modules.*.backend.*.*(..))")
+    public void cutPoint() {
+    }
+
+    @Around("cutPoint()")
     public Object process(ProceedingJoinPoint point) throws Throwable {
         System.out.println();
         System.out.println("@Around：执行目标方法之前...");
@@ -30,7 +35,7 @@ public class BackendAspect {
         return returnValue;
     }
 
-    @Before("execution(* com.thatday.user.modules.*.backend.*.*(..))")
+    @Before("cutPoint()")
     public void permissionCheck(JoinPoint point) {
         System.out.println();
         System.out.println("@Before：模拟权限检查...");
@@ -42,7 +47,7 @@ public class BackendAspect {
     }
 
 
-    @After("execution(* com.thatday.user.modules.*.backend.*.*(..))")
+    @After("cutPoint()")
     public void releaseResource(JoinPoint point) {
         System.out.println();
         System.out.println("@After：模拟释放资源...");
@@ -53,8 +58,7 @@ public class BackendAspect {
         System.out.println("@After：被织入的目标对象为：" + point.getTarget());
     }
 
-    @AfterReturning(pointcut = "execution(* com.thatday.user.modules.*.backend.*.*(..))",
-            returning = "returnValue")
+    @AfterReturning(pointcut = "cutPoint()", returning = "returnValue")
     public void log(JoinPoint point, Object returnValue) {
         System.out.println();
         System.out.println("@AfterReturning：模拟日志记录功能...");
@@ -68,5 +72,4 @@ public class BackendAspect {
         System.out.println("@AfterReturning：被织入的目标对象为：" + point.getTarget());
 
     }
-
 }

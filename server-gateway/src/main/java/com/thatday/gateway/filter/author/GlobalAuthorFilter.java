@@ -56,7 +56,7 @@ public class GlobalAuthorFilter implements GlobalFilter, Ordered {
             return chain.filter(exchange);
         }
 
-        String headerToken = request.getHeaders().getFirst(AuthorSkipProvider.AUTH_KEY);
+        String headerToken = request.getHeaders().getFirst(TokenConstant.TOKEN);
         if (StringUtils.isAllBlank(headerToken)) {
             return ResponseProvider.unAuth(exchange, TokenConstant.Msg_Access_Token_Empty);
         }
