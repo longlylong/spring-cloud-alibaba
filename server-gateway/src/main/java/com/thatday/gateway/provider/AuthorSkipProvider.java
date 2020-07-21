@@ -20,6 +20,8 @@ public class AuthorSkipProvider {
 
         defaultSkipUrl.add("/app/user/login/**");
         defaultSkipUrl.add("/web/backend/login/**");
+
+        defaultSkipUrl.add("/common/test");
     }
 
     /**

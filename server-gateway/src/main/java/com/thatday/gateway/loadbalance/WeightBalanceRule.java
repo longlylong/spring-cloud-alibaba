@@ -1,54 +1,49 @@
 package com.thatday.gateway.loadbalance;
 
 import com.alibaba.cloud.nacos.ribbon.NacosServer;
-import com.netflix.loadbalancer.AvailabilityFilteringRule;
+import com.netflix.client.config.IClientConfig;
+import com.netflix.loadbalancer.AbstractLoadBalancerRule;
 import com.netflix.loadbalancer.Server;
-import org.springframework.util.CollectionUtils;
+import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 按照权重走的 配合nacos
  */
-//
-//@Component
-public class WeightBalanceRule extends AvailabilityFilteringRule {
+@Component
+public class WeightBalanceRule extends AbstractLoadBalancerRule {
 
-    @Override
-    public Server choose(Object key) {
-        //连续几次请求不同模块api时
-        //这里有bug，获取到的loadbalance是不对的，所以得到的server也是不对的。
-        List<Server> allServers = getLoadBalancer().getAllServers();
-
-        //没可用服务或只有一个就交给上级处理
-        if (CollectionUtils.isEmpty(allServers) || allServers.size() == 1) {
-            return super.choose(key);
+    private Server weightChooseRule(Object key, List<Server> reachableServers) {
+        if (reachableServers.size() == 1) {
+            return reachableServers.get(0);
         }
 
-        //权重的规则路由
-        return weightChooseRule(key, allServers);
-    }
+        String serverName = "";
 
-    private Server weightChooseRule(Object key, List<Server> allServers) {
         //全部权重相加
-        int weight = 0;
-        for (Server server : allServers) {
+        int totalWeight = 0;
+        for (Server server : reachableServers) {
             if (server instanceof NacosServer) {
+                serverName = ((NacosServer) server).getInstance().getServiceName();
                 NacosServer nacosServer = ((NacosServer) server);
-                weight += (int) nacosServer.getInstance().getWeight();
+                nacosServer.getInstance().getServiceName();
+                totalWeight += (int) nacosServer.getInstance().getWeight();
             }
         }
 
         //如果不是nacos的话应该是0，权重都是1的情况就全部一样也走上级的方法
-        if (weight == 0 || weight == allServers.size()) {
-            return super.choose(key);
+        if (totalWeight == 0 || totalWeight == reachableServers.size()) {
+            return defaultNext(serverName, reachableServers);
         }
 
         //以全部权重为总和随机
-        double random = Math.random() * weight;
+        double random = Math.random() * totalWeight;
 
         //如果随机数减去当前的权重<=0了就是说明他就是这个服务
-        for (Server server : allServers) {
+        for (Server server : reachableServers) {
             if (server instanceof NacosServer) {
                 NacosServer nacosServer = ((NacosServer) server);
                 int w = (int) nacosServer.getInstance().getWeight();
@@ -60,6 +55,28 @@ public class WeightBalanceRule extends AvailabilityFilteringRule {
             }
         }
 
-        return super.choose(key);
+        return defaultNext(serverName, reachableServers);
+    }
+
+    private static final Map<String, Integer> nextServerMap = new HashMap<>();
+
+    //one by one
+    private Server defaultNext(String serverName, List<Server> reachableServers) {
+        Integer pos = nextServerMap.get(serverName);
+        if (pos == null || pos >= reachableServers.size()) {
+            pos = 0;
+        }
+        Server server = reachableServers.get(pos);
+        nextServerMap.put(serverName, pos + 1);
+        return server;
+    }
+
+    @Override
+    public Server choose(Object key) {
+        return weightChooseRule(key, getLoadBalancer().getReachableServers());
+    }
+
+    @Override
+    public void initWithNiwsConfig(IClientConfig clientConfig) {
     }
 }

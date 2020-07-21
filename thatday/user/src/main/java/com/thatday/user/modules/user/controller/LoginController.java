@@ -1,16 +1,15 @@
 package com.thatday.user.modules.user.controller;
 
 import com.thatday.common.model.Result;
+import com.thatday.user.config.EnvConfig;
 import com.thatday.user.modules.user.entity.User;
 import com.thatday.user.modules.user.service.UserService;
 import com.thatday.user.modules.user.vo.LoginPhoneVo;
 import com.thatday.user.modules.user.vo.LoginWeChatVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -19,12 +18,17 @@ import javax.validation.Valid;
 @Api(tags = "登录类API")
 public class LoginController {
 
-    private UserService userService;
+    @Autowired
+    EnvConfig envConfig;
 
-    public LoginController(UserService userService) {
-        this.userService = userService;
+    @Autowired
+    UserService userService;
+
+    @ApiOperation("test")
+    @GetMapping(value = "/test")
+    public Result<Object> test() {
+        return Result.buildSuccess(envConfig.getPort());
     }
-
 
     @ApiOperation("手机号登录接口")
     @PostMapping(value = "/loginByPhone")

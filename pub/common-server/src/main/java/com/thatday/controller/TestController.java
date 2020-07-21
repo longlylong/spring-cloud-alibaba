@@ -1,18 +1,19 @@
 package com.thatday.controller;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.thatday.config.EnvConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TestController {
 
-    @Value("${server.port}")
-    private int port;
+    @Autowired
+    EnvConfig envConfig;
 
-    @GetMapping("/test")
+    @GetMapping("/common/test")
     public String test() {
-        return port + "-test-" + System.currentTimeMillis();
+        return envConfig.getPort() + "-test-" + System.currentTimeMillis();
     }
 
 }

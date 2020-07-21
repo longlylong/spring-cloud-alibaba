@@ -55,6 +55,7 @@ Plugins：
 	--filter （限流配置，可在Nacos动态配置限流规则）
 	----author(鉴权的)
 	----ratelimit(限流的)
+	----loadbalance(自定义负载 按照权重走的 配合nacos)
 	--provider(提供配置的类)
 
 	ThatDay （项目业务代码）

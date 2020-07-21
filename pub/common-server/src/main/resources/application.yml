@@ -1,5 +1,5 @@
 server:
-  port: 7200
+  port: 7900
   tomcat:
     basedir: /home/temp
 
