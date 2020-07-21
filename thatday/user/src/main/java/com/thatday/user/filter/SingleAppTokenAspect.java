@@ -16,10 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 //@Order(1)
 //@Component
 
-//不使用网关,单体应用需要打开这个注解,帮助注入用户信息的
+//运行路径AuthorFilter >> Controller@Valid >> SingleAppTokenAspect >> Controller MethodBody
+//不使用网关,单体应用需要打开上面的注解,帮助注入用户信息的
 //需要注释掉RequestPostVo RequestGetVo 上面的@NotNull(message = "网关授权失败!")
-//pom的 服务发现 服务负载
-//然后把报错的不存在的注解或导入清理即可变成单体应用
+//pom的 服务发现,服务负载
+//AuthorFilter 中添加不需要Token的URL放行,可参考网关模块的AuthorSkipProvider.isSkip
+//最后把报错的不存在的注解或导入清理即可变成单体应用
 public class SingleAppTokenAspect {
 
     @Pointcut("execution(* com.thatday.user.modules.*.backend.*.*(..))" +

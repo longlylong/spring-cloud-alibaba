@@ -1,8 +1,6 @@
 package com.thatday.gateway.provider;
 
 
-import com.thatday.common.token.TokenConstant;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +25,14 @@ public class AuthorSkipProvider {
     /**
      * 默认无需鉴权的API
      */
-    public static List<String> getDefaultSkipUrl() {
+    private static List<String> getDefaultSkipUrl() {
         return defaultSkipUrl;
     }
+
+    public static boolean isSkip(String path) {
+        return AuthorSkipProvider.getDefaultSkipUrl().stream().map(url ->
+                url.replace(AuthorSkipProvider.TARGET, AuthorSkipProvider.REPLACEMENT)).anyMatch(path::contains);
+    }
+
 
 }

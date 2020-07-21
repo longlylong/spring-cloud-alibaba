@@ -43,16 +43,12 @@ public class GlobalAuthorFilter implements GlobalFilter, Ordered {
 
     private final List<HttpMessageReader<?>> messageReaders = HandlerStrategies.withDefaults().messageReaders();
 
-    private boolean isSkip(String path) {
-        return AuthorSkipProvider.getDefaultSkipUrl().stream().map(
-                url -> url.replace(AuthorSkipProvider.TARGET, AuthorSkipProvider.REPLACEMENT)).anyMatch(path::contains);
-    }
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         final ServerHttpRequest request = exchange.getRequest();
         String path = request.getURI().getPath();
-        if (isSkip(path)) {
+        if (AuthorSkipProvider.isSkip(path)) {
             return chain.filter(exchange);
         }
 

@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class BackendAuthorFilter extends RequestFilter {
+public class AuthorFilter extends RequestFilter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
