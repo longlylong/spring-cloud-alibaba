@@ -264,13 +264,13 @@
         this.getList();
       },
       /** 生成代码操作 */
-      handleGenTable(row) {
+      handleGenTable(row,type) {
         const tableNames = row.tableName || this.tableNames;
         if (tableNames == "") {
           this.msgError("请选择要生成的数据");
           return;
         }
-        downLoadZip("/tool/gen/batchGenCode?tables=" + tableNames + "&type=1", "that-day");
+        downLoadZip("/tool/gen/batchGenCode?tables=" + tableNames + "&type="+type, "that-day");
       },
       /** 打开导入表弹窗 */
       openImportTable() {
