@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import ${packageName}.domain.${ClassName};
 import ${packageName}.service.I${ClassName}Service;
-import com.thatday.user.service.BaseServiceImpl;
+import ${packageName}.service.BaseServiceImpl;
 
 /**
  * ${functionName}Service业务层处理

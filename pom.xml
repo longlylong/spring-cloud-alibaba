@@ -34,7 +34,7 @@
 
         <jackson-version>2.9.10.5</jackson-version>
         <fastjson-version>1.2.69</fastjson-version>
-        <knife4j-version>2.0.1</knife4j-version>
+        <knife4j-version>2.0.4</knife4j-version>
         <mysql-connector.version>8.0.15</mysql-connector.version>
         <guava-version>20.0</guava-version>
         <quartz-version>2.3.2</quartz-version>
@@ -80,12 +80,6 @@
                     <artifactId>guava</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava-version}</version>
         </dependency>
 
         <dependency>

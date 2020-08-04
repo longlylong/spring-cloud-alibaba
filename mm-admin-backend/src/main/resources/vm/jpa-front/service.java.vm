@@ -1,6 +1,6 @@
 package ${packageName}.service;
 
-import com.thatday.user.service.BaseService;
+import ${packageName}.service.BaseService;
 
 import ${packageName}.dao.${ClassName}Dao;
 import ${packageName}.domain.${ClassName};

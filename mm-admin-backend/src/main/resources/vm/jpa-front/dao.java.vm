@@ -1,6 +1,6 @@
 package ${packageName}.service;
 
-import com.thatday.user.repository.BaseDao;
+import ${packageName}.repository.BaseDao;
 import org.springframework.stereotype.Repository;
 
 
