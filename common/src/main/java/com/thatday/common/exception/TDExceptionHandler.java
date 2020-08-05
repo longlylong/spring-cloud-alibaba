@@ -33,7 +33,7 @@ public class TDExceptionHandler {
      * 异常处理逻辑
      */
     public static Result<Object> handle(String path, Exception e) {
-        if (e instanceof GlobalException) {
+        if (e instanceof GlobalException || e instanceof MethodArgumentNotValidException || e instanceof BindException) {
             log.error("\nGlobalExceptionHandler | {}\n", path + " | " + e.getMessage());
         } else {
             log.error("\nGlobalExceptionHandler | {}\n{}\n", path, e);
