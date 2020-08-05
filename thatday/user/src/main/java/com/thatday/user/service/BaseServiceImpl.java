@@ -15,6 +15,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 import javax.validation.constraints.NotNull;
 import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -54,10 +55,12 @@ public abstract class BaseServiceImpl<ENTITY, ID, DAO extends BaseDao<ENTITY, ID
     public void saveOrUpdate(ENTITY entity) {
         ID id = getId(entity);
         if (id == null || StringUtils.isEmpty(id.toString())) {
-            id = customDatabaseId();
-            setId(id, entity);
+            setId(customDatabaseId(), entity);
+            setCreateTime(entity);
+            setUpdateTime(entity);
             dao.save(entity);
         } else {
+            setUpdateTime(entity);
             dao.saveAndFlush(entity);
         }
     }
@@ -144,6 +147,24 @@ public abstract class BaseServiceImpl<ENTITY, ID, DAO extends BaseDao<ENTITY, ID
     protected void checkNull(Object object, String errorMsg) {
         if (object == null) {
             throw GlobalException.createParam(errorMsg);
+        }
+    }
+
+    private void setUpdateTime(ENTITY entity) {
+        try {
+            Field idField = entity.getClass().getDeclaredField("updateTime");
+            idField.setAccessible(true);
+            idField.set(entity, new Date());
+        } catch (Exception ignored) {
+        }
+    }
+
+    private void setCreateTime(ENTITY entity) {
+        try {
+            Field idField = entity.getClass().getDeclaredField("createTime");
+            idField.setAccessible(true);
+            idField.set(entity, new Date());
+        } catch (Exception ignored) {
         }
     }
 

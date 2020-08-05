@@ -21,9 +21,9 @@ public class User {
     private String nickname;
 
     @NotNull
-    private Date createTime = new Date();
+    private Date createTime;
 
     @NotNull
-    private Date updateTime = new Date();
+    private Date updateTime;
 
 }

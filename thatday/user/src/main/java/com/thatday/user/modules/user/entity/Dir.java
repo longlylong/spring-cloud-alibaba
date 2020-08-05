@@ -26,8 +26,8 @@ public class Dir {
     private String icon;
 
     @NotNull
-    private Date createTime = new Date();
+    private Date createTime;
 
     @NotNull
-    private Date updateTime = new Date();
+    private Date updateTime;
 }
