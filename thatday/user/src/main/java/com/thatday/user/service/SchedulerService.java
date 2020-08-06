@@ -20,19 +20,11 @@ public class SchedulerService {
     public void addXXXJob(Object data) {
         String jobName = "XXX";
         String jobGroup = "XXX";
-        addJob(jobName, jobGroup, TestTask.class, data, new Date());
-    }
-
-    private void deleteJob(String jobName, String jobGroup) {
-        try {
-            scheduler.deleteJob(new JobKey(jobName, jobGroup));
-        } catch (SchedulerException e) {
-            throw TDExceptionHandler.throwGlobalException("cancelJob", e);
-        }
+        addFixedTimeJob(jobName, jobGroup, TestTask.class, data, new Date());
     }
 
     //固定时间的
-    private void addJob(String jobName, String jobGroup, Class<? extends Job> targetClass, Object data, Date fixedTime) {
+    private void addFixedTimeJob(String jobName, String jobGroup, Class<? extends Job> targetClass, Object data, Date fixedTime) {
         try {
             deleteJob(jobName, jobGroup);
 
@@ -53,7 +45,7 @@ public class SchedulerService {
     }
 
     //周期性的
-    private void addJob(String jobName, String jobGroup, Class<? extends Job> targetClass, Object data, int afterSecondStart, String cron) {
+    private void addCronJob(String jobName, String jobGroup, Class<? extends Job> targetClass, Object data, int afterSecondStart, String cron) {
         try {
             deleteJob(jobName, jobGroup);
 
@@ -77,5 +69,13 @@ public class SchedulerService {
     private JobDetail getJobDetail(String jobName, String jobGroup, Class<? extends Job> targetClass) throws Exception {
         Class<? extends Job> jobClass = targetClass.newInstance().getClass();
         return JobBuilder.newJob(jobClass).withIdentity(jobName, jobGroup).build();
+    }
+
+    private void deleteJob(String jobName, String jobGroup) {
+        try {
+            scheduler.deleteJob(new JobKey(jobName, jobGroup));
+        } catch (SchedulerException e) {
+            throw TDExceptionHandler.throwGlobalException("cancelJob", e);
+        }
     }
 }
