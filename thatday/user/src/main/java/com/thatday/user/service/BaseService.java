@@ -30,6 +30,11 @@ public interface BaseService<ENTITY, ID, DAO extends BaseDao<ENTITY, ID>> {
     <S extends ENTITY> List<S> saveAll(Iterable<S> list);
 
     /**
+     * 获取全部数据
+     */
+    List<ENTITY> getAllList(JPAUtil.SpecificationListener otherConditionListener);
+
+    /**
      * 获取Entity分页列表
      */
     Page<ENTITY> getPageList(PageRequest pageRequest, JPAUtil.SpecificationListener otherConditionListener);

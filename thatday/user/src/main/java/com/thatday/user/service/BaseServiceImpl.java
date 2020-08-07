@@ -71,6 +71,16 @@ public abstract class BaseServiceImpl<ENTITY, ID, DAO extends BaseDao<ENTITY, ID
     }
 
     @Override
+    public List<ENTITY> getAllList(JPAUtil.SpecificationListener otherConditionListener) {
+        Specification<ENTITY> specification = JPAUtil.makeSpecification((root, criteriaQuery, builder, predicates) -> {
+            if (otherConditionListener != null) {
+                otherConditionListener.addSpecification(root, criteriaQuery, builder, predicates);
+            }
+        });
+        return dao.findAll(specification);
+    }
+
+    @Override
     public Page<ENTITY> getPageList(PageRequest pageRequest, JPAUtil.SpecificationListener otherConditionListener) {
         Specification<ENTITY> specification = JPAUtil.makeSpecification((root, criteriaQuery, builder, predicates) -> {
             if (otherConditionListener != null) {
