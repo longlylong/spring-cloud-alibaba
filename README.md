@@ -11,8 +11,9 @@ Plugins：
 
 	Spring Cloud Gateway
 	-Rate Limit
+	-Load Balance
 
-	Nacos 1.2.1
+	Nacos 1.3.1
 	-DiscoveryClient
 	-Nacos-config
 
@@ -21,7 +22,7 @@ Plugins：
 	JPA+QueryDsl(免去直接写SQL,用法和写sql一样灵活)
 
 	RocketMQ 4.5.0
-	Knife4j 2.0.1(Swagger 2.9.2)
+	Knife4j 2.0.4(Swagger 2.9.2)
 
 
 单体应用改造：
