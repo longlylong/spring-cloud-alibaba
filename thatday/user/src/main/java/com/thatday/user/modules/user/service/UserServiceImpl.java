@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl extends BaseServiceImpl<User, String, UserDao> implements UserService {
 
     public User loginByPhone(LoginPhoneVo loginPhoneVo) {
-        return null;
+        return getLastOneById();
     }
 
     public User loginByWeChat(LoginWeChatVo loginWeChatVo) {

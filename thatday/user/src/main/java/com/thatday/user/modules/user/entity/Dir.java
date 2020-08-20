@@ -1,21 +1,19 @@
 package com.thatday.user.modules.user.entity;
 
+import com.thatday.user.repository.BaseEntity;
 import lombok.Data;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 /**
  * 文件夹表
  */
 @Data
-@Entity(name = "td_dir")
-public class Dir {
-
-    @Id
-    private String id;
+@Entity
+@Table(name = "td_dir")
+public class Dir extends BaseEntity {
 
     @NotNull
     private String userId;
@@ -24,10 +22,4 @@ public class Dir {
     private String title;
 
     private String icon;
-
-    @NotNull
-    private Date createTime;
-
-    @NotNull
-    private Date updateTime;
 }
