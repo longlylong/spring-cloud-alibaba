@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     routes() {
-      return this.$store.getters.permission_routes
+      return this.$store.state.permission.routers
     }
   },
   watch: {
@@ -70,9 +70,9 @@ export default {
       this.show = false
     },
     change(val) {
-      if(this.ishttp(val.path)) {
+      if (this.ishttp(val.path)) {
         // http(s):// 路径新窗口打开
-        window.open(val.path, "_blank");
+        window.open(val.path, '_blank')
       } else {
         this.$router.push(val.path)
       }
@@ -167,7 +167,7 @@ export default {
     display: inline-block;
     vertical-align: middle;
 
-    /deep/ .el-input__inner {
+   ::v-deep .el-input__inner {
       border-radius: 0;
       border: 0;
       padding-left: 0;

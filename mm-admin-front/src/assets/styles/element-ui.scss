@@ -17,7 +17,7 @@
 
 .cell {
   .el-tag {
-    margin-right: 0px;
+    margin-right: 0;
   }
 }
 
@@ -41,7 +41,7 @@
     text-align: center;
 
     .el-tag {
-      margin-right: 0px;
+      margin-right: 0;
     }
   }
 }
@@ -76,9 +76,4 @@
 // fix date-picker ui bug in filter-item
 .el-range-editor.el-input__inner {
   display: inline-flex !important;
-}
-
-// to fix el-date-picker css style
-.el-range-separator {
-  box-sizing: content-box;
 }

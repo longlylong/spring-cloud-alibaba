@@ -1,4 +1,3 @@
-<!-- @author zhengjie -->
 <template>
   <div class="icon-body">
     <el-input v-model="name" style="position: relative;" clearable placeholder="请输入图标名称" @clear="filterIcons" @input.native="filterIcons">

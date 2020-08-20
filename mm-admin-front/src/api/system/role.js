@@ -1,75 +1,57 @@
 import request from '@/utils/request'
 
-// 查询角色列表
-export function listRole(query) {
+// 获取所有的Role
+export function getAll() {
   return request({
-    url: '/system/role/list',
-    method: 'get',
-    params: query
-  })
-}
-
-// 查询角色详细
-export function getRole(roleId) {
-  return request({
-    url: '/system/role/' + roleId,
+    url: 'api/roles/all',
     method: 'get'
   })
 }
 
-// 新增角色
-export function addRole(data) {
+export function add(data) {
   return request({
-    url: '/system/role',
+    url: 'api/roles',
     method: 'post',
-    data: data
+    data
   })
 }
 
-// 修改角色
-export function updateRole(data) {
+export function get(id) {
   return request({
-    url: '/system/role',
+    url: 'api/roles/' + id,
+    method: 'get'
+  })
+}
+
+export function getLevel() {
+  return request({
+    url: 'api/roles/level',
+    method: 'get'
+  })
+}
+
+export function del(ids) {
+  return request({
+    url: 'api/roles',
+    method: 'delete',
+    data: ids
+  })
+}
+
+export function edit(data) {
+  return request({
+    url: 'api/roles',
     method: 'put',
-    data: data
+    data
   })
 }
 
-// 角色数据权限
-export function dataScope(data) {
+export function editMenu(data) {
   return request({
-    url: '/system/role/dataScope',
+    url: 'api/roles/menu',
     method: 'put',
-    data: data
+    data
   })
 }
 
-// 角色状态修改
-export function changeRoleStatus(roleId, status) {
-  const data = {
-    roleId,
-    status
-  }
-  return request({
-    url: '/system/role/changeStatus',
-    method: 'put',
-    data: data
-  })
-}
-
-// 删除角色
-export function delRole(roleId) {
-  return request({
-    url: '/system/role/' + roleId,
-    method: 'delete'
-  })
-}
-
-// 导出角色
-export function exportRole(query) {
-  return request({
-    url: '/system/role/export',
-    method: 'get',
-    params: query
-  })
-}
+export default { add, edit, del, get, editMenu, getLevel }

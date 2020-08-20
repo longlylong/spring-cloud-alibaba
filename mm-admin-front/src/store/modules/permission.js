@@ -1,54 +1,43 @@
-import { constantRoutes } from '@/router'
-import { getRouters } from '@/api/menu'
+import { constantRouterMap } from '@/router/routers'
 import Layout from '@/layout/index'
 
 const permission = {
   state: {
-    routes: [],
-    addRoutes: []
+    routers: constantRouterMap,
+    addRouters: []
   },
   mutations: {
-    SET_ROUTES: (state, routes) => {
-      state.addRoutes = routes
-      state.routes = constantRoutes.concat(routes)
+    SET_ROUTERS: (state, routers) => {
+      state.addRouters = routers
+      state.routers = constantRouterMap.concat(routers)
     }
   },
   actions: {
-    // 生成路由
-    GenerateRoutes({ commit }) {
-      return new Promise(resolve => {
-        // 向后端请求路由数据
-        getRouters().then(res => {
-          const accessedRoutes = filterAsyncRouter(res.data)
-          accessedRoutes.push({ path: '*', redirect: '/404', hidden: true })
-          commit('SET_ROUTES', accessedRoutes)
-          resolve(accessedRoutes)
-        })
-      })
+    GenerateRoutes({ commit }, asyncRouter) {
+      commit('SET_ROUTERS', asyncRouter)
     }
   }
 }
 
-// 遍历后台传来的路由字符串，转换为组件对象
-function filterAsyncRouter(asyncRouterMap) {
-  return asyncRouterMap.filter(route => {
-    if (route.component) {
-      // Layout组件特殊处理
-      if (route.component === 'Layout') {
-        route.component = Layout
+export const filterAsyncRouter = (routers) => { // 遍历后台传来的路由字符串，转换为组件对象
+  return routers.filter(router => {
+    if (router.component) {
+      if (router.component === 'Layout') { // Layout组件特殊处理
+        router.component = Layout
       } else {
-        route.component = loadView(route.component)
+        const component = router.component
+        router.component = loadView(component)
       }
     }
-    if (route.children != null && route.children && route.children.length) {
-      route.children = filterAsyncRouter(route.children)
+    if (router.children && router.children.length) {
+      router.children = filterAsyncRouter(router.children)
     }
     return true
   })
 }
 
-export const loadView = (view) => { // 路由懒加载
-  return (resolve) =>  require([`@/views/${view}`], resolve)
+export const loadView = (view) => {
+  return (resolve) => require([`@/views/${view}`], resolve)
 }
 
 export default permission

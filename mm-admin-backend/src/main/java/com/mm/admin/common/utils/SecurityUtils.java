@@ -1,75 +1,78 @@
 package com.mm.admin.common.utils;
 
-import com.mm.admin.common.constant.HttpStatus;
-import com.mm.admin.common.exception.CustomException;
-import com.mm.admin.framework.security.LoginUser;
+import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
+import com.mm.admin.common.exception.BadRequestException;
+import com.mm.admin.common.utils.enums.DataScopeEnum;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+import java.util.List;
 
 /**
- * 安全服务工具类
+ * 获取当前登录的用户
  */
+@Slf4j
 public class SecurityUtils {
+
     /**
-     * 获取用户账户
-     **/
-    public static String getUsername() {
-        try {
-            return getLoginUser().getUsername();
-        } catch (Exception e) {
-            throw new CustomException("获取用户账户异常", HttpStatus.UNAUTHORIZED);
+     * 获取当前登录的用户
+     */
+    public static UserDetails getCurrentUser() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+            throw new BadRequestException(HttpStatus.UNAUTHORIZED, "当前登录状态过期");
         }
-    }
-
-    /**
-     * 获取用户
-     **/
-    public static LoginUser getLoginUser() {
-        try {
-            return (LoginUser) getAuthentication().getPrincipal();
-        } catch (Exception e) {
-            throw new CustomException("获取用户信息异常", HttpStatus.UNAUTHORIZED);
+        if (authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            UserDetailsService userDetailsService = SpringContextHolder.getBean(UserDetailsService.class);
+            return userDetailsService.loadUserByUsername(userDetails.getUsername());
         }
+        throw new BadRequestException(HttpStatus.UNAUTHORIZED, "找不到当前登录的信息");
     }
 
     /**
-     * 获取Authentication
+     * 获取系统用户名称
      */
-    public static Authentication getAuthentication() {
-        return SecurityContextHolder.getContext().getAuthentication();
+    public static String getCurrentUsername() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+            throw new BadRequestException(HttpStatus.UNAUTHORIZED, "当前登录状态过期");
+        }
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        return userDetails.getUsername();
     }
 
     /**
-     * 生成BCryptPasswordEncoder密码
-     *
-     * @param password 密码
-     * @return 加密字符串
+     * 获取系统用户ID
      */
-    public static String encryptPassword(String password) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.encode(password);
+    public static Long getCurrentUserId() {
+        UserDetails userDetails = getCurrentUser();
+        return new JSONObject(new JSONObject(userDetails).get("user")).get("id", Long.class);
     }
 
     /**
-     * 判断密码是否相同
-     *
-     * @param rawPassword     真实密码
-     * @param encodedPassword 加密后字符
-     * @return 结果
+     * 获取当前用户的数据权限
      */
-    public static boolean matchesPassword(String rawPassword, String encodedPassword) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.matches(rawPassword, encodedPassword);
+    public static List<Long> getCurrentUserDataScope() {
+        UserDetails userDetails = getCurrentUser();
+        JSONArray array = JSONUtil.parseArray(new JSONObject(userDetails).get("dataScopes"));
+        return JSONUtil.toList(array, Long.class);
     }
 
     /**
-     * 是否为管理员
-     *
-     * @param userId 用户ID
-     * @return 结果
+     * 获取数据权限级别
      */
-    public static boolean isAdmin(Long userId) {
-        return userId != null && 1L == userId;
+    public static String getDataScopeType() {
+        List<Long> dataScopes = getCurrentUserDataScope();
+        if (dataScopes.size() != 0) {
+            return "";
+        }
+        return DataScopeEnum.ALL.getValue();
     }
 }

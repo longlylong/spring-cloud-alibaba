@@ -1,0 +1,48 @@
+server:
+  port: 8000
+
+spring:
+  freemarker:
+    check-template-location: false
+  profiles:
+    active: dev
+  jackson:
+    time-zone: GMT+8
+  data:
+    redis:
+      repositories:
+        enabled: false
+
+  #配置 Jpa
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: none
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: true
+
+  redis:
+    #数据库索引
+    database: 0
+    host: 192.168.220.130
+    port: 6379
+    password: 123456789
+    #连接超时时间
+    timeout: 5000
+
+task:
+  pool:
+    # 核心线程池大小
+    core-pool-size: 10
+    # 最大线程数
+    max-pool-size: 30
+    # 活跃时间
+    keep-alive-seconds: 60
+    # 队列容量
+    queue-capacity: 50
+
+
+#密码加密传输，前端公钥加密，后端私钥解密
+rsa:
+  private_key: MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAN0Lx+n0cRh0MwDq/HB4F5w8V5BQstuFkeEa7jlYtS2uy/EVcT5Wzh1qH7hc4FJL4/tO7frjOJY322+2MNBVYykCBKpvrXyBTwtNxaF6zTW1wGJaKbzRl49Nl8PreQk2N6g5pMF1ukJFAR21qdaqP6DlvOyGjRiEkKwCE+Fm7OEbAgMBAAECgYBRXq3X3KjpRJUl6FrHGB4w4DGnqV093ByITf6V06bWSzs94xPNy+yR/Wfx2RamlNM2xqZqLcy915AKvnmXp2cZmRqqAC/tzZZY3Esn7a5XXrLj/sdQFPh6jYUtbam8hntrICgdrM1y2H/D9vJwnRe1wAMCerMcMCeHDU1NTTxj+QJBAPig8jo9XRhiB+8a04twR1bbxoejun88k1z26u13w8xi1UGuM/dHUZGFk0/vCsJkCZQYgm1nExmvFmkMmgtWqnUCQQDjmXyFbW1wzEL6c/ZdvWuIHZLsQ3H7gXoLu5FTEyY8G4ALhyfxl4rtf80tjyrGzMIN0RVOPeB0h6v6oNnihktPAkEA4quxSuGJD2LIgvg9JyINGCY0QJNHwxqR6y5+DlOjIaJ1dHUCkY3m0roqDLUNZR5ZETirKFzRsBfNYaaIho/TxQJAQMdlvqA3nvw0MA6jV2jbW0F3mNFVds0STJaVNTzlDASTvDQ6tTN5skFGx6nQ9gY/USlqU/uej+wxkcMIYMXyVwJAF84nDrD0N0kD1PL6RtxIdN3Dej0Ic6u+9FiUcXUTx2yrpG2dzYlyZ+3nBdVoNfXxBLfJTOJJVR66d1DmqN4Vfw==
+

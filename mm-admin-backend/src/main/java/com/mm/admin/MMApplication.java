@@ -1,21 +1,48 @@
 package com.mm.admin;
 
+import com.mm.admin.common.annotation.rest.AnonymousGetMapping;
+import com.mm.admin.common.utils.SpringContextHolder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 启动程序
+ * 开启审计功能 -> @EnableJpaAuditing
  */
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
-@EnableDiscoveryClient
-@EnableFeignClients
+@EnableAsync
+@RestController
+@SpringBootApplication
+@EnableTransactionManagement
+//@EnableJpaAuditing(auditorAwareRef = "auditorAware")
 public class MMApplication {
+
     public static void main(String[] args) {
-        // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(MMApplication.class, args);
-        System.out.println("(♥◠‿◠)ﾉﾞ  启动成功   ლ(´ڡ`ლ)ﾞ  \n");
+    }
+
+    @Bean
+    public SpringContextHolder springContextHolder() {
+        return new SpringContextHolder();
+    }
+
+    @Bean
+    public ServletWebServerFactory webServerFactory() {
+        TomcatServletWebServerFactory fa = new TomcatServletWebServerFactory();
+        fa.addConnectorCustomizers(connector -> connector.setProperty("relaxedQueryChars", "[]{}"));
+        return fa;
+    }
+
+    /**
+     * 访问首页提示
+     */
+    @AnonymousGetMapping("/")
+    public String index() {
+        return "Backend service started successfully";
     }
 }

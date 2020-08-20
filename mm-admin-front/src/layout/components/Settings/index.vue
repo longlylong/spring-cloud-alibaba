@@ -1,7 +1,7 @@
 <template>
   <div class="drawer-container">
     <div>
-      <h3 class="drawer-title">系统布局配置</h3>
+      <h3 class="drawer-title">系统布局设置</h3>
 
       <div class="drawer-item">
         <span>主题颜色</span>
@@ -9,18 +9,23 @@
       </div>
 
       <div class="drawer-item">
-        <span>开启 Tags-Views</span>
+        <span>显示标签</span>
         <el-switch v-model="tagsView" class="drawer-switch" />
       </div>
 
       <div class="drawer-item">
-        <span>固定 Header</span>
+        <span>固定头部</span>
         <el-switch v-model="fixedHeader" class="drawer-switch" />
       </div>
 
       <div class="drawer-item">
-        <span>显示 Logo</span>
+        <span>显示LOGO</span>
         <el-switch v-model="sidebarLogo" class="drawer-switch" />
+      </div>
+
+      <div class="drawer-item">
+        <span>菜单UniqueOpened</span>
+        <el-switch v-model="uniqueOpened" class="drawer-switch" />
       </div>
 
     </div>
@@ -69,6 +74,17 @@ export default {
         })
       }
     },
+    uniqueOpened: {
+      get() {
+        return this.$store.state.settings.uniqueOpened
+      },
+      set(val) {
+        this.$store.dispatch('settings/changeSetting', {
+          key: 'uniqueOpened',
+          value: val
+        })
+      }
+    }
   },
   methods: {
     themeChange(val) {

@@ -1,5 +1,3 @@
-Application Version: ${ruoyi.version}
-Spring Boot Version: ${spring-boot.version}
 ////////////////////////////////////////////////////////////////////
 //                          _ooOoo_                               //
 //                         o8888888o                              //
@@ -22,3 +20,4 @@ Spring Boot Version: ${spring-boot.version}
 //      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        //
 //             佛祖保佑       永不宕机      永无BUG               //
 ////////////////////////////////////////////////////////////////////
+Spring Boot Version: ${spring-boot.version}
