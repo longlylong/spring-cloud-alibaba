@@ -13,7 +13,7 @@ Plugins：
 	-Rate Limit
 	-Load Balance
 
-	Nacos 1.3.1
+	Nacos 1.3.2
 	-DiscoveryClient
 	-Nacos-config
 
@@ -46,9 +46,8 @@ Plugins：
 	--Common-Server （公共服务）
 
 	mm-admin-backend 管理后台后端
-	(Mybatis与JPA代码生成)
 	mm-admin-front 管理后台前端 Vue 最简化功能
-	(前后端分离后台管理系统http://www.ruoyi.vip,
+	(前后端分离后台管理系统https://el-admin.vip/,
 	如果前期没业务需求可以不跑)
 
 	ServerGateway （网关）
