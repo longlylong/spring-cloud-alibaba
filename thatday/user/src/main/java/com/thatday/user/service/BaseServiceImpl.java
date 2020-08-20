@@ -6,6 +6,7 @@ import com.thatday.common.model.PageResult;
 import com.thatday.common.token.UserInfo;
 import com.thatday.common.utils.TemplateCodeUtil;
 import com.thatday.user.repository.BaseDao;
+import com.thatday.user.repository.BaseEntity;
 import com.thatday.user.repository.JPAUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-public abstract class BaseServiceImpl<ENTITY, ID, DAO extends BaseDao<ENTITY, ID>> implements BaseService<ENTITY, ID, DAO> {
+public abstract class BaseServiceImpl<ENTITY extends BaseEntity, ID, DAO extends BaseDao<ENTITY, ID>> implements BaseService<ENTITY, ID, DAO> {
 
     @Autowired
     protected DAO dao;
@@ -56,11 +57,11 @@ public abstract class BaseServiceImpl<ENTITY, ID, DAO extends BaseDao<ENTITY, ID
         ID id = getId(entity);
         if (id == null || StringUtils.isEmpty(id.toString())) {
             setId(customDatabaseId(), entity);
-            setCreateTime(entity);
-            setUpdateTime(entity);
+            entity.setCreateTime(new Date());
+            entity.setUpdateTime(new Date());
             dao.save(entity);
         } else {
-            setUpdateTime(entity);
+            entity.setUpdateTime(new Date());
             dao.saveAndFlush(entity);
         }
     }
@@ -160,23 +161,6 @@ public abstract class BaseServiceImpl<ENTITY, ID, DAO extends BaseDao<ENTITY, ID
         }
     }
 
-    private void setUpdateTime(ENTITY entity) {
-        try {
-            Field idField = entity.getClass().getDeclaredField("updateTime");
-            idField.setAccessible(true);
-            idField.set(entity, new Date());
-        } catch (Exception ignored) {
-        }
-    }
-
-    private void setCreateTime(ENTITY entity) {
-        try {
-            Field idField = entity.getClass().getDeclaredField("createTime");
-            idField.setAccessible(true);
-            idField.set(entity, new Date());
-        } catch (Exception ignored) {
-        }
-    }
 
     private void setId(ID id, ENTITY entity) {
         try {

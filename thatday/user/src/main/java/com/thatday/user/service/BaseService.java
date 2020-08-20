@@ -4,6 +4,7 @@ import com.thatday.common.model.PageInfoVo;
 import com.thatday.common.model.PageResult;
 import com.thatday.common.utils.TemplateCodeUtil;
 import com.thatday.user.repository.BaseDao;
+import com.thatday.user.repository.BaseEntity;
 import com.thatday.user.repository.JPAUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Set;
 
-public interface BaseService<ENTITY, ID, DAO extends BaseDao<ENTITY, ID>> {
+public interface BaseService<ENTITY extends BaseEntity, ID, DAO extends BaseDao<ENTITY, ID>> {
 
     //可自己定义id
     ID customDatabaseId();
