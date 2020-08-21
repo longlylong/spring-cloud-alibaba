@@ -3,17 +3,15 @@ package com.thatday.user.modules.user.entity;
 import com.thatday.user.repository.BaseEntity;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * 用户表
  */
 @Data
-@Entity
-@Table(name = "td_user")
+@Entity(name = "td_user")
 public class User extends BaseEntity {
 
     @Id
@@ -22,4 +20,9 @@ public class User extends BaseEntity {
     @NotNull
     private String nickname;
 
+    @OneToMany
+    @JoinTable(name = "td_dir",
+            joinColumns = {@JoinColumn(name = "userId")},
+            inverseJoinColumns = {@JoinColumn(name = "id")})
+    List<Dir> dirs;
 }
