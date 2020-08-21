@@ -83,18 +83,19 @@
                 placeholder="选择部门"
               />
             </el-form-item>
-            <el-form-item label="岗位" prop="jobs">
+            <el-form-item label="角色" prop="roles">
               <el-select
-                v-model="form.jobs"
+                v-model="form.roles"
                 style="width: 178px"
                 multiple
                 placeholder="请选择"
                 @remove-tag="deleteTag"
-                @change="changeJob"
+                @change="changeRole"
               >
                 <el-option
-                  v-for="item in jobs"
+                  v-for="item in roles"
                   :key="item.name"
+                  :disabled="level !== 1 && item.level <= level"
                   :label="item.name"
                   :value="item.id"
                 />
@@ -115,24 +116,7 @@
                 >{{ item.label }}</el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item style="margin-bottom: 0;" label="角色" prop="roles">
-              <el-select
-                v-model="form.roles"
-                style="width: 437px"
-                multiple
-                placeholder="请选择"
-                @remove-tag="deleteTag"
-                @change="changeRole"
-              >
-                <el-option
-                  v-for="item in roles"
-                  :key="item.name"
-                  :disabled="level !== 1 && item.level <= level"
-                  :label="item.name"
-                  :value="item.id"
-                />
-              </el-select>
-            </el-form-item>
+
           </el-form>
           <div slot="footer" class="dialog-footer">
             <el-button type="text" @click="crud.cancelCU">取消</el-button>
@@ -196,20 +180,29 @@ import crudUser from '@/api/system/user'
 import { isvalidPhone } from '@/utils/validate'
 import { getDepts, getDeptSuperior } from '@/api/system/dept'
 import { getAll, getLevel } from '@/api/system/role'
-import { getAllJob } from '@/api/system/job'
-import CRUD, { presenter, header, form, crud } from '@crud/crud'
+import CRUD, { crud, form, header, presenter } from '@crud/crud'
 import rrOperation from '@crud/RR.operation'
 import crudOperation from '@crud/CRUD.operation'
 import udOperation from '@crud/UD.operation'
 import pagination from '@crud/Pagination'
 import DateRangePicker from '@/components/DateRangePicker'
-import Treeselect from '@riophae/vue-treeselect'
+import Treeselect, { LOAD_CHILDREN_OPTIONS } from '@riophae/vue-treeselect'
 import { mapGetters } from 'vuex'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
-import { LOAD_CHILDREN_OPTIONS } from '@riophae/vue-treeselect'
+
 let userRoles = []
-let userJobs = []
-const defaultForm = { id: null, username: null, nickName: null, gender: '男', email: null, enabled: 'false', roles: [], jobs: [], dept: { id: null }, phone: null }
+const defaultForm = {
+  id: null,
+  username: null,
+  nickName: null,
+  gender: '男',
+  email: null,
+  enabled: 'false',
+  roles: [],
+  dept: { id: null },
+  phone: null
+}
+
 export default {
   name: 'User',
   components: { Treeselect, crudOperation, rrOperation, udOperation, pagination, DateRangePicker },
@@ -232,7 +225,7 @@ export default {
     }
     return {
       height: document.documentElement.clientHeight - 180 + 'px;',
-      deptName: '', depts: [], deptDatas: [], jobs: [], level: 3, roles: [],
+      deptName: '', depts: [], deptDatas: [], level: 3, roles: [],
       defaultProps: { children: 'children', label: 'name', isLeaf: 'leaf' },
       permission: {
         add: ['admin', 'user:add'],
@@ -284,13 +277,6 @@ export default {
         userRoles.push(role)
       })
     },
-    changeJob(value) {
-      userJobs = []
-      value.forEach(function(data, index) {
-        const job = { id: data }
-        userJobs.push(job)
-      })
-    },
     [CRUD.HOOK.afterAddError](crud) {
       this.afterErrorMethod(crud)
     },
@@ -300,15 +286,10 @@ export default {
     afterErrorMethod(crud) {
       // 恢复select
       const initRoles = []
-      const initJobs = []
       userRoles.forEach(function(role, index) {
         initRoles.push(role.id)
       })
-      userJobs.forEach(function(job, index) {
-        initJobs.push(job.id)
-      })
       crud.form.roles = initRoles
-      crud.form.jobs = initJobs
     },
     deleteTag(value) {
       userRoles.forEach(function(data, index) {
@@ -326,42 +307,26 @@ export default {
         this.getSupDepts(form.dept.id)
       }
       this.getRoleLevel()
-      this.getJobs()
       form.enabled = form.enabled.toString()
     },
     // 打开编辑弹窗前做的操作
     [CRUD.HOOK.beforeToEdit](crud, form) {
-      this.getJobs(this.form.dept.id)
       userRoles = []
-      userJobs = []
       const roles = []
-      const jobs = []
       form.roles.forEach(function(role, index) {
         roles.push(role.id)
         // 初始化编辑时候的角色
         const rol = { id: role.id }
         userRoles.push(rol)
       })
-      form.jobs.forEach(function(job, index) {
-        jobs.push(job.id)
-        // 初始化编辑时候的岗位
-        const data = { id: job.id }
-        userJobs.push(data)
-      })
+
       form.roles = roles
-      form.jobs = jobs
     },
     // 提交前做的操作
     [CRUD.HOOK.afterValidateCU](crud) {
       if (!crud.form.dept.id) {
         this.$message({
           message: '部门不能为空',
-          type: 'warning'
-        })
-        return false
-      } else if (crud.form.jobs.length === 0) {
-        this.$message({
-          message: '岗位不能为空',
           type: 'warning'
         })
         return false
@@ -373,7 +338,6 @@ export default {
         return false
       }
       crud.form.roles = userRoles
-      crud.form.jobs = userJobs
       return true
     },
     // 获取左侧部门数据
@@ -469,12 +433,6 @@ export default {
     getRoles() {
       getAll().then(res => {
         this.roles = res
-      }).catch(() => { })
-    },
-    // 获取弹窗内岗位数据
-    getJobs() {
-      getAllJob().then(res => {
-        this.jobs = res.content
       }).catch(() => { })
     },
     // 获取权限级别

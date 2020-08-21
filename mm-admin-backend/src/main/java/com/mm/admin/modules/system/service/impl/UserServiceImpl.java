@@ -8,7 +8,6 @@ import com.mm.admin.modules.security.service.UserCacheClean;
 import com.mm.admin.modules.system.domain.User;
 import com.mm.admin.modules.system.repository.UserRepository;
 import com.mm.admin.modules.system.service.UserService;
-import com.mm.admin.modules.system.service.dto.JobSmallDto;
 import com.mm.admin.modules.system.service.dto.RoleSmallDto;
 import com.mm.admin.modules.system.service.dto.UserDto;
 import com.mm.admin.modules.system.service.dto.UserQueryCriteria;
@@ -105,7 +104,6 @@ public class UserServiceImpl implements UserService {
         user.setEnabled(resources.getEnabled());
         user.setRoles(resources.getRoles());
         user.setDept(resources.getDept());
-        user.setJobs(resources.getJobs());
         user.setPhone(resources.getPhone());
         user.setNickName(resources.getNickName());
         user.setGender(resources.getGender());
@@ -193,7 +191,6 @@ public class UserServiceImpl implements UserService {
             map.put("用户名", userDTO.getUsername());
             map.put("角色", roles);
             map.put("部门", userDTO.getDept().getName());
-            map.put("岗位", userDTO.getJobs().stream().map(JobSmallDto::getName).collect(Collectors.toList()));
             map.put("邮箱", userDTO.getEmail());
             map.put("状态", userDTO.getEnabled() ? "启用" : "禁用");
             map.put("手机号码", userDTO.getPhone());
