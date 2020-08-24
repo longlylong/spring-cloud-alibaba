@@ -5,7 +5,7 @@ public interface TokenConstant {
     String Msg_Access_Token_Error = "用户信息无效或过期";
     String Msg_Access_Token_Empty = "用户信息缺失";
 
-    String TOKEN = "token";
+    String TOKEN = "Authorization";
 
     String ACCESS_TOKEN = "accessToken";
     String USER_ID = "userId";

@@ -2,12 +2,22 @@ package com.mm.admin.common.utils;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.mm.admin.common.exception.BadRequestException;
+import com.thatday.common.token.TokenConstant;
+import com.thatday.common.token.TokenUtil;
+import com.thatday.common.token.UserInfo;
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 验证工具
  */
 public class ValidationUtil {
+
+    public static UserInfo getUserInfo(HttpServletRequest request) {
+        String authorization = request.getHeader(TokenConstant.TOKEN);
+        return TokenUtil.getUserInfo(authorization);
+    }
 
     /**
      * 验证空

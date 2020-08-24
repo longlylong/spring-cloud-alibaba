@@ -4,8 +4,6 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.mm.admin.common.exception.BadRequestException;
 import com.mm.admin.common.exception.EntityExistException;
 import com.mm.admin.common.utils.*;
-import com.mm.admin.modules.security.service.UserCacheClean;
-import com.mm.admin.modules.system.domain.Menu;
 import com.mm.admin.modules.system.domain.Role;
 import com.mm.admin.modules.system.domain.User;
 import com.mm.admin.modules.system.repository.RoleRepository;
@@ -14,7 +12,6 @@ import com.mm.admin.modules.system.service.RoleService;
 import com.mm.admin.modules.system.service.dto.RoleDto;
 import com.mm.admin.modules.system.service.dto.RoleQueryCriteria;
 import com.mm.admin.modules.system.service.dto.RoleSmallDto;
-import com.mm.admin.modules.system.service.dto.UserDto;
 import com.mm.admin.modules.system.service.mapstruct.RoleMapper;
 import com.mm.admin.modules.system.service.mapstruct.RoleSmallMapper;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +20,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,7 +38,6 @@ public class RoleServiceImpl implements RoleService {
     private final RoleSmallMapper roleSmallMapper;
     private final RedisUtils redisUtils;
     private final UserRepository userRepository;
-    private final UserCacheClean userCacheClean;
 
     @Override
     public List<RoleDto> queryAll() {
@@ -143,24 +137,6 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    @Cacheable(key = "'auth:' + #p0.id")
-    public List<GrantedAuthority> mapToGrantedAuthorities(UserDto user) {
-        Set<String> permissions = new HashSet<>();
-        // 如果是管理员直接返回
-        if (user.getIsAdmin()) {
-            permissions.add("admin");
-            return permissions.stream().map(SimpleGrantedAuthority::new)
-                    .collect(Collectors.toList());
-        }
-        Set<Role> roles = roleRepository.findByUserId(user.getId());
-        permissions = roles.stream().flatMap(role -> role.getMenus().stream())
-                .filter(menu -> StringUtils.isNotBlank(menu.getPermission()))
-                .map(Menu::getPermission).collect(Collectors.toSet());
-        return permissions.stream().map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public void download(List<RoleDto> roles, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (RoleDto role : roles) {
@@ -188,13 +164,11 @@ public class RoleServiceImpl implements RoleService {
 
     /**
      * 清理缓存
-     *
-     * @param id /
      */
     public void delCaches(Long id, List<User> users) {
         users = CollectionUtil.isEmpty(users) ? userRepository.findByRoleId(id) : users;
         if (CollectionUtil.isNotEmpty(users)) {
-            users.forEach(item -> userCacheClean.cleanUserCache(item.getUsername()));
+
             Set<Long> userIds = users.stream().map(User::getId).collect(Collectors.toSet());
             redisUtils.delByKeys(CacheKey.DATE_USER, userIds);
             redisUtils.delByKeys(CacheKey.MENU_USER, userIds);

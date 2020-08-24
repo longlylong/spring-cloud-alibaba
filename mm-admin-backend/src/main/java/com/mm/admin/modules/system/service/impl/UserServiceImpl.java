@@ -3,8 +3,6 @@ package com.mm.admin.modules.system.service.impl;
 import com.mm.admin.common.exception.EntityExistException;
 import com.mm.admin.common.exception.EntityNotFoundException;
 import com.mm.admin.common.utils.*;
-import com.mm.admin.modules.security.service.OnlineUserService;
-import com.mm.admin.modules.security.service.UserCacheClean;
 import com.mm.admin.modules.system.domain.User;
 import com.mm.admin.modules.system.repository.UserRepository;
 import com.mm.admin.modules.system.service.UserService;
@@ -34,8 +32,6 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final RedisUtils redisUtils;
-    private final UserCacheClean userCacheClean;
-    private final OnlineUserService onlineUserService;
 
     @Override
     public Object queryAll(UserQueryCriteria criteria, Pageable pageable) {
@@ -60,14 +56,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void create(User resources) {
-        if (userRepository.findByUsername(resources.getUsername()) != null) {
-            throw new EntityExistException(User.class, "username", resources.getUsername());
+    public void create(User user) {
+        if (userRepository.findByUsername(user.getUsername()) != null) {
+            throw new EntityExistException(User.class, "username", user.getUsername());
         }
-        if (userRepository.findByEmail(resources.getEmail()) != null) {
-            throw new EntityExistException(User.class, "email", resources.getEmail());
+        if (userRepository.findByEmail(user.getEmail()) != null) {
+            throw new EntityExistException(User.class, "email", user.getEmail());
         }
-        userRepository.save(resources);
+        userRepository.save(user);
     }
 
     @Override
@@ -97,7 +93,7 @@ public class UserServiceImpl implements UserService {
         }
         // 如果用户被禁用，则清除用户登录信息
         if (!resources.getEnabled()) {
-            onlineUserService.kickOutForUsername(resources.getUsername());
+
         }
         user.setUsername(resources.getUsername());
         user.setEmail(resources.getEmail());
@@ -122,6 +118,11 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
         // 清理缓存
         delCaches(user.getId(), user.getUsername());
+    }
+
+    @Override
+    public User login(String username, String password) {
+        return userRepository.findFirstByUsernameAndPassword(username, password);
     }
 
     @Override
@@ -214,10 +215,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 清理 登陆时 用户缓存信息
-     *
-     * @param username /
      */
     private void flushCache(String username) {
-        userCacheClean.cleanUserCache(username);
     }
 }

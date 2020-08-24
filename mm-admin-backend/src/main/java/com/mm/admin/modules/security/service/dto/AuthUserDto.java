@@ -1,12 +1,12 @@
 package com.mm.admin.modules.security.service.dto;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 
-@Getter
-@Setter
+@Data
 public class AuthUserDto {
 
     @NotBlank
@@ -18,9 +18,4 @@ public class AuthUserDto {
     private String code;
 
     private String uuid = "";
-
-    @Override
-    public String toString() {
-        return "{username=" + username + ", password= ******}";
-    }
 }

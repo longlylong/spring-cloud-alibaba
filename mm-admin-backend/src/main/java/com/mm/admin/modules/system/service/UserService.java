@@ -29,6 +29,8 @@ public interface UserService {
      */
     void update(User resources);
 
+    User login(String username, String password);
+
     /**
      * 删除用户
      */

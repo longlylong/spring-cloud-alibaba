@@ -1,6 +1,7 @@
 package com.mm.admin.modules.system.service.dto;
 
 import com.mm.admin.common.annotation.Query;
+import com.thatday.common.model.RequestPostVo;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Data
-public class UserQueryCriteria implements Serializable {
+public class UserQueryCriteria extends RequestPostVo {
 
     @Query
     private Long id;

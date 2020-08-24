@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thatday.common.exception.TDExceptionHandler;
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
 
@@ -17,7 +18,7 @@ import java.util.Map;
 public class TokenUtil {
 
     public static final long Token_Expires = 2 * 24 * 60 * 60 * 1000L;
-    private static final String Secret = "hds##hsh55578*&1" ;
+    private static final String Secret = "hds##hsh55578*&1";
     private static Algorithm algorithm;
 
     static {
@@ -25,6 +26,10 @@ public class TokenUtil {
             algorithm = Algorithm.HMAC256(Secret);
         } catch (Exception ignored) {
         }
+    }
+
+    public static String getAccessToken(Long uid) {
+        return getAccessToken(uid, -1, "-1");
     }
 
     public static String getAccessToken(Long uid, Integer roleId, String deviceId) {

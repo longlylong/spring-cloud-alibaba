@@ -1,11 +1,11 @@
 package com.mm.admin.modules.logging.aspect;
 
 import com.mm.admin.common.utils.RequestHolder;
-import com.mm.admin.common.utils.SecurityUtils;
 import com.mm.admin.common.utils.StringUtils;
 import com.mm.admin.common.utils.ThrowableUtil;
 import com.mm.admin.modules.logging.domain.Log;
 import com.mm.admin.modules.logging.service.LogService;
+import com.thatday.common.model.RequestPostVo;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -13,6 +13,7 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,13 +23,10 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class LogAspect {
 
-    private final LogService logService;
+    @Autowired
+    LogService logService;
 
     ThreadLocal<Long> currentTime = new ThreadLocal<>();
-
-    public LogAspect(LogService logService) {
-        this.logService = logService;
-    }
 
     /**
      * 配置切入点
@@ -49,7 +47,7 @@ public class LogAspect {
         Log log = new Log("INFO", System.currentTimeMillis() - currentTime.get());
         currentTime.remove();
         HttpServletRequest request = RequestHolder.getHttpServletRequest();
-        logService.save(getUsername(), StringUtils.getBrowser(request), StringUtils.getIp(request), joinPoint, log);
+        logService.save(getUsername(joinPoint), StringUtils.getBrowser(request), StringUtils.getIp(request), joinPoint, log);
         return result;
     }
 
@@ -62,14 +60,18 @@ public class LogAspect {
         currentTime.remove();
         log.setExceptionDetail(ThrowableUtil.getStackTrace(e).getBytes());
         HttpServletRequest request = RequestHolder.getHttpServletRequest();
-        logService.save(getUsername(), StringUtils.getBrowser(request), StringUtils.getIp(request), (ProceedingJoinPoint) joinPoint, log);
+        logService.save(getUsername(joinPoint), StringUtils.getBrowser(request), StringUtils.getIp(request), (ProceedingJoinPoint) joinPoint, log);
     }
 
-    public String getUsername() {
+    public String getUsername(JoinPoint joinPoint) {
         try {
-            return SecurityUtils.getCurrentUsername();
+            Object o = joinPoint.getArgs()[0];
+            if (o instanceof RequestPostVo) {
+                return ((RequestPostVo) o).getUserInfo().getUserId() + "";
+            }
+            return "-1";
         } catch (Exception e) {
-            return "";
+            return "-1";
         }
     }
 }

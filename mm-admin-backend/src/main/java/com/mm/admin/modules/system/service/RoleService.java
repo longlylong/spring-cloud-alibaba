@@ -4,9 +4,7 @@ import com.mm.admin.modules.system.domain.Role;
 import com.mm.admin.modules.system.service.dto.RoleDto;
 import com.mm.admin.modules.system.service.dto.RoleQueryCriteria;
 import com.mm.admin.modules.system.service.dto.RoleSmallDto;
-import com.mm.admin.modules.system.service.dto.UserDto;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.GrantedAuthority;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -74,11 +72,6 @@ public interface RoleService {
      * 导出数据
      */
     void download(List<RoleDto> queryAll, HttpServletResponse response) throws IOException;
-
-    /**
-     * 获取用户权限信息
-     */
-    List<GrantedAuthority> mapToGrantedAuthorities(UserDto user);
 
     /**
      * 验证是否被用户关联

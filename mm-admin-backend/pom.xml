@@ -14,7 +14,6 @@
     <artifactId>mm-admin-backend</artifactId>
 
     <properties>
-        <jjwt.version>0.11.1</jjwt.version>
         <!-- oshi监控需要指定jna版本, 问题详见 https://github.com/oshi/oshi/issues/1040 -->
         <jna.version>5.5.0</jna.version>
         <configuration.version>1.9</configuration.version>
@@ -32,6 +31,13 @@
     </properties>
 
     <dependencies>
+        <!-- 公共模块 -->
+        <dependency>
+            <groupId>com.thatday</groupId>
+            <artifactId>common</artifactId>
+            <version>2.0</version>
+        </dependency>
+
         <!--Spring boot 核心-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -49,12 +55,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-
-        <!--Spring boot 安全框架-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
         <!-- spring boot 缓存 -->
@@ -157,22 +157,6 @@
             <version>1.21</version>
         </dependency>
 
-        <!-- jwt -->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
-            <version>${jjwt.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-impl</artifactId>
-            <version>${jjwt.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId>
-            <version>${jjwt.version}</version>
-        </dependency>
 
         <!--模板引擎-->
         <dependency>
