@@ -12,16 +12,18 @@ import com.mm.admin.common.utils.StringUtils;
 import com.mm.admin.modules.logging.annotation.Log;
 import com.mm.admin.modules.security.config.bean.LoginProperties;
 import com.mm.admin.modules.security.service.dto.AuthUserDto;
-import com.mm.admin.modules.security.service.dto.JwtUserDto;
 import com.mm.admin.modules.system.domain.User;
 import com.mm.admin.modules.system.service.UserService;
 import com.mm.admin.modules.system.service.mapstruct.UserMapper;
+import com.thatday.common.constant.UserCode;
+import com.thatday.common.exception.GlobalException;
 import com.thatday.common.model.RequestPostVo;
 import com.thatday.common.token.TokenUtil;
 import com.wf.captcha.base.Captcha;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,7 +54,7 @@ public class AuthorizationController {
 
     @Log("用户登录")
     @AnonymousPostMapping(value = "/login")
-    public ResponseEntity<Object> login(@Validated @RequestBody AuthUserDto authUser, HttpServletRequest request) throws Exception {
+    public ResponseEntity<Object> login(@Validated @RequestBody AuthUserDto authUser) throws Exception {
         // 密码解密
         String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, authUser.getPassword());
         // 查询验证码
@@ -66,14 +68,16 @@ public class AuthorizationController {
             throw new BadRequestException("验证码错误");
         }
         User user = userService.login(authUser.getUsername(), password);
+        if (user == null) {
+            throw GlobalException.create(UserCode.UserNotExistCode, UserCode.UserNotExistMsg);
+        }
         // 生成令牌
         String token = TokenUtil.getAccessToken(user.getId());
-        JwtUserDto jwtUserDto = new JwtUserDto(userMapper.toDto(user), new ArrayList<>());
 
         // 返回 token 与 用户信息
         Map<String, Object> authInfo = new HashMap<String, Object>(2) {{
             put("token", token);
-            put("user", jwtUserDto);
+            put("user", userMapper.toDto(user));
         }};
 
         return ResponseEntity.ok(authInfo);

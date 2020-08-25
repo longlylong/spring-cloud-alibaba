@@ -27,15 +27,15 @@ public class QueryHelp {
         DataPermission permission = query.getClass().getAnnotation(DataPermission.class);
         if (permission != null) {
             // 获取数据权限
-            List<Long> dataScopes = SecurityUtils.getCurrentUserDataScope();
-            if (CollectionUtil.isNotEmpty(dataScopes)) {
-                if (StringUtils.isNotBlank(permission.joinName()) && StringUtils.isNotBlank(permission.fieldName())) {
-                    Join join = root.join(permission.joinName(), JoinType.LEFT);
-                    list.add(getExpression(permission.fieldName(), join, root).in(dataScopes));
-                } else if (StringUtils.isBlank(permission.joinName()) && StringUtils.isNotBlank(permission.fieldName())) {
-                    list.add(getExpression(permission.fieldName(), null, root).in(dataScopes));
-                }
-            }
+//            List<Long> dataScopes = SecurityUtils.getCurrentUserDataScope();
+//            if (CollectionUtil.isNotEmpty(dataScopes)) {
+//                if (StringUtils.isNotBlank(permission.joinName()) && StringUtils.isNotBlank(permission.fieldName())) {
+//                    Join join = root.join(permission.joinName(), JoinType.LEFT);
+//                    list.add(getExpression(permission.fieldName(), join, root).in(dataScopes));
+//                } else if (StringUtils.isBlank(permission.joinName()) && StringUtils.isNotBlank(permission.fieldName())) {
+//                    list.add(getExpression(permission.fieldName(), null, root).in(dataScopes));
+//                }
+//            }
         }
         try {
             List<Field> fields = getAllFields(query.getClass(), new ArrayList<>());

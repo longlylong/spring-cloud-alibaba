@@ -1,4 +1,4 @@
-package com.mm.admin.modules.logging.aspect;
+package com.mm.admin.modules.security.config;
 
 import com.mm.admin.common.utils.ValidationUtil;
 import com.mm.admin.modules.system.service.UserService;
@@ -27,7 +27,7 @@ public class PermissionAspect {
     /**
      * 配置切入点
      */
-    @Pointcut("@annotation(com.mm.admin.modules.logging.annotation.Log)")
+    @Pointcut("@annotation(com.mm.admin.common.annotation.UserPermission)")
     public void logPointcut() {
         // 该方法无方法体,主要为了让同类中其他方法使用此切入点
     }
