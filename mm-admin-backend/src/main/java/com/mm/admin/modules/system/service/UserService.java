@@ -14,6 +14,8 @@ import java.util.Set;
 
 public interface UserService {
 
+    User getOne(long id);
+
     /**
      * 根据ID查询
      */

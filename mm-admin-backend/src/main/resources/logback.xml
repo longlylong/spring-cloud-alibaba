@@ -74,10 +74,29 @@
         </encoder>
     </appender>
 
+    <logger name="jdbc.sqlonly" level="ERROR">
+        <appender-ref ref="console"/>
+    </logger>
+    <logger name="jdbc.audit" level="ERROR">
+        <appender-ref ref="console"/>
+    </logger>
+    <logger name="jdbc.resultset" level="ERROR">
+        <appender-ref ref="console"/>
+    </logger>
+    <logger name="jdbc.resultsettable" level="ERROR">
+        <appender-ref ref="console"/>
+    </logger>
+    <logger name="jdbc.sqltiming" level="ERROR">
+        <appender-ref ref="console"/>
+    </logger>
+    <logger name="jdbc.connection" level="ERROR">
+        <appender-ref ref="console"/>
+    </logger>
+
     <!-- 系统模块日志级别控制  -->
     <logger name="com.mm.admin" level="info"/>
     <!-- Spring日志级别控制  -->
-    <logger name="org.springframework" level="warn"/>
+    <logger name="org.springframework" level="info"/>
 
     <root level="info">
         <appender-ref ref="console"/>

@@ -10,6 +10,7 @@ import com.mm.admin.common.utils.RedisUtils;
 import com.mm.admin.common.utils.RsaUtils;
 import com.mm.admin.common.utils.StringUtils;
 import com.mm.admin.modules.logging.annotation.Log;
+import com.mm.admin.modules.security.config.bean.JwtUserDto;
 import com.mm.admin.modules.security.config.bean.LoginProperties;
 import com.mm.admin.modules.security.service.dto.AuthUserDto;
 import com.mm.admin.modules.system.domain.User;
@@ -23,7 +24,7 @@ import com.wf.captcha.base.Captcha;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -54,6 +55,7 @@ public class AuthorizationController {
 
     @Log("用户登录")
     @AnonymousPostMapping(value = "/login")
+    @Transactional
     public ResponseEntity<Object> login(@Validated @RequestBody AuthUserDto authUser) throws Exception {
         // 密码解密
         String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, authUser.getPassword());
@@ -68,24 +70,27 @@ public class AuthorizationController {
             throw new BadRequestException("验证码错误");
         }
         User user = userService.login(authUser.getUsername(), password);
+        return ResponseEntity.ok(getAuthInfo(user));
+    }
+
+    private Map<String, Object> getAuthInfo(User user) {
         if (user == null) {
             throw GlobalException.create(UserCode.UserNotExistCode, UserCode.UserNotExistMsg);
         }
         // 生成令牌
         String token = TokenUtil.getAccessToken(user.getId());
-
+        JwtUserDto jwtUserDto = new JwtUserDto(userMapper.toDto(user), new ArrayList<>(), user.getRoles());
         // 返回 token 与 用户信息
-        Map<String, Object> authInfo = new HashMap<String, Object>(2) {{
+        return new HashMap<String, Object>(2) {{
             put("token", token);
-            put("user", userMapper.toDto(user));
+            put("user", jwtUserDto);
         }};
-
-        return ResponseEntity.ok(authInfo);
     }
 
     @GetMapping(value = "/info")
     public ResponseEntity<Object> getUserInfo(RequestPostVo vo) {
-        return ResponseEntity.ok(userService.findById(vo.getUserInfo().getUserId()));
+        User user = userService.getOne(vo.getUserInfo().getUserId());
+        return ResponseEntity.ok(getAuthInfo(user));
     }
 
     @AnonymousGetMapping(value = "/code")

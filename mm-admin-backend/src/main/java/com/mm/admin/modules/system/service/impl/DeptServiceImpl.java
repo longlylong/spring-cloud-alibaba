@@ -6,6 +6,7 @@ import com.mm.admin.common.exception.BadRequestException;
 import com.mm.admin.common.utils.*;
 import com.mm.admin.common.utils.enums.DataScopeEnum;
 import com.mm.admin.modules.system.domain.Dept;
+import com.mm.admin.modules.system.domain.Role;
 import com.mm.admin.modules.system.domain.User;
 import com.mm.admin.modules.system.repository.DeptRepository;
 import com.mm.admin.modules.system.repository.RoleRepository;
@@ -41,11 +42,19 @@ public class DeptServiceImpl implements DeptService {
     @Override
     public List<DeptDto> queryAll(DeptQueryCriteria criteria, Boolean isQuery) throws Exception {
         Sort sort = Sort.by(Sort.Direction.ASC, "deptSort");
-//        String dataScopeType = SecurityUtils.getDataScopeType();
+
+        User user = userRepository.findFirstById(criteria.getUserInfo().getUserId());
+        String dataScopeType = "";
+        if (user.getRoles().size() == 1) {
+            for (Role role : user.getRoles()) {
+                dataScopeType = role.getDataScope();
+            }
+        }
+
         if (isQuery) {
-//            if (dataScopeType.equals(DataScopeEnum.ALL.getValue())) {
-//                criteria.setPidIsNull(true);
-//            }
+            if (dataScopeType.equals(DataScopeEnum.ALL.getValue())) {
+                criteria.setPidIsNull(true);
+            }
             List<Field> fields = QueryHelp.getAllFields(criteria.getClass(), new ArrayList<>());
             List<String> fieldNames = new ArrayList<String>() {{
                 add("pidIsNull");
@@ -65,10 +74,10 @@ public class DeptServiceImpl implements DeptService {
             }
         }
         List<DeptDto> list = deptMapper.toDto(deptRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder), sort));
-//        // 如果为空，就代表为自定义权限或者本级权限，就需要去重，不理解可以注释掉，看查询结果
-//        if (StringUtils.isBlank(dataScopeType)) {
-//            return deduplication(list);
-//        }
+        // 如果为空，就代表为自定义权限或者本级权限，就需要去重，不理解可以注释掉，看查询结果
+        if (StringUtils.isBlank(dataScopeType)) {
+            return deduplication(list);
+        }
         return list;
     }
 

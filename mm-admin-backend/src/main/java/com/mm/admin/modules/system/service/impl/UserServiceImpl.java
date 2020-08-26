@@ -48,6 +48,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
+    public User getOne(long id) {
+        return userRepository.findFirstById(id);
+    }
+
+    @Override
     @Cacheable(key = "'id:' + #p0")
     @Transactional(rollbackFor = Exception.class)
     public UserDto findById(long id) {

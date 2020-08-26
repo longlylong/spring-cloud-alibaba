@@ -12,6 +12,8 @@ import java.util.Set;
 
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 
+    User findFirstById(Long id);
+
     /**
      * 根据用户名查询
      */

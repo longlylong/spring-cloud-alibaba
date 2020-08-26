@@ -1,18 +1,29 @@
 package com.mm.admin.modules.security.config;
 
+import com.mm.admin.common.annotation.UserPermission;
+import com.mm.admin.common.utils.StringUtils;
 import com.mm.admin.common.utils.ValidationUtil;
+import com.mm.admin.modules.system.domain.Menu;
+import com.mm.admin.modules.system.domain.User;
 import com.mm.admin.modules.system.service.UserService;
-import com.mm.admin.modules.system.service.dto.UserDto;
+import com.thatday.common.constant.UserCode;
+import com.thatday.common.exception.GlobalException;
 import com.thatday.common.token.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @Aspect
@@ -41,11 +52,29 @@ public class PermissionAspect {
         if (args.length > 0) {
             ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 
-            Object o = args[0];
+            MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+            Method signatureMethod = signature.getMethod();
+            UserPermission userPermission = signatureMethod.getAnnotation(UserPermission.class);
+            String permission = userPermission.value();
 
-            if (attributes != null) {
-                UserInfo userInfo = ValidationUtil.getUserInfo(attributes.getRequest());
-                UserDto userDto = userService.findById(userInfo.getUserId());
+            if (StringUtils.isNotEmpty(permission)) {
+                String[] permissions = permission.split(",");
+
+                if (attributes != null) {
+                    UserInfo userInfo = ValidationUtil.getUserInfo(attributes.getRequest());
+                    User user = userService.getOne(userInfo.getUserId());
+                    if (user != null) {
+//                        List<String> elPermissions = user.getRoles().stream().flatMap(role -> role.getMenus().stream())
+//                                .filter(menu -> StringUtils.isNotBlank(menu.getPermission()))
+//                                .map(Menu::getPermission).collect(Collectors.toList());
+//
+//                        if (Arrays.stream(permissions).noneMatch(elPermissions::contains)) {
+//                            throw GlobalException.create(UserCode.UserNotAuthorCode, UserCode.UserNotAuthorMsg);
+//                        }
+                    } else {
+                        throw GlobalException.create(UserCode.UserNotAuthorCode, UserCode.UserNotAuthorMsg);
+                    }
+                }
             }
         }
     }
