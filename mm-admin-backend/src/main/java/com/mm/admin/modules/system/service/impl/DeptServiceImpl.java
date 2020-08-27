@@ -15,6 +15,7 @@ import com.mm.admin.modules.system.service.DeptService;
 import com.mm.admin.modules.system.service.dto.DeptDto;
 import com.mm.admin.modules.system.service.dto.DeptQueryCriteria;
 import com.mm.admin.modules.system.service.mapstruct.DeptMapper;
+import com.thatday.common.token.UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -67,7 +68,7 @@ public class DeptServiceImpl implements DeptService {
                 if (fieldNames.contains(field.getName())) {
                     continue;
                 }
-                if (ObjectUtil.isNotNull(val)) {
+                if (ObjectUtil.isNotNull(val) && !(val instanceof UserInfo)) {
                     criteria.setPidIsNull(null);
                     break;
                 }
