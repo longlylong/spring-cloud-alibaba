@@ -25,7 +25,7 @@ public class JwtUserDto {
     public Set<String> getRoles() {
         Set<String> roleStr = new HashSet<>();
         if (user.getIsAdmin()) {
-            roleStr.add("admin");
+            roleStr.add(Role.ADMIN);
             return roleStr;
         }
         roleStr = roleLit.stream().flatMap(role -> role.getMenus().stream())

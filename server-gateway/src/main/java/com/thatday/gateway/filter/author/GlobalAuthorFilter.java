@@ -161,9 +161,9 @@ public class GlobalAuthorFilter implements GlobalFilter, Ordered {
 
         query.append('&');
 
-        query.append(TokenConstant.ROLE_ID);
+        query.append(TokenConstant.ROLE);
         query.append('=');
-        query.append(userInfo.getRoleId());
+        query.append(userInfo.getRole());
 
         query.append('&');
 

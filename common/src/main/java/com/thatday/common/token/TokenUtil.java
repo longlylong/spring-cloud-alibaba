@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thatday.common.exception.TDExceptionHandler;
 import org.apache.commons.codec.binary.Base64;
-import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
 
@@ -29,13 +28,13 @@ public class TokenUtil {
     }
 
     public static String getAccessToken(Long uid) {
-        return getAccessToken(uid, -1, "-1");
+        return getAccessToken(uid, "", -1);
     }
 
-    public static String getAccessToken(Long uid, Integer roleId, String deviceId) {
+    public static String getAccessToken(Long uid, String role, Integer deviceId) {
         Map<String, Object> map = new HashMap<>();
         map.put(TokenConstant.USER_ID, uid);
-        map.put(TokenConstant.ROLE_ID, roleId);
+        map.put(TokenConstant.ROLE, role);
         map.put(TokenConstant.DEVICE_ID, deviceId);
         map.put(TokenConstant.EXPIRES_TIME, new Date().getTime() + Token_Expires);
         return makeToken(map);

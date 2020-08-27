@@ -21,11 +21,11 @@ public class RequestGetVo implements Serializable {
 
     @ApiModelProperty(value = "角色", hidden = true)
     @NotNull(message = "网关授权失败!")
-    private Integer roleId;
+    private String role;
 
     @ApiModelProperty(value = "设备", hidden = true)
     @NotNull(message = "网关授权失败!")
-    private String deviceId;
+    private Integer deviceId;
 
     @ApiModelProperty(value = "accessToken", hidden = true)
     @NotNull(message = "网关授权失败!")
@@ -37,7 +37,7 @@ public class RequestGetVo implements Serializable {
 
     @ApiModelProperty(hidden = true)
     public UserInfo getUserInfo() {
-        return UserInfo.create(userId, roleId, deviceId, accessToken, expireTime);
+        return UserInfo.create(userId, role, deviceId, accessToken, expireTime);
     }
 
 }

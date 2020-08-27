@@ -9,10 +9,12 @@ import com.mm.admin.common.utils.StringUtils;
 import com.mm.admin.modules.logging.annotation.Log;
 import com.mm.admin.modules.security.config.bean.JwtUserDto;
 import com.mm.admin.modules.security.config.bean.LoginProperties;
-import com.mm.admin.modules.security.service.dto.AuthUserDto;
+import com.mm.admin.modules.security.vo.AuthUserVo;
+import com.mm.admin.modules.system.domain.Role;
 import com.mm.admin.modules.system.domain.User;
 import com.mm.admin.modules.system.service.UserService;
 import com.mm.admin.modules.system.service.mapstruct.UserMapper;
+import com.thatday.common.constant.DeviceCode;
 import com.thatday.common.constant.UserCode;
 import com.thatday.common.exception.GlobalException;
 import com.thatday.common.model.RequestPostVo;
@@ -50,7 +52,7 @@ public class AuthorizationController {
     @Log("用户登录")
     @PostMapping(value = "/login")
     @Transactional
-    public ResponseEntity<Object> login(@Validated @RequestBody AuthUserDto authUser) throws Exception {
+    public ResponseEntity<Object> login(@Validated @RequestBody AuthUserVo authUser) throws Exception {
         // 密码解密
         String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, authUser.getPassword());
         // 查询验证码
@@ -71,8 +73,19 @@ public class AuthorizationController {
         if (user == null) {
             throw GlobalException.create(UserCode.UserNotExistCode, UserCode.UserNotExistMsg);
         }
-        // 生成令牌
-        String token = TokenUtil.getAccessToken(user.getId());
+
+        String role = "";
+        if (user.getIsAdmin()) {
+            role = Role.ADMIN;
+        } else {
+            if (user.getRoles().size() == 1) {
+                for (Role r : user.getRoles()) {
+                    role = r.getName();
+                }
+            }
+        }
+
+        String token = TokenUtil.getAccessToken(user.getId(), role, DeviceCode.WEB_PC);
         JwtUserDto jwtUserDto = new JwtUserDto(userMapper.toDto(user), new ArrayList<>(), user.getRoles());
         // 返回 token 与 用户信息
         return new HashMap<String, Object>(2) {{

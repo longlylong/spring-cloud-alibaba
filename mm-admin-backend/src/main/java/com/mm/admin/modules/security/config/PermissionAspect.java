@@ -4,6 +4,7 @@ import com.mm.admin.common.annotation.UserPermission;
 import com.mm.admin.common.utils.StringUtils;
 import com.mm.admin.common.utils.ValidationUtil;
 import com.mm.admin.modules.system.domain.Menu;
+import com.mm.admin.modules.system.domain.Role;
 import com.mm.admin.modules.system.domain.User;
 import com.mm.admin.modules.system.service.UserService;
 import com.thatday.common.constant.UserCode;
@@ -62,15 +63,18 @@ public class PermissionAspect {
 
                 if (attributes != null) {
                     UserInfo userInfo = ValidationUtil.getUserInfo(attributes.getRequest());
+                    if (Role.ADMIN.equals(userInfo.getRole())) {
+                        return;
+                    }
                     User user = userService.getOne(userInfo.getUserId());
                     if (user != null) {
-//                        List<String> elPermissions = user.getRoles().stream().flatMap(role -> role.getMenus().stream())
-//                                .filter(menu -> StringUtils.isNotBlank(menu.getPermission()))
-//                                .map(Menu::getPermission).collect(Collectors.toList());
-//
-//                        if (Arrays.stream(permissions).noneMatch(elPermissions::contains)) {
-//                            throw GlobalException.create(UserCode.UserNotAuthorCode, UserCode.UserNotAuthorMsg);
-//                        }
+                        List<String> elPermissions = user.getRoles().stream().flatMap(role -> role.getMenus().stream())
+                                .filter(menu -> StringUtils.isNotBlank(menu.getPermission()))
+                                .map(Menu::getPermission).collect(Collectors.toList());
+
+                        if (Arrays.stream(permissions).noneMatch(elPermissions::contains)) {
+                            throw GlobalException.create(UserCode.UserNotAuthorCode, UserCode.UserNotAuthorMsg);
+                        }
                     } else {
                         throw GlobalException.create(UserCode.UserNotAuthorCode, UserCode.UserNotAuthorMsg);
                     }

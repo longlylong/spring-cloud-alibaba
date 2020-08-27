@@ -1,4 +1,4 @@
-package com.mm.admin.modules.security.config;
+package com.mm.admin.common.aspect;
 
 import com.thatday.common.model.RequestPostVo;
 import com.thatday.common.token.TokenConstant;

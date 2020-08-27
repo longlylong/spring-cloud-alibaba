@@ -9,7 +9,7 @@ public interface TokenConstant {
 
     String ACCESS_TOKEN = "accessToken";
     String USER_ID = "userId";
-    String ROLE_ID = "roleId";
+    String ROLE = "role";
     String DEVICE_ID = "deviceId";
     String EXPIRES_TIME = "expireTime";
 

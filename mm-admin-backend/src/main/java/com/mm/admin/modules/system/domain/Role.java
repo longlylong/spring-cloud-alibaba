@@ -22,6 +22,8 @@ import java.util.Set;
 @Table(name = "sys_role")
 public class Role extends BaseEntity implements Serializable {
 
+    public static final String ADMIN = "admin";
+
     @Id
     @Column(name = "role_id")
     @NotNull(groups = {Update.class})

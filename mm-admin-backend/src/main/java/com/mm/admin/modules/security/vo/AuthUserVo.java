@@ -1,4 +1,4 @@
-package com.mm.admin.modules.security.service.dto;
+package com.mm.admin.modules.security.vo;
 
 import lombok.Data;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class AuthUserDto {
+public class AuthUserVo {
 
     @NotBlank
     private String username;
