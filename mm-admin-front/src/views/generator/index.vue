@@ -21,18 +21,11 @@
       </crudOperation>
     </div>
     <!--表格渲染-->
+    <pagination />
+    <!--分页组件-->
     <el-table ref="table" v-loading="crud.loading" :data="crud.data" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
       <el-table-column type="selection" width="55" />
-      <el-table-column :show-overflow-tooltip="true" prop="tableName" label="表名" />
-      <el-table-column :show-overflow-tooltip="true" prop="engine" label="数据库引擎" />
-      <el-table-column :show-overflow-tooltip="true" prop="coding" label="字符编码集" />
-      <el-table-column :show-overflow-tooltip="true" prop="remark" label="备注" />
-      <el-table-column prop="createTime" label="创建日期">
-        <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.createTime) }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作" width="160px" align="center" fixed="right">
+      <el-table-column label="操作" width="160px" align="center" fixed="left">
         <template slot-scope="scope">
           <el-button size="mini" style="margin-right: 2px" type="text">
             <router-link :to="'/sys-tools/generator/preview/' + scope.row.tableName">
@@ -48,9 +41,16 @@
           <el-button type="text" style="margin-left: -1px" size="mini" @click="toGen(scope.row.tableName)">生成</el-button>
         </template>
       </el-table-column>
+      <el-table-column :show-overflow-tooltip="true" prop="tableName" label="表名" />
+      <el-table-column :show-overflow-tooltip="true" prop="remark" label="备注" />
+      <el-table-column prop="createTime" label="创建日期">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.createTime) }}</span>
+        </template>
+      </el-table-column>
+      <!--      <el-table-column :show-overflow-tooltip="true" prop="engine" label="数据库引擎" />-->
+      <!--      <el-table-column :show-overflow-tooltip="true" prop="coding" label="字符编码集" />-->
     </el-table>
-    <!--分页组件-->
-    <pagination />
   </div>
 </template>
 

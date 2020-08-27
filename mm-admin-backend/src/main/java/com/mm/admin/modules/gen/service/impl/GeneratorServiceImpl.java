@@ -45,7 +45,7 @@ public class GeneratorServiceImpl implements GeneratorService {
         // 使用预编译防止sql注入
         String sql = "select table_name ,create_time , engine, table_collation, table_comment from information_schema.tables " +
                 "where table_schema = (select database()) " +
-                "order by create_time desc";
+                "order by table_name asc";
         Query query = em.createNativeQuery(sql);
         return query.getResultList();
     }
@@ -55,7 +55,7 @@ public class GeneratorServiceImpl implements GeneratorService {
         // 使用预编译防止sql注入
         String sql = "select table_name ,create_time , engine, table_collation, table_comment from information_schema.tables " +
                 "where table_schema = (select database()) " +
-                "and table_name like ? order by create_time desc";
+                "and table_name like ? order by table_name asc";
         Query query = em.createNativeQuery(sql);
         query.setFirstResult(startEnd[0]);
         query.setMaxResults(startEnd[1] - startEnd[0]);
