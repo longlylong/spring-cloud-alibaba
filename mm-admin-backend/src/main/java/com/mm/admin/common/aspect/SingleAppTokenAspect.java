@@ -26,22 +26,28 @@ public class SingleAppTokenAspect {
 
     @Around("cutPoint()")
     public Object process(ProceedingJoinPoint point) throws Throwable {
-        Object[] args = point.getArgs();
-        if (args.length > 0) {
-            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 
-            Object o = args[0];
+        if (attributes != null) {
+            HttpServletRequest request = attributes.getRequest();
 
-            if (o instanceof RequestPostVo && attributes != null) {
-                HttpServletRequest request = attributes.getRequest();
+            String uri = request.getRequestURI();
+            if (!AuthorSkipProvider.isSkip(uri)) {
                 String token = request.getHeader(TokenConstant.TOKEN);
                 TokenUtil.checkTokenAndThrowException(token);
-                UserInfo userInfo = TokenUtil.getUserInfo(token);
-                ((RequestPostVo) o).setUserInfo(userInfo);
+
+                Object[] args = point.getArgs();
+                if (args.length > 0) {
+                    Object o = args[0];
+                    if (o instanceof RequestPostVo) {
+                        UserInfo userInfo = TokenUtil.getUserInfo(token);
+                        ((RequestPostVo) o).setUserInfo(userInfo);
+                    }
+                }
             }
         }
         //用改变后的参数执行目标方法
-        return point.proceed(args);
+        return point.proceed(point.getArgs());
     }
 
 }
