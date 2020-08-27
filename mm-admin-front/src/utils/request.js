@@ -38,7 +38,28 @@ service.interceptors.response.use(
       })
       return Promise.reject('error')
     } else {
-      return response.data
+      const c = response.data.code
+      const m = response.data.message
+      if (c) {
+        if (c === 400) {
+          store.dispatch('LogOut').then(() => {
+            // 用户登录界面提示
+            Cookies.set('point', 401)
+            location.reload()
+            return Promise.reject(response.data)
+          })
+        } else if (c !== 0) {
+          Notification.error({
+            title: m,
+            duration: 5000
+          })
+          return Promise.reject(response.data)
+        } else {
+          return response.data
+        }
+      } else {
+        return response.data
+      }
     }
   },
   error => {

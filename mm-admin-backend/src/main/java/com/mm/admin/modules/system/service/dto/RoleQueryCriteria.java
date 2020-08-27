@@ -1,6 +1,6 @@
 package com.mm.admin.modules.system.service.dto;
 
-import com.mm.admin.common.annotation.Query;
+import com.mm.admin.common.annotation.TDQuery;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -12,9 +12,9 @@ import java.util.List;
 @Data
 public class RoleQueryCriteria {
 
-    @Query(blurry = "name,description")
+    @TDQuery(blurry = "name,description")
     private String blurry;
 
-    @Query(type = Query.Type.BETWEEN)
+    @TDQuery(type = TDQuery.Type.BETWEEN)
     private List<Timestamp> createTime;
 }

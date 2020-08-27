@@ -1,6 +1,6 @@
 package com.mm.admin.modules.logging.service.dto;
 
-import com.mm.admin.common.annotation.Query;
+import com.mm.admin.common.annotation.TDQuery;
 import com.thatday.common.model.RequestPostVo;
 import lombok.Data;
 
@@ -13,12 +13,12 @@ import java.util.List;
 @Data
 public class LogQueryCriteria extends RequestPostVo {
 
-    @Query(blurry = "username,description,address,requestIp,method,params")
+    @TDQuery(blurry = "username,description,address,requestIp,method,params")
     private String blurry;
 
-    @Query
+    @TDQuery
     private String logType;
 
-    @Query(type = Query.Type.BETWEEN)
+    @TDQuery(type = TDQuery.Type.BETWEEN)
     private List<Timestamp> createTime;
 }

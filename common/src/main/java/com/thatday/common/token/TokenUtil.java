@@ -62,6 +62,30 @@ public class TokenUtil {
         return tokens[1].equals(getSign(tokens[0]));
     }
 
+    public static void checkTokenAndThrowException(String token) {
+        if (StringUtils.isEmpty(token)) {
+            throw TDExceptionHandler.throwTokenException();
+        }
+
+        String[] tokens = token.split("\\.");
+        if (tokens.length != 2) {
+            throw TDExceptionHandler.throwTokenException();
+        }
+
+        UserInfo map = getUserInfo(token);
+        if (map == null) {
+            throw TDExceptionHandler.throwTokenException();
+        }
+
+        if (System.currentTimeMillis() > map.getExpireTime()) {
+            throw TDExceptionHandler.throwTokenException();
+        }
+
+        if (!tokens[1].equals(getSign(tokens[0]))) {
+            throw TDExceptionHandler.throwTokenException();
+        }
+    }
+
     private static String makeToken(Map<String, Object> map) {
         try {
             ObjectMapper mapper = new ObjectMapper();

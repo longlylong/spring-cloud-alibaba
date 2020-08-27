@@ -34,8 +34,9 @@ public class SingleAppTokenAspect {
 
             if (o instanceof RequestPostVo && attributes != null) {
                 HttpServletRequest request = attributes.getRequest();
-                String a = request.getHeader(TokenConstant.TOKEN);
-                UserInfo userInfo = TokenUtil.getUserInfo(a);
+                String token = request.getHeader(TokenConstant.TOKEN);
+                TokenUtil.checkTokenAndThrowException(token);
+                UserInfo userInfo = TokenUtil.getUserInfo(token);
                 ((RequestPostVo) o).setUserInfo(userInfo);
             }
         }

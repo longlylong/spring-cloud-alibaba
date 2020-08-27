@@ -1,7 +1,7 @@
 package com.mm.admin.modules.system.service.dto;
 
 import com.mm.admin.common.annotation.DataPermission;
-import com.mm.admin.common.annotation.Query;
+import com.mm.admin.common.annotation.TDQuery;
 import com.thatday.common.model.RequestPostVo;
 import lombok.Data;
 
@@ -12,18 +12,18 @@ import java.util.List;
 @DataPermission(fieldName = "id")
 public class DeptQueryCriteria extends RequestPostVo {
 
-    @Query(type = Query.Type.INNER_LIKE)
+    @TDQuery(type = TDQuery.Type.INNER_LIKE)
     private String name;
 
-    @Query
+    @TDQuery
     private Boolean enabled;
 
-    @Query
+    @TDQuery
     private Long pid;
 
-    @Query(type = Query.Type.IS_NULL, propName = "pid")
+    @TDQuery(type = TDQuery.Type.IS_NULL, propName = "pid")
     private Boolean pidIsNull;
 
-    @Query(type = Query.Type.BETWEEN)
+    @TDQuery(type = TDQuery.Type.BETWEEN)
     private List<Timestamp> createTime;
 }

@@ -16,6 +16,7 @@ public class ValidationUtil {
 
     public static UserInfo getUserInfo(HttpServletRequest request) {
         String authorization = request.getHeader(TokenConstant.TOKEN);
+        TokenUtil.checkTokenAndThrowException(authorization);
         return TokenUtil.getUserInfo(authorization);
     }
 

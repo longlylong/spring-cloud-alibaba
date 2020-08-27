@@ -2,7 +2,6 @@ package com.mm.admin.modules.security.controller;
 
 import cn.hutool.core.util.IdUtil;
 import com.mm.admin.common.config.RsaProperties;
-import com.mm.admin.common.exception.BadRequestException;
 import com.mm.admin.common.utils.RedisUtils;
 import com.mm.admin.common.utils.RsaUtils;
 import com.mm.admin.common.utils.StringUtils;
@@ -60,10 +59,10 @@ public class AuthorizationController {
         // 清除验证码
         redisUtils.del(authUser.getUuid());
         if (StringUtils.isBlank(code)) {
-            throw new BadRequestException("验证码不存在或已过期");
+            throw GlobalException.createParam("验证码不存在或已过期");
         }
         if (StringUtils.isBlank(authUser.getCode()) || !authUser.getCode().equalsIgnoreCase(code)) {
-            throw new BadRequestException("验证码错误");
+            throw GlobalException.createParam("验证码错误");
         }
         User user = userService.login(authUser.getUsername(), password);
         return ResponseEntity.ok(getAuthInfo(user));

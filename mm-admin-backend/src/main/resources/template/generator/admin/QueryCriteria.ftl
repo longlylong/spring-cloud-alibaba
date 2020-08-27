@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.List;
 </#if>
 <#if queryColumns??>
-import com.mm.admin.common.annotation.Query;
+import com.mm.admin.common.annotation.TDQuery;
 </#if>
 
 /**

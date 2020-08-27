@@ -1,6 +1,6 @@
 package com.mm.admin.modules.system.service.dto;
 
-import com.mm.admin.common.annotation.Query;
+import com.mm.admin.common.annotation.TDQuery;
 import lombok.Data;
 
 /**
@@ -9,6 +9,6 @@ import lombok.Data;
 @Data
 public class DictQueryCriteria {
 
-    @Query(blurry = "name,description")
+    @TDQuery(blurry = "name,description")
     private String blurry;
 }

@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.mm.admin.common.annotation.DataPermission;
-import com.mm.admin.common.annotation.Query;
+import com.mm.admin.common.annotation.TDQuery;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.criteria.*;
@@ -43,7 +43,7 @@ public class QueryHelp {
                 boolean accessible = field.isAccessible();
                 // 设置对象的访问权限，保证对private的属性的访
                 field.setAccessible(true);
-                Query q = field.getAnnotation(Query.class);
+                TDQuery q = field.getAnnotation(TDQuery.class);
                 if (q != null) {
                     String propName = q.propName();
                     String joinName = q.joinName();

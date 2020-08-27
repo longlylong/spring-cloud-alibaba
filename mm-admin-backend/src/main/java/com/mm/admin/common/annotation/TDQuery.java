@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Query {
+public @interface TDQuery {
 
     // Dong ZhaoYang 2017/8/7 基本对象的属性名
     String propName() default "";
