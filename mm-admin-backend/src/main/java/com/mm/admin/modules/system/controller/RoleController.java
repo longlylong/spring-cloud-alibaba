@@ -36,7 +36,6 @@ public class RoleController {
     private static final String ENTITY_NAME = "role";
     private final RoleService roleService;
 
-    //@ApiOperation("获取单个role")
     @GetMapping(value = "/{id}")
     @UserPermission("roles:list")
     public ResponseEntity<Object> query(@PathVariable Long id) {

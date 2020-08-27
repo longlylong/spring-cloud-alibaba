@@ -1,4 +1,4 @@
-package com.mm.admin.config.thread;
+package com.mm.admin.common.config.thread;
 
 import org.springframework.stereotype.Component;
 

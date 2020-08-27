@@ -1,9 +1,6 @@
 package com.mm.admin.modules.security.controller;
 
 import cn.hutool.core.util.IdUtil;
-import com.mm.admin.common.annotation.rest.AnonymousDeleteMapping;
-import com.mm.admin.common.annotation.rest.AnonymousGetMapping;
-import com.mm.admin.common.annotation.rest.AnonymousPostMapping;
 import com.mm.admin.common.config.RsaProperties;
 import com.mm.admin.common.exception.BadRequestException;
 import com.mm.admin.common.utils.RedisUtils;
@@ -26,10 +23,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -54,7 +48,7 @@ public class AuthorizationController {
     private LoginProperties loginProperties;
 
     @Log("用户登录")
-    @AnonymousPostMapping(value = "/login")
+    @PostMapping(value = "/login")
     @Transactional
     public ResponseEntity<Object> login(@Validated @RequestBody AuthUserDto authUser) throws Exception {
         // 密码解密
@@ -93,7 +87,7 @@ public class AuthorizationController {
         return ResponseEntity.ok(getAuthInfo(user));
     }
 
-    @AnonymousGetMapping(value = "/code")
+    @GetMapping(value = "/code")
     public ResponseEntity<Object> getCode() {
         // 获取运算的结果
         Captcha captcha = loginProperties.getCaptcha();
@@ -108,7 +102,7 @@ public class AuthorizationController {
         return ResponseEntity.ok(imgResult);
     }
 
-    @AnonymousDeleteMapping(value = "/logout")
+    @DeleteMapping(value = "/logout")
     public ResponseEntity<Object> logout(HttpServletRequest request) {
         return new ResponseEntity<>(HttpStatus.OK);
     }

@@ -1,4 +1,4 @@
-package com.mm.admin.config.thread;
+package com.mm.admin.common.config.thread;
 
 import com.mm.admin.common.utils.SpringContextHolder;
 
