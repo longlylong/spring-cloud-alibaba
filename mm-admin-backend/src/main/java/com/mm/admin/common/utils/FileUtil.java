@@ -4,7 +4,7 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.poi.excel.BigExcelWriter;
 import cn.hutool.poi.excel.ExcelUtil;
-import com.mm.admin.common.exception.BadRequestException;
+import com.thatday.common.exception.GlobalException;
 import org.apache.poi.util.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -215,7 +215,7 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
         // 1M
         int len = 1024 * 1024;
         if (size > (maxSize * len)) {
-            throw new BadRequestException("文件超出规定大小");
+            throw GlobalException.createParam("文件超出规定大小");
         }
     }
 

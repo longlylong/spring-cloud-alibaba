@@ -1,7 +1,7 @@
 package com.mm.admin.common.utils;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.mm.admin.common.exception.BadRequestException;
+import com.thatday.common.exception.GlobalException;
 import com.thatday.common.token.TokenConstant;
 import com.thatday.common.token.TokenUtil;
 import com.thatday.common.token.UserInfo;
@@ -26,7 +26,7 @@ public class ValidationUtil {
     public static void isNull(Object obj, String entity, String parameter, Object value) {
         if (ObjectUtil.isNull(obj)) {
             String msg = entity + " 不存在: " + parameter + " is " + value;
-            throw new BadRequestException(msg);
+            throw GlobalException.createParam(msg);
         }
     }
 

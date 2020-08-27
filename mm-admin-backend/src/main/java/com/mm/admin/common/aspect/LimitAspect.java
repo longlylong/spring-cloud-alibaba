@@ -2,9 +2,9 @@ package com.mm.admin.common.aspect;
 
 import com.google.common.collect.ImmutableList;
 import com.mm.admin.common.annotation.Limit;
-import com.mm.admin.common.exception.BadRequestException;
 import com.mm.admin.common.utils.RequestHolder;
 import com.mm.admin.common.utils.StringUtils;
+import com.thatday.common.exception.GlobalException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -60,7 +60,7 @@ public class LimitAspect {
             logger.info("第{}次访问key为 {}，描述为 [{}] 的接口", count, keys, limit.name());
             return joinPoint.proceed();
         } else {
-            throw new BadRequestException("访问次数受限制");
+            throw GlobalException.createError("访问次数受限制");
         }
     }
 

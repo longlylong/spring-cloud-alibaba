@@ -2,7 +2,6 @@ package com.mm.admin.modules.system.controller;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.mm.admin.common.annotation.UserPermission;
-import com.mm.admin.common.exception.BadRequestException;
 import com.mm.admin.common.utils.PageUtil;
 import com.mm.admin.modules.logging.annotation.Log;
 import com.mm.admin.modules.system.domain.Menu;
@@ -10,6 +9,7 @@ import com.mm.admin.modules.system.service.MenuService;
 import com.mm.admin.modules.system.service.dto.MenuDto;
 import com.mm.admin.modules.system.service.dto.MenuQueryCriteria;
 import com.mm.admin.modules.system.service.mapstruct.MenuMapper;
+import com.thatday.common.exception.GlobalException;
 import com.thatday.common.model.RequestPostVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -77,7 +77,7 @@ public class MenuController {
     @UserPermission("menu:add")
     public ResponseEntity<Object> create(@Validated @RequestBody Menu resources) {
         if (resources.getId() != null) {
-            throw new BadRequestException("A new " + ENTITY_NAME + " cannot already have an ID");
+            throw GlobalException.createParam("A new " + ENTITY_NAME + " cannot already have an ID");
         }
         menuService.create(resources);
         return new ResponseEntity<>(HttpStatus.CREATED);

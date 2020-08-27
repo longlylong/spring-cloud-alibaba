@@ -1,8 +1,6 @@
 package com.mm.admin.modules.system.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.mm.admin.common.exception.BadRequestException;
-import com.mm.admin.common.exception.EntityExistException;
 import com.mm.admin.common.utils.*;
 import com.mm.admin.modules.system.domain.Role;
 import com.mm.admin.modules.system.domain.User;
@@ -14,6 +12,7 @@ import com.mm.admin.modules.system.service.dto.RoleQueryCriteria;
 import com.mm.admin.modules.system.service.dto.RoleSmallDto;
 import com.mm.admin.modules.system.service.mapstruct.RoleMapper;
 import com.mm.admin.modules.system.service.mapstruct.RoleSmallMapper;
+import com.thatday.common.exception.GlobalException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -69,7 +68,7 @@ public class RoleServiceImpl implements RoleService {
     @Transactional(rollbackFor = Exception.class)
     public void create(Role resources) {
         if (roleRepository.findByName(resources.getName()) != null) {
-            throw new EntityExistException(Role.class, "username", resources.getName());
+            throw GlobalException.createParam("角色名重复");
         }
         roleRepository.save(resources);
     }
@@ -83,7 +82,7 @@ public class RoleServiceImpl implements RoleService {
         Role role1 = roleRepository.findByName(resources.getName());
 
         if (role1 != null && !role1.getId().equals(role.getId())) {
-            throw new EntityExistException(Role.class, "username", resources.getName());
+            throw GlobalException.createParam("角色名重复");
         }
         role.setName(resources.getName());
         role.setDescription(resources.getDescription());
@@ -153,7 +152,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void verification(Set<Long> ids) {
         if (userRepository.countByRoles(ids) > 0) {
-            throw new BadRequestException("所选角色存在用户关联，请解除关联再试！");
+            throw GlobalException.createParam("所选角色存在用户关联，请解除关联再试！");
         }
     }
 

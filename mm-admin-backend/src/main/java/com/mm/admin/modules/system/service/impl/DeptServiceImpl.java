@@ -2,7 +2,6 @@ package com.mm.admin.modules.system.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
-import com.mm.admin.common.exception.BadRequestException;
 import com.mm.admin.common.utils.*;
 import com.mm.admin.common.utils.enums.DataScopeEnum;
 import com.mm.admin.modules.system.domain.Dept;
@@ -15,6 +14,7 @@ import com.mm.admin.modules.system.service.DeptService;
 import com.mm.admin.modules.system.service.dto.DeptDto;
 import com.mm.admin.modules.system.service.dto.DeptQueryCriteria;
 import com.mm.admin.modules.system.service.mapstruct.DeptMapper;
+import com.thatday.common.exception.GlobalException;
 import com.thatday.common.token.UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
@@ -119,7 +119,7 @@ public class DeptServiceImpl implements DeptService {
         Long oldPid = findById(resources.getId()).getPid();
         Long newPid = resources.getPid();
         if (resources.getPid() != null && resources.getId().equals(resources.getPid())) {
-            throw new BadRequestException("上级不能为自己");
+            throw GlobalException.createParam("上级不能为自己");
         }
         Dept dept = deptRepository.findById(resources.getId()).orElseGet(Dept::new);
         ValidationUtil.isNull(dept.getId(), "Dept", "id", resources.getId());
@@ -234,10 +234,10 @@ public class DeptServiceImpl implements DeptService {
     public void verification(Set<DeptDto> deptDtos) {
         Set<Long> deptIds = deptDtos.stream().map(DeptDto::getId).collect(Collectors.toSet());
         if (userRepository.countByDepts(deptIds) > 0) {
-            throw new BadRequestException("所选部门存在用户关联，请解除后再试！");
+            throw GlobalException.createParam("所选部门存在用户关联，请解除后再试！");
         }
         if (roleRepository.countByDepts(deptIds) > 0) {
-            throw new BadRequestException("所选部门存在角色关联，请解除后再试！");
+            throw GlobalException.createParam("所选部门存在角色关联，请解除后再试！");
         }
     }
 

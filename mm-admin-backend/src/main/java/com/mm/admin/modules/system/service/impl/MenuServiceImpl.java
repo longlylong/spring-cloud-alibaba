@@ -2,8 +2,6 @@ package com.mm.admin.modules.system.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import com.mm.admin.common.exception.BadRequestException;
-import com.mm.admin.common.exception.EntityExistException;
 import com.mm.admin.common.utils.*;
 import com.mm.admin.modules.system.domain.Menu;
 import com.mm.admin.modules.system.domain.Role;
@@ -18,6 +16,7 @@ import com.mm.admin.modules.system.service.dto.MenuDto;
 import com.mm.admin.modules.system.service.dto.MenuQueryCriteria;
 import com.mm.admin.modules.system.service.dto.RoleSmallDto;
 import com.mm.admin.modules.system.service.mapstruct.MenuMapper;
+import com.thatday.common.exception.GlobalException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -91,11 +90,11 @@ public class MenuServiceImpl implements MenuService {
     @Transactional(rollbackFor = Exception.class)
     public void create(Menu resources) {
         if (menuRepository.findByTitle(resources.getTitle()) != null) {
-            throw new EntityExistException(Menu.class, "title", resources.getTitle());
+            throw GlobalException.createParam("菜单标题重复");
         }
         if (StringUtils.isNotBlank(resources.getComponentName())) {
             if (menuRepository.findByComponentName(resources.getComponentName()) != null) {
-                throw new EntityExistException(Menu.class, "componentName", resources.getComponentName());
+                throw GlobalException.createParam("菜单组件重复");
             }
         }
         if (resources.getPid().equals(0L)) {
@@ -104,7 +103,7 @@ public class MenuServiceImpl implements MenuService {
         if (resources.getIFrame()) {
             String http = "http://", https = "https://";
             if (!(resources.getPath().toLowerCase().startsWith(http) || resources.getPath().toLowerCase().startsWith(https))) {
-                throw new BadRequestException("外链必须以http://或者https://开头");
+                throw GlobalException.createParam("外链必须以http://或者https://开头");
             }
         }
         menuRepository.save(resources);
@@ -119,7 +118,7 @@ public class MenuServiceImpl implements MenuService {
     @Transactional(rollbackFor = Exception.class)
     public void update(Menu resources) {
         if (resources.getId().equals(resources.getPid())) {
-            throw new BadRequestException("上级不能为自己");
+            throw GlobalException.createParam("上级不能为自己");
         }
         Menu menu = menuRepository.findById(resources.getId()).orElseGet(Menu::new);
         ValidationUtil.isNull(menu.getId(), "Permission", "id", resources.getId());
@@ -127,13 +126,13 @@ public class MenuServiceImpl implements MenuService {
         if (resources.getIFrame()) {
             String http = "http://", https = "https://";
             if (!(resources.getPath().toLowerCase().startsWith(http) || resources.getPath().toLowerCase().startsWith(https))) {
-                throw new BadRequestException("外链必须以http://或者https://开头");
+                throw GlobalException.createParam("外链必须以http://或者https://开头");
             }
         }
         Menu menu1 = menuRepository.findByTitle(resources.getTitle());
 
         if (menu1 != null && !menu1.getId().equals(menu.getId())) {
-            throw new EntityExistException(Menu.class, "title", resources.getTitle());
+            throw GlobalException.createParam("菜单标题重复");
         }
 
         if (resources.getPid().equals(0L)) {
@@ -147,7 +146,7 @@ public class MenuServiceImpl implements MenuService {
         if (StringUtils.isNotBlank(resources.getComponentName())) {
             menu1 = menuRepository.findByComponentName(resources.getComponentName());
             if (menu1 != null && !menu1.getId().equals(menu.getId())) {
-                throw new EntityExistException(Menu.class, "componentName", resources.getComponentName());
+                throw GlobalException.createParam("菜单组件重复");
             }
         }
         menu.setTitle(resources.getTitle());

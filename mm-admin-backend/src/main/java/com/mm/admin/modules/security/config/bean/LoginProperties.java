@@ -1,7 +1,7 @@
 package com.mm.admin.modules.security.config.bean;
 
-import com.mm.admin.common.exception.BadConfigurationException;
 import com.mm.admin.common.utils.StringUtils;
+import com.thatday.common.exception.GlobalException;
 import com.wf.captcha.*;
 import com.wf.captcha.base.Captcha;
 import lombok.Data;
@@ -82,7 +82,7 @@ public class LoginProperties {
                     captcha.setLen(loginCode.getLength());
                     break;
                 default:
-                    throw new BadConfigurationException("验证码配置信息错误！正确配置查看 LoginCodeEnum ");
+                    throw GlobalException.createParam("验证码配置信息错误！正确配置查看 LoginCodeEnum ");
             }
         }
         if (StringUtils.isNotBlank(loginCode.getFontName())) {

@@ -1,7 +1,5 @@
 package com.mm.admin.modules.system.service.impl;
 
-import com.mm.admin.common.exception.EntityExistException;
-import com.mm.admin.common.exception.EntityNotFoundException;
 import com.mm.admin.common.utils.*;
 import com.mm.admin.modules.system.domain.User;
 import com.mm.admin.modules.system.repository.UserRepository;
@@ -10,6 +8,7 @@ import com.mm.admin.modules.system.service.dto.RoleSmallDto;
 import com.mm.admin.modules.system.service.dto.UserDto;
 import com.mm.admin.modules.system.service.dto.UserQueryCriteria;
 import com.mm.admin.modules.system.service.mapstruct.UserMapper;
+import com.thatday.common.exception.GlobalException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -66,10 +65,10 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public void create(User user) {
         if (userRepository.findByUsername(user.getUsername()) != null) {
-            throw new EntityExistException(User.class, "username", user.getUsername());
+            throw GlobalException.createParam("用户名重复");
         }
         if (userRepository.findByEmail(user.getEmail()) != null) {
-            throw new EntityExistException(User.class, "email", user.getEmail());
+            throw GlobalException.createParam("邮箱重复");
         }
         userRepository.save(user);
     }
@@ -83,11 +82,11 @@ public class UserServiceImpl implements UserService {
         User user2 = userRepository.findByEmail(resources.getEmail());
 
         if (user1 != null && !user.getId().equals(user1.getId())) {
-            throw new EntityExistException(User.class, "username", resources.getUsername());
+            throw GlobalException.createParam("用户名重复");
         }
 
         if (user2 != null && !user.getId().equals(user2.getId())) {
-            throw new EntityExistException(User.class, "email", resources.getEmail());
+            throw GlobalException.createParam("邮箱重复");
         }
         // 如果用户的角色改变
         if (!resources.getRoles().equals(user.getRoles())) {
@@ -153,7 +152,7 @@ public class UserServiceImpl implements UserService {
     public UserDto findByName(String userName) {
         User user = userRepository.findByUsername(userName);
         if (user == null) {
-            throw new EntityNotFoundException(User.class, "name", userName);
+            throw GlobalException.createParam("用户不存在");
         } else {
             return userMapper.toDto(user);
         }

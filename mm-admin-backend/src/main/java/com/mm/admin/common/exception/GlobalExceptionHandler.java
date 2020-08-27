@@ -1,4 +1,4 @@
-package com.mm.admin.common.exception.handler;
+package com.mm.admin.common.exception;
 
 import com.thatday.common.exception.TDExceptionHandler;
 import com.thatday.common.model.Result;
@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 @ResponseBody
 @Slf4j
 public class GlobalExceptionHandler {
+
     @ExceptionHandler(value = Exception.class)
     public Result exceptionHandler(HttpServletRequest request, Exception e) {
         return TDExceptionHandler.handle(request.getRequestURI(), e);

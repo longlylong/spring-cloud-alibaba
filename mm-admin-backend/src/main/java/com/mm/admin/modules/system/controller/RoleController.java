@@ -2,7 +2,6 @@ package com.mm.admin.modules.system.controller;
 
 import cn.hutool.core.lang.Dict;
 import com.mm.admin.common.annotation.UserPermission;
-import com.mm.admin.common.exception.BadRequestException;
 import com.mm.admin.common.utils.ValidationUtil;
 import com.mm.admin.modules.logging.annotation.Log;
 import com.mm.admin.modules.system.domain.Role;
@@ -11,6 +10,7 @@ import com.mm.admin.modules.system.service.RoleService;
 import com.mm.admin.modules.system.service.dto.RoleDto;
 import com.mm.admin.modules.system.service.dto.RoleQueryCriteria;
 import com.mm.admin.modules.system.service.dto.RoleSmallDto;
+import com.thatday.common.exception.GlobalException;
 import com.thatday.common.model.RequestPostVo;
 import com.thatday.common.token.UserInfo;
 import lombok.RequiredArgsConstructor;
@@ -72,7 +72,7 @@ public class RoleController {
     @UserPermission("roles:add")
     public ResponseEntity<Object> create(@Validated @RequestBody RoleVo vo) {
         if (vo.getId() != null) {
-            throw new BadRequestException("A new " + ENTITY_NAME + " cannot already have an ID");
+            throw GlobalException.createParam("A new " + ENTITY_NAME + " cannot already have an ID");
         }
         getLevels(vo.getUserInfo(), vo.getLevel());
         roleService.create(vo);
@@ -122,7 +122,7 @@ public class RoleController {
         int min = Collections.min(levels);
         if (level != null) {
             if (level < min) {
-                throw new BadRequestException("权限不足，你的角色级别：" + min + "，低于操作的角色级别：" + level);
+                throw GlobalException.createParam("权限不足，你的角色级别：" + min + "，低于操作的角色级别：" + level);
             }
         }
         return min;

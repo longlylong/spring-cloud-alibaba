@@ -1,10 +1,10 @@
 package com.mm.admin.modules.gen.controller;
 
-import com.mm.admin.common.exception.BadRequestException;
 import com.mm.admin.common.utils.PageUtil;
 import com.mm.admin.modules.gen.domain.ColumnInfo;
 import com.mm.admin.modules.gen.service.GenConfigService;
 import com.mm.admin.modules.gen.service.GeneratorService;
+import com.thatday.common.exception.GlobalException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -69,7 +69,7 @@ public class GeneratorController {
     @PostMapping(value = "/{tableName}/{type}")
     public ResponseEntity<Object> generator(@PathVariable String tableName, @PathVariable Integer type, HttpServletRequest request, HttpServletResponse response) {
         if (!generatorEnabled && type == 0) {
-            throw new BadRequestException("此环境不允许生成代码，请选择预览或者下载查看！");
+            throw GlobalException.createParam("此环境不允许生成代码，请选择预览或者下载查看！");
         }
         switch (type) {
             // 生成代码
@@ -84,7 +84,7 @@ public class GeneratorController {
                 generatorService.download(genConfigService.find(tableName), generatorService.getColumns(tableName), request, response);
                 break;
             default:
-                throw new BadRequestException("没有这个选项");
+                throw GlobalException.createParam("没有这个选项");
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }

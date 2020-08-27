@@ -3,7 +3,6 @@ package com.mm.admin.modules.gen.service.impl;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ZipUtil;
-import com.mm.admin.common.exception.BadRequestException;
 import com.mm.admin.common.utils.FileUtil;
 import com.mm.admin.common.utils.PageUtil;
 import com.mm.admin.common.utils.StringUtils;
@@ -13,6 +12,7 @@ import com.mm.admin.modules.gen.domain.vo.TableInfo;
 import com.mm.admin.modules.gen.repository.ColumnInfoRepository;
 import com.mm.admin.modules.gen.service.GeneratorService;
 import com.mm.admin.modules.gen.utils.GenUtil;
+import com.thatday.common.exception.GlobalException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -147,20 +147,20 @@ public class GeneratorServiceImpl implements GeneratorService {
     @Override
     public void generator(GenConfig genConfig, List<ColumnInfo> columns) {
         if (genConfig.getId() == null) {
-            throw new BadRequestException("请先配置生成器");
+            throw GlobalException.createParam("请先配置生成器");
         }
         try {
             GenUtil.generatorCode(columns, genConfig);
         } catch (IOException e) {
             log.error(e.getMessage(), e);
-            throw new BadRequestException("生成失败，请手动处理已生成的文件");
+            throw GlobalException.createParam("生成失败，请手动处理已生成的文件");
         }
     }
 
     @Override
     public ResponseEntity<Object> preview(GenConfig genConfig, List<ColumnInfo> columns) {
         if (genConfig.getId() == null) {
-            throw new BadRequestException("请先配置生成器");
+            throw GlobalException.createParam("请先配置生成器");
         }
         List<Map<String, Object>> genList = GenUtil.preview(columns, genConfig);
         return new ResponseEntity<>(genList, HttpStatus.OK);
@@ -169,7 +169,7 @@ public class GeneratorServiceImpl implements GeneratorService {
     @Override
     public void download(GenConfig genConfig, List<ColumnInfo> columns, HttpServletRequest request, HttpServletResponse response) {
         if (genConfig.getId() == null) {
-            throw new BadRequestException("请先配置生成器");
+            throw GlobalException.createParam("请先配置生成器");
         }
         try {
             File file = new File(GenUtil.download(columns, genConfig));
@@ -177,7 +177,7 @@ public class GeneratorServiceImpl implements GeneratorService {
             ZipUtil.zip(file.getPath(), zipPath);
             FileUtil.downloadFile(request, response, new File(zipPath), true);
         } catch (IOException e) {
-            throw new BadRequestException("打包失败");
+            throw GlobalException.createParam("打包失败");
         }
     }
 }

@@ -3,7 +3,6 @@ package com.mm.admin.modules.system.controller;
 import cn.hutool.core.collection.CollectionUtil;
 import com.mm.admin.common.annotation.UserPermission;
 import com.mm.admin.common.config.RsaProperties;
-import com.mm.admin.common.exception.BadRequestException;
 import com.mm.admin.common.utils.PageUtil;
 import com.mm.admin.common.utils.RsaUtils;
 import com.mm.admin.common.utils.ValidationUtil;
@@ -18,8 +17,7 @@ import com.mm.admin.modules.system.service.UserService;
 import com.mm.admin.modules.system.service.dto.RoleSmallDto;
 import com.mm.admin.modules.system.service.dto.UserDto;
 import com.mm.admin.modules.system.service.dto.UserQueryCriteria;
-import com.thatday.common.token.TokenConstant;
-import com.thatday.common.token.TokenUtil;
+import com.thatday.common.exception.GlobalException;
 import com.thatday.common.token.UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -108,7 +106,7 @@ public class UserController {
     @PutMapping(value = "center")
     public ResponseEntity<Object> center(@Validated(User.Update.class) @RequestBody UserVo resources) {
         if (!resources.getId().equals(resources.getUserInfo().getUserId())) {
-            throw new BadRequestException("不能修改他人资料");
+            throw GlobalException.createParam("不能修改他人资料");
         }
         userService.updateCenter(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -124,7 +122,7 @@ public class UserController {
             Integer currentLevel = Collections.min(roleService.findByUsersId(userInfo.getUserId()).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList()));
             Integer optLevel = Collections.min(roleService.findByUsersId(id).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList()));
             if (currentLevel > optLevel) {
-                throw new BadRequestException("角色权限不足，不能删除：" + userService.findById(id).getUsername());
+                throw GlobalException.createParam("角色权限不足，不能删除：" + userService.findById(id).getUsername());
             }
         }
         userService.delete(ids);
@@ -137,10 +135,10 @@ public class UserController {
         String newPass = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, passVo.getNewPass());
         UserDto user = userService.findById(passVo.getUserInfo().getUserId());
         if (!passwordEncoder.matches(oldPass, user.getPassword())) {
-            throw new BadRequestException("修改失败，旧密码错误");
+            throw GlobalException.createParam("修改失败，旧密码错误");
         }
         if (passwordEncoder.matches(newPass, user.getPassword())) {
-            throw new BadRequestException("新密码不能与旧密码相同");
+            throw GlobalException.createParam("新密码不能与旧密码相同");
         }
         userService.updatePass(user.getUsername(), passwordEncoder.encode(newPass));
         return new ResponseEntity<>(HttpStatus.OK);
@@ -157,7 +155,7 @@ public class UserController {
         String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, vo.getPassword());
         UserDto userDto = userService.findById(vo.getUserInfo().getUserId());
         if (!passwordEncoder.matches(password, userDto.getPassword())) {
-            throw new BadRequestException("密码错误");
+            throw GlobalException.createParam("密码错误");
         }
         userService.updateEmail(userDto.getUsername(), vo.getEmail());
         return new ResponseEntity<>(HttpStatus.OK);
@@ -170,7 +168,7 @@ public class UserController {
         Integer currentLevel = Collections.min(roleService.findByUsersId(resources.getUserInfo().getUserId()).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList()));
         Integer optLevel = roleService.findByRoles(resources.getRoles());
         if (currentLevel > optLevel) {
-            throw new BadRequestException("角色权限不足");
+            throw GlobalException.createParam("角色权限不足");
         }
     }
 }

@@ -1,12 +1,12 @@
 package com.mm.admin.modules.system.controller;
 
 import com.mm.admin.common.annotation.UserPermission;
-import com.mm.admin.common.exception.BadRequestException;
 import com.mm.admin.modules.logging.annotation.Log;
 import com.mm.admin.modules.system.domain.DictDetail;
 import com.mm.admin.modules.system.service.DictDetailService;
 import com.mm.admin.modules.system.service.dto.DictDetailDto;
 import com.mm.admin.modules.system.service.dto.DictDetailQueryCriteria;
+import com.thatday.common.exception.GlobalException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -51,7 +51,7 @@ public class DictDetailController {
     @UserPermission("dict:add")
     public ResponseEntity<Object> create(@Validated @RequestBody DictDetail resources) {
         if (resources.getId() != null) {
-            throw new BadRequestException("A new " + ENTITY_NAME + " cannot already have an ID");
+            throw GlobalException.createParam("A new " + ENTITY_NAME + " cannot already have an ID");
         }
         dictDetailService.create(resources);
         return new ResponseEntity<>(HttpStatus.CREATED);

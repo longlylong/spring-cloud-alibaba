@@ -2,13 +2,13 @@ package com.mm.admin.modules.system.controller;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.mm.admin.common.annotation.UserPermission;
-import com.mm.admin.common.exception.BadRequestException;
 import com.mm.admin.common.utils.PageUtil;
 import com.mm.admin.modules.logging.annotation.Log;
 import com.mm.admin.modules.system.domain.Dept;
 import com.mm.admin.modules.system.service.DeptService;
 import com.mm.admin.modules.system.service.dto.DeptDto;
 import com.mm.admin.modules.system.service.dto.DeptQueryCriteria;
+import com.thatday.common.exception.GlobalException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,7 +59,7 @@ public class DeptController {
     @UserPermission("dept:add")
     public ResponseEntity<Object> create(@Validated @RequestBody Dept resources) {
         if (resources.getId() != null) {
-            throw new BadRequestException("A new " + ENTITY_NAME + " cannot already have an ID");
+            throw GlobalException.createParam("A new " + ENTITY_NAME + " cannot already have an ID");
         }
         deptService.create(resources);
         return new ResponseEntity<>(HttpStatus.CREATED);
