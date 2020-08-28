@@ -18,8 +18,8 @@ public class AuthorSkipProvider {
         defaultSkipUrl.add("/v2/api-docs/**");
         defaultSkipUrl.add("/v2/api-docs-ext/**");
 
-//        defaultSkipUrl.add("/auth/login");
-//        defaultSkipUrl.add("/auth/code");
+        defaultSkipUrl.add("/auth/login");
+        defaultSkipUrl.add("/auth/code");
     }
 
     /**

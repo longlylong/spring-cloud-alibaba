@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TableInfo {
 
+    private Boolean isConfigured;
+
     /**
      * 表名称
      */

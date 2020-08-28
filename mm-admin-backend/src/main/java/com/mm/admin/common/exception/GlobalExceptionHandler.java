@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
-    public Result exceptionHandler(HttpServletRequest request, Exception e) {
+    public Result<Object> exceptionHandler(HttpServletRequest request, Exception e) {
         return TDExceptionHandler.handle(request.getRequestURI(), e);
     }
 }

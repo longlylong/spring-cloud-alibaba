@@ -10,6 +10,7 @@ import com.mm.admin.modules.gen.domain.ColumnInfo;
 import com.mm.admin.modules.gen.domain.GenConfig;
 import com.mm.admin.modules.gen.domain.vo.TableInfo;
 import com.mm.admin.modules.gen.repository.ColumnInfoRepository;
+import com.mm.admin.modules.gen.service.GenConfigService;
 import com.mm.admin.modules.gen.service.GeneratorService;
 import com.mm.admin.modules.gen.utils.GenUtil;
 import com.thatday.common.exception.GlobalException;
@@ -35,8 +36,11 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class GeneratorServiceImpl implements GeneratorService {
+
     private static final Logger log = LoggerFactory.getLogger(GeneratorServiceImpl.class);
     private final ColumnInfoRepository columnInfoRepository;
+    private final GenConfigService genConfigService;
+
     @PersistenceContext
     private EntityManager em;
 
@@ -64,7 +68,10 @@ public class GeneratorServiceImpl implements GeneratorService {
         List<TableInfo> tableInfos = new ArrayList<>();
         for (Object obj : result) {
             Object[] arr = (Object[]) obj;
-            tableInfos.add(new TableInfo(arr[0], arr[1], arr[2], arr[3], ObjectUtil.isNotEmpty(arr[4]) ? arr[4] : "-"));
+            TableInfo tableInfo = new TableInfo(false, arr[0], arr[1], arr[2], arr[3], ObjectUtil.isNotEmpty(arr[4]) ? arr[4] : "-");
+            GenConfig config = genConfigService.find(tableInfo.getTableName().toString());
+            tableInfo.setIsConfigured(config.getId() != null);
+            tableInfos.add(tableInfo);
         }
         Query query1 = em.createNativeQuery("SELECT COUNT(*) from information_schema.tables where table_schema = (select database())");
         Object totalElements = query1.getSingleResult();
