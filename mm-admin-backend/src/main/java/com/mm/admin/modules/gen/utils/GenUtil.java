@@ -35,8 +35,6 @@ public class GenUtil {
 
     /**
      * 获取后端代码模板名称
-     *
-     * @return List
      */
     private static List<String> getAdminTemplateNames() {
         List<String> templateNames = new ArrayList<>();
@@ -61,6 +59,19 @@ public class GenUtil {
         return templateNames;
     }
 
+    /**
+     * 获取Api代码模板名称
+     */
+    private static List<String> getApiTemplateNames() {
+        List<String> templateNames = new ArrayList<>();
+        templateNames.add("ApiDao");
+        templateNames.add("ApiEntity");
+        templateNames.add("ApiService");
+        templateNames.add("ApiServiceImpl");
+        return templateNames;
+    }
+
+
     public static List<Map<String, Object>> preview(List<ColumnInfo> columns, GenConfig genConfig) {
         Map<String, Object> genMap = getGenMap(columns, genConfig);
         List<Map<String, Object>> genList = new ArrayList<>();
@@ -84,20 +95,50 @@ public class GenUtil {
             map.put("name", templateName);
             genList.add(map);
         }
+
+        // 获取Api代码模板
+        templates = getApiTemplateNames();
+        for (String templateName : templates) {
+            Map<String, Object> map = new HashMap<>(1);
+            Template template = engine.getTemplate("generator/api/" + templateName + ".ftl");
+            map.put(templateName, template.render(genMap));
+            map.put("content", template.render(genMap));
+            map.put("name", templateName);
+            genList.add(map);
+        }
+        return genList;
+    }
+
+    public static List<Map<String, Object>> previewApi(List<ColumnInfo> columns, GenConfig genConfig) {
+        Map<String, Object> genMap = getGenMap(columns, genConfig);
+        List<Map<String, Object>> genList = new ArrayList<>();
+
+        // 获取Api代码模板
+        List<String> templates = getApiTemplateNames();
+        TemplateEngine engine = TemplateUtil.createEngine(new TemplateConfig("template", TemplateConfig.ResourceMode.CLASSPATH));
+
+        for (String templateName : templates) {
+            Map<String, Object> map = new HashMap<>(1);
+            Template template = engine.getTemplate("generator/api/" + templateName + ".ftl");
+            map.put(templateName, template.render(genMap));
+            map.put("content", template.render(genMap));
+            map.put("name", templateName);
+            genList.add(map);
+        }
         return genList;
     }
 
     public static String download(List<ColumnInfo> columns, GenConfig genConfig) throws IOException {
         // 拼接的路径：/tmpeladmin-gen-temp/，这个路径在Linux下需要root用户才有权限创建,非root用户会权限错误而失败，更改为： /tmp/eladmin-gen-temp/
         // String tempPath =SYS_TEM_DIR + "eladmin-gen-temp" + File.separator + genConfig.getTableName() + File.separator;
-        String tempPath = SYS_TEM_DIR + "eladmin-gen-temp" + File.separator + genConfig.getTableName() + File.separator;
+        String tempPath = SYS_TEM_DIR + "mm-gen-temp" + File.separator + genConfig.getTableName() + File.separator;
         Map<String, Object> genMap = getGenMap(columns, genConfig);
         TemplateEngine engine = TemplateUtil.createEngine(new TemplateConfig("template", TemplateConfig.ResourceMode.CLASSPATH));
         // 生成后端代码
         List<String> templates = getAdminTemplateNames();
         for (String templateName : templates) {
             Template template = engine.getTemplate("generator/admin/" + templateName + ".ftl");
-            String filePath = getAdminFilePath(templateName, genConfig, genMap.get("className").toString(), tempPath + "eladmin" + File.separator);
+            String filePath = getAdminFilePath(templateName, genConfig, genMap.get("className").toString(), tempPath + "mm-backend" + File.separator);
             assert filePath != null;
             File file = new File(filePath);
             // 如果非覆盖生成
@@ -107,11 +148,27 @@ public class GenUtil {
             // 生成代码
             genFile(file, template, genMap);
         }
+
+        // 生成Api代码
+        templates = getApiTemplateNames();
+        for (String templateName : templates) {
+            Template template = engine.getTemplate("generator/api/" + templateName + ".ftl");
+            String filePath = getApiFilePath(templateName, genConfig, genMap.get("className").toString(), tempPath + "mm-api" + File.separator);
+            assert filePath != null;
+            File file = new File(filePath);
+            // 如果非覆盖生成
+            if (!genConfig.getCover() && FileUtil.exist(file)) {
+                continue;
+            }
+            // 生成代码
+            genFile(file, template, genMap);
+        }
+
         // 生成前端代码
         templates = getFrontTemplateNames();
         for (String templateName : templates) {
             Template template = engine.getTemplate("generator/front/" + templateName + ".ftl");
-            String path = tempPath + "eladmin-web" + File.separator;
+            String path = tempPath + "mm-web" + File.separator;
             String apiPath = path + "src" + File.separator + "api" + File.separator;
             String srcPath = path + "src" + File.separator + "views" + File.separator + genMap.get("changeClassName").toString() + File.separator;
             String filePath = getFrontFilePath(templateName, apiPath, srcPath, genMap.get("changeClassName").toString());
@@ -124,6 +181,31 @@ public class GenUtil {
             // 生成代码
             genFile(file, template, genMap);
         }
+        return tempPath;
+    }
+
+    public static String downloadApi(List<ColumnInfo> columns, GenConfig genConfig) throws IOException {
+        // 拼接的路径：/tmpeladmin-gen-temp/，这个路径在Linux下需要root用户才有权限创建,非root用户会权限错误而失败，更改为： /tmp/eladmin-gen-temp/
+        // String tempPath =SYS_TEM_DIR + "eladmin-gen-temp" + File.separator + genConfig.getTableName() + File.separator;
+        String tempPath = SYS_TEM_DIR + "mm-gen-temp" + File.separator + genConfig.getTableName() + File.separator;
+        Map<String, Object> genMap = getGenMap(columns, genConfig);
+        TemplateEngine engine = TemplateUtil.createEngine(new TemplateConfig("template", TemplateConfig.ResourceMode.CLASSPATH));
+
+        // 生成Api代码
+        List<String> templates = getApiTemplateNames();
+        for (String templateName : templates) {
+            Template template = engine.getTemplate("generator/api/" + templateName + ".ftl");
+            String filePath = getApiFilePath(templateName, genConfig, genMap.get("className").toString(), tempPath + "mm-api" + File.separator);
+            assert filePath != null;
+            File file = new File(filePath);
+            // 如果非覆盖生成
+            if (!genConfig.getCover() && FileUtil.exist(file)) {
+                continue;
+            }
+            // 生成代码
+            genFile(file, template, genMap);
+        }
+
         return tempPath;
     }
 
@@ -383,6 +465,35 @@ public class GenUtil {
 
         return null;
     }
+
+    /**
+     * 定义Api文件路径以及名称
+     */
+    private static String getApiFilePath(String templateName, GenConfig genConfig, String className, String rootPath) {
+        String projectPath = rootPath + File.separator + genConfig.getModuleName();
+        String packagePath = projectPath + File.separator + "src" + File.separator + "main" + File.separator + "java" + File.separator;
+        if (!ObjectUtils.isEmpty(genConfig.getPack())) {
+            packagePath += genConfig.getPack().replace(".", File.separator) + File.separator;
+        }
+
+        if ("ApiDao".equals(templateName)) {
+            return packagePath + "dao" + File.separator + className + "Dao.java";
+        }
+
+        if ("ApiEntity".equals(templateName)) {
+            return packagePath + "entity" + File.separator + className + ".java";
+        }
+
+        if ("ApiService".equals(templateName)) {
+            return packagePath + "service" + File.separator + className + "Service.java";
+        }
+
+        if ("ApiServiceImpl".equals(templateName)) {
+            return packagePath + "service" + File.separator + "impl" + File.separator + className + "ServiceImpl.java";
+        }
+        return null;
+    }
+
 
     private static void genFile(File file, Template template, Map<String, Object> map) throws IOException {
         // 生成目标文件

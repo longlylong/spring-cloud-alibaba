@@ -23,20 +23,37 @@
     <!--表格渲染-->
     <el-table ref="table" v-loading="crud.loading" :data="crud.data" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
       <el-table-column type="selection" width="55" />
-      <el-table-column label="后台管理代码生成" width="160px" align="right" fixed="left">
+      <el-table-column label="代码生成" width="160px">
         <template slot-scope="scope">
           <el-button v-if="scope.row.isConfigured" size="mini" style="margin-right: 2px" type="text">
             <router-link :to="'/sys-tools/generator/preview/' + scope.row.tableName">
               预览
             </router-link>
+            <!--            <router-link :to="{name:'preview',params:{tableName:scope.row.tableName,optType:1}}">-->
+            <!--              预览-->
+            <!--            </router-link>-->
           </el-button>
-          <el-button v-if="scope.row.isConfigured" size="mini" style="margin-left: -1px;margin-right: 2px" type="text" @click="toDownload(scope.row.tableName)">下载</el-button>
+          <el-button
+            v-if="scope.row.isConfigured"
+            size="mini"
+            style="margin-left: -1px;margin-right: 2px"
+            type="text"
+            @click="toDownload(scope.row.tableName,2)"
+          >下载
+          </el-button>
           <el-button size="mini" style="margin-left: -1px;margin-right: 2px" type="text">
             <router-link :to="'/sys-tools/generator/config/' + scope.row.tableName">
               配置
             </router-link>
           </el-button>
-          <el-button v-if="scope.row.isConfigured" type="text" style="margin-left: -1px" size="mini" @click="toGen(scope.row.tableName)">生成</el-button>
+          <el-button
+            v-if="scope.row.isConfigured"
+            type="text"
+            style="margin-left: -1px"
+            size="mini"
+            @click="toGen(scope.row.tableName)"
+          >生成
+          </el-button>
         </template>
       </el-table-column>
       <el-table-column :show-overflow-tooltip="true" prop="tableName" label="表名" />
@@ -89,9 +106,9 @@ export default {
         })
       })
     },
-    toDownload(tableName) {
+    toDownload(tableName, type) {
       // 打包下载
-      generator(tableName, 2).then(data => {
+      generator(tableName, type).then(data => {
         downloadFile(data, tableName, 'zip')
       })
     },
