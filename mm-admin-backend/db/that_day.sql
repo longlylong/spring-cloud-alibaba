@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50632
 File Encoding         : 65001
 
-Date: 2020-08-27 09:21:42
+Date: 2020-08-31 15:08:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,7 +36,7 @@ CREATE TABLE `code_column_config` (
   `date_annotation` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`column_id`) USING BTREE,
   KEY `idx_table_name` (`table_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=217 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='代码生成字段信息存储';
+) ENGINE=InnoDB AUTO_INCREMENT=296 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='代码生成字段信息存储';
 
 -- ----------------------------
 -- Records of code_column_config
@@ -65,6 +65,85 @@ INSERT INTO `code_column_config` VALUES ('213', 'sys_dict', 'create_by', 'varcha
 INSERT INTO `code_column_config` VALUES ('214', 'sys_dict', 'update_by', 'varchar', null, '', '', null, '', '', '\0', null, '更新者', null);
 INSERT INTO `code_column_config` VALUES ('215', 'sys_dict', 'create_time', 'datetime', null, '', '', null, '', '', '\0', null, '创建日期', null);
 INSERT INTO `code_column_config` VALUES ('216', 'sys_dict', 'update_time', 'datetime', null, '', '', null, '', '', '\0', null, '更新时间', null);
+INSERT INTO `code_column_config` VALUES ('217', 'sys_users_roles', 'user_id', 'bigint', null, '', '', null, 'PRI', '', '', null, '用户ID', null);
+INSERT INTO `code_column_config` VALUES ('218', 'sys_users_roles', 'role_id', 'bigint', null, '', '', null, 'PRI', '', '', null, '角色ID', null);
+INSERT INTO `code_column_config` VALUES ('219', 'sys_menu', 'menu_id', 'bigint', null, 'auto_increment', '', null, 'PRI', '', '\0', null, 'ID', null);
+INSERT INTO `code_column_config` VALUES ('220', 'sys_menu', 'pid', 'bigint', null, '', '', null, 'MUL', '', '\0', null, '上级菜单ID', null);
+INSERT INTO `code_column_config` VALUES ('221', 'sys_menu', 'sub_count', 'int', null, '', '', null, '', '', '\0', null, '子菜单数目', null);
+INSERT INTO `code_column_config` VALUES ('222', 'sys_menu', 'type', 'int', null, '', '', null, '', '', '\0', null, '菜单类型', null);
+INSERT INTO `code_column_config` VALUES ('223', 'sys_menu', 'title', 'varchar', null, '', '', null, 'UNI', '', '\0', null, '菜单标题', null);
+INSERT INTO `code_column_config` VALUES ('224', 'sys_menu', 'name', 'varchar', null, '', '', null, 'UNI', '', '\0', null, '组件名称', null);
+INSERT INTO `code_column_config` VALUES ('225', 'sys_menu', 'component', 'varchar', null, '', '', null, '', '', '\0', null, '组件', null);
+INSERT INTO `code_column_config` VALUES ('226', 'sys_menu', 'menu_sort', 'int', null, '', '', null, '', '', '\0', null, '排序', null);
+INSERT INTO `code_column_config` VALUES ('227', 'sys_menu', 'icon', 'varchar', null, '', '', null, '', '', '\0', null, '图标', null);
+INSERT INTO `code_column_config` VALUES ('228', 'sys_menu', 'path', 'varchar', null, '', '', null, '', '', '\0', null, '链接地址', null);
+INSERT INTO `code_column_config` VALUES ('229', 'sys_menu', 'i_frame', 'bit', null, '', '', null, '', '', '\0', null, '是否外链', null);
+INSERT INTO `code_column_config` VALUES ('230', 'sys_menu', 'cache', 'bit', null, '', '', null, '', '', '\0', null, '缓存', null);
+INSERT INTO `code_column_config` VALUES ('231', 'sys_menu', 'hidden', 'bit', null, '', '', null, '', '', '\0', null, '隐藏', null);
+INSERT INTO `code_column_config` VALUES ('232', 'sys_menu', 'permission', 'varchar', null, '', '', null, '', '', '\0', null, '权限', null);
+INSERT INTO `code_column_config` VALUES ('233', 'sys_menu', 'create_by', 'varchar', null, '', '', null, '', '', '\0', null, '创建者', null);
+INSERT INTO `code_column_config` VALUES ('234', 'sys_menu', 'update_by', 'varchar', null, '', '', null, '', '', '\0', null, '更新者', null);
+INSERT INTO `code_column_config` VALUES ('235', 'sys_menu', 'create_time', 'datetime', null, '', '', null, '', '', '\0', null, '创建日期', null);
+INSERT INTO `code_column_config` VALUES ('236', 'sys_menu', 'update_time', 'datetime', null, '', '', null, '', '', '\0', null, '更新时间', null);
+INSERT INTO `code_column_config` VALUES ('237', 'sys_role', 'role_id', 'bigint', null, 'auto_increment', '', null, 'PRI', '', '\0', null, 'ID', null);
+INSERT INTO `code_column_config` VALUES ('238', 'sys_role', 'name', 'varchar', null, '', '', null, 'UNI', '', '', null, '名称', null);
+INSERT INTO `code_column_config` VALUES ('239', 'sys_role', 'level', 'int', null, '', '', null, '', '', '\0', null, '角色级别', null);
+INSERT INTO `code_column_config` VALUES ('240', 'sys_role', 'description', 'varchar', null, '', '', null, '', '', '\0', null, '描述', null);
+INSERT INTO `code_column_config` VALUES ('241', 'sys_role', 'data_scope', 'varchar', null, '', '', null, '', '', '\0', null, '数据权限', null);
+INSERT INTO `code_column_config` VALUES ('242', 'sys_role', 'create_by', 'varchar', null, '', '', null, '', '', '\0', null, '创建者', null);
+INSERT INTO `code_column_config` VALUES ('243', 'sys_role', 'update_by', 'varchar', null, '', '', null, '', '', '\0', null, '更新者', null);
+INSERT INTO `code_column_config` VALUES ('244', 'sys_role', 'create_time', 'datetime', null, '', '', null, '', '', '\0', null, '创建日期', null);
+INSERT INTO `code_column_config` VALUES ('245', 'sys_role', 'update_time', 'datetime', null, '', '', null, '', '', '\0', null, '更新时间', null);
+INSERT INTO `code_column_config` VALUES ('246', 'sys_dept', 'dept_id', 'bigint', null, 'auto_increment', '', null, 'PRI', '', '\0', null, 'ID', null);
+INSERT INTO `code_column_config` VALUES ('247', 'sys_dept', 'pid', 'bigint', null, '', '', null, 'MUL', '', '\0', null, '上级部门', null);
+INSERT INTO `code_column_config` VALUES ('248', 'sys_dept', 'sub_count', 'int', null, '', '', null, '', '', '\0', null, '子部门数目', null);
+INSERT INTO `code_column_config` VALUES ('249', 'sys_dept', 'name', 'varchar', null, '', '', null, '', '', '', null, '名称', null);
+INSERT INTO `code_column_config` VALUES ('250', 'sys_dept', 'dept_sort', 'int', null, '', '', null, '', '', '\0', null, '排序', null);
+INSERT INTO `code_column_config` VALUES ('251', 'sys_dept', 'enabled', 'bit', null, '', '', null, 'MUL', '', '', null, '状态', null);
+INSERT INTO `code_column_config` VALUES ('252', 'sys_dept', 'create_by', 'varchar', null, '', '', null, '', '', '\0', null, '创建者', null);
+INSERT INTO `code_column_config` VALUES ('253', 'sys_dept', 'update_by', 'varchar', null, '', '', null, '', '', '\0', null, '更新者', null);
+INSERT INTO `code_column_config` VALUES ('254', 'sys_dept', 'create_time', 'datetime', null, '', '', null, '', '', '\0', null, '创建日期', null);
+INSERT INTO `code_column_config` VALUES ('255', 'sys_dept', 'update_time', 'datetime', null, '', '', null, '', '', '\0', null, '更新时间', null);
+INSERT INTO `code_column_config` VALUES ('256', 'code_column_config', 'column_id', 'bigint', null, 'auto_increment', '', null, 'PRI', '', '\0', null, 'ID', null);
+INSERT INTO `code_column_config` VALUES ('257', 'code_column_config', 'table_name', 'varchar', null, '', '', null, 'MUL', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('258', 'code_column_config', 'column_name', 'varchar', null, '', '', null, '', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('259', 'code_column_config', 'column_type', 'varchar', null, '', '', null, '', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('260', 'code_column_config', 'dict_name', 'varchar', null, '', '', null, '', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('261', 'code_column_config', 'extra', 'varchar', null, '', '', null, '', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('262', 'code_column_config', 'form_show', 'bit', null, '', '', null, '', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('263', 'code_column_config', 'form_type', 'varchar', null, '', '', null, '', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('264', 'code_column_config', 'key_type', 'varchar', null, '', '', null, '', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('265', 'code_column_config', 'list_show', 'bit', null, '', '', null, '', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('266', 'code_column_config', 'not_null', 'bit', null, '', '', null, '', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('267', 'code_column_config', 'query_type', 'varchar', null, '', '', null, '', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('268', 'code_column_config', 'remark', 'varchar', null, '', '', null, '', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('269', 'code_column_config', 'date_annotation', 'varchar', null, '', '', null, '', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('270', 'code_gen_config', 'config_id', 'bigint', null, 'auto_increment', '', null, 'PRI', '', '\0', null, 'ID', null);
+INSERT INTO `code_column_config` VALUES ('271', 'code_gen_config', 'table_name', 'varchar', null, '', '', null, 'MUL', '', '\0', null, '表名', null);
+INSERT INTO `code_column_config` VALUES ('272', 'code_gen_config', 'author', 'varchar', null, '', '', null, '', '', '\0', null, '作者', null);
+INSERT INTO `code_column_config` VALUES ('273', 'code_gen_config', 'cover', 'bit', null, '', '', null, '', '', '\0', null, '是否覆盖', null);
+INSERT INTO `code_column_config` VALUES ('274', 'code_gen_config', 'module_name', 'varchar', null, '', '', null, '', '', '\0', null, '模块名称', null);
+INSERT INTO `code_column_config` VALUES ('275', 'code_gen_config', 'pack', 'varchar', null, '', '', null, '', '', '\0', null, '至于哪个包下', null);
+INSERT INTO `code_column_config` VALUES ('276', 'code_gen_config', 'path', 'varchar', null, '', '', null, '', '', '\0', null, '前端代码生成的路径', null);
+INSERT INTO `code_column_config` VALUES ('277', 'code_gen_config', 'api_path', 'varchar', null, '', '', null, '', '', '\0', null, '前端Api文件路径', null);
+INSERT INTO `code_column_config` VALUES ('278', 'code_gen_config', 'prefix', 'varchar', null, '', '', null, '', '', '\0', null, '表前缀', null);
+INSERT INTO `code_column_config` VALUES ('279', 'code_gen_config', 'api_alias', 'varchar', null, '', '', null, '', '', '\0', null, '接口名称', null);
+INSERT INTO `code_column_config` VALUES ('280', 'sys_log', 'log_id', 'bigint', null, 'auto_increment', '', null, 'PRI', '', '\0', null, 'ID', null);
+INSERT INTO `code_column_config` VALUES ('281', 'sys_log', 'description', 'varchar', null, '', '', null, '', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('282', 'sys_log', 'log_type', 'varchar', null, '', '', null, 'MUL', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('283', 'sys_log', 'method', 'varchar', null, '', '', null, '', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('284', 'sys_log', 'params', 'text', null, '', '', null, '', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('285', 'sys_log', 'request_ip', 'varchar', null, '', '', null, '', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('286', 'sys_log', 'time', 'bigint', null, '', '', null, '', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('287', 'sys_log', 'username', 'varchar', null, '', '', null, '', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('288', 'sys_log', 'address', 'varchar', null, '', '', null, '', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('289', 'sys_log', 'browser', 'varchar', null, '', '', null, '', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('290', 'sys_log', 'exception_detail', 'text', null, '', '', null, '', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('291', 'sys_log', 'create_time', 'datetime', null, '', '', null, 'MUL', '', '\0', null, '', null);
+INSERT INTO `code_column_config` VALUES ('292', 'sys_roles_depts', 'role_id', 'bigint', null, '', '', null, 'PRI', '', '', null, '', null);
+INSERT INTO `code_column_config` VALUES ('293', 'sys_roles_depts', 'dept_id', 'bigint', null, '', '', null, 'PRI', '', '', null, '', null);
+INSERT INTO `code_column_config` VALUES ('294', 'sys_roles_menus', 'menu_id', 'bigint', null, '', '', null, 'PRI', '', '', null, '菜单ID', null);
+INSERT INTO `code_column_config` VALUES ('295', 'sys_roles_menus', 'role_id', 'bigint', null, '', '', null, 'PRI', '', '', null, '角色ID', null);
 
 -- ----------------------------
 -- Table structure for code_gen_config
@@ -88,7 +167,7 @@ CREATE TABLE `code_gen_config` (
 -- ----------------------------
 -- Records of code_gen_config
 -- ----------------------------
-INSERT INTO `code_gen_config` VALUES ('6', 'sys_dict_detail', 'King', '\0', 'a', 'a', 'a', 'a\\', null, 'a');
+INSERT INTO `code_gen_config` VALUES ('6', 'sys_dict_detail', 'King', '\0', 'zzx', 'com.mm.admin.modules', 'zzx', 'a\\', null, 'a');
 
 -- ----------------------------
 -- Table structure for sys_dept
@@ -136,7 +215,6 @@ CREATE TABLE `sys_dict` (
 -- ----------------------------
 INSERT INTO `sys_dict` VALUES ('1', 'user_status', '用户状态', null, null, '2019-10-27 20:31:36', null);
 INSERT INTO `sys_dict` VALUES ('4', 'dept_status', '部门状态', null, null, '2019-10-27 20:31:36', null);
-INSERT INTO `sys_dict` VALUES ('5', 'job_status', '岗位状态', null, null, '2019-10-27 20:31:36', null);
 
 -- ----------------------------
 -- Table structure for sys_dict_detail
@@ -163,8 +241,6 @@ INSERT INTO `sys_dict_detail` VALUES ('1', '1', '激活', 'true', '1', null, nul
 INSERT INTO `sys_dict_detail` VALUES ('2', '1', '禁用', 'false', '2', null, null, null, null);
 INSERT INTO `sys_dict_detail` VALUES ('3', '4', '启用', 'true', '1', null, null, null, null);
 INSERT INTO `sys_dict_detail` VALUES ('4', '4', '停用', 'false', '2', null, null, '2019-10-27 20:31:36', null);
-INSERT INTO `sys_dict_detail` VALUES ('5', '5', '启用', 'true', '1', null, null, null, null);
-INSERT INTO `sys_dict_detail` VALUES ('6', '5', '停用', 'false', '2', null, null, '2019-10-27 20:31:36', null);
 
 -- ----------------------------
 -- Table structure for sys_log
@@ -186,12 +262,11 @@ CREATE TABLE `sys_log` (
   PRIMARY KEY (`log_id`) USING BTREE,
   KEY `log_create_time_index` (`create_time`),
   KEY `inx_log_type` (`log_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=3381 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统日志';
+) ENGINE=InnoDB AUTO_INCREMENT=3682 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统日志';
 
 -- ----------------------------
 -- Records of sys_log
 -- ----------------------------
-INSERT INTO `sys_log` VALUES ('3380', '删除所有INFO日志', 'INFO', 'com.mm.admin.modules.logging.controller.LogController.delAllInfoLog()', '{ }', '192.168.220.1', '2', '-1', '内网IP', 'Chrome 8', null, '2020-08-27 09:21:00');
 
 -- ----------------------------
 -- Table structure for sys_menu
