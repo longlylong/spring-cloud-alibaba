@@ -90,10 +90,15 @@ export default {
     draggable
   },
   props: [
+    // eslint-disable-next-line
     'element',
+    // eslint-disable-next-line
     'index',
+    // eslint-disable-next-line
     'drawingList',
+    // eslint-disable-next-line
     'activeId',
+    // eslint-disable-next-line
     'formConf'
   ],
   render(h) {
