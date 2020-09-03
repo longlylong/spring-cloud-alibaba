@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50632
 File Encoding         : 65001
 
-Date: 2020-08-31 15:08:54
+Date: 2020-09-03 12:24:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -262,11 +262,12 @@ CREATE TABLE `sys_log` (
   PRIMARY KEY (`log_id`) USING BTREE,
   KEY `log_create_time_index` (`create_time`),
   KEY `inx_log_type` (`log_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=3682 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统日志';
+) ENGINE=InnoDB AUTO_INCREMENT=3789 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统日志';
 
 -- ----------------------------
 -- Records of sys_log
 -- ----------------------------
+INSERT INTO `sys_log` VALUES ('3788', '删除所有INFO日志', 'INFO', 'com.mm.admin.modules.logging.controller.LogController.delAllInfoLog()', '{ }', '192.168.220.1', '4', '-1', '内网IP', 'Chrome 8', null, '2020-09-03 12:23:42');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -295,7 +296,7 @@ CREATE TABLE `sys_menu` (
   UNIQUE KEY `uniq_title` (`title`),
   UNIQUE KEY `uniq_name` (`name`),
   KEY `inx_pid` (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统菜单';
+) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统菜单';
 
 -- ----------------------------
 -- Records of sys_menu
@@ -310,7 +311,7 @@ INSERT INTO `sys_menu` VALUES ('11', '36', '0', '1', '图标库', 'Icons', 'comp
 INSERT INTO `sys_menu` VALUES ('30', '36', '0', '1', '代码生成', 'GeneratorIndex', 'generator/index', '12', 'dev', 'generator', '\0', '', '\0', null, null, 'admin', '2019-01-11 15:45:55', '2020-08-12 15:38:35');
 INSERT INTO `sys_menu` VALUES ('32', '1', '0', '1', '异常日志', 'ErrorLog', 'monitor/log/errorLog', '12', 'error', 'errorLog', '\0', '\0', '\0', null, null, 'admin', '2019-01-13 13:49:03', '2020-08-12 15:31:03');
 INSERT INTO `sys_menu` VALUES ('35', '1', '3', '1', '部门管理', 'Dept', 'system/dept/index', '6', 'dept', 'dept', '\0', '\0', '\0', 'dept:list', null, null, '2019-03-25 09:46:00', null);
-INSERT INTO `sys_menu` VALUES ('36', null, '6', '0', '系统工具', null, '', '30', 'sys-tools', 'sys-tools', '\0', '\0', '\0', null, null, null, '2019-03-29 10:57:35', null);
+INSERT INTO `sys_menu` VALUES ('36', null, '7', '0', '系统工具', null, '', '30', 'sys-tools', 'sys-tools', '\0', '\0', '\0', null, null, null, '2019-03-29 10:57:35', null);
 INSERT INTO `sys_menu` VALUES ('39', '1', '3', '1', '字典管理', 'Dict', 'system/dict/index', '8', 'dictionary', 'dict', '\0', '\0', '\0', 'dict:list', null, null, '2019-04-10 11:49:04', null);
 INSERT INTO `sys_menu` VALUES ('44', '2', '0', '2', '用户新增', null, '', '2', '', '', '\0', '\0', '\0', 'user:add', null, null, '2019-10-29 10:59:46', null);
 INSERT INTO `sys_menu` VALUES ('45', '2', '0', '2', '用户编辑', null, '', '3', '', '', '\0', '\0', '\0', 'user:edit', null, null, '2019-10-29 11:00:08', null);
@@ -330,6 +331,7 @@ INSERT INTO `sys_menu` VALUES ('66', '39', '0', '2', '字典删除', null, '', '
 INSERT INTO `sys_menu` VALUES ('82', '36', '0', '1', '生成配置', 'GeneratorConfig', 'generator/config', '12', 'dev', 'generator/config/:tableName', '\0', '', '', '', null, 'admin', '2019-11-17 20:08:56', '2020-08-12 15:38:48');
 INSERT INTO `sys_menu` VALUES ('83', '36', '0', '1', '图表库', 'Echarts', 'components/Echarts', '50', 'chart', 'echarts', '\0', '', '\0', '', null, 'admin', '2019-11-21 09:04:32', '2020-08-12 15:34:32');
 INSERT INTO `sys_menu` VALUES ('116', '36', '0', '1', '生成预览', 'Preview', 'generator/preview', '12', 'java', 'generator/preview/:tableName', '\0', '', '', null, null, 'admin', '2019-11-26 14:54:36', '2020-08-12 15:38:58');
+INSERT INTO `sys_menu` VALUES ('118', '36', '0', '1', '表单构建', 'build', 'tool/build/index', '13', 'develop', 'build', '\0', '\0', '\0', 'user:list', null, null, '2020-09-03 11:36:08', '2020-09-03 12:23:19');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -353,7 +355,7 @@ CREATE TABLE `sys_role` (
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES ('1', '超级管理员', '1', '-', '全部', null, 'admin', '2018-11-23 11:04:37', '2020-08-21 17:04:37');
+INSERT INTO `sys_role` VALUES ('1', '超级管理员', '1', '-', '全部', null, 'admin', '2018-11-23 11:04:37', '2020-09-03 11:44:41');
 INSERT INTO `sys_role` VALUES ('2', '普通用户', '2', '-', '自定义', null, 'admin', '2018-11-23 13:09:06', '2020-08-12 15:37:06');
 
 -- ----------------------------
@@ -401,6 +403,7 @@ INSERT INTO `sys_roles_menus` VALUES ('39', '1');
 INSERT INTO `sys_roles_menus` VALUES ('82', '1');
 INSERT INTO `sys_roles_menus` VALUES ('83', '1');
 INSERT INTO `sys_roles_menus` VALUES ('116', '1');
+INSERT INTO `sys_roles_menus` VALUES ('118', '1');
 
 -- ----------------------------
 -- Table structure for sys_user

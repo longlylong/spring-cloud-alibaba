@@ -1,6 +1,5 @@
 package com.mm.admin.modules.system.domain.vo;
 
-import com.mm.admin.modules.system.domain.Role;
 import com.mm.admin.modules.system.domain.User;
 import com.thatday.common.token.UserInfo;
 import lombok.Data;
