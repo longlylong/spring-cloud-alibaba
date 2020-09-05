@@ -36,6 +36,13 @@ public interface BaseService<ENTITY extends BaseEntity, ID, DAO extends BaseDao<
     List<ENTITY> getAllList(JPAUtil.SpecificationListener otherConditionListener);
 
     /**
+     * 获取TARGET全部列表
+     */
+    <TARGET> List<TARGET> getAllDTOList(Class<TARGET> targetClass,
+                                        JPAUtil.SpecificationListener otherConditionListener,
+                                        TemplateCodeUtil.OnTransListener<TARGET, ENTITY> transDTOListener);
+
+    /**
      * 获取Entity分页列表
      */
     Page<ENTITY> getPageList(PageRequest pageRequest, JPAUtil.SpecificationListener otherConditionListener);

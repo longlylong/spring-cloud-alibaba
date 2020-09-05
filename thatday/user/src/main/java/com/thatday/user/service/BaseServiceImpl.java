@@ -82,6 +82,11 @@ public abstract class BaseServiceImpl<ENTITY extends BaseEntity, ID, DAO extends
     }
 
     @Override
+    public <TARGET> List<TARGET> getAllDTOList(Class<TARGET> targetClass, JPAUtil.SpecificationListener otherConditionListener, TemplateCodeUtil.OnTransListener<TARGET, ENTITY> transDTOListener) {
+        return TemplateCodeUtil.transTo(getAllList(otherConditionListener), targetClass, transDTOListener);
+    }
+
+    @Override
     public Page<ENTITY> getPageList(PageRequest pageRequest, JPAUtil.SpecificationListener otherConditionListener) {
         Specification<ENTITY> specification = JPAUtil.makeSpecification((root, criteriaQuery, builder, predicates) -> {
             if (otherConditionListener != null) {
