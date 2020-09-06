@@ -10,8 +10,13 @@ import ${package}.domain.${className};
         </#if>
     </#list>
 </#if>
-import com.mm.admin.utils.ValidationUtil;
-import com.mm.admin.utils.FileUtil;
+
+import com.thatday.common.exception.GlobalException;
+import com.mm.admin.common.utils.PageUtil;
+import com.mm.admin.common.utils.QueryHelp;
+import com.mm.admin.common.utils.ValidationUtil;
+import com.mm.admin.common.utils.FileUtil;
+
 import lombok.RequiredArgsConstructor;
 import ${package}.repository.${className}Repository;
 import ${package}.service.${className}Service;

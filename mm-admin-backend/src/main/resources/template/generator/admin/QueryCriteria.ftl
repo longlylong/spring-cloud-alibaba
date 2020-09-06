@@ -25,32 +25,32 @@ public class ${className}QueryCriteria{
 
 <#if column.queryType = '='>
     /** 精确 */
-    @Query
+    @TDQuery
     private ${column.columnType} ${column.changeColumnName};
 </#if>
 <#if column.queryType = 'Like'>
     /** 模糊 */
-    @Query(type = Query.Type.INNER_LIKE)
+    @TDQuery(type = TDQuery.Type.INNER_LIKE)
     private ${column.columnType} ${column.changeColumnName};
 </#if>
 <#if column.queryType = '!='>
     /** 不等于 */
-    @Query(type = Query.Type.NOT_EQUAL)
+    @TDQuery(type = TDQuery.Type.NOT_EQUAL)
     private ${column.columnType} ${column.changeColumnName};
 </#if>
 <#if column.queryType = 'NotNull'>
     /** 不为空 */
-    @Query(type = Query.Type.NOT_NULL)
+    @TDQuery(type = TDQuery.Type.NOT_NULL)
     private ${column.columnType} ${column.changeColumnName};
 </#if>
 <#if column.queryType = '>='>
     /** 大于等于 */
-    @Query(type = Query.Type.GREATER_THAN)
+    @TDQuery(type = TDQuery.Type.GREATER_THAN)
     private ${column.columnType} ${column.changeColumnName};
 </#if>
 <#if column.queryType = '<='>
     /** 小于等于 */
-    @Query(type = Query.Type.LESS_THAN)
+    @TDQuery(type = TDQuery.Type.LESS_THAN)
     private ${column.columnType} ${column.changeColumnName};
 </#if>
     </#list>
@@ -58,7 +58,7 @@ public class ${className}QueryCriteria{
 <#if betweens??>
     <#list betweens as column>
     /** BETWEEN */
-    @Query(type = Query.Type.BETWEEN)
+    @TDQuery(type = TDQuery.Type.BETWEEN)
     private List<${column.columnType}> createTime;
     </#list>
 </#if>

@@ -1,6 +1,6 @@
 package ${package}.service.mapstruct;
 
-import com.mm.admin.base.BaseMapper;
+import com.mm.admin.common.base.BaseMapper;
 import ${package}.domain.${className};
 import ${package}.service.dto.${className}Dto;
 import org.mapstruct.Mapper;
