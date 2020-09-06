@@ -2,6 +2,7 @@ package com.mm.admin.modules.system.controller;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.mm.admin.common.annotation.UserPermission;
+import com.mm.admin.common.base.BaseRequestVo;
 import com.mm.admin.common.utils.PageUtil;
 import com.mm.admin.modules.logging.annotation.Log;
 import com.mm.admin.modules.system.domain.Menu;
@@ -10,7 +11,6 @@ import com.mm.admin.modules.system.service.dto.MenuDto;
 import com.mm.admin.modules.system.service.dto.MenuQueryCriteria;
 import com.mm.admin.modules.system.service.mapstruct.MenuMapper;
 import com.thatday.common.exception.GlobalException;
-import com.thatday.common.model.RequestPostVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +37,7 @@ public class MenuController {
     }
 
     @GetMapping(value = "/build")
-    public ResponseEntity<Object> buildMenus(RequestPostVo vo) {
+    public ResponseEntity<Object> buildMenus(BaseRequestVo vo) {
         List<MenuDto> menuDtoList = menuService.findByUser(vo.getUserInfo().getUserId());
         List<MenuDto> menuDtos = menuService.buildTree(menuDtoList);
         return new ResponseEntity<>(menuService.buildMenus(menuDtos), HttpStatus.OK);

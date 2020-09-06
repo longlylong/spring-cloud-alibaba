@@ -23,7 +23,7 @@ import java.sql.Timestamp;
 @Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class BaseEntity implements Serializable {
+public class BaseEntity extends BaseRequestVo implements Serializable {
 
     @CreatedBy
     @Column(name = "create_by", updatable = false)

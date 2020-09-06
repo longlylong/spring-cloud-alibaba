@@ -1,6 +1,7 @@
 package com.mm.admin.modules.security.controller;
 
 import cn.hutool.core.util.IdUtil;
+import com.mm.admin.common.base.BaseRequestVo;
 import com.mm.admin.common.config.RsaProperties;
 import com.mm.admin.common.utils.RedisUtils;
 import com.mm.admin.common.utils.RsaUtils;
@@ -16,7 +17,6 @@ import com.mm.admin.modules.system.service.mapstruct.UserMapper;
 import com.thatday.common.constant.DeviceCode;
 import com.thatday.common.constant.UserCode;
 import com.thatday.common.exception.GlobalException;
-import com.thatday.common.model.RequestPostVo;
 import com.thatday.common.token.TokenUtil;
 import com.wf.captcha.base.Captcha;
 import lombok.RequiredArgsConstructor;
@@ -94,7 +94,7 @@ public class AuthorizationController {
     }
 
     @GetMapping(value = "/info")
-    public ResponseEntity<Object> getUserInfo(RequestPostVo vo) {
+    public ResponseEntity<Object> getUserInfo(BaseRequestVo vo) {
         User user = userService.getOne(vo.getUserInfo().getUserId());
         return ResponseEntity.ok(getAuthInfo(user));
     }

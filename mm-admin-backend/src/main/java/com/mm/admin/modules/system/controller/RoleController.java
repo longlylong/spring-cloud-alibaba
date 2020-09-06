@@ -2,16 +2,15 @@ package com.mm.admin.modules.system.controller;
 
 import cn.hutool.core.lang.Dict;
 import com.mm.admin.common.annotation.UserPermission;
+import com.mm.admin.common.base.BaseRequestVo;
 import com.mm.admin.common.utils.ValidationUtil;
 import com.mm.admin.modules.logging.annotation.Log;
 import com.mm.admin.modules.system.domain.Role;
-import com.mm.admin.modules.system.domain.vo.RoleVo;
 import com.mm.admin.modules.system.service.RoleService;
 import com.mm.admin.modules.system.service.dto.RoleDto;
 import com.mm.admin.modules.system.service.dto.RoleQueryCriteria;
 import com.mm.admin.modules.system.service.dto.RoleSmallDto;
 import com.thatday.common.exception.GlobalException;
-import com.thatday.common.model.RequestPostVo;
 import com.thatday.common.token.UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -63,14 +62,14 @@ public class RoleController {
     }
 
     @GetMapping(value = "/level")
-    public ResponseEntity<Object> getLevel(RequestPostVo vo) {
+    public ResponseEntity<Object> getLevel(BaseRequestVo vo) {
         return new ResponseEntity<>(Dict.create().set("level", getLevels(vo.getUserInfo(), null)), HttpStatus.OK);
     }
 
     @Log("新增角色")
     @PostMapping
     @UserPermission("roles:add")
-    public ResponseEntity<Object> create(@Validated @RequestBody RoleVo vo) {
+    public ResponseEntity<Object> create(@Validated @RequestBody Role vo) {
         if (vo.getId() != null) {
             throw GlobalException.createParam("A new " + ENTITY_NAME + " cannot already have an ID");
         }
@@ -82,7 +81,7 @@ public class RoleController {
     @Log("修改角色")
     @PutMapping
     @UserPermission("roles:edit")
-    public ResponseEntity<Object> update(@Validated(Role.Update.class) @RequestBody RoleVo vo) {
+    public ResponseEntity<Object> update(@Validated(Role.Update.class) @RequestBody Role vo) {
         getLevels(vo.getUserInfo(), vo.getLevel());
         roleService.update(vo);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -91,7 +90,7 @@ public class RoleController {
     @Log("修改角色菜单")
     @PutMapping(value = "/menu")
     @UserPermission("roles:edit")
-    public ResponseEntity<Object> updateMenu(@RequestBody RoleVo vo) {
+    public ResponseEntity<Object> updateMenu(@RequestBody Role vo) {
         RoleDto role = roleService.findById(vo.getId());
         getLevels(vo.getUserInfo(), role.getLevel());
         roleService.updateMenu(vo, role);

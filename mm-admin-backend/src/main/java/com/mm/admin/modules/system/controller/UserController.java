@@ -9,7 +9,6 @@ import com.mm.admin.common.utils.ValidationUtil;
 import com.mm.admin.modules.logging.annotation.Log;
 import com.mm.admin.modules.system.domain.User;
 import com.mm.admin.modules.system.domain.vo.UserPassVo;
-import com.mm.admin.modules.system.domain.vo.UserVo;
 import com.mm.admin.modules.system.service.DataService;
 import com.mm.admin.modules.system.service.DeptService;
 import com.mm.admin.modules.system.service.RoleService;
@@ -85,7 +84,7 @@ public class UserController {
     @Log("新增用户")
     @PostMapping
     @UserPermission("user:add")
-    public ResponseEntity<Object> create(@Validated @RequestBody UserVo user) {
+    public ResponseEntity<Object> create(@Validated @RequestBody User user) {
         checkLevel(user);
         // 默认密码 123456
         user.setPassword(passwordEncoder.encode("123456"));
@@ -96,7 +95,7 @@ public class UserController {
     @Log("修改用户")
     @PutMapping
     @UserPermission("user:edit")
-    public ResponseEntity<Object> update(@Validated(User.Update.class) @RequestBody UserVo resources) {
+    public ResponseEntity<Object> update(@Validated(User.Update.class) @RequestBody User resources) {
         checkLevel(resources);
         userService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -104,7 +103,7 @@ public class UserController {
 
     @Log("修改用户：个人中心")
     @PutMapping(value = "center")
-    public ResponseEntity<Object> center(@Validated(User.Update.class) @RequestBody UserVo resources) {
+    public ResponseEntity<Object> center(@Validated(User.Update.class) @RequestBody User resources) {
         if (!resources.getId().equals(resources.getUserInfo().getUserId())) {
             throw GlobalException.createParam("不能修改他人资料");
         }
@@ -151,7 +150,7 @@ public class UserController {
 
     @Log("修改邮箱")
     @PostMapping(value = "/updateEmail/{code}")
-    public ResponseEntity<Object> updateEmail(@PathVariable String code, @RequestBody UserVo vo) throws Exception {
+    public ResponseEntity<Object> updateEmail(@PathVariable String code, @RequestBody User vo) throws Exception {
         String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, vo.getPassword());
         UserDto userDto = userService.findById(vo.getUserInfo().getUserId());
         if (!passwordEncoder.matches(password, userDto.getPassword())) {
@@ -164,7 +163,7 @@ public class UserController {
     /**
      * 如果当前用户的角色级别低于创建用户的角色级别，则抛出权限不足的错误
      */
-    private void checkLevel(UserVo resources) {
+    private void checkLevel(User resources) {
         Integer currentLevel = Collections.min(roleService.findByUsersId(resources.getUserInfo().getUserId()).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList()));
         Integer optLevel = roleService.findByRoles(resources.getRoles());
         if (currentLevel > optLevel) {
