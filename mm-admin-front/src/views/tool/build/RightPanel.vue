@@ -409,8 +409,8 @@
           <el-form-item
             v-if="activeData.size !== undefined &&
               (activeData.optionType === 'button' ||
-              activeData.border ||
-              activeData.tag === 'el-color-picker')"
+                activeData.border ||
+                activeData.tag === 'el-color-picker')"
             label="选项尺寸"
           >
             <el-radio-group v-model="activeData.size">
@@ -578,8 +578,7 @@ import { isNumberStr } from '@/utils/index'
 import IconsDialog from './IconsDialog'
 import {
   inputComponents,
-  selectComponents,
-  layoutComponents
+  selectComponents
 } from '@/utils/generator/config'
 
 const dateTimeFormat = {
@@ -598,6 +597,7 @@ export default {
     TreeNodeDialog,
     IconsDialog
   },
+  // eslint-disable-next-line vue/require-prop-types
   props: ['showField', 'activeData', 'formConf'],
   data() {
     return {
