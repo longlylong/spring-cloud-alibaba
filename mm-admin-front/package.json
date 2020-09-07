@@ -33,8 +33,8 @@
     "url": "https://github.com/elunez/eladmin/issues"
   },
   "dependencies": {
-    "@riophae/vue-treeselect": "0.1.0",
-    "axios": "0.18.1",
+    "@riophae/vue-treeselect": "0.4.0",
+    "axios": "0.20.0",
     "clipboard": "2.0.4",
     "codemirror": "^5.49.2",
     "connect": "3.6.6",
