@@ -1,0 +1,29 @@
+#配置数据源
+spring:
+  datasource:
+    druid:
+      db-type: com.alibaba.druid.pool.DruidDataSource
+      driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      url: jdbc:log4jdbc:mysql://192.168.220.130:3306/that_day?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
+      username: that_day
+      password: 123456
+
+  redis:
+    #数据库索引
+    database: 0
+    host: 192.168.220.130
+    port: 6379
+    password: 123456789
+    #连接超时时间
+    timeout: 5000
+
+#是否允许生成代码，生产环境设置为false
+generator:
+  enabled: true
+
+
+# IP 本地解析
+ip:
+  local-parsing: true
+
+
