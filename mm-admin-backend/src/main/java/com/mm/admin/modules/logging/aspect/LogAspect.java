@@ -5,7 +5,10 @@ import com.mm.admin.common.utils.StringUtils;
 import com.mm.admin.common.utils.ThrowableUtil;
 import com.mm.admin.modules.logging.domain.Log;
 import com.mm.admin.modules.logging.service.LogService;
-import com.thatday.common.model.RequestPostVo;
+import com.mm.admin.modules.system.service.UserService;
+import com.thatday.common.token.TokenConstant;
+import com.thatday.common.token.TokenUtil;
+import com.thatday.common.token.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -15,6 +18,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,6 +30,8 @@ public class LogAspect {
 
     @Autowired
     LogService logService;
+    @Autowired
+    UserService userService;
 
     ThreadLocal<Long> currentTime = new ThreadLocal<>();
 
@@ -64,14 +71,21 @@ public class LogAspect {
     }
 
     public String getUsername(JoinPoint joinPoint) {
-        try {
-            Object o = joinPoint.getArgs()[0];
-            if (o instanceof RequestPostVo) {
-                return ((RequestPostVo) o).getUserInfo().getUserId() + "";
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+
+        if (attributes != null) {
+            HttpServletRequest request = attributes.getRequest();
+            String token = request.getHeader(TokenConstant.TOKEN);
+            if (StringUtils.isEmpty(token)) {
+                return "";
             }
-            return "-1";
-        } catch (Exception e) {
-            return "-1";
+            try {
+                UserInfo userInfo = TokenUtil.getUserInfo(token);
+                return userService.getOne(userInfo.getUserId()).getUsername();
+            } catch (Exception e) {
+                return "Exception";
+            }
         }
+        return "";
     }
 }
