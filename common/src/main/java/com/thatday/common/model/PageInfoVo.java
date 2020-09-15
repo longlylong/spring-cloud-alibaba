@@ -16,7 +16,7 @@ public class PageInfoVo extends RequestPostVo {
         if (curPage == null || curPage <= 0) {
             return 0;
         }
-        return pageSize;
+        return curPage;
     }
 
     public Integer getPageSize() {
