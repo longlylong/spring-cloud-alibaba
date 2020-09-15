@@ -59,10 +59,16 @@ public class IdGen {
         long seconds = (System.currentTimeMillis() - startTime) / 1000;
         long day = seconds / (86400);
         long m = seconds % (86400);
-        long prefix = day * 100000 + m;
-        return prefix + String.format("%04d", nextTimeInt());
+        return String.format("%04d", day) + fixedLength(m, 6) + String.format("%04d", nextTimeInt());
     }
 
+    private static String fixedLength(long num, int n) {
+        String s = num + "";
+        if (s.length() >= n) {
+            return s;
+        }
+        return s + String.format("%1$0" + (n - s.length()) + "d", 0);
+    }
     private static synchronized int nextTimeInt() {
         if (num >= 9999) {
             num = 1;
