@@ -27,6 +27,11 @@ public class RedisUtils {
         this.redisTemplate = redisTemplate;
     }
 
+    public void clearAll(){
+        Set<Object> keys = redisTemplate.keys("*");
+        redisTemplate.delete(keys);
+    }
+
     /**
      * 指定缓存失效时间
      * @param key  键
