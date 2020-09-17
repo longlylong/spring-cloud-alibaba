@@ -26,7 +26,7 @@
       <el-table-column label="代码生成" width="160px">
         <template slot-scope="scope">
           <el-button v-if="scope.row.isConfigured" size="mini" style="margin-right: 2px" type="text">
-            <router-link :to="'/sys-tools/generator/preview/' + scope.row.tableName">
+            <router-link :to="'system/tool/generator/preview/' + scope.row.tableName">
               预览
             </router-link>
             <!--            <router-link :to="{name:'preview',params:{tableName:scope.row.tableName,optType:1}}">-->
@@ -42,7 +42,7 @@
           >下载
           </el-button>
           <el-button size="mini" style="margin-left: -1px;margin-right: 2px" type="text">
-            <router-link :to="'/sys-tools/generator/config/' + scope.row.tableName">
+            <router-link :to="'system/tool/generator/config/' + scope.row.tableName">
               配置
             </router-link>
           </el-button>

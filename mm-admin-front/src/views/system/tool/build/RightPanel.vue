@@ -578,7 +578,8 @@ import { isNumberStr } from '@/utils/index'
 import IconsDialog from './IconsDialog'
 import {
   inputComponents,
-  selectComponents
+  selectComponents,
+  layoutComponents
 } from '@/utils/generator/config'
 
 const dateTimeFormat = {
@@ -597,7 +598,6 @@ export default {
     TreeNodeDialog,
     IconsDialog
   },
-  // eslint-disable-next-line vue/require-prop-types
   props: ['showField', 'activeData', 'formConf'],
   data() {
     return {

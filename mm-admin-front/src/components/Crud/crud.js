@@ -123,6 +123,9 @@ function CRUD(options) {
       crud.page.page = 1
       crud.refresh()
     },
+    isFrontApi() {
+      return !!crud.crudMethod.list
+    },
     // 刷新
     refresh() {
       if (!callVmHook(crud, CRUD.HOOK.beforeRefresh)) {
@@ -131,25 +134,49 @@ function CRUD(options) {
       return new Promise((resolve, reject) => {
         crud.loading = true
         // 请求数据
-        initData(crud.url, crud.getQueryParams()).then(data => {
-          const table = crud.getTable()
-          if (table && table.lazy) { // 懒加载子节点数据，清掉已加载的数据
-            table.store.states.treeData = {}
-            table.store.states.lazyTreeNodeMap = {}
-          }
-          crud.page.total = data.totalElements
-          crud.data = data.content
-          crud.resetDataStatus()
-          // time 毫秒后显示表格
-          setTimeout(() => {
+        if (this.isFrontApi()) {
+          crud.params.curPage = crud.page.page - 1
+          crud.params.pageSize = crud.page.size
+          crud.crudMethod.list(crud.params).then(data => {
+            const table = crud.getTable()
+            if (table && table.lazy) { // 懒加载子节点数据，清掉已加载的数据
+              table.store.states.treeData = {}
+              table.store.states.lazyTreeNodeMap = {}
+            }
+            crud.page.total = data.data.totalCount
+            crud.data = data.data.dataList
+            crud.resetDataStatus()
+            // time 毫秒后显示表格
+            setTimeout(() => {
+              crud.loading = false
+              callVmHook(crud, CRUD.HOOK.afterRefresh)
+            }, crud.time)
+            resolve(data.data.dataList)
+          }).catch(err => {
             crud.loading = false
-            callVmHook(crud, CRUD.HOOK.afterRefresh)
-          }, crud.time)
-          resolve(data)
-        }).catch(err => {
-          crud.loading = false
-          reject(err)
-        })
+            reject(err)
+          })
+        } else {
+          initData(crud.url, crud.getQueryParams()).then(data => {
+            const table = crud.getTable()
+            if (table && table.lazy) { // 懒加载子节点数据，清掉已加载的数据
+              table.store.states.treeData = {}
+              table.store.states.lazyTreeNodeMap = {}
+            }
+            crud.page.total = data.totalElements
+            crud.data = data.content
+            crud.resetDataStatus()
+            // time 毫秒后显示表格
+            setTimeout(() => {
+              crud.loading = false
+              callVmHook(crud, CRUD.HOOK.afterRefresh)
+            }, crud.time)
+            resolve(data)
+          }).catch(err => {
+            crud.loading = false
+            reject(err)
+          })
+        }
       })
     },
     /**
@@ -310,7 +337,18 @@ function CRUD(options) {
       if (!delAll) {
         dataStatus.delete = CRUD.STATUS.PROCESSING
       }
-      return crud.crudMethod.del(ids).then(() => {
+
+      let request
+      if (this.isFrontApi()) {
+        const data = {
+          'ids': ids
+        }
+        request = crud.crudMethod.del(data)
+      } else {
+        request = crud.crudMethod.del(ids)
+      }
+
+      return request.then(() => {
         if (delAll) {
           crud.delAllLoading = false
         } else dataStatus.delete = CRUD.STATUS.PREPARED

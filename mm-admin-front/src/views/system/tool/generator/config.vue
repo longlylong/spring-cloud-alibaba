@@ -198,7 +198,7 @@
 </template>
 
 <script>
-import crud from '@/mixins/crud'
+import crud from '@/mixins/CommonCrud'
 import { update, get } from '@/api/generator/genConfig'
 import { save, sync, generator } from '@/api/generator/generator'
 import { getDicts } from '@/api/system/dict'

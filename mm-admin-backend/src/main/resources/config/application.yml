@@ -37,7 +37,7 @@ spring:
       # 最小连接数
       min-idle: 10
       # 最大连接数
-      max-active: 20
+      max-active: 100
       # 获取连接超时时间
       max-wait: 5000
       # 连接有效性检测时间
