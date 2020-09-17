@@ -7,7 +7,7 @@ Plugins：
 技术栈：
 
 	Spring Cloud 2.2.7
-	Spring Cloud Alibaba 2.2.1
+	Spring Cloud Alibaba 2.2.2
 
 	Spring Cloud Gateway
 	-Rate Limit
@@ -17,12 +17,12 @@ Plugins：
 	-DiscoveryClient
 	-Nacos-config
 
-	Sentinel 1.7.1
+	Sentinel 1.8.0
 	Feign
 	JPA+QueryDsl(免去直接写SQL,用法和写sql一样灵活)
 
 	RocketMQ 4.5.0
-	Knife4j 2.0.4(Swagger 2.9.2)
+	Knife4j 2.0.5(Swagger 2.9.2)
 
 
 单体应用改造：

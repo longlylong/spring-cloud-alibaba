@@ -30,11 +30,11 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
-        <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
+        <spring-cloud-alibaba.version>2.2.2.RELEASE</spring-cloud-alibaba.version>
 
         <jackson-version>2.9.10.5</jackson-version>
         <fastjson-version>1.2.69</fastjson-version>
-        <knife4j-version>2.0.4</knife4j-version>
+        <knife4j-version>2.0.5</knife4j-version>
         <mysql-connector.version>8.0.20</mysql-connector.version>
         <quartz-version>2.3.2</quartz-version>
     </properties>
