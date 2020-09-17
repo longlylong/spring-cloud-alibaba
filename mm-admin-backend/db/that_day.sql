@@ -399,7 +399,6 @@ INSERT INTO `sys_roles_menus` VALUES ('11', '1');
 INSERT INTO `sys_roles_menus` VALUES ('30', '1');
 INSERT INTO `sys_roles_menus` VALUES ('32', '1');
 INSERT INTO `sys_roles_menus` VALUES ('35', '1');
-INSERT INTO `sys_roles_menus` VALUES ('36', '1');
 INSERT INTO `sys_roles_menus` VALUES ('39', '1');
 INSERT INTO `sys_roles_menus` VALUES ('82', '1');
 INSERT INTO `sys_roles_menus` VALUES ('83', '1');
