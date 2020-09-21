@@ -31,6 +31,7 @@
 
         <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
         <spring-cloud-alibaba.version>2.2.2.RELEASE</spring-cloud-alibaba.version>
+        <sentinel-gateway.version>1.8.0</sentinel-gateway.version>
 
         <jackson-version>2.9.10.5</jackson-version>
         <fastjson-version>1.2.69</fastjson-version>

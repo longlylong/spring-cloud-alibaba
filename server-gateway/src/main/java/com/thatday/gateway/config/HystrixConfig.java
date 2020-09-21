@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-public class HystrixFallbackConfiguration {
+public class HystrixConfig {
 
     @RequestMapping(value = "/globalFallback")
     public Map<String, Object> fallBackController() {

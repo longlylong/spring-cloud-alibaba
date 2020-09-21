@@ -11,7 +11,7 @@ import java.util.List;
 
 @Configuration
 @Primary
-public class DocumentationConfig implements SwaggerResourcesProvider {
+public class SwaggerDocConfig implements SwaggerResourcesProvider {
 
     @Autowired
     EnvConfig envConfig;

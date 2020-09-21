@@ -73,12 +73,21 @@
             <version>${knife4j-version}</version>
         </dependency>
 
-        <!--<dependency>-->
-        <!--<groupId>com.alibaba.csp</groupId>-->
-        <!--<artifactId>sentinel-spring-cloud-gateway-adapter</artifactId>-->
-        <!--<version>1.6.0</version>-->
-        <!--</dependency>-->
-
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-spring-cloud-gateway-adapter</artifactId>
+            <version>${sentinel-gateway.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-transport-simple-http</artifactId>
+            <version>${sentinel-gateway.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-datasource-nacos</artifactId>
+            <version>${sentinel-gateway.version}</version>
+        </dependency>
         <!--<dependency>-->
         <!--<groupId>org.springframework.boot</groupId>-->
         <!--<artifactId>spring-boot-starter-data-redis-reactive</artifactId>-->

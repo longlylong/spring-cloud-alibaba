@@ -25,8 +25,13 @@ public class LoginController {
     UserService userService;
 
     @ApiOperation("test")
-    @GetMapping(value = "/test")
-    public Result<Object> test() {
+    @GetMapping(value = "/test1")
+    public Result<Object> test1() {
+        return Result.buildSuccess(envConfig.getPort());
+    }
+
+    @GetMapping(value = "/test2")
+    public Result<Object> test2() {
         return Result.buildSuccess(envConfig.getPort());
     }
 
