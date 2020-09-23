@@ -37,13 +37,6 @@
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
             <version>${spring-cloud-alibaba.version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-transport-simple-http</artifactId>
-            <version>${sentinel-gateway.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-datasource-nacos</artifactId>

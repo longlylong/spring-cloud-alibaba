@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: server-gateway1
+    name: server-gateway-a
 
   main:
     allow-bean-definition-overriding: true
@@ -25,6 +25,27 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+      datasource:
+        gw-flow:
+          nacos:
+            username: nacos
+            password: nacos
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-gateway-flow
+            groupId: SENTINEL_GROUP
+            rule-type: gw-flow
+        gw-api-group:
+          nacos:
+            username: nacos
+            password: nacos
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-gateway-api
+            groupId: SENTINEL_GROUP
+            rule-type: gw-api-group
 
     gateway:
       discovery:

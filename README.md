@@ -17,7 +17,7 @@ Plugins：
 	-DiscoveryClient
 	-Nacos-config
 
-	Sentinel 1.8.0
+	Sentinel 1.8.0 Datasource Nacos
 	Feign
 	JPA+QueryDsl(免去直接写SQL,用法和写sql一样灵活)
 
@@ -47,14 +47,14 @@ Plugins：
 
 	mm-admin-backend 管理后台后端
 	mm-admin-front 管理后台前端 Vue 最简化功能
-	(前后端分离后台管理系统https://el-admin.vip/,
+	(前后端分离后台管理系统，改自https://el-admin.vip/,
 	如果前期没业务需求可以不跑)
 
 	ServerGateway （网关）
 	--config （swagger入口、跨域、熔断配置）
-	--filter （限流配置，可在Nacos动态配置限流规则）
+	--filter （过滤器）
 	----author(鉴权的)
-	----ratelimit(限流的)
+	----ratelimit(限流的，关联Sentinel Dashboard)
 	----loadbalance(自定义负载 按照权重走的 配合nacos)
 	--provider(提供配置的类)
 
