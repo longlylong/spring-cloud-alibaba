@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50632
 File Encoding         : 65001
 
-Date: 2020-09-17 10:02:28
+Date: 2020-09-24 10:11:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -265,12 +265,12 @@ CREATE TABLE `sys_log` (
   PRIMARY KEY (`log_id`) USING BTREE,
   KEY `log_create_time_index` (`create_time`),
   KEY `inx_log_type` (`log_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=4410 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统日志';
+) ENGINE=InnoDB AUTO_INCREMENT=4525 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统日志';
 
 -- ----------------------------
 -- Records of sys_log
 -- ----------------------------
-INSERT INTO `sys_log` VALUES ('4409', '删除所有INFO日志', 'INFO', 'com.mm.admin.modules.logging.controller.LogController.delAllInfoLog()', '{ }', '192.168.220.1', '4', 'admin', '内网IP', 'Chrome', null, '2020-09-17 09:59:07');
+INSERT INTO `sys_log` VALUES ('4524', '删除所有INFO日志', 'INFO', 'com.mm.admin.modules.logging.controller.LogController.delAllInfoLog()', '{ }', '192.168.220.1', '3', 'admin', '内网IP', 'Chrome', null, '2020-09-24 10:10:01');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -299,7 +299,7 @@ CREATE TABLE `sys_menu` (
   UNIQUE KEY `uniq_title` (`title`),
   UNIQUE KEY `uniq_name` (`name`),
   KEY `inx_pid` (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统菜单';
+) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统菜单';
 
 -- ----------------------------
 -- Records of sys_menu
@@ -333,6 +333,10 @@ INSERT INTO `sys_menu` VALUES ('82', '1', '0', '1', '生成配置', 'GeneratorCo
 INSERT INTO `sys_menu` VALUES ('83', '1', '0', '1', '图表库', 'Echarts', 'components/Echarts', '999', 'chart', 'echarts', '\0', '', '\0', '', null, 'admin', '2019-11-21 09:04:32', '2020-09-17 09:58:16');
 INSERT INTO `sys_menu` VALUES ('116', '1', '0', '1', '生成预览', 'Preview', 'system/tool/generator/preview', '12', 'java', 'system/tool/generator/preview/:tableName', '\0', '', '', null, null, 'admin', '2019-11-26 14:54:36', '2020-09-06 17:50:21');
 INSERT INTO `sys_menu` VALUES ('118', '1', '0', '1', '表单构建', 'build', 'system/tool/build/index', '13', 'develop', 'build', '\0', '\0', '\0', 'user:list', null, null, '2020-09-03 11:36:08', '2020-09-06 14:05:28');
+INSERT INTO `sys_menu` VALUES ('120', null, '3', '0', '服务管理', null, null, '2', 'codeConsole', 'ratelimit', '\0', '\0', '\0', null, null, null, '2020-09-24 09:53:00', '2020-09-24 09:53:30');
+INSERT INTO `sys_menu` VALUES ('121', '120', '0', '1', 'Nacos', null, null, '1', 'dev', 'http://127.0.0.1:8848/nacos', '', '\0', '\0', null, null, null, '2020-09-24 09:54:20', '2020-09-24 09:54:20');
+INSERT INTO `sys_menu` VALUES ('122', '120', '0', '1', 'Sentinel', null, null, '2', 'develop', 'http://localhost:8080', '', '\0', '\0', null, null, null, '2020-09-24 09:57:54', '2020-09-24 09:58:02');
+INSERT INTO `sys_menu` VALUES ('123', '120', '0', '1', '接口文档', null, null, '3', 'sqlMonitor', 'http://127.0.0.1:8000/doc.html', '', '\0', '\0', null, null, null, '2020-09-24 10:00:04', '2020-09-24 10:01:11');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -356,7 +360,7 @@ CREATE TABLE `sys_role` (
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES ('1', '超级管理员', '1', '-', '全部', null, 'admin', '2018-11-23 11:04:37', '2020-09-07 14:44:45');
+INSERT INTO `sys_role` VALUES ('1', '超级管理员', '1', '-', '全部', null, 'admin', '2018-11-23 11:04:37', '2020-09-24 10:00:24');
 INSERT INTO `sys_role` VALUES ('2', '普通用户', '2', '-f', '自定义', null, 'admin', '2018-11-23 13:09:06', '2020-09-07 10:57:20');
 
 -- ----------------------------
@@ -400,10 +404,29 @@ INSERT INTO `sys_roles_menus` VALUES ('30', '1');
 INSERT INTO `sys_roles_menus` VALUES ('32', '1');
 INSERT INTO `sys_roles_menus` VALUES ('35', '1');
 INSERT INTO `sys_roles_menus` VALUES ('39', '1');
+INSERT INTO `sys_roles_menus` VALUES ('44', '1');
+INSERT INTO `sys_roles_menus` VALUES ('45', '1');
+INSERT INTO `sys_roles_menus` VALUES ('46', '1');
+INSERT INTO `sys_roles_menus` VALUES ('48', '1');
+INSERT INTO `sys_roles_menus` VALUES ('49', '1');
+INSERT INTO `sys_roles_menus` VALUES ('50', '1');
+INSERT INTO `sys_roles_menus` VALUES ('52', '1');
+INSERT INTO `sys_roles_menus` VALUES ('53', '1');
+INSERT INTO `sys_roles_menus` VALUES ('54', '1');
+INSERT INTO `sys_roles_menus` VALUES ('56', '1');
+INSERT INTO `sys_roles_menus` VALUES ('57', '1');
+INSERT INTO `sys_roles_menus` VALUES ('58', '1');
+INSERT INTO `sys_roles_menus` VALUES ('64', '1');
+INSERT INTO `sys_roles_menus` VALUES ('65', '1');
+INSERT INTO `sys_roles_menus` VALUES ('66', '1');
 INSERT INTO `sys_roles_menus` VALUES ('82', '1');
 INSERT INTO `sys_roles_menus` VALUES ('83', '1');
 INSERT INTO `sys_roles_menus` VALUES ('116', '1');
 INSERT INTO `sys_roles_menus` VALUES ('118', '1');
+INSERT INTO `sys_roles_menus` VALUES ('120', '1');
+INSERT INTO `sys_roles_menus` VALUES ('121', '1');
+INSERT INTO `sys_roles_menus` VALUES ('122', '1');
+INSERT INTO `sys_roles_menus` VALUES ('123', '1');
 
 -- ----------------------------
 -- Table structure for sys_user
