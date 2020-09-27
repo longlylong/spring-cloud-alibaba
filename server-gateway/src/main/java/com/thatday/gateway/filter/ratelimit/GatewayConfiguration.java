@@ -2,6 +2,9 @@ package com.thatday.gateway.filter.ratelimit;
 
 import com.alibaba.csp.sentinel.adapter.gateway.common.SentinelGatewayConstants;
 import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiDefinition;
+import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiPathPredicateItem;
+import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiPredicateItem;
+import com.alibaba.csp.sentinel.adapter.gateway.common.api.GatewayApiDefinitionManager;
 import com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayFlowRule;
 import com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayRuleManager;
 import com.alibaba.csp.sentinel.adapter.gateway.sc.SentinelGatewayFilter;
@@ -78,6 +81,19 @@ public class GatewayConfiguration {
         GatewayCallbackManager.setBlockHandler(blockRequestHandler);
     }
 
+    private void initCustomizedApis() {
+        Set<ApiDefinition> definitions = new HashSet<>();
+        ApiDefinition api1 = new ApiDefinition("some_customized_api")
+                .setPredicateItems(new HashSet<ApiPredicateItem>() {{
+                    add(new ApiPathPredicateItem().setPattern("/ahas"));
+                    add(new ApiPathPredicateItem().setPattern("/product/**")
+                            .setMatchStrategy(SentinelGatewayConstants.URL_MATCH_STRATEGY_PREFIX));
+                }});
+
+        definitions.add(api1);
+        GatewayApiDefinitionManager.loadApiDefinitions(definitions);
+    }
+
     private void initGatewayRules() {
         List<RouteDefinition> routes = gatewayProperties.getRoutes();
 
@@ -97,8 +113,8 @@ public class GatewayConfiguration {
      * 网关API
      */
     @Bean("sentinel-json-gw-api-group-converter")
-    public Converter<String, List<ApiDefinition>> apiDefinitionEntityDecoder() {
-        return s -> JSON.parseArray(s, ApiDefinition.class);
+    public Converter<String, Set<ApiDefinition>> apiDefinitionEntityDecoder() {
+        return s -> new HashSet<>(JSON.parseArray(s, ApiDefinition.class));
     }
 
     /**
