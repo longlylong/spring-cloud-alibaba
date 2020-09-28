@@ -26,7 +26,7 @@ public class LoginController {
 
     @ApiOperation("test")
     @GetMapping(value = "/test1")
-    public Result<Object> test1() {
+    public Result<Object> test1(String a, String b) {
         return Result.buildSuccess(envConfig.getPort());
     }
 
@@ -39,7 +39,6 @@ public class LoginController {
     @PostMapping(value = "/loginByPhone")
     public Result<User> loginByPhone(@Valid @RequestBody LoginPhoneVo vo) {
         User user = userService.loginByPhone(vo);
-
         return Result.buildSuccess(user);
     }
 

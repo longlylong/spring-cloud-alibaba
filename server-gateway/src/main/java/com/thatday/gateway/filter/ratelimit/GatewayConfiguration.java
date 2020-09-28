@@ -1,5 +1,6 @@
 package com.thatday.gateway.filter.ratelimit;
 
+import com.alibaba.cloud.sentinel.datasource.converter.JsonConverter;
 import com.alibaba.csp.sentinel.adapter.gateway.common.SentinelGatewayConstants;
 import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiDefinition;
 import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiPathPredicateItem;
@@ -11,8 +12,8 @@ import com.alibaba.csp.sentinel.adapter.gateway.sc.SentinelGatewayFilter;
 import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.BlockRequestHandler;
 import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.GatewayCallbackManager;
 import com.alibaba.csp.sentinel.adapter.gateway.sc.exception.SentinelGatewayBlockExceptionHandler;
-import com.alibaba.csp.sentinel.datasource.Converter;
-import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,11 +43,13 @@ public class GatewayConfiguration {
 
     private final List<ViewResolver> viewResolvers;
     private final ServerCodecConfigurer serverCodecConfigurer;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public GatewayConfiguration(ObjectProvider<List<ViewResolver>> viewResolversProvider,
                                 ServerCodecConfigurer serverCodecConfigurer) {
         this.viewResolvers = viewResolversProvider.getIfAvailable(Collections::emptyList);
         this.serverCodecConfigurer = serverCodecConfigurer;
+        this.objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
     @Bean
@@ -65,12 +68,14 @@ public class GatewayConfiguration {
     public void doInit() {
         initBlockHandlers();
         //添加后nacos配置的就不生效了
-//        initGatewayRules();
+        //initCustomizedApis();
+        //initGatewayRules();
     }
 
     private void initBlockHandlers() {
         BlockRequestHandler blockRequestHandler = (serverWebExchange, throwable) -> {
-            log.info(throwable.getClass().toString());
+            String path = serverWebExchange.getRequest().getPath().toString();
+            log.info(throwable.getClass().getSimpleName() + "---" + path);
             Map<String, Object> map = new HashMap<>();
             map.put("code", 429);
             map.put("message", "访问人数过多,请稍候再试!");
@@ -110,18 +115,20 @@ public class GatewayConfiguration {
     }
 
     /**
+     * SentinelAutoConfiguration类上没配置网关的
      * 网关API
      */
     @Bean("sentinel-json-gw-api-group-converter")
-    public Converter<String, Set<ApiDefinition>> apiDefinitionEntityDecoder() {
-        return s -> new HashSet<>(JSON.parseArray(s, ApiDefinition.class));
+    public JsonConverter apiDefinitionEntityDecoder() {
+        return new JsonConverter(objectMapper, ApiDefinition.class);
     }
 
     /**
+     * SentinelAutoConfiguration类上没配置网关的
      * 网关flowRule
      */
     @Bean("sentinel-json-gw-flow-converter")
-    public Converter<String, Set<GatewayFlowRule>> gatewayFlowRuleEntityDecoder() {
-        return s -> new HashSet<>(JSON.parseArray(s, GatewayFlowRule.class));
+    public JsonConverter gatewayFlowRuleEntityDecoder() {
+        return new JsonConverter(objectMapper, GatewayFlowRule.class);
     }
 }

@@ -4,6 +4,7 @@ import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.BlockExceptionHan
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +15,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
+@Log4j2
 public class SentinelService implements BlockExceptionHandler {
 
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, BlockException e) throws Exception {
+        String path = httpServletRequest.getRequestURI();
+        log.info(e.getClass().getSimpleName() + "---" + path);
         response(httpServletResponse, 429, "前方高能,请排队哦");
     }
 
