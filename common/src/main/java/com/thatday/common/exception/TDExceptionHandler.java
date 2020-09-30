@@ -25,7 +25,7 @@ public class TDExceptionHandler {
     }
 
     public static GlobalException throwTokenException() {
-        return GlobalException.create(StatusCode.Token_Error, TokenConstant.Msg_Access_Token_Error);
+        return GlobalException.create(Result.buildTokenError());
     }
 
     /**
@@ -71,7 +71,7 @@ public class TDExceptionHandler {
 
         String msg = sb.toString();
         if (TokenConstant.Msg_Access_Token_Error.equals(msg)) {
-            return Result.build(StatusCode.Token_Error, msg);
+            return Result.buildTokenError();
         }
 
         return Result.buildParamError(sb.toString());

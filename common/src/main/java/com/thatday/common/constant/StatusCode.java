@@ -6,18 +6,18 @@ public interface StatusCode {
     int SUCCESS = 0;
 
     //参数错误
-    int Parameter_Error = 100;
+    int Parameter_Error = 10000;
 
     //权限错误
-    int Permission_Error = 300;
+    int Permission_Error = 30000;
 
     //token校验错误
-    int Token_Error = 400;
+    int Token_Error = 40000;
 
     //异常错误
-    int Exception_Error = 500;
+    int Exception_Error = 50000;
 
     //限流
-    int Sentinel_Error = 429;
+    int Sentinel_Error = 42900;
 
 }

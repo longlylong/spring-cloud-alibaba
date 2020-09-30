@@ -3,6 +3,7 @@ package com.thatday.user.filter;
 import com.thatday.common.constant.StatusCode;
 import com.thatday.common.exception.GlobalException;
 import com.thatday.common.model.RequestPostVo;
+import com.thatday.common.model.Result;
 import com.thatday.common.token.TokenConstant;
 import com.thatday.common.token.TokenUtil;
 import com.thatday.common.token.UserInfo;
@@ -57,7 +58,7 @@ public class SingleAppTokenAspect {
     }
 
     private void tokenInvalid() {
-        throw GlobalException.create(StatusCode.Token_Error, TokenConstant.Msg_Access_Token_Error);
+        throw GlobalException.create(Result.buildTokenError());
     }
 
 }

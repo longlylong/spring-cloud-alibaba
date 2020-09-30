@@ -37,7 +37,7 @@ public class AuthorFilter extends RequestFilter {
         if (permission) {
             filterChain.doFilter(httpServletRequest, servletResponse);
         } else {
-            response(servletResponse, StatusCode.Token_Error, "");
+            response(servletResponse, StatusCode.Permission_Error, "");
         }
     }
 
