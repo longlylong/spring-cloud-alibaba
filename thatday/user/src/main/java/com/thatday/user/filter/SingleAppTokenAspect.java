@@ -7,6 +7,7 @@ import com.thatday.common.model.Result;
 import com.thatday.common.token.TokenConstant;
 import com.thatday.common.token.TokenUtil;
 import com.thatday.common.token.UserInfo;
+import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Pointcut;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 //@Aspect
 //@Order(1)
 //@Component
+@Log4j2
 
 //运行路径AuthorFilter >> Controller@Valid >> SingleAppTokenAspect >> Controller MethodBody
 //不使用网关,单体应用需要打开上面的注解,帮助注入用户信息的
@@ -39,12 +41,22 @@ public class SingleAppTokenAspect {
         if (attributes != null) {
             HttpServletRequest request = attributes.getRequest();
             String uri = request.getRequestURI();
+
+            log.info("------------------------------------------------");
+            log.info(uri);
+
             if (!AuthorSkipProvider.isSkip(uri)) {
                 if (args.length > 0) {
                     Object o = args[0];
+                    log.info("\n" + o);
+
                     if (o instanceof RequestPostVo) {
                         String a = request.getHeader(TokenConstant.TOKEN);
                         UserInfo userInfo = TokenUtil.getUserInfo(a);
+
+                        log.info("\n" + userInfo);
+                        log.info("----------------------------------------------------");
+
                         ((RequestPostVo) o).setUserInfo(userInfo);
                     } else {
                         tokenInvalid();
