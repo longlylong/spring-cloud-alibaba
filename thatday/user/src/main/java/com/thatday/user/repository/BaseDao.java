@@ -2,14 +2,34 @@ package com.thatday.user.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
+
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import java.util.List;
+import java.util.Set;
 
 @NoRepositoryBean
 public interface BaseDao<T, ID> extends JpaRepository<T, ID>, JpaSpecificationExecutor<T> {
 
     T findFirstByIdEquals(ID id);
 
-    //连表查下面的数据
+    //自定义sql
+//    @Query(value = "select stu.* from rel_student_class sc " +
+//            "join t_student_user stu on sc.student_user_id = stu.student_user_id  " +
+//            "where sc.class_id = ?1 order by stu.student_user_id asc limit ?2 offset ?3 ", nativeQuery = true)
+//    List<StudentUser> findByClassId(String classId, Integer pageSize, Integer curPage);
+
+    //中间表连表
+//    @OneToMany
+//    @JoinTable(name = "中间表表名-本表和目标表主键组合主键",
+//            joinColumns = {@JoinColumn(name = "本表关联的主键", referencedColumnName = "本表关联的主键")},
+//            inverseJoinColumns = {@JoinColumn(name = "目标表关联的主键", referencedColumnName = "目标表关联的主键")})
+//    private Set<SchoolClass> schoolClassList;
+
+    //本表连下级表查下面的数据
 //    @OneToMany(targetEntity = 目标表对象.class, fetch = FetchType.EAGER)
 //    @JoinTable(name = "目标表", joinColumns = {@JoinColumn(name = "目标表外键")},
 //            inverseJoinColumns = {@JoinColumn(name = "本表主键")})
