@@ -66,7 +66,7 @@ public class PermissionAspect {
                     if (Role.ADMIN.equals(userInfo.getRole())) {
                         return;
                     }
-                    User user = userService.getOne(userInfo.getUserId());
+                    User user = userService.getOne(userInfo.getLongUserId());
                     if (user != null) {
                         List<String> elPermissions = user.getRoles().stream().flatMap(role -> role.getMenus().stream())
                                 .filter(menu -> StringUtils.isNotBlank(menu.getPermission()))

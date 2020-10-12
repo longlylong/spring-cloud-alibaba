@@ -117,7 +117,7 @@ public class RoleController {
      * 获取用户的角色级别
      */
     private int getLevels(UserInfo userInfo, Integer level) {
-        List<Integer> levels = roleService.findByUsersId(userInfo.getUserId()).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList());
+        List<Integer> levels = roleService.findByUsersId(userInfo.getLongUserId()).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList());
         int min = Collections.min(levels);
         if (level != null) {
             if (level < min) {

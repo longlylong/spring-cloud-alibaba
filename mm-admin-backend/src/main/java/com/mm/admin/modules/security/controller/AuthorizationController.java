@@ -95,7 +95,7 @@ public class AuthorizationController {
 
     @GetMapping(value = "/info")
     public ResponseEntity<Object> getUserInfo(BaseRequestVo vo) {
-        User user = userService.getOne(vo.getUserInfo().getUserId());
+        User user = userService.getOne(vo.getUserInfo().getLongUserId());
         return ResponseEntity.ok(getAuthInfo(user));
     }
 

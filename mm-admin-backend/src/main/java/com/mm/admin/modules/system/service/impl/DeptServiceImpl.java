@@ -44,7 +44,7 @@ public class DeptServiceImpl implements DeptService {
     public List<DeptDto> queryAll(DeptQueryCriteria criteria, Boolean isQuery) throws Exception {
         Sort sort = Sort.by(Sort.Direction.ASC, "deptSort");
 
-        User user = userRepository.findFirstById(criteria.getUserInfo().getUserId());
+        User user = userRepository.findFirstById(criteria.getUserInfo().getLongUserId());
         String dataScopeType = "";
         if (user.getRoles().size() == 1) {
             for (Role role : user.getRoles()) {

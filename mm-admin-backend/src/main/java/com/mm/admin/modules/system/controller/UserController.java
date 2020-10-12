@@ -65,7 +65,7 @@ public class UserController {
                     deptService.findByPid(criteria.getDeptId())));
         }
         // 数据权限
-        List<Long> dataScopes = dataService.getDeptIds(userService.findById(criteria.getUserInfo().getUserId()));
+        List<Long> dataScopes = dataService.getDeptIds(userService.findById(criteria.getUserInfo().getLongUserId()));
         // criteria.getDeptIds() 不为空并且数据权限不为空则取交集
         if (!CollectionUtils.isEmpty(criteria.getDeptIds()) && !CollectionUtils.isEmpty(dataScopes)) {
             // 取交集
@@ -118,7 +118,7 @@ public class UserController {
         UserInfo userInfo = ValidationUtil.getUserInfo(request);
 
         for (Long id : ids) {
-            Integer currentLevel = Collections.min(roleService.findByUsersId(userInfo.getUserId()).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList()));
+            Integer currentLevel = Collections.min(roleService.findByUsersId(userInfo.getLongUserId()).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList()));
             Integer optLevel = Collections.min(roleService.findByUsersId(id).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList()));
             if (currentLevel > optLevel) {
                 throw GlobalException.createParam("角色权限不足，不能删除：" + userService.findById(id).getUsername());
@@ -132,7 +132,7 @@ public class UserController {
     public ResponseEntity<Object> updatePass(@RequestBody UserPassVo passVo) throws Exception {
         String oldPass = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, passVo.getOldPass());
         String newPass = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, passVo.getNewPass());
-        UserDto user = userService.findById(passVo.getUserInfo().getUserId());
+        UserDto user = userService.findById(passVo.getUserInfo().getLongUserId());
         if (!passwordEncoder.matches(oldPass, user.getPassword())) {
             throw GlobalException.createParam("修改失败，旧密码错误");
         }
@@ -152,7 +152,7 @@ public class UserController {
     @PostMapping(value = "/updateEmail/{code}")
     public ResponseEntity<Object> updateEmail(@PathVariable String code, @RequestBody User vo) throws Exception {
         String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, vo.getPassword());
-        UserDto userDto = userService.findById(vo.getUserInfo().getUserId());
+        UserDto userDto = userService.findById(vo.getUserInfo().getLongUserId());
         if (!passwordEncoder.matches(password, userDto.getPassword())) {
             throw GlobalException.createParam("密码错误");
         }
@@ -164,7 +164,7 @@ public class UserController {
      * 如果当前用户的角色级别低于创建用户的角色级别，则抛出权限不足的错误
      */
     private void checkLevel(User resources) {
-        Integer currentLevel = Collections.min(roleService.findByUsersId(resources.getUserInfo().getUserId()).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList()));
+        Integer currentLevel = Collections.min(roleService.findByUsersId(resources.getUserInfo().getLongUserId()).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList()));
         Integer optLevel = roleService.findByRoles(resources.getRoles());
         if (currentLevel > optLevel) {
             throw GlobalException.createParam("角色权限不足");

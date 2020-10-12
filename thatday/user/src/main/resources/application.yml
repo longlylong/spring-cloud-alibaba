@@ -90,3 +90,16 @@ td:
     enable: true
   log:
     fileName: /home/that-day/logs/${spring.application.name}
+
+
+wx:
+  #小程序
+  miniapp:
+    configs:
+      - appid: wx000000000000
+        secret: 0000000000000000000
+  #公众号
+  mp:
+    configs:
+      - appid: wx111111111110
+        secret: 111111111111111111111111111

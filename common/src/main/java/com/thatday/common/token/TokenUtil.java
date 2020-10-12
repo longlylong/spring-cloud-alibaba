@@ -27,11 +27,19 @@ public class TokenUtil {
         }
     }
 
-    public static String getAccessToken(Long uid) {
+    public static String getAccessToken(String uid) {
         return getAccessToken(uid, "", -1);
     }
 
+    public static String getAccessToken(Long uid) {
+        return getAccessToken(uid + "", "", -1);
+    }
+
     public static String getAccessToken(Long uid, String role, Integer deviceId) {
+        return getAccessToken(uid + "", role, deviceId);
+    }
+
+    public static String getAccessToken(String uid, String role, Integer deviceId) {
         Map<String, Object> map = new HashMap<>();
         map.put(TokenConstant.USER_ID, uid);
         map.put(TokenConstant.ROLE, role);

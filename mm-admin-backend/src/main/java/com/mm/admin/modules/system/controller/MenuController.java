@@ -38,7 +38,7 @@ public class MenuController {
 
     @GetMapping(value = "/build")
     public ResponseEntity<Object> buildMenus(BaseRequestVo vo) {
-        List<MenuDto> menuDtoList = menuService.findByUser(vo.getUserInfo().getUserId());
+        List<MenuDto> menuDtoList = menuService.findByUser(vo.getUserInfo().getLongUserId());
         List<MenuDto> menuDtos = menuService.buildTree(menuDtoList);
         Object menus = menuService.buildMenus(menuDtos);
         return new ResponseEntity<>(menus, HttpStatus.OK);

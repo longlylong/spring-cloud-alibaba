@@ -1,6 +1,7 @@
 package com.thatday.common.token;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.thatday.common.exception.GlobalException;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -12,7 +13,7 @@ import java.util.Date;
 public class UserInfo implements Serializable {
 
     @ApiModelProperty(value = "用户id", hidden = true)
-    private Long userId;
+    private String userId;
 
     @ApiModelProperty(value = "角色", hidden = true)
     private String role;
@@ -26,16 +27,25 @@ public class UserInfo implements Serializable {
     @ApiModelProperty(value = "过期时间", hidden = true)
     private Long expireTime;
 
-    public static UserInfo create(Long userId) {
+    @ApiModelProperty(hidden = true)
+    public Long getLongUserId() {
+        try {
+            return Long.parseLong(userId);
+        } catch (Exception e) {
+            throw GlobalException.createParam("token转换错误");
+        }
+    }
+
+    public static UserInfo create(String userId) {
         return create(userId, "", -1);
     }
 
-    public static UserInfo create(Long userId, String role, Integer deviceId) {
+    public static UserInfo create(String userId, String role, Integer deviceId) {
         return create(userId, role, deviceId, TokenUtil.getAccessToken(userId, role, deviceId),
                 new Date().getTime() + TokenUtil.Token_Expires);
     }
 
-    public static UserInfo create(Long userId, String role, Integer deviceId, String accessToken, Long expireTime) {
+    public static UserInfo create(String userId, String role, Integer deviceId, String accessToken, Long expireTime) {
         UserInfo userInfo = new UserInfo();
         userInfo.setUserId(userId);
         userInfo.setRole(role);

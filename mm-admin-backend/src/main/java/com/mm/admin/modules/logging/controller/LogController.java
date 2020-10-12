@@ -44,7 +44,7 @@ public class LogController {
     @GetMapping(value = "/user")
     public ResponseEntity<Object> queryUserLog(LogQueryCriteria criteria, Pageable pageable) {
         criteria.setLogType("INFO");
-        criteria.setBlurry(userService.findById(criteria.getUserInfo().getUserId()).getUsername());
+        criteria.setBlurry(userService.findById(criteria.getUserInfo().getLongUserId()).getUsername());
         return new ResponseEntity<>(logService.queryAllByUser(criteria, pageable), HttpStatus.OK);
     }
 

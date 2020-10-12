@@ -81,7 +81,7 @@ public class LogAspect {
             }
             try {
                 UserInfo userInfo = TokenUtil.getUserInfo(token);
-                return userService.getOne(userInfo.getUserId()).getUsername();
+                return userService.getOne(userInfo.getLongUserId()).getUsername();
             } catch (Exception e) {
                 return "Exception";
             }
