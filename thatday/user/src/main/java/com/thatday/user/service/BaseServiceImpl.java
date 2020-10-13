@@ -36,9 +36,9 @@ public abstract class BaseServiceImpl<ENTITY extends BaseEntity, ID, DAO extends
     }
 
     @Override
-    public ENTITY getOneAndCheckNull(ID id, String msg) {
+    public ENTITY getOneAndCheckNull(ID id, String prefix) {
         ENTITY entity = getOne(id);
-        checkNull(entity, msg);
+        checkNull(entity, prefix + "错误或不存在");
         return entity;
     }
 

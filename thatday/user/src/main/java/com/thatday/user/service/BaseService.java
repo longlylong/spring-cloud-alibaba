@@ -22,7 +22,7 @@ public interface BaseService<ENTITY extends BaseEntity, ID, DAO extends BaseDao<
 
     ENTITY getOne(ID id);
 
-    ENTITY getOneAndCheckNull(ID id, String msg);
+    ENTITY getOneAndCheckNull(ID id, String prefix);
 
     ENTITY getLastOneById();
 
