@@ -1,11 +1,15 @@
 package com.thatday.user.filter;
 
+import io.swagger.annotations.ApiOperation;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
 @Aspect
@@ -71,5 +75,19 @@ public class BackendAspect {
         System.out.println("@AfterReturning：返回值为：" + returnValue);
         System.out.println("@AfterReturning：被织入的目标对象为：" + point.getTarget());
 
+    }
+
+    /**
+     * 是否存在注解，如果存在就获取
+     */
+    private ApiOperation getApiOperation(JoinPoint joinPoint) {
+        Signature signature = joinPoint.getSignature();
+        MethodSignature methodSignature = (MethodSignature) signature;
+        Method method = methodSignature.getMethod();
+
+        if (method != null) {
+            return method.getAnnotation(ApiOperation.class);
+        }
+        return null;
     }
 }

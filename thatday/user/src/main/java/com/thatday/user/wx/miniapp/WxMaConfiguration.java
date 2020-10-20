@@ -3,12 +3,9 @@ package com.thatday.user.wx.miniapp;
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.api.impl.WxMaServiceImpl;
 import cn.binarywang.wx.miniapp.bean.WxMaKefuMessage;
-import cn.binarywang.wx.miniapp.bean.WxMaTemplateData;
-import cn.binarywang.wx.miniapp.bean.WxMaTemplateMessage;
 import cn.binarywang.wx.miniapp.config.impl.WxMaDefaultConfigImpl;
 import cn.binarywang.wx.miniapp.message.WxMaMessageHandler;
 import cn.binarywang.wx.miniapp.message.WxMaMessageRouter;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import me.chanjar.weixin.common.bean.result.WxMediaUploadResult;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -28,29 +25,34 @@ import java.util.stream.Collectors;
 @Configuration
 @EnableConfigurationProperties(WxMaProperties.class)
 public class WxMaConfiguration {
+
     private static final Map<String, WxMaMessageRouter> routers = Maps.newHashMap();
     private static Map<String, WxMaService> maServices = Maps.newHashMap();
+
     private final WxMaMessageHandler templateMsgHandler = (wxMessage, context, service, sessionManager) -> {
-        service.getMsgService().sendTemplateMsg(WxMaTemplateMessage.builder()
-                .templateId("此处更换为自己的模板id")
-                .formId("自己替换可用的formid")
-                .data(Lists.newArrayList(
-                        new WxMaTemplateData("keyword1", "339208499", "#173177")))
-                .toUser(wxMessage.getFromUser())
-                .build());
+//        service.getMsgService().sendTemplateMsg(WxMaTemplateMessage.builder()
+//                .templateId("此处更换为自己的模板id")
+//                .formId("自己替换可用的formid")
+//                .data(Lists.newArrayList(
+//                        new WxMaTemplateData("keyword1", "339208499", "#173177")))
+//                .toUser(wxMessage.getFromUser())
+//                .build());
         return null;
     };
+
     private final WxMaMessageHandler logHandler = (wxMessage, context, service, sessionManager) -> {
         System.out.println("收到消息：" + wxMessage.toString());
         service.getMsgService().sendKefuMsg(WxMaKefuMessage.newTextBuilder().content("收到信息为：" + wxMessage.toJson())
                 .toUser(wxMessage.getFromUser()).build());
         return null;
     };
+
     private final WxMaMessageHandler textHandler = (wxMessage, context, service, sessionManager) -> {
         service.getMsgService().sendKefuMsg(WxMaKefuMessage.newTextBuilder().content("回复文本消息")
                 .toUser(wxMessage.getFromUser()).build());
         return null;
     };
+
     private final WxMaMessageHandler picHandler = (wxMessage, context, service, sessionManager) -> {
         try {
             WxMediaUploadResult uploadResult = service.getMediaService()
@@ -68,6 +70,7 @@ public class WxMaConfiguration {
 
         return null;
     };
+
     private final WxMaMessageHandler qrcodeHandler = (wxMessage, context, service, sessionManager) -> {
         try {
             final File file = service.getQrcodeService().createQrcode("123", 430);
@@ -81,9 +84,9 @@ public class WxMaConfiguration {
         } catch (WxErrorException e) {
             e.printStackTrace();
         }
-
         return null;
     };
+
     private final WxMaProperties properties;
 
     @Autowired

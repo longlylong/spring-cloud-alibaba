@@ -33,7 +33,7 @@
         <spring-cloud-alibaba.version>2.2.2.RELEASE</spring-cloud-alibaba.version>
         <sentinel-gateway.version>1.8.0</sentinel-gateway.version>
 
-        <weixin-java.version>3.8.0</weixin-java.version>
+        <weixin-java.version>3.9.0</weixin-java.version>
 
         <jackson-version>2.9.10.5</jackson-version>
         <fastjson-version>1.2.71</fastjson-version>
