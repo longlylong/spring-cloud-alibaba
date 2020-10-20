@@ -1,7 +1,7 @@
 package com.mm.admin.modules.system.service.dto;
 
 import com.mm.admin.common.annotation.TDQuery;
-import com.thatday.common.model.RequestPostVo;
+import com.mm.admin.common.base.BaseRequestVo;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 @Data
-public class UserQueryCriteria extends RequestPostVo {
+public class UserQueryCriteria extends BaseRequestVo {
 
     @TDQuery
     private Long id;

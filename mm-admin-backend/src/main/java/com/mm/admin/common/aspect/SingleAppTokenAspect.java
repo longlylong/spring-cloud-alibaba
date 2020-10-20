@@ -1,7 +1,6 @@
 package com.mm.admin.common.aspect;
 
 import com.mm.admin.common.base.BaseRequestVo;
-import com.thatday.common.model.RequestPostVo;
 import com.thatday.common.token.TokenConstant;
 import com.thatday.common.token.TokenUtil;
 import com.thatday.common.token.UserInfo;
@@ -41,10 +40,7 @@ public class SingleAppTokenAspect {
                 if (args.length > 0) {
                     Object o = args[0];
                     UserInfo userInfo = TokenUtil.getUserInfo(token);
-                    if (o instanceof RequestPostVo) {
-                        ((RequestPostVo) o).setUserInfo(userInfo);
-
-                    } else if (o instanceof BaseRequestVo) {
+                    if (o instanceof BaseRequestVo) {
                         ((BaseRequestVo) o).setUserInfo(userInfo);
 
                     }
