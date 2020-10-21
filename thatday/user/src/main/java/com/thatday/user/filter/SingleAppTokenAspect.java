@@ -42,22 +42,26 @@ public class SingleAppTokenAspect {
             HttpServletRequest request = attributes.getRequest();
             String uri = request.getRequestURI();
 
+            log.info("");
             log.info("------------------------------------------------");
             log.info(uri);
 
+            Object vo = null;
+            if (args.length > 0) {
+                vo = args[0];
+                log.info(vo);
+            }
+
             if (!AuthorSkipProvider.isSkip(uri)) {
-                if (args.length > 0) {
-                    Object o = args[0];
-                    log.info("\n" + o);
+                if (vo != null) {
 
-                    if (o instanceof RequestPostVo) {
-                        String a = request.getHeader(TokenConstant.TOKEN);
-                        UserInfo userInfo = TokenUtil.getUserInfo(a);
+                    if (vo instanceof RequestPostVo) {
+                        String token = request.getHeader(TokenConstant.TOKEN);
+                        UserInfo userInfo = TokenUtil.getUserInfo(token);
 
-                        log.info("\n" + userInfo);
-                        log.info("----------------------------------------------------");
+                        log.info(userInfo);
 
-                        ((RequestPostVo) o).setUserInfo(userInfo);
+                        ((RequestPostVo) vo).setUserInfo(userInfo);
                     } else {
                         tokenInvalid();
                     }
