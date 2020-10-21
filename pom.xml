@@ -25,14 +25,6 @@
     </parent>
 
     <properties>
-        <java.version>1.8</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
-        <spring-cloud-alibaba.version>2.2.2.RELEASE</spring-cloud-alibaba.version>
-        <sentinel-gateway.version>1.8.0</sentinel-gateway.version>
-
         <weixin-java.version>3.9.0</weixin-java.version>
 
         <jackson-version>2.9.10.5</jackson-version>
@@ -40,6 +32,14 @@
         <knife4j-version>2.0.5</knife4j-version>
         <mysql-connector.version>8.0.20</mysql-connector.version>
         <quartz-version>2.3.2</quartz-version>
+
+        <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
+        <spring-cloud-alibaba.version>2.2.2.RELEASE</spring-cloud-alibaba.version>
+        <sentinel-gateway.version>1.8.0</sentinel-gateway.version>
+
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <dependencies>
