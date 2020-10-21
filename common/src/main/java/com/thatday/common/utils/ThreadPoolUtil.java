@@ -7,7 +7,7 @@ public class ThreadPoolUtil {
 
     private static ThreadPoolUtil instance;
 
-    private ExecutorService service;
+    private final ExecutorService service;
 
     private ThreadPoolUtil() {
         service = Executors.newFixedThreadPool(5);
