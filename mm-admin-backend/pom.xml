@@ -18,7 +18,6 @@
         <jna.version>5.5.0</jna.version>
         <configuration.version>1.9</configuration.version>
 
-        <hutool.version>5.3.4</hutool.version>
         <log4jdbc.version>1.16</log4jdbc.version>
         <mapstruct.version>1.4.0.Beta3</mapstruct.version>
 
@@ -156,13 +155,6 @@
             <groupId>commons-configuration</groupId>
             <artifactId>commons-configuration</artifactId>
             <version>${configuration.version}</version>
-        </dependency>
-
-        <!--工具包-->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>${hutool.version}</version>
         </dependency>
 
         <!-- mapstruct对象映射-->

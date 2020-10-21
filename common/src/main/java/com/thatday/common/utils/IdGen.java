@@ -3,6 +3,7 @@
  */
 package com.thatday.common.utils;
 
+import cn.hutool.core.date.DateUtil;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -18,7 +19,7 @@ public class IdGen {
 
     private static SecureRandom random = new SecureRandom();
 
-    private static final long startTime = DateUtils.parseDate("2020-07-01").getTime();
+    private static final long startTime = DateUtil.parseDate("2020-07-01").getTime();
 
     private static volatile int num;
     private final static String baseNum = "0123456789";
