@@ -23,16 +23,16 @@ public class TemplateCodeUtil {
     /**
      * 对象集合转换，两个对象的属性名字需要一样，并可自定义设置一些参数
      */
-    public static <T, E> List<T> transTo(List<E> fromList, Class<T> clazz, OnTransListener<T, E> onTransListener) {
+    public static <T, E> List<T> transTo(List<E> sourceList, Class<T> clazz, OnTransListener<T, E> onTransListener) {
         try {
             List<T> toList = new ArrayList<>();
-            for (E e : fromList) {
-                T entity = clazz.newInstance();
-                BeanUtil.copyProperties(entity, e);
+            for (E source : sourceList) {
+                T target = clazz.newInstance();
+                BeanUtil.copyProperties(source, target);
                 if (onTransListener != null) {
-                    onTransListener.doSomeThing(entity, e);
+                    onTransListener.doSomeThing(target, source);
                 }
-                toList.add(entity);
+                toList.add(target);
             }
             return toList;
         } catch (Exception e) {
@@ -43,10 +43,10 @@ public class TemplateCodeUtil {
     /**
      * 对象转换，E转为t对象
      */
-    public static <T, E> T transTo(E e, Class<T> clazz) {
+    public static <T, E> T transTo(E source, Class<T> clazz) {
         try {
             T t = clazz.newInstance();
-            BeanUtil.copyProperties(t, e);
+            BeanUtil.copyProperties(source, t);
             return t;
         } catch (Exception ex) {
             throw TDExceptionHandler.throwGlobalException("数据转换异常,请联系程序猿!", ex);
