@@ -1,5 +1,6 @@
 package com.thatday.gateway.filter.author;
 
+import cn.hutool.json.JSONUtil;
 import com.thatday.common.token.TokenConstant;
 import com.thatday.common.token.TokenUtil;
 import com.thatday.common.token.UserInfo;
@@ -189,7 +190,7 @@ public class GlobalAuthorFilter implements GlobalFilter, Ordered {
         //鉴权过后就往请求body里面加入用户信息,方便后面的接口使用
         UserInfo userInfo = TokenUtil.getUserInfo(headerToken);
         userInfo.setAccessToken(headerToken);
-        String infoJson = TemplateCodeUtil.objectToJson(userInfo);
+        String infoJson = JSONUtil.parseObj(userInfo).toString();
         int i = sb.indexOf("{");
         if (bodyStr.contains("\"")) {
             sb.replace(i, i + 1, "{\n\"userInfo\":" + infoJson + ",\n");

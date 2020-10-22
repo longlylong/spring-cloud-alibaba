@@ -15,13 +15,10 @@
     <version>2.0</version>
 
     <properties>
-        <dom4j.version>1.6.1</dom4j.version>
-
         <hutool.version>5.4.5</hutool.version>
 
         <commons-lang3.version>3.11</commons-lang3.version>
         <commons-collections4.version>4.4</commons-collections4.version>
-        <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <commons-io.version>2.8.0</commons-io.version>
 
         <java-jwt.version>3.4.0</java-jwt.version>
@@ -47,13 +44,6 @@
         </dependency>
 
         <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>${commons-beanutils.version}</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
@@ -64,13 +54,6 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>${hutool.version}</version>
-        </dependency>
-
-        <!--dom4j-->
-        <dependency>
-            <groupId>dom4j</groupId>
-            <artifactId>dom4j</artifactId>
-            <version>${dom4j.version}</version>
         </dependency>
 
         <!--java-jwt-->

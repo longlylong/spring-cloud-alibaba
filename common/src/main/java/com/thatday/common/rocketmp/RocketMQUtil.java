@@ -1,9 +1,9 @@
 package com.thatday.common.rocketmp;
 
+import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thatday.common.exception.GlobalException;
-import com.thatday.common.utils.TemplateCodeUtil;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.exception.MQClientException;
@@ -100,7 +100,7 @@ public class RocketMQUtil {
 
     public static <T> T getData(List<MessageExt> msgList, Class<T> clazz) {
         MessageExt messageExt = msgList.get(0);
-        return TemplateCodeUtil.jsonToObject(messageExt.getBody(), clazz);
+        return JSONUtil.toBean(new String(messageExt.getBody()), clazz);
     }
 
 

@@ -1,9 +1,8 @@
 package com.thatday.common.utils;
 
-
+import cn.hutool.core.bean.BeanUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thatday.common.exception.TDExceptionHandler;
-import org.apache.commons.beanutils.BeanUtils;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -29,7 +28,7 @@ public class TemplateCodeUtil {
             List<T> toList = new ArrayList<>();
             for (E e : fromList) {
                 T entity = clazz.newInstance();
-                BeanUtils.copyProperties(entity, e);
+                BeanUtil.copyProperties(entity, e);
                 if (onTransListener != null) {
                     onTransListener.doSomeThing(entity, e);
                 }
@@ -47,7 +46,7 @@ public class TemplateCodeUtil {
     public static <T, E> T transTo(E e, Class<T> clazz) {
         try {
             T t = clazz.newInstance();
-            BeanUtils.copyProperties(t, e);
+            BeanUtil.copyProperties(t, e);
             return t;
         } catch (Exception ex) {
             throw TDExceptionHandler.throwGlobalException("数据转换异常,请联系程序猿!", ex);
@@ -67,39 +66,6 @@ public class TemplateCodeUtil {
             }
         }
         return list;
-    }
-
-    /**
-     * 对象转为son
-     */
-    public static String objectToJson(Object object) {
-        try {
-            return new ObjectMapper().writeValueAsString(object);
-        } catch (IOException e) {
-            throw TDExceptionHandler.throwGlobalException("objectToJson", e);
-        }
-    }
-
-    /**
-     * json 转为对象
-     */
-    public static <T> T jsonToObject(String json, Class<T> clazz) {
-        try {
-            return new ObjectMapper().readValue(json, clazz);
-        } catch (IOException e) {
-            throw TDExceptionHandler.throwGlobalException("jsonToObject", e);
-        }
-    }
-
-    /**
-     * json 转为对象
-     */
-    public static <T> T jsonToObject(byte[] jsonByte, Class<T> clazz) {
-        try {
-            return new ObjectMapper().readValue(jsonByte, clazz);
-        } catch (IOException e) {
-            throw TDExceptionHandler.throwGlobalException("jsonToObject", e);
-        }
     }
 
     /**

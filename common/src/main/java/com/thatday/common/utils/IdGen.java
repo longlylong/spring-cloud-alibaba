@@ -4,6 +4,8 @@
 package com.thatday.common.utils;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -17,11 +19,11 @@ import java.util.UUID;
 @Service
 public class IdGen {
 
-    private static SecureRandom random = new SecureRandom();
+    private static final SecureRandom random = new SecureRandom();
 
     private static final long startTime = DateUtil.parseDate("2020-07-01").getTime();
 
-    private static volatile int num;
+    private static volatile int num = 100000;
     private final static String baseNum = "0123456789";
     private final static String baseString = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -55,37 +57,47 @@ public class IdGen {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
-    //根据时间生成的数据库id
+    //多个服务的话用这个 port为每个服务的端口号
+    public static String getNextTimeCode(int port) {
+        //(4位 + 6位) + 5位 + 6位
+        return getNextTime() + String.format("%05d", port) + nextTimeInt();
+    }
+
+    //单体服务的话用这个
     public static String getNextTimeCode() {
+        //(4位 + 6位) + 6位
+        return getNextTime() + nextTimeInt();
+    }
+
+    //根据时间生成的数据库id
+    public static String getNextTime() {
         long seconds = (System.currentTimeMillis() - startTime) / 1000;
         long day = seconds / (86400);
         long m = seconds % (86400);
-        return String.format("%04d", day) + fixedLength(m, 6) + String.format("%04d", nextTimeInt());
+        //4位 + 6位
+        return String.format("%04d", day) + fixedLength(m);
     }
 
-    private static String fixedLength(long num, int n) {
-        String s = num + "";
-        if (s.length() >= n) {
-            return s;
-        }
-        return s + String.format("%1$0" + (n - s.length()) + "d", 0);
+    private static String fixedLength(long num) {
+        return StrUtil.fill(num + "", '0', 6, false);
     }
+
     private static synchronized int nextTimeInt() {
-        if (num >= 9999) {
-            num = 1;
+        if (num >= 999999) {
+            num = 100000;
         } else {
-            int i = random.nextInt(5) + 1;
+            int i = random.nextInt(4) + 1;
             num = num + i;
         }
         return num;
     }
 
-    private static HashMap<String, ArrayList<Integer>> offsetMap = new HashMap<>();
-    private static HashMap<String, Long> lastIdMap = new HashMap<>();
+    private static final HashMap<String, ArrayList<Integer>> offsetMap = new HashMap<>();
+    private static final HashMap<String, Long> lastIdMap = new HashMap<>();
 
     //随机自增的需要提供上一个id
     public static synchronized Long autoId(String key, Long lastId) {
-        int i = random.nextInt(5) + 1;
+        int i = random.nextInt(4) + 1;
         Long lastLastId = lastIdMap.get(key);
 
         lastIdMap.put(key, lastId);
@@ -104,6 +116,11 @@ public class IdGen {
 
     public static void main(String[] args) {
         System.out.println(getNextTimeCode());
+        System.out.println(getNextTimeCode());
+        System.out.println(getNextTimeCode(17200));
+        System.out.println(getNextTimeCode(7200));
+        System.out.println(IdUtil.getSnowflake(1, 2).nextIdStr());
+        System.out.println(IdUtil.getSnowflake(1, 2).nextIdStr());
     }
 
 }

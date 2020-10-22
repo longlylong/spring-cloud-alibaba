@@ -1,5 +1,6 @@
 package com.thatday.common.utils;
 
+import cn.hutool.json.JSONUtil;
 import com.thatday.common.exception.TDExceptionHandler;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
@@ -24,7 +25,7 @@ public class HttpUtil {
                 HttpEntity entity = execute.getEntity();
                 String toString = IOUtils.toString(entity.getContent(), StandardCharsets.UTF_8);
                 System.out.println(toString);
-                T t = TemplateCodeUtil.jsonToObject(toString, clazz);
+                T t = JSONUtil.toBean(toString, clazz);
                 return t;
             } else {
                 return null;

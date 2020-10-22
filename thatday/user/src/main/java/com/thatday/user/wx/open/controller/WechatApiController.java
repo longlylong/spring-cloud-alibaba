@@ -1,5 +1,6 @@
 package com.thatday.user.wx.open.controller;
 
+import cn.hutool.json.JSONUtil;
 import com.thatday.common.utils.TemplateCodeUtil;
 import com.thatday.user.wx.open.dto.WXOpenLoginDTO;
 import com.thatday.user.wx.open.vo.WxLoginCallbackVo;
@@ -41,7 +42,7 @@ public class WechatApiController {
         log.info("---------------------");
 
         if (statusCode == 200) {
-            WXOpenLoginDTO wxOpenLoginDTO = TemplateCodeUtil.jsonToObject(content, WXOpenLoginDTO.class);
+            WXOpenLoginDTO wxOpenLoginDTO = JSONUtil.toBean(content, WXOpenLoginDTO.class);
             String token = "";
             if (token == null) {
                 return "redirect:" + loginCallback.getRedirect() + "&isAuthor=false";
