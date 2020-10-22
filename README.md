@@ -41,7 +41,8 @@ Plugins：
 	--rocketmp （rocketmq配置）
 	--utils （模块之间共用的util）
 	--validation （模块之间共用的校验器）
-	--hutool 工具包https://hutool.cn/docs
+	--hutool    (HuTool.md)工具包https://hutool.cn/docs
+
 
 	Pub （公共服务目录,如果前期没业务需求可以不跑）
 	--Common-Server （公共服务）
