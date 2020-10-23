@@ -6,8 +6,8 @@ Plugins：
     
 技术栈：
 
-	Spring Cloud 2.2.7
-	Spring Cloud Alibaba 2.2.2
+	Spring Cloud 2.2.10
+	Spring Cloud Alibaba 2.2.3
 
 	Spring Cloud Gateway
 	-Rate Limit
