@@ -1,10 +1,7 @@
 package com.thatday.user.modules.user.entity;
 
-import com.thatday.common.utils.IdGen;
 import com.thatday.user.repository.BaseEntity;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.Data;
-import org.apache.activemq.artemis.utils.IDGenerator;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
