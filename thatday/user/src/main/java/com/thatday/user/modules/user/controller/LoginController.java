@@ -6,6 +6,7 @@ import com.thatday.user.modules.user.entity.User;
 import com.thatday.user.modules.user.service.UserService;
 import com.thatday.user.modules.user.vo.LoginPhoneVo;
 import com.thatday.user.modules.user.vo.LoginWeChatVo;
+import com.thatday.user.service.feign.CommonService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +21,15 @@ public class LoginController {
 
     @Autowired
     EnvConfig envConfig;
-
     @Autowired
     UserService userService;
+    @Autowired
+    CommonService commonService;
 
     @ApiOperation("test")
     @GetMapping(value = "/test1")
-    public Result<Object> test1(String a, String b) {
-        return Result.buildSuccess(envConfig.getPort());
+    public Result<Object> test1() {
+        return Result.buildSuccess(commonService.test());
     }
 
     @GetMapping(value = "/test2")
