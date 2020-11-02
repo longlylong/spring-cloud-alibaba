@@ -32,7 +32,7 @@ public abstract class BaseServiceImpl<ENTITY extends BaseEntity, ID, DAO extends
 
     @Override
     public ENTITY getOne(ID id) {
-        return dao.findFirstByIdEquals(id);
+        return dao.findFirstById(id);
     }
 
     @Override
