@@ -12,6 +12,7 @@ public interface TokenConstant {
     String ROLE = "role";
     String DEVICE_ID = "deviceId";
     String EXPIRES_TIME = "expireTime";
+    String CREATE_TIME = "createTime";
 
     String DEFAULT_AVATAR = "https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png";
 }

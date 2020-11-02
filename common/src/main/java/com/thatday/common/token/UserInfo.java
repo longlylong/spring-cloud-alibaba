@@ -27,6 +27,9 @@ public class UserInfo implements Serializable {
     @ApiModelProperty(value = "过期时间", hidden = true)
     private Long expireTime;
 
+    @ApiModelProperty(value = "创建时间", hidden = true)
+    private Long createTime;
+
     @ApiModelProperty(hidden = true)
     public Long getLongUserId() {
         try {
@@ -52,6 +55,7 @@ public class UserInfo implements Serializable {
         userInfo.setDeviceId(deviceId);
         userInfo.setAccessToken(accessToken);
         userInfo.setExpireTime(expireTime);
+        userInfo.setCreateTime(new Date().getTime());
         return userInfo;
     }
 

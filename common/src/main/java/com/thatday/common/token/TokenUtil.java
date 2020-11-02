@@ -45,6 +45,7 @@ public class TokenUtil {
         map.put(TokenConstant.ROLE, role);
         map.put(TokenConstant.DEVICE_ID, deviceId);
         map.put(TokenConstant.EXPIRES_TIME, new Date().getTime() + Token_Expires);
+        map.put(TokenConstant.CREATE_TIME, new Date().getTime());
         return makeToken(map);
     }
 
@@ -59,11 +60,12 @@ public class TokenUtil {
         }
 
         UserInfo map = getUserInfo(token);
-        if (map == null) {
+        if (map == null || map.getCreateTime() == null || map.getExpireTime() == null) {
             return false;
         }
 
-        if (System.currentTimeMillis() > map.getExpireTime()) {
+        if (System.currentTimeMillis() > map.getExpireTime()
+                || System.currentTimeMillis() > map.getCreateTime() + Token_Expires) {
             return false;
         }
 
