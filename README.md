@@ -22,7 +22,7 @@ Plugins：
 	JPA+QueryDsl(免去直接写SQL,用法和写sql一样灵活)
 
 	RocketMQ 4.5.0
-	Knife4j 2.0.5(Swagger 2.9.2)
+	Knife4j 2.0.7(Swagger 2.10.5)
 
 
 单体应用改造：
