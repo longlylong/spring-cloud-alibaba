@@ -32,5 +32,6 @@ logging:
 td:
   swagger:
     enable: true
-  log:
-    fileName: /home/that-day/logs/${spring.application.name}
+
+log:
+  file-name: /home/that-day/logs/${spring.application.name}

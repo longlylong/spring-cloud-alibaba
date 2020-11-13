@@ -1,6 +1,6 @@
 spring:
   application:
-    name: server-gateway
+    name: server-gateway-a
   cloud:
     nacos:
       config:

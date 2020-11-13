@@ -80,17 +80,14 @@ hystrix:
           thread:
             timeoutInMilliseconds: 5000
 
-#log
-logging:
-  config: classpath:logback-admin.xml
 
 
 td:
   swagger:
     enable: true
-  log:
-    fileName: /home/that-day/logs/${spring.application.name}
 
+log:
+  file-name: /home/that-day/logs/${spring.application.name}
 
 wx:
   #小程序
