@@ -3,6 +3,7 @@ package com.thatday.user.modules.user.entity;
 import com.thatday.user.repository.BaseEntity;
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
@@ -15,10 +16,8 @@ import javax.validation.constraints.NotNull;
 public class Dir extends BaseEntity {
 
     @Id
+    @Column(name = "dir_id")
     private String id;
-
-    @NotNull
-    private String userId;
 
     @NotNull
     private String title;

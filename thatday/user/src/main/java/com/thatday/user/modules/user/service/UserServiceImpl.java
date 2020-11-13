@@ -2,6 +2,7 @@ package com.thatday.user.modules.user.service;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.thatday.common.model.PageResult;
+import com.thatday.common.utils.IdGen;
 import com.thatday.user.modules.user.dao.UserDao;
 import com.thatday.user.modules.user.dto.UserDTO;
 import com.thatday.user.modules.user.entity.User;
@@ -27,7 +28,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, String, UserDao> impl
 
     @Override
     public String customDatabaseId() {
-        return null;
+        return "U" + IdGen.getNextTimeCode();
     }
 
     @Autowired

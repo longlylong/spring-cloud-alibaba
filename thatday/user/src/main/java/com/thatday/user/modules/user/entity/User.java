@@ -5,7 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.util.Set;
 
 /**
  * 用户表
@@ -15,14 +15,15 @@ import java.util.List;
 public class User extends BaseEntity {
 
     @Id
+    @Column(name = "user_id")
     private String id;
 
     @NotNull
     private String nickname;
 
-    @OneToMany
-    @JoinTable(name = "td_dir",
-            joinColumns = {@JoinColumn(name = "userId")},
-            inverseJoinColumns = {@JoinColumn(name = "id")})
-    List<Dir> dirs;
+    @ManyToMany
+    @JoinTable(name = "rel_user_dir",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "dir_id", referencedColumnName = "dir_id")})
+    Set<Dir> dirs;
 }
