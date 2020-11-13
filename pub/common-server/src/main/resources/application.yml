@@ -24,11 +24,6 @@ hystrix:
           thread:
             timeoutInMilliseconds: 5000
 
-
-#log
-logging:
-  config: classpath:logback-admin.xml
-
 td:
   swagger:
     enable: true
