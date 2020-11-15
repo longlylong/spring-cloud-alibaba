@@ -4,28 +4,27 @@ server:
 spring:
   application:
     name: server-gateway-a
-
+  profiles:
+    active: local
   main:
     allow-bean-definition-overriding: true
 
-  profiles:
-    active: local
-
-  #网关配置了 微服务也要配置的
+  #上传那文件大小 网关配置了 微服务也要配置的
   servlet:
     multipart:
       max-file-size: 20MB
       max-request-size: 20MB
 
-  #  redis:
-  #    host: 127.0.0.1
-  #    port: 6379
+  #redis配置
+#  redis:
+#      host: 127.0.0.1
+#      port: 6379
 
   cloud:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
-
+    #流量访问 nacos配置
     sentinel:
       transport:
         dashboard: localhost:8080
@@ -46,19 +45,29 @@ spring:
             dataId: ${spring.application.name}-gateway-api
             groupId: SENTINEL_GROUP
             rule-type: gw-api-group
-
+    #网关配置
     gateway:
+      #跨域配置 (CorsConfig可以二选一) 网关配置了微服务就不需要配置了 否则不生效的
+#      globalcors:
+#        cors-configurations:
+#          '[/**]':
+#            allowCredentials: true
+#            allowedOrigins: "*"
+#            allowedMethods: "*"
+#            allowedHeaders: "*"
+
       discovery:
         locator:
           enabled: false
           lowerCaseServiceId: true
+      #熔断配置
       default-filters:
         - name: Hystrix
           args:
             name: fallbackcmd
             fallbackUri: forward:/globalFallback
+      #路由配置
       routes:
-        #api服务
         - id: api-v1
           uri: lb://api-v1
           predicates:
@@ -72,7 +81,6 @@ spring:
         #            - Path=/v1/user-ss/**
         #          filters:
         #            - StripPrefix=2
-        #id服务
         - id: common-server-v1
           uri: lb://common-server-v1
           predicates:
@@ -95,6 +103,11 @@ hystrix:
           strategy: SEMAPHORE
           thread:
             timeoutInMilliseconds: 5000
+
+#配置ribbon访问的超时时间
+ribbon:
+  ConnectionTimeout: 10000
+  ReadTimeout: 10000
 
 td:
   swagger:
