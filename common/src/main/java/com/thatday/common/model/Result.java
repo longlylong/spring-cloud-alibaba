@@ -46,6 +46,10 @@ public class Result<T> implements Serializable {
         return build(StatusCode.Exception_Error, errorMsg);
     }
 
+    public static <T> Result<T> buildRPCError() {
+        return build(StatusCode.RPC_Error, "服务维护中");
+    }
+
     public static <T> Result<T> buildSentinelError() {
         return build(StatusCode.Sentinel_Error, "操作太快");
     }

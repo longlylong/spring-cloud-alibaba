@@ -102,7 +102,7 @@ hystrix:
         isolation:
           strategy: SEMAPHORE
           thread:
-            timeoutInMilliseconds: 6000
+            timeoutInMilliseconds: 16000
 
 td:
   swagger:

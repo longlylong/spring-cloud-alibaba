@@ -2,7 +2,7 @@ package com.mm.admin.common.exception;
 
 import com.thatday.common.exception.TDExceptionHandler;
 import com.thatday.common.model.Result;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @ControllerAdvice
 @ResponseBody
-@Slf4j
+@Log4j2
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)

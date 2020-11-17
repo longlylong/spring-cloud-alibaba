@@ -24,6 +24,7 @@ public class LoginController {
     EnvConfig envConfig;
     @Autowired
     UserService userService;
+
     @DubboReference(check = false)
     CommonService commonService;
 
