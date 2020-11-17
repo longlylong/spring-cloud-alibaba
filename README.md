@@ -9,22 +9,23 @@ Plugins：
 	Spring Cloud 2.2.10
 	Spring Cloud Alibaba 2.2.3
 
-	Spring Cloud Gateway
-	-Rate Limit
-	-Load Balance
+	Spring Cloud Gateway 网关
+	-Rate Limit          Api限流
+	-Load Balance        流量负载
 
-	Nacos 1.3.2
-	-DiscoveryClient
-	-Nacos-config
+	Nacos 1.3.2      服务中心,配置中心
+	-DiscoveryClient 服务发现
+	-Nacos-config    服务配置
 
-	Sentinel 1.8.0 Datasource Nacos
+    Dubbo 2.7.8      服务间通信
+
+	Sentinel 1.8.0   限流,降级,熔断
+	-Datasource Nacos
 	
 	JPA+QueryDsl(免去直接写SQL,用法和写sql一样灵活)
 
-    Dubbo 2.7.8 服务间通信
-
-	RocketMQ 4.5.0
-	Knife4j 2.0.7(Swagger 2.10.5)
+	RocketMQ 4.5.0   消息队列
+	Knife4j 2.0.7    Api文档(Swagger 2.10.5)
 
 
 单体应用改造：
