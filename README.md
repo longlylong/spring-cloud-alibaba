@@ -18,7 +18,7 @@ Plugins：
 	-Nacos-config
 
 	Sentinel 1.8.0 Datasource Nacos
-	Feign
+	
 	JPA+QueryDsl(免去直接写SQL,用法和写sql一样灵活)
 
     Dubbo 2.7.8 服务间通信
