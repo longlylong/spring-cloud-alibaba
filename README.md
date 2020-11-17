@@ -21,6 +21,8 @@ Plugins：
 	Feign
 	JPA+QueryDsl(免去直接写SQL,用法和写sql一样灵活)
 
+    Dubbo 2.7.8 服务间通信
+
 	RocketMQ 4.5.0
 	Knife4j 2.0.7(Swagger 2.10.5)
 
@@ -34,9 +36,9 @@ Plugins：
 
 	Common （公共模块）
 	--constant （常量）
-	--controller （controller基类）
+	--dubbo （服务间通信service接口）
 	--exception （全局异常配置）
-	--Jackson （Jackson配置）
+	--jackson （Jackson配置）
 	--model （模块之间公用的对象）
 	--rocketmp （rocketmq配置）
 	--utils （模块之间共用的util）
@@ -81,6 +83,9 @@ Plugins：
     
     Nacos
     https://nacos.io
+    
+    Dubbo
+    http://dubbo.apache.org
     
     Sentinel 1.8.0 控制台 已改造完 持久化到Nacos    
     https://github.com/longlylong/Sentinel

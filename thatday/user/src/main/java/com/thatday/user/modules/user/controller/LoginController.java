@@ -6,9 +6,10 @@ import com.thatday.user.modules.user.entity.User;
 import com.thatday.user.modules.user.service.UserService;
 import com.thatday.user.modules.user.vo.LoginPhoneVo;
 import com.thatday.user.modules.user.vo.LoginWeChatVo;
-import com.thatday.user.service.feign.CommonService;
+import com.thatday.common.dubbo.CommonService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class LoginController {
     EnvConfig envConfig;
     @Autowired
     UserService userService;
-    @Autowired
+    @DubboReference(check = false)
     CommonService commonService;
 
     @ApiOperation("test")

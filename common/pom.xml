@@ -106,13 +106,13 @@
             <version>${aliyun-java-sdk-dysmsapi.version}</version>
         </dependency>
 
-        <!--aop切面-->
+        <!--Aop切面-->
         <!--<dependency>-->
         <!--<groupId>org.springframework.boot</groupId>-->
         <!--<artifactId>spring-boot-starter-aop</artifactId>-->
         <!--</dependency>-->
 
-        <!-- netty -->
+        <!-- Netty -->
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>

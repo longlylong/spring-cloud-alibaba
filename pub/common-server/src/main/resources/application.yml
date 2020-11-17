@@ -3,6 +3,8 @@ server:
   tomcat:
     basedir: /home/temp
 
+nacos-addr: 127.0.0.1:8848
+
 spring:
   application:
     name: common-server-v1
@@ -13,16 +15,21 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
+        server-addr: ${nacos-addr}
 
-#配置断路由的超时时间
-hystrix:
-  command:
-    defalut:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 5000
+#配置Dubbo
+dubbo:
+  application:
+    name: dubbo-${spring.application.name}
+  registry:
+    id: dubbo-${spring.application.name}
+    timeout: 5000
+    address: ${nacos-addr}
+    protocol: nacos
+  consumer:
+    timeout: 5000
+  provider:
+    timeout: 5000
 
 td:
   swagger:

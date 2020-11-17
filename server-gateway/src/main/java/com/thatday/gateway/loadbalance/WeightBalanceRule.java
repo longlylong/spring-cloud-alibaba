@@ -17,11 +17,15 @@ import java.util.Map;
 public class WeightBalanceRule extends AbstractLoadBalancerRule {
 
     private Server weightChooseRule(Object key, List<Server> reachableServers) {
+        if (reachableServers.size() == 0) {
+            return null;
+        }
+
         if (reachableServers.size() == 1) {
             return reachableServers.get(0);
         }
 
-        String serverName = "";
+        String serverName = key.toString();
 
         //全部权重相加
         int totalWeight = 0;

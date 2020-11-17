@@ -3,6 +3,8 @@ server:
   tomcat:
     basedir: /home/temp
 
+nacos-addr: 127.0.0.1:8848
+
 spring:
   application:
     name: api-v1
@@ -22,7 +24,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
+        server-addr: ${nacos-addr}
 
     sentinel:
       transport:
@@ -32,7 +34,7 @@ spring:
           nacos:
             username: nacos
             password: nacos
-            server-addr: localhost:8848
+            server-addr: ${nacos-addr}
             dataId: ${spring.application.name}-flow-rules
             groupId: SENTINEL_GROUP
             # 规则类型，取值见：
@@ -42,7 +44,7 @@ spring:
           nacos:
             username: nacos
             password: nacos
-            server-addr: localhost:8848
+            server-addr: ${nacos-addr}
             dataId: ${spring.application.name}-degrade-rules
             groupId: SENTINEL_GROUP
             rule-type: degrade
@@ -50,7 +52,7 @@ spring:
           nacos:
             username: nacos
             password: nacos
-            server-addr: localhost:8848
+            server-addr: ${nacos-addr}
             dataId: ${spring.application.name}-system-rules
             groupId: SENTINEL_GROUP
             rule-type: system
@@ -58,7 +60,7 @@ spring:
           nacos:
             username: nacos
             password: nacos
-            server-addr: localhost:8848
+            server-addr: ${nacos-addr}
             dataId: ${spring.application.name}-authority-rules
             groupId: SENTINEL_GROUP
             rule-type: authority
@@ -66,21 +68,24 @@ spring:
           nacos:
             username: nacos
             password: nacos
-            server-addr: localhost:8848
+            server-addr: ${nacos-addr}
             dataId: ${spring.application.name}-param-flow-rules
             groupId: SENTINEL_GROUP
             rule-type: param-flow
 
-#配置断路由的超时时间
-hystrix:
-  command:
-    defalut:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 5000
-
-
+#配置Dubbo
+dubbo:
+  application:
+    name: dubbo-${spring.application.name}
+  registry:
+    id: dubbo-${spring.application.name}
+    timeout: 5000
+    address: ${nacos-addr}
+    protocol: nacos
+  consumer:
+    timeout: 5000
+  provider:
+    timeout: 5000
 
 td:
   swagger:
@@ -100,3 +105,4 @@ wx:
     configs:
       - appid: wx111111111110
         secret: 111111111111111111111111111
+

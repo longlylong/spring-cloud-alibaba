@@ -102,12 +102,7 @@ hystrix:
         isolation:
           strategy: SEMAPHORE
           thread:
-            timeoutInMilliseconds: 5000
-
-#配置ribbon访问的超时时间
-ribbon:
-  ConnectionTimeout: 10000
-  ReadTimeout: 10000
+            timeoutInMilliseconds: 6000
 
 td:
   swagger:

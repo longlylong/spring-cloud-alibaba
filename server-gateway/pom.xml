@@ -21,21 +21,21 @@
             <scope>compile</scope>
         </dependency>
 
-        <!-- 服务发现 -->
+        <!-- 服务发现 Nacos -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
             <version>${spring-cloud-alibaba.version}</version>
         </dependency>
 
-        <!-- 配置服务 -->
+        <!-- 配置服务 Nacos -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
             <version>${spring-cloud-alibaba.version}</version>
         </dependency>
 
-        <!-- 服务网关 -->
+        <!-- 服务网关 Spring Cloud Gateway -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
@@ -47,7 +47,7 @@
             <artifactId>spring-retry</artifactId>
         </dependency>
 
-        <!-- 熔断服务 -->
+        <!-- 熔断服务 Netflix Hystrix-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
@@ -67,14 +67,14 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <!-- api接口 -->
+        <!-- Knife4j Api文档接口 -->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
             <version>${knife4j-version}</version>
         </dependency>
 
-        <!-- 阿里的限流 -->
+        <!-- 阿里的限流 Sentinel -->
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-spring-cloud-gateway-adapter</artifactId>

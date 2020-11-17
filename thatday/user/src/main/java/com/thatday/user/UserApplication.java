@@ -3,11 +3,11 @@ package com.thatday.user;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 
@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients
+@EnableDubbo
 public class UserApplication {
 
     public static void main(String[] args) {
