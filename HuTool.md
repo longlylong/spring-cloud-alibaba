@@ -1,6 +1,6 @@
 工具包文档地址
     
-    https:hutool.cn/docs
+    https://hutool.cn/docs
 
 类型转换工具类-Convert
 
@@ -188,6 +188,8 @@ Office文档操作
 系统属性调用-SystemUtil
 
 图形验证码CaptchaUtil
+
+锁工具类 LockUtil
 
 网络Socket
     

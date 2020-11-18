@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.UUID;
 
 /**
  * 封装各种生成唯一性ID算法的工具类.
@@ -26,11 +25,6 @@ public class IdGen {
     private static volatile int num = 100000;
     private final static String baseNum = "0123456789";
     private final static String baseString = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-    //使用SecureRandom随机生成Long
-    public static long randomLong() {
-        return Math.abs(random.nextLong());
-    }
 
     //7位随机字符
     public static String getRandom7String() {
@@ -52,9 +46,14 @@ public class IdGen {
         return sb.toString();
     }
 
+    //objectId
+    public static String objId() {
+        return IdUtil.objectId();
+    }
+
     //UUID中间无-分割
     public static String uuid() {
-        return UUID.randomUUID().toString().replaceAll("-", "");
+        return IdUtil.fastSimpleUUID();
     }
 
     //多个服务的话用这个 port为每个服务的端口号
@@ -119,6 +118,8 @@ public class IdGen {
         System.out.println(getNextTimeCode());
         System.out.println(getNextTimeCode(17200));
         System.out.println(getNextTimeCode(7200));
+        System.out.println(IdUtil.objectId());
+        System.out.println(IdUtil.objectId());
         System.out.println(IdUtil.getSnowflake(1, 2).nextIdStr());
         System.out.println(IdUtil.getSnowflake(1, 2).nextIdStr());
     }
