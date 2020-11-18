@@ -107,6 +107,3 @@ hystrix:
 td:
   swagger:
     enable: true
-
-log:
-  file-name: /home/that-day/logs/${spring.application.name}
