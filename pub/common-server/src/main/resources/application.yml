@@ -1,9 +1,12 @@
 server:
-  port: 7900
+  port: 7901
   tomcat:
     basedir: /home/temp
 
-nacos-addr: 127.0.0.1:8848
+nacos-config:
+  addr: 127.0.0.1:8848
+  user: nacos
+  psw: nacos
 
 spring:
   application:
@@ -14,8 +17,8 @@ spring:
 
   cloud:
     nacos:
-      discovery:
-        server-addr: ${nacos-addr}
+      #discovery与config的server-addr没配置默认是读取这个的
+      server-addr: ${nacos-config.addr}
 
 #配置Dubbo
 dubbo:
@@ -24,13 +27,14 @@ dubbo:
   registry:
     id: dubbo-${spring.application.name}
     timeout: 5000
-    address: ${nacos-addr}
+    address: ${nacos-config.addr}
     protocol: nacos
   consumer:
     timeout: 5000
     check: false
   provider:
     timeout: 5000
+    protocol: dubbo
 
 td:
   swagger:

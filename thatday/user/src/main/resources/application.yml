@@ -3,7 +3,10 @@ server:
   tomcat:
     basedir: /home/temp
 
-nacos-addr: 127.0.0.1:8848
+nacos-config:
+  addr: 127.0.0.1:8848
+  user: nacos
+  psw: nacos
 
 spring:
   application:
@@ -23,8 +26,8 @@ spring:
 
   cloud:
     nacos:
-      discovery:
-        server-addr: ${nacos-addr}
+      #discovery与config的server-addr没配置默认是读取这个的
+      server-addr: ${nacos-config.addr}
 
     sentinel:
       transport:
@@ -32,9 +35,9 @@ spring:
       datasource:
         flow:
           nacos:
-            username: nacos
-            password: nacos
-            server-addr: ${nacos-addr}
+            username: ${nacos-config.user}
+            password: ${nacos-config.psw}
+            server-addr: ${nacos-config.addr}
             dataId: ${spring.application.name}-flow-rules
             groupId: SENTINEL_GROUP
             # 规则类型，取值见：
@@ -42,33 +45,33 @@ spring:
             rule-type: flow
         degrade:
           nacos:
-            username: nacos
-            password: nacos
-            server-addr: ${nacos-addr}
+            username: ${nacos-config.user}
+            password: ${nacos-config.psw}
+            server-addr: ${nacos-config.addr}
             dataId: ${spring.application.name}-degrade-rules
             groupId: SENTINEL_GROUP
             rule-type: degrade
         system:
           nacos:
-            username: nacos
-            password: nacos
-            server-addr: ${nacos-addr}
+            username: ${nacos-config.user}
+            password: ${nacos-config.psw}
+            server-addr: ${nacos-config.addr}
             dataId: ${spring.application.name}-system-rules
             groupId: SENTINEL_GROUP
             rule-type: system
         authority:
           nacos:
-            username: nacos
-            password: nacos
-            server-addr: ${nacos-addr}
+            username: ${nacos-config.user}
+            password: ${nacos-config.psw}
+            server-addr: ${nacos-config.addr}
             dataId: ${spring.application.name}-authority-rules
             groupId: SENTINEL_GROUP
             rule-type: authority
         param-flow:
           nacos:
-            username: nacos
-            password: nacos
-            server-addr: ${nacos-addr}
+            username: ${nacos-config.user}
+            password: ${nacos-config.psw}
+            server-addr: ${nacos-config.addr}
             dataId: ${spring.application.name}-param-flow-rules
             groupId: SENTINEL_GROUP
             rule-type: param-flow
@@ -87,6 +90,7 @@ dubbo:
     check: false
   provider:
     timeout: 5000
+    protocol: dubbo
 
 td:
   swagger:

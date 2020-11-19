@@ -1,6 +1,11 @@
 server:
   port: 8000
 
+nacos-config:
+  addr: 127.0.0.1:8848
+  user: nacos
+  psw: nacos
+
 spring:
   application:
     name: server-gateway-a
@@ -22,8 +27,9 @@ spring:
 
   cloud:
     nacos:
-      discovery:
-        server-addr: 127.0.0.1:8848
+      #discovery与config的server-addr没配置默认是读取这个的
+      server-addr: ${nacos-config.addr}
+
     #流量访问 nacos配置
     sentinel:
       transport:
@@ -31,17 +37,17 @@ spring:
       datasource:
         gw-flow:
           nacos:
-            username: nacos
-            password: nacos
-            server-addr: localhost:8848
+            username: ${nacos-config.user}
+            password: ${nacos-config.psw}
+            server-addr: ${nacos-config.addr}
             dataId: ${spring.application.name}-gateway-flow
             groupId: SENTINEL_GROUP
             rule-type: gw-flow
         gw-api-group:
           nacos:
-            username: nacos
-            password: nacos
-            server-addr: localhost:8848
+            username: ${nacos-config.user}
+            password: ${nacos-config.psw}
+            server-addr: ${nacos-config.addr}
             dataId: ${spring.application.name}-gateway-api
             groupId: SENTINEL_GROUP
             rule-type: gw-api-group
