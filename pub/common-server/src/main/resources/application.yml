@@ -28,6 +28,7 @@ dubbo:
     protocol: nacos
   consumer:
     timeout: 5000
+    check: false
   provider:
     timeout: 5000
 

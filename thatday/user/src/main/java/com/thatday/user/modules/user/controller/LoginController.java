@@ -25,7 +25,7 @@ public class LoginController {
     @Autowired
     UserService userService;
 
-    @DubboReference(check = false)
+    @DubboReference
     CommonService commonService;
 
     @ApiOperation("test")
