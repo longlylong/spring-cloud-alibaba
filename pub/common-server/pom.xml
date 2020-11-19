@@ -19,10 +19,17 @@
             <version>2.0</version>
         </dependency>
 
-        <!-- 服务发现 Naocs-->
+        <!-- 服务发现 Nacos-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <version>${spring-cloud-alibaba.version}</version>
+        </dependency>
+
+        <!-- 服务配置 Nacos-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
             <version>${spring-cloud-alibaba.version}</version>
         </dependency>
 
@@ -39,6 +46,8 @@
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
             <version>${spring-cloud-alibaba.version}</version>
         </dependency>
+
+        <!-- 流量防卫 Sentinel 数据源 nacos-->
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-datasource-nacos</artifactId>
