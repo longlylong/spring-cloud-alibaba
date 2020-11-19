@@ -87,7 +87,10 @@ dubbo:
     protocol: nacos
   consumer:
     timeout: 5000
+    #启动不检查服务提供者,检查不到提供者,则启动不了项目
     check: false
+    #负载均衡 默认是random随机的 现在这个是轮询
+    loadbalance: roundrobin
   provider:
     timeout: 5000
     protocol: dubbo
