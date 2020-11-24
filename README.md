@@ -11,7 +11,7 @@ Plugins：
 
 	Spring Cloud Gateway 网关
 	-Rate Limit          Api限流
-	-Load Balance        流量负载
+	-Load Balance        自定义流量负载(默认轮询)
 
 	Nacos 1.3.2      服务中心,配置中心
 	-DiscoveryClient 服务发现
@@ -22,11 +22,11 @@ Plugins：
 	Sentinel 1.8.0   限流,降级,熔断
 	-Datasource Nacos
 	
-	JPA+QueryDsl(免去直接写SQL,用法和写sql一样灵活)
+	JPA+QueryDsl     免去直接写SQL,用法和写sql一样灵活
+	Seata 1.4.0      分布式事务http://seata.io
 
 	RocketMQ 4.5.0   消息队列
 	Knife4j 3.0.2    Api文档(Swagger 3.0.0)
-
 
 单体应用改造：
 
