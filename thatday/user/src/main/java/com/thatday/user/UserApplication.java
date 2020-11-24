@@ -2,6 +2,7 @@ package com.thatday.user;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.hibernate.validator.HibernateValidator;
@@ -21,6 +22,7 @@ import java.text.SimpleDateFormat;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableDubbo
+@EnableKnife4j
 public class UserApplication {
 
     public static void main(String[] args) {

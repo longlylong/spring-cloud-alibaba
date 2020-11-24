@@ -9,10 +9,8 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 @Configuration
-@EnableSwagger2WebMvc
 public class SwaggerConfig {
 
     @Autowired
@@ -32,7 +30,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {// 创建API的基本信息，这些信息会在Swagger UI中进行显示
         return new ApiInfoBuilder()
-                .title("用户模块 RESTful APIs")// API 标题
+                .title("公共模块 APIs")// API 标题
                 .description("King科技有限公司出品")// API描述
                 .version("1.0")// 版本号
                 .build();

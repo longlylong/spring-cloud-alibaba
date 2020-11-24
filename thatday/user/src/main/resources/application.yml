@@ -83,7 +83,7 @@ dubbo:
   registry:
     id: dubbo-${spring.application.name}
     timeout: 5000
-    address: ${nacos-addr}
+    address: ${nacos-config.addr}
     protocol: nacos
   consumer:
     timeout: 5000

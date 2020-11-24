@@ -94,7 +94,6 @@
             <artifactId>sentinel-datasource-nacos</artifactId>
             <version>${sentinel-gateway.version}</version>
         </dependency>
-
     </dependencies>
 
     <build>

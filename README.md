@@ -25,7 +25,7 @@ Plugins：
 	JPA+QueryDsl(免去直接写SQL,用法和写sql一样灵活)
 
 	RocketMQ 4.5.0   消息队列
-	Knife4j 2.0.7    Api文档(Swagger 2.10.5)
+	Knife4j 3.0.2    Api文档(Swagger 3.0.0)
 
 
 单体应用改造：

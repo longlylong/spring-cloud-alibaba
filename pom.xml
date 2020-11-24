@@ -29,7 +29,7 @@
 
         <jackson-version>2.9.10.5</jackson-version>
         <fastjson-version>1.2.71</fastjson-version>
-        <knife4j-version>2.0.7</knife4j-version>
+        <knife4j-version>3.0.2</knife4j-version>
         <mysql-connector.version>8.0.20</mysql-connector.version>
         <quartz-version>2.3.2</quartz-version>
 

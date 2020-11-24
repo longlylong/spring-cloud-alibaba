@@ -22,7 +22,7 @@ public class SwaggerDocConfig implements SwaggerResourcesProvider {
 
         if (envConfig.isEnableSwagger()) {
             resources.add(swaggerResource("用户模块" , "/v1/api/v2/api-docs"));
-            resources.add(swaggerResource("后台管理" , "/v1/admin/v2/api-docs"));
+//            resources.add(swaggerResource("后台管理" , "/v1/admin/v2/api-docs"));
             resources.add(swaggerResource("公用模块" , "/v1/common/v2/api-docs"));
         }
 
