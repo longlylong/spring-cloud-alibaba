@@ -2,10 +2,10 @@ package com.thatday.user.service;
 
 import com.thatday.common.model.PageInfoVo;
 import com.thatday.common.model.PageResult;
-import com.thatday.common.utils.TemplateCodeUtil;
+import com.thatday.common.utils.BeanUtil;
 import com.thatday.user.repository.BaseDao;
 import com.thatday.user.repository.BaseEntity;
-import com.thatday.user.repository.JPAUtil;
+import com.thatday.user.repository.SpecificationListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -33,38 +33,43 @@ public interface BaseService<ENTITY extends BaseEntity, ID, DAO extends BaseDao<
     /**
      * 获取全部数据
      */
-    List<ENTITY> getAllList(JPAUtil.SpecificationListener otherConditionListener);
+    List<ENTITY> getAll();
+
+    /**
+     * 获取全部数据
+     */
+    List<ENTITY> getAll(SpecificationListener otherConditionListener);
 
     /**
      * 获取TARGET全部列表
      */
-    <TARGET> List<TARGET> getAllDTOList(Class<TARGET> targetClass,
-                                        JPAUtil.SpecificationListener otherConditionListener,
-                                        TemplateCodeUtil.OnTransListener<TARGET, ENTITY> transDTOListener);
+    <TARGET> List<TARGET> getAllToDTO(Class<TARGET> targetClass,
+                                      SpecificationListener otherConditionListener,
+                                      BeanUtil.OnTransListener<TARGET, ENTITY> transDTOListener);
 
     /**
      * 获取Entity分页列表
      */
-    Page<ENTITY> getPageList(PageRequest pageRequest, JPAUtil.SpecificationListener otherConditionListener);
+    Page<ENTITY> getPage(PageRequest pageRequest, SpecificationListener otherConditionListener);
 
     /**
      * 获取Entity分页列表
      */
-    PageResult<ENTITY> getPageResultList(PageRequest pageRequest, JPAUtil.SpecificationListener otherConditionListener);
+    PageResult<ENTITY> getPageResult(PageRequest pageRequest, SpecificationListener otherConditionListener);
 
     /**
      * 获取DTO分页列表
      */
-    <TARGET> PageResult<TARGET> getPageResultDTOList(PageRequest pageRequest, Class<TARGET> targetClass,
-                                                     JPAUtil.SpecificationListener otherConditionListener,
-                                                     TemplateCodeUtil.OnTransListener<TARGET, ENTITY> transDTOListener);
+    <TARGET> PageResult<TARGET> getPageResultToDTO(PageRequest pageRequest, Class<TARGET> targetClass,
+                                                   SpecificationListener otherConditionListener,
+                                                   BeanUtil.OnTransListener<TARGET, ENTITY> transDTOListener);
 
     /**
      * 获取DTO顶置分页列表
      */
-    <TARGET> PageResult<TARGET> getPageResultStickDTOList(PageInfoVo vo, @NotNull Set<ID> stickIds, Class<TARGET> targetClass,
-                                                          JPAUtil.SpecificationListener otherConditionListener,
-                                                          TemplateCodeUtil.OnTransListener<TARGET, ENTITY> stickDTOListener,
-                                                          TemplateCodeUtil.OnTransListener<TARGET, ENTITY> otherDTOListener);
+    <TARGET> PageResult<TARGET> getStickPageResultToDTO(PageInfoVo vo, @NotNull Set<ID> stickIds, Class<TARGET> targetClass,
+                                                        SpecificationListener otherConditionListener,
+                                                        BeanUtil.OnTransListener<TARGET, ENTITY> stickDTOListener,
+                                                        BeanUtil.OnTransListener<TARGET, ENTITY> otherDTOListener);
 
 }

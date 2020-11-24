@@ -1,6 +1,5 @@
 package com.thatday.common.utils;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thatday.common.exception.TDExceptionHandler;
 
@@ -11,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TemplateCodeUtil {
+public class BeanUtil extends cn.hutool.core.bean.BeanUtil {
 
     /**
      * 对象集合转换，两个对象的属性名字需要一样
@@ -28,7 +27,7 @@ public class TemplateCodeUtil {
             List<T> toList = new ArrayList<>();
             for (E source : sourceList) {
                 T target = clazz.newInstance();
-                BeanUtil.copyProperties(source, target);
+                copyProperties(source, target);
                 if (onTransListener != null) {
                     onTransListener.doSomeThing(target, source);
                 }
@@ -46,7 +45,7 @@ public class TemplateCodeUtil {
     public static <T, E> T transTo(E source, Class<T> clazz) {
         try {
             T t = clazz.newInstance();
-            BeanUtil.copyProperties(source, t);
+            copyProperties(source, t);
             return t;
         } catch (Exception ex) {
             throw TDExceptionHandler.throwGlobalException("数据转换异常,请联系程序猿!", ex);
@@ -102,13 +101,10 @@ public class TemplateCodeUtil {
         String key(T t);
     }
 
-
     /**
      * 编写一些额外逻辑
      */
     public interface OnTransListener<T, E> {
         void doSomeThing(T t, E e);
     }
-
-
 }

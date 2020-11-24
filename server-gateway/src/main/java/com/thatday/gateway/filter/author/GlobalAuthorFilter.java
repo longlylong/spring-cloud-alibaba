@@ -4,7 +4,6 @@ import cn.hutool.json.JSONUtil;
 import com.thatday.common.token.TokenConstant;
 import com.thatday.common.token.TokenUtil;
 import com.thatday.common.token.UserInfo;
-import com.thatday.common.utils.TemplateCodeUtil;
 import com.thatday.gateway.filter.FilterOrdered;
 import com.thatday.gateway.provider.AuthorSkipProvider;
 import com.thatday.gateway.provider.ResponseProvider;

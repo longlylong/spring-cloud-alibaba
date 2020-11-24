@@ -55,7 +55,7 @@ public class TDExceptionHandler {
             if (e.getMessage().contains("InvalidFormatException")) {
                 return Result.buildParamError("不能输入小数或非法字符");
             } else {
-                return Result.buildExceptionError("操作失败，请联系客服. " + e.getMessage());
+                return Result.buildExceptionError("操作失败，请联系客服. " + e.getClass().getSimpleName());
             }
         } else {
             return Result.buildExceptionError("操作失败，请联系客服（" + e.getClass().getSimpleName() + "）");

@@ -2,7 +2,7 @@ package com.thatday.user.repository;
 
 import com.thatday.common.model.PageInfoVo;
 import com.thatday.common.model.PageResult;
-import com.thatday.common.utils.TemplateCodeUtil;
+import com.thatday.common.utils.BeanUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -68,13 +68,13 @@ public class JPAUtil {
         return setPageResult(curPage, fromPage, clazz, null);
     }
 
-    public static <T, Y> PageResult<T> setPageResult(Integer curPage, Page<Y> fromPage, Class<T> clazz, TemplateCodeUtil.OnTransListener<T, Y> onTransListener) {
+    public static <T, Y> PageResult<T> setPageResult(Integer curPage, Page<Y> fromPage, Class<T> clazz, BeanUtil.OnTransListener<T, Y> onTransListener) {
         PageResult<T> pageResult = new PageResult<>();
         pageResult.setCurPage(curPage);
         pageResult.setTotalCount(fromPage.getTotalElements());
         pageResult.setTotalPage(fromPage.getTotalPages());
 
-        List<T> transTo = TemplateCodeUtil.transTo(fromPage.getContent(), clazz, onTransListener);
+        List<T> transTo = BeanUtil.transTo(fromPage.getContent(), clazz, onTransListener);
         pageResult.setDataList(transTo);
 
         return pageResult;
@@ -92,10 +92,6 @@ public class JPAUtil {
             }
         };
         return specification;
-    }
-
-    public interface SpecificationListener {
-        void addSpecification(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder builder, List<Predicate> predicates);
     }
 
     public static class StickPageRequest extends PageRequest {

@@ -12,7 +12,7 @@ import org.apache.http.impl.client.HttpClients;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-public class HttpUtil {
+public class HttpUtil extends cn.hutool.http.HttpUtil {
 
     public static <T> T getResult(HttpUriRequest httpUriRequest, Class<T> clazz) {
         try {

@@ -4,10 +4,11 @@ import com.thatday.common.exception.GlobalException;
 import com.thatday.common.model.PageInfoVo;
 import com.thatday.common.model.PageResult;
 import com.thatday.common.token.UserInfo;
-import com.thatday.common.utils.TemplateCodeUtil;
+import com.thatday.common.utils.BeanUtil;
 import com.thatday.user.repository.BaseDao;
 import com.thatday.user.repository.BaseEntity;
 import com.thatday.user.repository.JPAUtil;
+import com.thatday.user.repository.SpecificationListener;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -45,7 +46,7 @@ public abstract class BaseServiceImpl<ENTITY extends BaseEntity, ID, DAO extends
     @Override
     public ENTITY getLastOneById() {
         PageRequest pageRequest = JPAUtil.prIdDesc(0, 1);
-        Page<ENTITY> page = getPageList(pageRequest, null);
+        Page<ENTITY> page = getPage(pageRequest, null);
         if (page.getContent().isEmpty()) {
             return null;
         }
@@ -72,7 +73,12 @@ public abstract class BaseServiceImpl<ENTITY extends BaseEntity, ID, DAO extends
     }
 
     @Override
-    public List<ENTITY> getAllList(JPAUtil.SpecificationListener otherConditionListener) {
+    public List<ENTITY> getAll() {
+        return getAll(null);
+    }
+
+    @Override
+    public List<ENTITY> getAll(SpecificationListener otherConditionListener) {
         Specification<ENTITY> specification = JPAUtil.makeSpecification((root, criteriaQuery, builder, predicates) -> {
             if (otherConditionListener != null) {
                 otherConditionListener.addSpecification(root, criteriaQuery, builder, predicates);
@@ -82,12 +88,12 @@ public abstract class BaseServiceImpl<ENTITY extends BaseEntity, ID, DAO extends
     }
 
     @Override
-    public <TARGET> List<TARGET> getAllDTOList(Class<TARGET> targetClass, JPAUtil.SpecificationListener otherConditionListener, TemplateCodeUtil.OnTransListener<TARGET, ENTITY> transDTOListener) {
-        return TemplateCodeUtil.transTo(getAllList(otherConditionListener), targetClass, transDTOListener);
+    public <TARGET> List<TARGET> getAllToDTO(Class<TARGET> targetClass, SpecificationListener otherConditionListener, BeanUtil.OnTransListener<TARGET, ENTITY> transDTOListener) {
+        return BeanUtil.transTo(getAll(otherConditionListener), targetClass, transDTOListener);
     }
 
     @Override
-    public Page<ENTITY> getPageList(PageRequest pageRequest, JPAUtil.SpecificationListener otherConditionListener) {
+    public Page<ENTITY> getPage(PageRequest pageRequest, SpecificationListener otherConditionListener) {
         Specification<ENTITY> specification = JPAUtil.makeSpecification((root, criteriaQuery, builder, predicates) -> {
             if (otherConditionListener != null) {
                 otherConditionListener.addSpecification(root, criteriaQuery, builder, predicates);
@@ -97,24 +103,24 @@ public abstract class BaseServiceImpl<ENTITY extends BaseEntity, ID, DAO extends
     }
 
     @Override
-    public PageResult<ENTITY> getPageResultList(PageRequest pageRequest, JPAUtil.SpecificationListener otherConditionListener) {
-        Page<ENTITY> page = getPageList(pageRequest, otherConditionListener);
+    public PageResult<ENTITY> getPageResult(PageRequest pageRequest, SpecificationListener otherConditionListener) {
+        Page<ENTITY> page = getPage(pageRequest, otherConditionListener);
         return JPAUtil.setPageResult(pageRequest.getPageNumber(), page);
     }
 
     @Override
-    public <TARGET> PageResult<TARGET> getPageResultDTOList(PageRequest pageRequest, Class<TARGET> targetClass,
-                                                            JPAUtil.SpecificationListener otherConditionListener,
-                                                            TemplateCodeUtil.OnTransListener<TARGET, ENTITY> transDTOListener) {
-        Page<ENTITY> pageList = getPageList(pageRequest, otherConditionListener);
+    public <TARGET> PageResult<TARGET> getPageResultToDTO(PageRequest pageRequest, Class<TARGET> targetClass,
+                                                          SpecificationListener otherConditionListener,
+                                                          BeanUtil.OnTransListener<TARGET, ENTITY> transDTOListener) {
+        Page<ENTITY> pageList = getPage(pageRequest, otherConditionListener);
         return JPAUtil.setPageResult(pageRequest.getPageNumber(), pageList, targetClass, transDTOListener);
     }
 
     @Override
-    public <TARGET> PageResult<TARGET> getPageResultStickDTOList(PageInfoVo vo, @NotNull Set<ID> stickIds, Class<TARGET> targetClass,
-                                                                 JPAUtil.SpecificationListener otherConditionListener,
-                                                                 TemplateCodeUtil.OnTransListener<TARGET, ENTITY> stickDTOListener,
-                                                                 TemplateCodeUtil.OnTransListener<TARGET, ENTITY> otherDTOListener) {
+    public <TARGET> PageResult<TARGET> getStickPageResultToDTO(PageInfoVo vo, @NotNull Set<ID> stickIds, Class<TARGET> targetClass,
+                                                               SpecificationListener otherConditionListener,
+                                                               BeanUtil.OnTransListener<TARGET, ENTITY> stickDTOListener,
+                                                               BeanUtil.OnTransListener<TARGET, ENTITY> otherDTOListener) {
         Integer pageSize = vo.getPageSize();
 
         Page<ENTITY> page = getStickList(vo, stickIds, new JPAUtil.StickPageRequest(vo), false, otherConditionListener);
@@ -132,7 +138,7 @@ public abstract class BaseServiceImpl<ENTITY extends BaseEntity, ID, DAO extends
         return dtoPageResult;
     }
 
-    private Page<ENTITY> getStickList(PageInfoVo vo, Set<ID> stickIds, JPAUtil.StickPageRequest pageRequest, boolean loadOther, JPAUtil.SpecificationListener otherConditionListener) {
+    private Page<ENTITY> getStickList(PageInfoVo vo, Set<ID> stickIds, JPAUtil.StickPageRequest pageRequest, boolean loadOther, SpecificationListener otherConditionListener) {
         stickIds.add((ID) "-1");
 
         if (loadOther) {
@@ -142,7 +148,7 @@ public abstract class BaseServiceImpl<ENTITY extends BaseEntity, ID, DAO extends
             }
         }
 
-        return getPageList(pageRequest, (root, criteriaQuery, builder, predicates) -> {
+        return getPage(pageRequest, (root, criteriaQuery, builder, predicates) -> {
             if (loadOther) {
                 predicates.add(builder.not(root.get("id").in(stickIds)));
             } else {

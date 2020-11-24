@@ -1,7 +1,6 @@
 package com.thatday.user.wx.open.controller;
 
 import cn.hutool.json.JSONUtil;
-import com.thatday.common.utils.TemplateCodeUtil;
 import com.thatday.user.wx.open.dto.WXOpenLoginDTO;
 import com.thatday.user.wx.open.vo.WxLoginCallbackVo;
 import lombok.extern.log4j.Log4j2;

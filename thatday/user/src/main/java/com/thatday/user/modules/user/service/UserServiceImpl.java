@@ -53,14 +53,14 @@ public class UserServiceImpl extends BaseServiceImpl<User, String, UserDao> impl
     public void test() {
         PageRequest pageRequest = JPAUtil.prCreateTimeDesc(0, 10);
 
-        Page<User> pageList = getPageList(pageRequest, (root, criteriaQuery, builder, predicates) -> {
+        Page<User> pageList = getPage(pageRequest, (root, criteriaQuery, builder, predicates) -> {
             predicates.add(builder.equal(root.get("id"), "1"));
             //......
             //.....
         });
 
 
-        PageResult<UserDTO> pageDTOList = getPageResultDTOList(pageRequest, UserDTO.class, (root, criteriaQuery, builder, predicates) -> {
+        PageResult<UserDTO> pageDTOList = getPageResultToDTO(pageRequest, UserDTO.class, (root, criteriaQuery, builder, predicates) -> {
             predicates.add(builder.equal(root.get("id"), "1"));
             //......
             //.....
