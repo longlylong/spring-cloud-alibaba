@@ -59,7 +59,9 @@ Plugins：
 	--config （swagger入口、跨域、熔断配置）
 	--filter （过滤器）
 	----author(鉴权的)
-	----ratelimit(限流的，关联Sentinel Dashboard)
+	----ratelimit(限流,2个可以选一个用,2个用也可以)
+	------bucket(令牌桶,可本地配置,nacos上配置)
+	------nacos(关联Sentinel,需要在Dashboard配置)
 	----loadbalance(自定义负载 按照权重走的 配合nacos)
 	--provider(提供配置的类)
 

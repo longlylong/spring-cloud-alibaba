@@ -30,7 +30,7 @@ spring:
       #discovery与config的server-addr没配置默认是读取这个的
       server-addr: ${nacos-config.addr}
 
-    #流量访问 nacos配置
+    #限流 nacos配置
     sentinel:
       transport:
         dashboard: localhost:8080

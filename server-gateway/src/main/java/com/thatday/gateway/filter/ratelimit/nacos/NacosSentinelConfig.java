@@ -1,4 +1,4 @@
-package com.thatday.gateway.filter.ratelimit;
+package com.thatday.gateway.filter.ratelimit.nacos;
 
 import com.alibaba.cloud.sentinel.datasource.converter.JsonConverter;
 import com.alibaba.csp.sentinel.adapter.gateway.common.SentinelGatewayConstants;
@@ -34,9 +34,9 @@ import org.springframework.web.reactive.result.view.ViewResolver;
 import javax.annotation.PostConstruct;
 import java.util.*;
 
-@Configuration
 @Log4j2
-public class GatewayConfiguration {
+@Configuration
+public class NacosSentinelConfig {
 
     @Autowired
     GatewayProperties gatewayProperties;
@@ -45,8 +45,8 @@ public class GatewayConfiguration {
     private final ServerCodecConfigurer serverCodecConfigurer;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public GatewayConfiguration(ObjectProvider<List<ViewResolver>> viewResolversProvider,
-                                ServerCodecConfigurer serverCodecConfigurer) {
+    public NacosSentinelConfig(ObjectProvider<List<ViewResolver>> viewResolversProvider,
+                               ServerCodecConfigurer serverCodecConfigurer) {
         this.viewResolvers = viewResolversProvider.getIfAvailable(Collections::emptyList);
         this.serverCodecConfigurer = serverCodecConfigurer;
         this.objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
