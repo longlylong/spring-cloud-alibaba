@@ -17,7 +17,7 @@ Plugins：
 	-DiscoveryClient 服务发现
 	-Nacos-config    服务配置
 
-    Dubbo 2.7.8      服务间通信
+    Dubbo 2.7.8      微服务之间调用
 
 	Sentinel 1.8.0   限流,降级,熔断
 	-Datasource Nacos
