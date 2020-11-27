@@ -2,7 +2,7 @@
   "name": "mm-admin-web",
   "version": "2.5.0",
   "description": "MM-ADMIN 前端源码",
-  "author": "Zheng Jie",
+  "author": "King",
   "license": "Apache-2.0",
   "scripts": {
     "dev": "vue-cli-service serve",

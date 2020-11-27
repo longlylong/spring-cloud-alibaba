@@ -9,6 +9,10 @@ npm run dev
 ```
 
 浏览器访问 http://localhost:8013
+```
+帐号 admin
+密码 123456
+```
 
 ## 发布
 
