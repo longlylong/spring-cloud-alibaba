@@ -107,6 +107,9 @@ hystrix:
       execution:
         isolation:
           strategy: SEMAPHORE
+          #请求的最大数目默认是10 超过这个会抛异常
+          semaphore:
+            maxConcurrentRequests: 1000
           thread:
             timeoutInMilliseconds: 16000
 
