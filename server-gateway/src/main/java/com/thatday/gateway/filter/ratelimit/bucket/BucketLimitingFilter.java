@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Component
+//@Component
 @Log4j2
 public class BucketLimitingFilter extends AbsLimitingFilter implements GlobalFilter, Ordered {
 

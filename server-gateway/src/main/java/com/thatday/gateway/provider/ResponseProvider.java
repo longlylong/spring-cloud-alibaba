@@ -39,7 +39,7 @@ public class ResponseProvider {
      * 构建返回的JSON数据格式
      */
     private static Mono<Void> response(ServerWebExchange exchange, int code, String message) {
-        exchange.getResponse().setStatusCode(HttpStatus.OK);
+        exchange.getResponse().setStatusCode(HttpStatus.TOO_MANY_REQUESTS);
         exchange.getResponse().getHeaders().add("Content-Type", "application/json;charset=UTF-8");
         String result = "" ;
 

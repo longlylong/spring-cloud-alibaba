@@ -8,7 +8,7 @@ import java.util.concurrent.CompletableFuture;
 public class ThreadUtil extends cn.hutool.core.thread.ThreadUtil {
 
     //所有任务完成后执行
-    public CompletableFuture<Void> allOf(List<CompletableFuture<?>> completableFutureList) {
+    public static CompletableFuture<Void> allOf(List<CompletableFuture<?>> completableFutureList) {
         if (CollUtil.isEmpty(completableFutureList)) {
             return null;
         }
@@ -16,7 +16,7 @@ public class ThreadUtil extends cn.hutool.core.thread.ThreadUtil {
     }
 
     //其中一个任务完成后执行
-    public CompletableFuture<Object> anyOf(List<CompletableFuture<?>> completableFutureList) {
+    public static CompletableFuture<Object> anyOf(List<CompletableFuture<?>> completableFutureList) {
         if (CollUtil.isEmpty(completableFutureList)) {
             return null;
         }

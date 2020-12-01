@@ -79,7 +79,7 @@ public class NacosSentinelConfig {
             Map<String, Object> map = new HashMap<>();
             map.put("code", 429);
             map.put("message", "访问人数过多,请稍候再试!");
-            return ServerResponse.status(HttpStatus.OK).
+            return ServerResponse.status(HttpStatus.TOO_MANY_REQUESTS).
                     contentType(MediaType.APPLICATION_JSON).
                     body(BodyInserters.fromValue(map));
         };
