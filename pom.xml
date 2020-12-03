@@ -20,17 +20,17 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.10.RELEASE</version>
+        <version>2.3.6.RELEASE</version>
         <relativePath/>
     </parent>
 
     <properties>
         <weixin-java.version>3.9.0</weixin-java.version>
 
-        <jackson-version>2.9.10.5</jackson-version>
-        <fastjson-version>1.2.71</fastjson-version>
+        <jackson-version>2.11.3</jackson-version>
+        <fastjson-version>1.2.75</fastjson-version>
         <knife4j-version>3.0.2</knife4j-version>
-        <mysql-connector.version>8.0.20</mysql-connector.version>
+        <mysql-connector.version>8.0.22</mysql-connector.version>
         <quartz-version>2.3.2</quartz-version>
 
         <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>

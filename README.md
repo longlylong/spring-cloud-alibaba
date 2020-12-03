@@ -6,7 +6,7 @@ Plugins：
     
 技术栈：
 
-	Spring Cloud 2.2.10
+	Spring Cloud 2.3.6
 	Spring Cloud Alibaba 2.2.3
 
 	Spring Cloud Gateway 网关
