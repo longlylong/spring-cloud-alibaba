@@ -33,7 +33,7 @@
         <mysql-connector.version>8.0.22</mysql-connector.version>
         <quartz-version>2.3.2</quartz-version>
 
-        <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
+        <spring-cloud.version>Hoxton.SR9</spring-cloud.version>
         <spring-cloud-alibaba.version>2.2.3.RELEASE</spring-cloud-alibaba.version>
         <sentinel-gateway.version>1.8.0</sentinel-gateway.version>
         <dubbo.version>2.7.8</dubbo.version>

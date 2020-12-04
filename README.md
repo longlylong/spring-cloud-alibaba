@@ -7,7 +7,7 @@ Plugins：
 技术栈：
 
 	Spring Boot 2.3.6
-	Spring Cloud Hoxton (Spring Boot 2.2.x, 2.3.x)
+	Spring Cloud Hoxton.SR9 (Spring Boot 2.2.x, 2.3.x)
 	Spring Cloud Alibaba 2.2.3
 
 	Spring Cloud Gateway 网关
