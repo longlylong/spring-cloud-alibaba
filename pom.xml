@@ -25,7 +25,7 @@
     </parent>
 
     <properties>
-        <weixin-java.version>3.9.0</weixin-java.version>
+        <weixin-java.version>4.0.0</weixin-java.version>
 
         <jackson-version>2.11.3</jackson-version>
         <fastjson-version>1.2.75</fastjson-version>

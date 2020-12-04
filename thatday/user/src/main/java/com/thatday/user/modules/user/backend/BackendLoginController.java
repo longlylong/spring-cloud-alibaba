@@ -14,11 +14,11 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/web/backend/login")
-@Api(tags = "后台管理 登录类API")
+@Api(tags = "后台管理 API")
 public class BackendLoginController {
 
-    @ApiOperation("微信登录")
-    @PostMapping(value = "/wechat")
+    @ApiOperation("帐号密码登录")
+    @PostMapping(value = "/loginByPhone")
     public Result<User> loginByPhone(@Valid @RequestBody LoginPhoneVo vo) {
         return Result.buildSuccess();
     }

@@ -7,7 +7,6 @@ import com.thatday.user.modules.user.dao.UserDao;
 import com.thatday.user.modules.user.dto.UserDTO;
 import com.thatday.user.modules.user.entity.User;
 import com.thatday.user.modules.user.vo.LoginPhoneVo;
-import com.thatday.user.modules.user.vo.LoginWeChatVo;
 import com.thatday.user.repository.JPAUtil;
 import com.thatday.user.service.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +19,6 @@ public class UserServiceImpl extends BaseServiceImpl<User, String, UserDao> impl
 
     public User loginByPhone(LoginPhoneVo loginPhoneVo) {
         return getLastOneById();
-    }
-
-    public User loginByWeChat(LoginWeChatVo loginWeChatVo) {
-        return null;
     }
 
     @Override

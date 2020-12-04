@@ -1,4 +1,4 @@
-package com.thatday.user.wx.controller;
+package com.thatday.user.wx.miniapp.controller;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
@@ -25,7 +25,7 @@ import javax.validation.Valid;
 @RestController
 @Log4j2
 @RequestMapping("/wx/user")
-@Api(tags = "微信小程序接口")
+@Api(tags = "微信 小程序接口")
 public class WxMaUserController {
 
     @PostMapping("/noneLogin")
@@ -65,7 +65,6 @@ public class WxMaUserController {
             throw TDExceptionHandler.throwGlobalException("tcyAuthorLogin", e);
         }
     }
-
 
     @PostMapping("/phoneLogin")
     @ApiOperation("手机授权")

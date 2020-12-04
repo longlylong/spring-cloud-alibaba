@@ -30,6 +30,7 @@ import static me.chanjar.weixin.mp.constant.WxMpEventConstants.POI_CHECK_NOTIFY;
 @Configuration
 @EnableConfigurationProperties(WxMpProperties.class)
 public class WxMpConfiguration {
+
     private final LogHandler logHandler;
     private final NullHandler nullHandler;
     private final KfSessionHandler kfSessionHandler;
@@ -53,7 +54,15 @@ public class WxMpConfiguration {
         WxMpService service = new WxMpServiceImpl();
         service.setMultiConfigStorages(configs
                 .stream().map(a -> {
-                    WxMpDefaultConfigImpl configStorage = new WxMpDefaultConfigImpl();
+                    WxMpDefaultConfigImpl configStorage;
+//                    if (this.properties.isUseRedis()) {
+//                        final WxMpProperties.RedisConfig redisConfig = this.properties.getRedisConfig();
+//                        JedisPool jedisPool = new JedisPool(redisConfig.getHost(), redisConfig.getPort());
+//                        configStorage = new WxMpRedisConfigImpl(new JedisWxRedisOps(jedisPool), a.getAppId());
+//                    } else {
+                    configStorage = new WxMpDefaultConfigImpl();
+//                    }
+
                     configStorage.setAppId(a.getAppId());
                     configStorage.setSecret(a.getSecret());
                     configStorage.setToken(a.getToken());

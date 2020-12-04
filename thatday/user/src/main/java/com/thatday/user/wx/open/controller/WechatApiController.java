@@ -3,6 +3,8 @@ package com.thatday.user.wx.open.controller;
 import cn.hutool.json.JSONUtil;
 import com.thatday.user.wx.open.dto.WXOpenLoginDTO;
 import com.thatday.user.wx.open.vo.WxLoginCallbackVo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -11,7 +13,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import springfox.documentation.annotations.ApiIgnore;
 
 import java.nio.charset.StandardCharsets;
 
@@ -20,14 +21,14 @@ import java.nio.charset.StandardCharsets;
  */
 @Controller
 @Log4j2
-@ApiIgnore
+@Api(tags = "微信 开放平台接口")
 public class WechatApiController {
 
     @GetMapping("/wx/admin/wx_login_callback")
+    @ApiOperation("扫码登录回调")
     public String wxLoginCallback(WxLoginCallbackVo loginCallback) throws Exception {
-        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx3ab0f1c61c5591d2&secret=d3c077425ebbec39040d715cf11b9c2e" +
+        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=xxx&secret=xxx" +
                 "&code=" + loginCallback.getCode() + "&grant_type=authorization_code";
-
 
         CloseableHttpClient aDefault = HttpClients.createDefault();
         HttpGet get = new HttpGet(url);

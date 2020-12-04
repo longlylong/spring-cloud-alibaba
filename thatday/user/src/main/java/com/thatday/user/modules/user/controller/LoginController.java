@@ -1,12 +1,11 @@
 package com.thatday.user.modules.user.controller;
 
+import com.thatday.common.dubbo.CommonService;
 import com.thatday.common.model.Result;
 import com.thatday.user.config.EnvConfig;
 import com.thatday.user.modules.user.entity.User;
 import com.thatday.user.modules.user.service.UserService;
 import com.thatday.user.modules.user.vo.LoginPhoneVo;
-import com.thatday.user.modules.user.vo.LoginWeChatVo;
-import com.thatday.common.dubbo.CommonService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.dubbo.config.annotation.DubboReference;
@@ -17,7 +16,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/app/user/login")
-@Api(tags = "登录类API")
+@Api(tags = "前台 API")
 public class LoginController {
 
     @Autowired
@@ -43,13 +42,6 @@ public class LoginController {
     @PostMapping(value = "/loginByPhone")
     public Result<User> loginByPhone(@Valid @RequestBody LoginPhoneVo vo) {
         User user = userService.loginByPhone(vo);
-        return Result.buildSuccess(user);
-    }
-
-    @ApiOperation("微信登录接口")
-    @PostMapping(value = "/loginByWeChat")
-    public Result<User> loginByWeChat(@Valid @RequestBody LoginWeChatVo loginWeChatVo) {
-        User user = userService.loginByWeChat(loginWeChatVo);
         return Result.buildSuccess(user);
     }
 }
