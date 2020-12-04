@@ -5,9 +5,9 @@ import com.thatday.user.wx.mp.vo.MPAuthorLoginVo;
 import com.thatday.user.wx.mp.vo.MPRedirectUrlVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import me.chanjar.weixin.common.bean.oauth2.WxOAuth2AccessToken;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
-import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,7 +33,7 @@ public class MPLoginController {
     @ApiOperation("授权登录")
     public Result<String> authorLogin(@Valid @RequestBody MPAuthorLoginVo vo) {
         try {
-            WxMpOAuth2AccessToken auth2AccessToken = wxMpService.getOAuth2Service().getAccessToken(vo.getCode());
+            WxOAuth2AccessToken auth2AccessToken = wxMpService.getOAuth2Service().getAccessToken(vo.getCode());
             String unionId = auth2AccessToken.getUnionId();
             return Result.buildSuccess("token");
         } catch (WxErrorException e) {
