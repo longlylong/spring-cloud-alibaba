@@ -1,4 +1,4 @@
-package com.thatday.user.modules.user.entity;
+package com.thatday.modules;
 
 import com.thatday.base.repository.BaseEntity;
 import lombok.Data;

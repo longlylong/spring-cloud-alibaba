@@ -1,7 +1,6 @@
-package com.thatday.user.modules.user.dao;
+package com.thatday.modules;
 
 import com.thatday.base.repository.BaseDao;
-import com.thatday.user.modules.user.entity.Dir;
 import org.springframework.stereotype.Repository;
 
 @Repository

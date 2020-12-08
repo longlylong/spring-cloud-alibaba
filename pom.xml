@@ -10,6 +10,7 @@
     <version>2.0</version>
 
     <modules>
+        <module>base-service</module>
         <module>common</module>
         <module>server-gateway</module>
         <module>thatday</module>
@@ -37,6 +38,7 @@
         <spring-cloud-alibaba.version>2.2.3.RELEASE</spring-cloud-alibaba.version>
         <sentinel-gateway.version>1.8.0</sentinel-gateway.version>
         <dubbo.version>2.7.8</dubbo.version>
+        <seata.version>1.4.0</seata.version>
 
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

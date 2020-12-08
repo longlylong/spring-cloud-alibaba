@@ -14,88 +14,63 @@
         <!-- 公共模块 -->
         <dependency>
             <groupId>com.thatday</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>base-service</artifactId>
             <version>2.0</version>
         </dependency>
 
-        <!-- 服务发现 Nacos-->
+        <!-- 阿里服务发现 Nacos-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
             <version>${spring-cloud-alibaba.version}</version>
         </dependency>
 
-        <!-- 服务配置 Nacos-->
+        <!-- 阿里服务配置 Nacos-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
             <version>${spring-cloud-alibaba.version}</version>
         </dependency>
 
-        <!-- 服务负载 Dubbo-->
+        <!-- 阿里服务负载 Dubbo-->
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo-spring-boot-starter</artifactId>
             <version>${dubbo.version}</version>
         </dependency>
 
-        <!-- 服务负载 Dubbo 服务中心Nacos-->
+        <!-- 阿里服务负载 Dubbo 服务中心Nacos-->
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo-registry-nacos</artifactId>
             <version>${dubbo.version}</version>
         </dependency>
 
-        <!-- 流量防卫 Sentinel-->
+        <!-- 阿里流量防卫 Sentinel-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
             <version>${spring-cloud-alibaba.version}</version>
         </dependency>
 
-        <!-- 流量防卫 Sentinel 数据源 nacos-->
+        <!-- 阿里流量防卫 Sentinel 数据源 nacos-->
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-datasource-nacos</artifactId>
             <version>${sentinel-gateway.version}</version>
         </dependency>
 
+        <!-- 阿里分布式事务 -->
+        <dependency>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-spring-boot-starter</artifactId>
+            <version>${seata.version}</version>
+        </dependency>
+
         <!-- spring boot web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <!-- spring boot jdbc -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
-        </dependency>
-
-        <!-- mysql connector-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql-connector.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <!--JPA支持-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-
-        <!--QueryDSL支持-->
-        <dependency>
-            <groupId>com.querydsl</groupId>
-            <artifactId>querydsl-jpa</artifactId>
-        </dependency>
-
-        <!--QueryDSL支持-->
-        <dependency>
-            <groupId>com.querydsl</groupId>
-            <artifactId>querydsl-apt</artifactId>
         </dependency>
 
         <dependency>

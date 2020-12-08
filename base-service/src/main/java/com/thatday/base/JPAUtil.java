@@ -1,4 +1,4 @@
-package com.thatday.user.repository;
+package com.thatday.base;
 
 import com.thatday.common.model.PageInfoVo;
 import com.thatday.common.model.PageResult;

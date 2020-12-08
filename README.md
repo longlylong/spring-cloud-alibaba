@@ -36,7 +36,11 @@ Plugins：
 
 项目结构介绍：
 
-	Common      (公共模块)
+    base-service(公共基类,如JPA)
+    --repository(基础的jpa操作)
+    --service   (基础的增删改查基类)
+
+	common      (公共模块)
 	--constant  (常量)
 	--dubbo     (服务间通信service接口)
 	--exception (全局异常配置)
@@ -47,7 +51,7 @@ Plugins：
 	--validation(模块之间共用的校验器)
 	--hutool    (开发工具包 HuTool.md)
 
-	Pub (公共服务目录,如果前期没业务需求可以不跑)
+	pub (公共服务目录,如果前期没业务需求可以不跑)
 	--Common-Server (公共服务)
 
 	mm-admin-backend    管理后台后端
@@ -76,9 +80,8 @@ Plugins：
 	--------entity      (数据对象)
 	--------service     (业务代码)
 	--------vo          (请求对象)
-	----repository      (基础的jpa操作)
 	----rocketmq        (该服务的rocketmq配置)
-	----service         (基本的增删改查基类)
+	----service         (服务类,如定时器,限流配置)
 	----task            (定时任务)
 	----wx              (微信开发工具 https://github.com/Wechat-Group/WxJava)
 	----util            (工具类)
@@ -93,3 +96,6 @@ Plugins：
     
     Sentinel 1.8.0 控制台 已改造完 持久化到Nacos    
     https://github.com/longlylong/Sentinel
+    
+    Seata 1.4.0 分布式事务 
+    http://seata.io

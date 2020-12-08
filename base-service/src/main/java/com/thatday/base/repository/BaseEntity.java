@@ -1,4 +1,4 @@
-package com.thatday.user.repository;
+package com.thatday.base.repository;
 
 import lombok.Getter;
 import lombok.Setter;

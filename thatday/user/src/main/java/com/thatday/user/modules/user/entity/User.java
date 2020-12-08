@@ -1,6 +1,6 @@
 package com.thatday.user.modules.user.entity;
 
-import com.thatday.user.repository.BaseEntity;
+import com.thatday.base.repository.BaseEntity;
 import lombok.Data;
 
 import javax.persistence.*;

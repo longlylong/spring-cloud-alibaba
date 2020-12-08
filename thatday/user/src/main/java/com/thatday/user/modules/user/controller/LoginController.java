@@ -6,6 +6,7 @@ import com.thatday.user.config.EnvConfig;
 import com.thatday.user.modules.user.entity.User;
 import com.thatday.user.modules.user.service.UserService;
 import com.thatday.user.modules.user.vo.LoginPhoneVo;
+import io.seata.spring.annotation.GlobalTransactional;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.dubbo.config.annotation.DubboReference;
@@ -28,8 +29,10 @@ public class LoginController {
     CommonService commonService;
 
     @ApiOperation("test")
-    @GetMapping(value = "/test1")
-    public Result<Object> test1() {
+    @GetMapping(value = "/testSeata")
+    @GlobalTransactional
+    public Result<Object> testSeata() {
+        userService.addUser("nickname" + System.currentTimeMillis());
         return Result.buildSuccess(commonService.test());
     }
 

@@ -1,11 +1,11 @@
-package com.thatday.user.service;
+package com.thatday.base.service;
 
+import com.thatday.base.SpecificationListener;
+import com.thatday.base.repository.BaseDao;
+import com.thatday.base.repository.BaseEntity;
 import com.thatday.common.model.PageInfoVo;
 import com.thatday.common.model.PageResult;
 import com.thatday.common.utils.BeanUtil;
-import com.thatday.user.repository.BaseDao;
-import com.thatday.user.repository.BaseEntity;
-import com.thatday.user.repository.SpecificationListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 

@@ -39,6 +39,25 @@ dubbo:
     timeout: 5000
     protocol: dubbo
 
+#分布式事务
+seata:
+  tx-service-group: admin-tx-group
+  service:
+    vgroup-mapping:
+      admin-tx-group: default  #key与上面的tx-service-group的值对应并与config的一致
+  config:
+    type: file
+    file:
+      name: seata-file.conf
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: ${nacos-config.addr}
+      group: "SEATA_GROUP"
+      username: ${nacos-config.user}
+      password: ${nacos-config.psw}
+
 td:
   swagger:
     enable: true

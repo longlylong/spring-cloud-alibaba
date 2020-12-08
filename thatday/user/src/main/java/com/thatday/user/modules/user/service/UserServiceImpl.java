@@ -1,14 +1,14 @@
 package com.thatday.user.modules.user.service;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.thatday.base.JPAUtil;
+import com.thatday.base.service.BaseServiceImpl;
 import com.thatday.common.model.PageResult;
 import com.thatday.common.utils.IdGen;
 import com.thatday.user.modules.user.dao.UserDao;
 import com.thatday.user.modules.user.dto.UserDTO;
 import com.thatday.user.modules.user.entity.User;
 import com.thatday.user.modules.user.vo.LoginPhoneVo;
-import com.thatday.user.repository.JPAUtil;
-import com.thatday.user.service.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,17 +17,25 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl extends BaseServiceImpl<User, String, UserDao> implements UserService {
 
-    public User loginByPhone(LoginPhoneVo loginPhoneVo) {
-        return getLastOneById();
-    }
+    @Autowired
+    private JPAQueryFactory queryFactory;
 
     @Override
     public String customDatabaseId() {
         return "U" + IdGen.getNextTimeCode();
     }
 
-    @Autowired
-    private JPAQueryFactory queryFactory;
+    @Override
+    public User loginByPhone(LoginPhoneVo loginPhoneVo) {
+        return getLastOneById();
+    }
+
+    @Override
+    public void addUser(String nickname) {
+        User user = new User();
+        user.setNickname(nickname);
+        saveOrUpdate(user);
+    }
 
     public void dslTest() {
 //        QUser qUser = QUser.user;
