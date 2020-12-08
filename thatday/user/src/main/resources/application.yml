@@ -14,9 +14,12 @@ spring:
   profiles:
     active: local
 
-  #  redis:
-  #    host: 127.0.0.1
-  #    port: 6379
+#  redis:
+#    database: 0
+#    host: 192.168.220.130
+#    port: 6379
+#    password: 123456789
+#    timeout: 5000
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect

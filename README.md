@@ -25,6 +25,7 @@ Plugins：
 	
 	JPA+QueryDsl     免去直接写SQL,用法和写sql一样灵活
 	Seata 1.4.0      分布式事务 http://seata.io
+	Redisson 3.14.0  分布式锁
 
 	RocketMQ 4.5.0   消息队列
 	Knife4j 3.0.2    Api文档(Swagger 3.0.0)

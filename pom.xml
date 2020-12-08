@@ -33,6 +33,7 @@
         <knife4j-version>3.0.2</knife4j-version>
         <mysql-connector.version>8.0.22</mysql-connector.version>
         <quartz-version>2.3.2</quartz-version>
+        <redisson-version>3.14.0</redisson-version>
 
         <spring-cloud.version>Hoxton.SR9</spring-cloud.version>
         <spring-cloud-alibaba.version>2.2.3.RELEASE</spring-cloud-alibaba.version>
