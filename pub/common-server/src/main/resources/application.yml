@@ -46,9 +46,12 @@ seata:
     vgroup-mapping:
       admin-tx-group: default  #key与上面的tx-service-group的值对应并与config的一致
   config:
-    type: file
-    file:
-      name: seata-file.conf
+    type: nacos
+    nacos:
+      namespace: seata
+      server-addr: ${nacos-config.addr}
+      username: ${nacos-config.user}
+      password: ${nacos-config.psw}
   registry:
     type: nacos
     nacos:
