@@ -53,14 +53,14 @@ spring:
             rule-type: gw-api-group
     #网关配置
     gateway:
-      #跨域配置 (CorsConfig可以二选一) 网关配置了微服务就不需要配置了 否则不生效的
-#      globalcors:
-#        cors-configurations:
-#          '[/**]':
-#            allowCredentials: true
-#            allowedOrigins: "*"
-#            allowedMethods: "*"
-#            allowedHeaders: "*"
+      #跨域配置 网关配置了微服务就不需要配置了 否则不生效的
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowCredentials: true
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
 
       discovery:
         locator:
