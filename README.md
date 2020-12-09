@@ -41,7 +41,7 @@ Plugins：
     --repository(基础的jpa操作)
     --service   (基础的增删改查基类)
 
-	common      (公共模块)
+	base-util      (公共模块)
 	--constant  (常量)
 	--dubbo     (服务间通信service接口)
 	--exception (全局异常配置)
