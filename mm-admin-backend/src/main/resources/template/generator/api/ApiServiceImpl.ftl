@@ -1,19 +1,26 @@
 package ${package}.service.impl;
 
+import com.thatday.base.service.BaseServiceImpl;
+import ${package}.dao.${className}Dao;
 import ${package}.entity.${className};
+import ${package}.service.${className}Service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
-*
 * @description 服务实现
 * @author ${author}
 * @date ${date}
 **/
 @Service
-@RequiredArgsConstructor
-public class ${className}ServiceImpl extends BaseServiceImpe<${className}, ${pkColumnType}, ${className}Dao> implements ${className}Service {
+public class ${className}ServiceImpl extends BaseServiceImpl<${className}, ${pkColumnType}, ${className}Dao> implements ${className}Service {
 
-
+    /**
+    *Long返回null主键默认是自增
+    *String需要设置主键
+    */
+    @Override
+    public Long customDatabaseId() {
+        return null;
+    }
 }

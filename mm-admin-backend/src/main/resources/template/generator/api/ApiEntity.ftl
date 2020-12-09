@@ -1,9 +1,8 @@
 package ${package}.entity;
 
+import com.thatday.base.repository.BaseEntity;
+
 import lombok.Data;
-import cn.hutool.core.bean.BeanUtil;
-import io.swagger.annotations.ApiModelProperty;
-import cn.hutool.core.bean.copier.CopyOptions;
 import javax.persistence.*;
 <#if isNotNullColumns??>
 import javax.validation.constraints.*;
@@ -19,18 +18,15 @@ import java.sql.Timestamp;
 <#if hasBigDecimal>
 import java.math.BigDecimal;
 </#if>
-import java.io.Serializable;
 
 /**
-*
 * @description /
 * @author ${author}
 * @date ${date}
 **/
-@Entity
 @Data
-@Table(name="${tableName}")
-public class ${className} implements Serializable {
+@Entity(name="${tableName}")
+public class ${className} extends BaseEntity {
 <#if columns??>
     <#list columns as column>
 
@@ -40,7 +36,9 @@ public class ${className} implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     </#if>
     </#if>
+    <#if column.columnKey = 'PRI'>
     @Column(name = "${column.columnName}"<#if column.columnKey = 'UNI'>,unique = true</#if><#if column.istNotNull && column.columnKey != 'PRI'>,nullable = false</#if>)
+    </#if>
     <#if column.istNotNull && column.columnKey != 'PRI'>
         <#if column.columnType = 'String'>
     @NotBlank
