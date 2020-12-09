@@ -1,9 +1,9 @@
-package ${package}.service.impl;
+package ${apiPackage}.service.impl;
 
 import com.thatday.base.service.BaseServiceImpl;
-import ${package}.dao.${className}Dao;
-import ${package}.entity.${className};
-import ${package}.service.${className}Service;
+import ${apiPackage}.dao.${className}Dao;
+import ${apiPackage}.entity.${className};
+import ${apiPackage}.service.${className}Service;
 
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package ${package}.entity;
+package ${apiPackage}.entity;
 
 import com.thatday.base.repository.BaseEntity;
 

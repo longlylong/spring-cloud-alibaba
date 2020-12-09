@@ -256,8 +256,10 @@ public class GenUtil {
         Map<String, Object> genMap = new HashMap<>(16);
         // 接口别名
         genMap.put("apiAlias", genConfig.getApiAlias());
-        // 包名称
-        genMap.put("package", genConfig.getPack());
+        // 后台的包名称
+        genMap.put("package", genConfig.getAdminPack());
+        // 前台的包名称
+        genMap.put("apiPackage", genConfig.getApiPack());
         // 模块名称
         genMap.put("moduleName", genConfig.getModuleName());
         // 作者
@@ -409,13 +411,13 @@ public class GenUtil {
     }
 
     /**
-     * 定义后端文件路径以及名称
+     * 定义后台文件路径以及名称
      */
     private static String getAdminFilePath(String templateName, GenConfig genConfig, String className, String rootPath) {
         String projectPath = rootPath + File.separator + genConfig.getModuleName();
         String packagePath = projectPath + File.separator + "src" + File.separator + "main" + File.separator + "java" + File.separator;
-        if (!ObjectUtils.isEmpty(genConfig.getPack())) {
-            packagePath += genConfig.getPack().replace(".", File.separator) + File.separator;
+        if (!ObjectUtils.isEmpty(genConfig.getAdminPack())) {
+            packagePath += genConfig.getAdminPack().replace(".", File.separator) + File.separator;
         }
 
         if ("Entity".equals(templateName)) {
@@ -470,13 +472,13 @@ public class GenUtil {
     }
 
     /**
-     * 定义Api文件路径以及名称
+     * 定义前台Api文件路径以及名称
      */
     private static String getApiFilePath(String templateName, GenConfig genConfig, String className, String rootPath) {
         String projectPath = rootPath + File.separator + genConfig.getModuleName();
         String packagePath = projectPath + File.separator + "src" + File.separator + "main" + File.separator + "java" + File.separator;
-        if (!ObjectUtils.isEmpty(genConfig.getPack())) {
-            packagePath += genConfig.getPack().replace(".", File.separator) + File.separator;
+        if (!ObjectUtils.isEmpty(genConfig.getApiPack())) {
+            packagePath += genConfig.getApiPack().replace(".", File.separator) + File.separator;
         }
 
         if ("ApiDao".equals(templateName)) {

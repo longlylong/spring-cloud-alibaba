@@ -155,7 +155,8 @@ CREATE TABLE `code_gen_config` (
   `author` varchar(255) DEFAULT NULL COMMENT '作者',
   `cover` bit(1) DEFAULT NULL COMMENT '是否覆盖',
   `module_name` varchar(255) DEFAULT NULL COMMENT '模块名称',
-  `pack` varchar(255) DEFAULT NULL COMMENT '至于哪个包下',
+  `admin_pack` varchar(255) DEFAULT NULL COMMENT '后台管理哪个包下',
+  `api_pack` varchar(255) DEFAULT NULL COMMENT '前台Api哪个包下',
   `path` varchar(255) DEFAULT NULL COMMENT '前端代码生成的路径',
   `api_path` varchar(255) DEFAULT NULL COMMENT '前端Api文件路径',
   `prefix` varchar(255) DEFAULT NULL COMMENT '表前缀',
@@ -167,7 +168,7 @@ CREATE TABLE `code_gen_config` (
 -- ----------------------------
 -- Records of code_gen_config
 -- ----------------------------
-INSERT INTO `code_gen_config` VALUES ('6', 'sys_dict_detail', 'King', '\0', 'zzx', 'com.mm.admin.modules', 'zzx', 'a\\', null, 'a');
+INSERT INTO `code_gen_config` VALUES ('6', 'sys_dict_detail', 'King', '\0', 'zzx', 'com.mm.admin.modules','com.mm.api.modules', 'zzx', 'a\\', null, 'a');
 
 -- ----------------------------
 -- Table structure for sys_dept

@@ -30,8 +30,12 @@ public class GenConfig implements Serializable {
     private String apiAlias;
 
     @NotBlank
-    //@ApiModelProperty(value = "包路径")
-    private String pack;
+    //@ApiModelProperty(value = "后台管理包路径")
+    private String adminPack;
+
+    @NotBlank
+    //@ApiModelProperty(value = "前台用的包路径")
+    private String apiPack;
 
     @NotBlank
     //@ApiModelProperty(value = "模块名")

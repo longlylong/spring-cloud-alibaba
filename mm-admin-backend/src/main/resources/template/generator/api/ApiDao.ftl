@@ -1,7 +1,7 @@
-package ${package}.dao;
+package ${apiPackage}.dao;
 
 import com.thatday.base.repository.BaseDao;
-import ${package}.entity.${className};
+import ${apiPackage}.entity.${className};
 
 /**
 * @author ${author}

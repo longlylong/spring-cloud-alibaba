@@ -163,9 +163,13 @@
               <el-input v-model="form.moduleName" style="width: 40%" />
               <span style="color: #C0C0C0;margin-left: 10px;">模块的名称，请选择项目中已存在的模块</span>
             </el-form-item>
-            <el-form-item label="至于包下" prop="pack">
-              <el-input v-model="form.pack" style="width: 40%" />
-              <span style="color: #C0C0C0;margin-left: 10px;">项目包的名称，生成的代码放到哪个包里面</span>
+            <el-form-item label="前台包名" prop="apiPack">
+              <el-input v-model="form.apiPack" style="width: 40%" />
+              <span style="color: #C0C0C0;margin-left: 10px;">项目包的名称，生成的代码放到前台api哪个包里面</span>
+            </el-form-item>
+            <el-form-item label="后台包名" prop="adminPack">
+              <el-input v-model="form.adminPack" style="width: 40%" />
+              <span style="color: #C0C0C0;margin-left: 10px;">项目包的名称，生成的代码放到后台管理哪个包里面</span>
             </el-form-item>
             <el-form-item label="接口名称" prop="apiAlias">
               <el-input v-model="form.apiAlias" style="width: 40%" />
@@ -209,12 +213,15 @@ export default {
   data() {
     return {
       activeName: 'first', tableName: '', tableHeight: 550, columnLoading: false, configLoading: false, dicts: [], syncLoading: false, genLoading: false,
-      form: { id: null, tableName: '', author: '', pack: '', path: '', moduleName: '', cover: 'false', apiPath: '', prefix: '', apiAlias: null },
+      form: { id: null, tableName: '', author: '', adminPack: '', apiPack: '', path: '', moduleName: '', cover: 'false', apiPath: '', prefix: '', apiAlias: null },
       rules: {
         author: [
           { required: true, message: '作者不能为空', trigger: 'blur' }
         ],
-        pack: [
+        adminPack: [
+          { required: true, message: '包路径不能为空', trigger: 'blur' }
+        ],
+        apiPack: [
           { required: true, message: '包路径不能为空', trigger: 'blur' }
         ],
         moduleName: [
