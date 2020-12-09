@@ -11,7 +11,7 @@
 
     <modules>
         <module>base-service</module>
-        <module>common</module>
+        <module>base-util</module>
         <module>server-gateway</module>
         <module>thatday</module>
         <module>pub</module>
