@@ -30,6 +30,7 @@ Plugins：
 	RocketMQ 4.5.0   消息队列
 	Knife4j 3.0.2    Api文档(Swagger 3.0.0)
 
+    JWT              改自JWT鉴权,配合网关或拦截器可以动态注入用户信息
 单体应用改造：
 
 	关注这个类,里面有详细方法修改3步完事,就不用跑网关和nacos了
@@ -41,7 +42,7 @@ Plugins：
     --repository(基础的jpa操作)
     --service   (基础的增删改查基类)
 
-	base-util      (工具包)
+	base-util   (工具包)
 	--constant  (常量)
 	--dubbo     (服务间通信service接口)
 	--exception (全局异常配置)
