@@ -17,8 +17,9 @@ public class CommonServiceImpl implements CommonService {
     DirService dirService;
 
     @Override
-    @GlobalTransactional
-    public String test() {
+//    @GlobalTransactional
+    public String dubboTest() {
+        //全局事务测试
         long millis = System.currentTimeMillis();
         dirService.addDir("title" + millis);
 //        int a =1/0;

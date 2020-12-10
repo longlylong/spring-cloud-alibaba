@@ -20,17 +20,24 @@ public class TestController {
     @Autowired
     RedissonClient redissonClient;
 
-    @GetMapping("/common/test")
-    public String test() {
-        RLock aaa = redissonClient.getLock("aaa");
-        aaa.lock(10, TimeUnit.SECONDS);
+    @GetMapping("/common/testDLock")
+    public String testDLock() {
+        //分布式锁测试
+        RLock rLock = redissonClient.getLock("aaa");
         try {
-            System.out.println("222222222222222");
-        } finally {
-            aaa.unlock();
+            boolean tryLock = rLock.tryLock(3, TimeUnit.SECONDS);
+            if (tryLock) {
+                try {
+                    return envConfig.getPort() + "-test-" + System.currentTimeMillis();
+                } finally {
+                    rLock.unlock();
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
-        return envConfig.getPort() + "-test-" + System.currentTimeMillis();
+        return "no lock";
     }
 
 }

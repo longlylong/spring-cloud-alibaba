@@ -7,7 +7,6 @@ import com.thatday.user.config.EnvConfig;
 import com.thatday.user.modules.user.entity.User;
 import com.thatday.user.modules.user.service.UserService;
 import com.thatday.user.modules.user.vo.LoginPhoneVo;
-import io.seata.spring.annotation.GlobalTransactional;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.dubbo.config.annotation.DubboReference;
@@ -37,21 +36,24 @@ public class LoginController {
 
     @ApiOperation("test")
     @GetMapping(value = "/testSeata")
-    @GlobalTransactional
+//    @GlobalTransactional
     public Result<Object> testSeata() {
+        //全局事务测试
         userService.addUser("nickname" + System.currentTimeMillis());
-        return Result.buildSuccess(commonService.test());
+        return Result.buildSuccess(commonService.dubboTest());
     }
 
-    @GetMapping(value = "/test2")
-    public Result<Object> test2() {
-        RLock aaa = redissonClient.getLock("aaa");
-        aaa.lock(10, TimeUnit.SECONDS);
+    @GetMapping(value = "/testDLock")
+    public Result<Object> testDLock() {
+        //分布式锁测试
+        RLock rLock = redissonClient.getLock("aaa");
+        rLock.lock(10, TimeUnit.SECONDS);
         try {
-            ThreadUtil.sleep(5000);
-            System.out.println("aaaaaaaaaaaaaaaaaaaa111");
+            System.out.println("test2 RedissonClient lock sleep 3000");
+            ThreadUtil.sleep(2000);
+            System.out.println("test2 RedissonClient lock sleep over");
         } finally {
-            aaa.unlock();
+            rLock.unlock();
         }
         return Result.buildSuccess(envConfig.getPort());
     }

@@ -41,6 +41,8 @@ dubbo:
 
 #分布式事务
 seata:
+  #默认是开启的 现在不需要先关闭
+  enabled: false
   tx-service-group: admin-tx-group
   service:
     vgroup-mapping:
