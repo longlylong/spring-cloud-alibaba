@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 public class BeanUtil extends cn.hutool.core.bean.BeanUtil {
 
@@ -22,14 +24,14 @@ public class BeanUtil extends cn.hutool.core.bean.BeanUtil {
     /**
      * 对象集合转换，两个对象的属性名字需要一样，并可自定义设置一些参数
      */
-    public static <T, E> List<T> transTo(List<E> sourceList, Class<T> clazz, OnTransListener<T, E> onTransListener) {
+    public static <T, E> List<T> transTo(List<E> sourceList, Class<T> clazz, BiConsumer<T, E> biConsumer) {
         try {
             List<T> toList = new ArrayList<>();
             for (E source : sourceList) {
                 T target = clazz.newInstance();
                 copyProperties(source, target);
-                if (onTransListener != null) {
-                    onTransListener.doSomeThing(target, source);
+                if (biConsumer != null) {
+                    biConsumer.accept(target, source);
                 }
                 toList.add(target);
             }
@@ -79,32 +81,18 @@ public class BeanUtil extends cn.hutool.core.bean.BeanUtil {
     /**
      * 集合根据某个关键字进行分组
      */
-    public static <T> Map<String, List<T>> groupBy(List<T> tList, StringKey<T> stringKey) {
+    public static <T> Map<String, List<T>> groupBy(List<T> tList, Function<T, String> stringKey) {
         Map<String, List<T>> map = new HashMap<>();
         for (T t : tList) {
-            if (map.containsKey(stringKey.key(t))) {
-                map.get(stringKey.key(t)).add(t);
+            if (map.containsKey(stringKey.apply(t))) {
+                map.get(stringKey.apply(t)).add(t);
 
             } else {
                 List<T> list = new ArrayList<>();
                 list.add(t);
-                map.put(stringKey.key(t), list);
+                map.put(stringKey.apply(t), list);
             }
         }
         return map;
-    }
-
-    /**
-     * 集合分组的关键词
-     */
-    public interface StringKey<T> {
-        String key(T t);
-    }
-
-    /**
-     * 编写一些额外逻辑
-     */
-    public interface OnTransListener<T, E> {
-        void doSomeThing(T t, E e);
     }
 }

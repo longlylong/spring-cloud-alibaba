@@ -5,13 +5,13 @@ import com.thatday.base.repository.BaseDao;
 import com.thatday.base.repository.BaseEntity;
 import com.thatday.common.model.PageInfoVo;
 import com.thatday.common.model.PageResult;
-import com.thatday.common.utils.BeanUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Set;
+import java.util.function.BiConsumer;
 
 public interface BaseService<ENTITY extends BaseEntity, ID, DAO extends BaseDao<ENTITY, ID>> {
 
@@ -45,7 +45,7 @@ public interface BaseService<ENTITY extends BaseEntity, ID, DAO extends BaseDao<
      */
     <TARGET> List<TARGET> getAllToDTO(Class<TARGET> targetClass,
                                       SpecificationListener otherConditionListener,
-                                      BeanUtil.OnTransListener<TARGET, ENTITY> transDTOListener);
+                                      BiConsumer<TARGET, ENTITY> transDTOListener);
 
     /**
      * 获取Entity分页列表
@@ -62,14 +62,14 @@ public interface BaseService<ENTITY extends BaseEntity, ID, DAO extends BaseDao<
      */
     <TARGET> PageResult<TARGET> getPageResultToDTO(PageRequest pageRequest, Class<TARGET> targetClass,
                                                    SpecificationListener otherConditionListener,
-                                                   BeanUtil.OnTransListener<TARGET, ENTITY> transDTOListener);
+                                                   BiConsumer<TARGET, ENTITY> transDTOListener);
 
     /**
      * 获取DTO顶置分页列表
      */
     <TARGET> PageResult<TARGET> getStickPageResultToDTO(PageInfoVo vo, @NotNull Set<ID> stickIds, Class<TARGET> targetClass,
                                                         SpecificationListener otherConditionListener,
-                                                        BeanUtil.OnTransListener<TARGET, ENTITY> stickDTOListener,
-                                                        BeanUtil.OnTransListener<TARGET, ENTITY> otherDTOListener);
+                                                        BiConsumer<TARGET, ENTITY> stickDTOListener,
+                                                        BiConsumer<TARGET, ENTITY> otherDTOListener);
 
 }

@@ -20,6 +20,7 @@ import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.function.BiConsumer;
 
 public abstract class BaseServiceImpl<ENTITY extends BaseEntity, ID, DAO extends BaseDao<ENTITY, ID>> implements BaseService<ENTITY, ID, DAO> {
 
@@ -88,7 +89,7 @@ public abstract class BaseServiceImpl<ENTITY extends BaseEntity, ID, DAO extends
     }
 
     @Override
-    public <TARGET> List<TARGET> getAllToDTO(Class<TARGET> targetClass, SpecificationListener otherConditionListener, BeanUtil.OnTransListener<TARGET, ENTITY> transDTOListener) {
+    public <TARGET> List<TARGET> getAllToDTO(Class<TARGET> targetClass, SpecificationListener otherConditionListener, BiConsumer<TARGET, ENTITY> transDTOListener) {
         return BeanUtil.transTo(getAll(otherConditionListener), targetClass, transDTOListener);
     }
 
@@ -111,7 +112,7 @@ public abstract class BaseServiceImpl<ENTITY extends BaseEntity, ID, DAO extends
     @Override
     public <TARGET> PageResult<TARGET> getPageResultToDTO(PageRequest pageRequest, Class<TARGET> targetClass,
                                                           SpecificationListener otherConditionListener,
-                                                          BeanUtil.OnTransListener<TARGET, ENTITY> transDTOListener) {
+                                                          BiConsumer<TARGET, ENTITY> transDTOListener) {
         Page<ENTITY> pageList = getPage(pageRequest, otherConditionListener);
         return JPAUtil.setPageResult(pageRequest.getPageNumber(), pageList, targetClass, transDTOListener);
     }
@@ -119,8 +120,8 @@ public abstract class BaseServiceImpl<ENTITY extends BaseEntity, ID, DAO extends
     @Override
     public <TARGET> PageResult<TARGET> getStickPageResultToDTO(PageInfoVo vo, @NotNull Set<ID> stickIds, Class<TARGET> targetClass,
                                                                SpecificationListener otherConditionListener,
-                                                               BeanUtil.OnTransListener<TARGET, ENTITY> stickDTOListener,
-                                                               BeanUtil.OnTransListener<TARGET, ENTITY> otherDTOListener) {
+                                                               BiConsumer<TARGET, ENTITY> stickDTOListener,
+                                                               BiConsumer<TARGET, ENTITY> otherDTOListener) {
         Integer pageSize = vo.getPageSize();
 
         Page<ENTITY> page = getStickList(vo, stickIds, new JPAUtil.StickPageRequest(vo), false, otherConditionListener);

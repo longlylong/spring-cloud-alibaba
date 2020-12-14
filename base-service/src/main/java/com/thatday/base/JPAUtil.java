@@ -14,6 +14,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 public class JPAUtil {
 
@@ -68,7 +69,7 @@ public class JPAUtil {
         return setPageResult(curPage, fromPage, clazz, null);
     }
 
-    public static <T, Y> PageResult<T> setPageResult(Integer curPage, Page<Y> fromPage, Class<T> clazz, BeanUtil.OnTransListener<T, Y> onTransListener) {
+    public static <T, Y> PageResult<T> setPageResult(Integer curPage, Page<Y> fromPage, Class<T> clazz, BiConsumer<T, Y> onTransListener) {
         PageResult<T> pageResult = new PageResult<>();
         pageResult.setCurPage(curPage);
         pageResult.setTotalCount(fromPage.getTotalElements());
