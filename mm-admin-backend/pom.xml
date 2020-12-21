@@ -17,13 +17,12 @@
         <!-- oshi监控需要指定jna版本, 问题详见 https://github.com/oshi/oshi/issues/1040 -->
         <jna.version>5.5.0</jna.version>
         <configuration.version>1.9</configuration.version>
+        <mapstruct.version>1.4.1.Final</mapstruct.version>
+        <guava.version>22.0</guava.version>
 
         <log4jdbc.version>1.16</log4jdbc.version>
-        <mapstruct.version>1.4.0.Beta3</mapstruct.version>
-
-        <druid.version>1.1.22</druid.version>
+        <druid.version>1.2.4</druid.version>
         <commons-pool2.version>2.5.0</commons-pool2.version>
-        <guava.version>22.0</guava.version>
     </properties>
 
     <dependencies>

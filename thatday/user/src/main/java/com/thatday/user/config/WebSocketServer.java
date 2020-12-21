@@ -1,49 +1,56 @@
 package com.thatday.user.config;
 
+import com.thatday.common.token.TokenUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 //@ServerEndpoint(value = "/websocket/{key}")
 //@Component
 public class WebSocketServer {
 
-    //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
-    private static int onlineCount = 0;
+    private static final AtomicInteger onlineCount = new AtomicInteger(0);
 
     //线程安全
     private static ConcurrentHashMap<String, WebSocketServer> webSocketSet = new ConcurrentHashMap();
 
     private Session session;
-    private String key;
+    private String userId;
 
-    private static synchronized void addOnlineCount() {
-        WebSocketServer.onlineCount++;
+    private static void addOnlineCount() {
+        onlineCount.getAndIncrement();
     }
 
-    private static synchronized void subOnlineCount() {
-        WebSocketServer.onlineCount--;
+    private static void subOnlineCount() {
+        onlineCount.getAndDecrement();
     }
 
     /**
      * 连接建立成功调用的方法
      */
     @OnOpen
-    public void onOpen(@PathParam("key") String key, Session session) {
+    public void onOpen(@PathParam("key") String token, Session session) throws IOException {
         this.session = session;
-        this.key = key;
+        try {
+            this.userId = TokenUtil.getUserInfo(token).getUserId();
+        } catch (Exception e) {
+            sendMessage("连接失败:" + e.getMessage());
+            session.close();
+            return;
+        }
 
-        webSocketSet.remove(key);
-        webSocketSet.put(key, this);
+        webSocketSet.remove(userId);
+        webSocketSet.put(userId, this);
 
         addOnlineCount();
         sendMessage("连接成功");
 
-        log.info("有新连接加入！当前在线人数为" + getOnlineCount() + "--" + key);
+        log.info("有新连接加入！当前在线人数为" + getOnlineCount() + "--" + userId);
     }
 
     @OnMessage
@@ -62,7 +69,7 @@ public class WebSocketServer {
 
     @OnClose
     public void onClose() {
-        webSocketSet.remove(key);
+        webSocketSet.remove(userId);
         subOnlineCount();
         log.info("有一连接关闭！当前在线人数为" + getOnlineCount());
     }
@@ -74,6 +81,6 @@ public class WebSocketServer {
     }
 
     private int getOnlineCount() {
-        return onlineCount;
+        return onlineCount.get();
     }
 }
