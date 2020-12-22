@@ -15,11 +15,6 @@ spring:
   profiles:
     active: local
 
-  cloud:
-    nacos:
-      #discovery与config的server-addr没配置默认是读取这个的
-      server-addr: ${nacos-config.addr}
-
 #配置Dubbo
 dubbo:
   application:

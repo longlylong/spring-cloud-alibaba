@@ -28,10 +28,6 @@ spring:
       ddl-auto: none
 
   cloud:
-    nacos:
-      #discovery与config的server-addr没配置默认是读取这个的
-      server-addr: ${nacos-config.addr}
-
     sentinel:
       transport:
         dashboard: localhost:8080
