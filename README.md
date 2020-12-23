@@ -2,7 +2,6 @@ Plugins：
 
     Alibaba Java Coding Guidelines
     Lombok
-    GsonFormat
     
 技术栈：
 
@@ -24,7 +23,7 @@ Plugins：
 	-Datasource Nacos
 	
 	JPA+QueryDsl     免去直接写SQL,用法和写sql一样灵活
-	Seata 1.4.0      分布式事务 http://seata.io
+	Seata 1.4.0      分布式事务(Seata1.4.md) http://seata.io
 	Redisson 3.14.0  分布式锁
 
 	RocketMQ 4.5.0   消息队列
@@ -35,6 +34,10 @@ Plugins：
 
 	关注这个类,里面有详细方法修改3步完事,就不用跑网关和nacos了
 	com.thatday.user.filter.SingleAppTokenAspect
+
+部署指南：
+    
+    Depoly.md
 
 项目结构介绍：
 
