@@ -1,4 +1,4 @@
-const baseUrl = process.env.VUE_APP_BASE_API
+const baseUrl = process.env.API_SYS_BASE_URL
 const api = {
   state: {
     // 部署包上传

@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '@/utils/requestSys'
 
 // 获取所有的Role
 export function getAll() {

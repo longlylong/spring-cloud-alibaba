@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '@/utils/requestSys'
 
 export function getDepts(params) {
   return request({

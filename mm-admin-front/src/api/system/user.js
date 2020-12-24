@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '@/utils/requestSys'
 import { encrypt } from '@/utils/rsaEncrypt'
 
 export function add(data) {

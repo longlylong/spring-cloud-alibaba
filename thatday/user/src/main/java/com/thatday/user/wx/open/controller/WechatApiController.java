@@ -24,10 +24,13 @@ import java.nio.charset.StandardCharsets;
 @Api(tags = "微信 开放平台接口")
 public class WechatApiController {
 
+    private static final String appId = "";
+    private static final String secret = "";
+
     @GetMapping("/wx/admin/wx_login_callback")
     @ApiOperation("扫码登录回调")
     public String wxLoginCallback(WxLoginCallbackVo loginCallback) throws Exception {
-        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=xxx&secret=xxx" +
+        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appId + "&secret=" + secret +
                 "&code=" + loginCallback.getCode() + "&grant_type=authorization_code";
 
         CloseableHttpClient aDefault = HttpClients.createDefault();
