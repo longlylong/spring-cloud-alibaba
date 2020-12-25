@@ -15,7 +15,7 @@
     <version>2.0</version>
 
     <properties>
-        <hutool.version>5.5.2</hutool.version>
+        <hutool.version>5.5.4</hutool.version>
 
         <commons-lang3.version>3.11</commons-lang3.version>
         <commons-collections4.version>4.4</commons-collections4.version>
