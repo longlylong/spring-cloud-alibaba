@@ -13,17 +13,17 @@ import org.springframework.web.server.ServerWebExchange;
  * 自定义负载均衡
  **/
 @Component
-public class NacosLoadBalancerClientFilter extends LoadBalancerClientFilter implements BeanPostProcessor {
+public class TDLoadBalancerClientFilter extends LoadBalancerClientFilter implements BeanPostProcessor {
 
     private final DiscoveryClient discoveryClient;
     private final IChooseRule chooseRule;
 
-    public NacosLoadBalancerClientFilter(LoadBalancerClient loadBalancer,
-                                         LoadBalancerProperties properties,
-                                         DiscoveryClient discoveryClient) {
+    public TDLoadBalancerClientFilter(LoadBalancerClient loadBalancer,
+                                      LoadBalancerProperties properties,
+                                      DiscoveryClient discoveryClient) {
         super(loadBalancer, properties);
         this.discoveryClient = discoveryClient;
-        chooseRule = new WeightBalanceRule();
+        chooseRule = new NacosWeightRandomRule();
     }
 
     @Override

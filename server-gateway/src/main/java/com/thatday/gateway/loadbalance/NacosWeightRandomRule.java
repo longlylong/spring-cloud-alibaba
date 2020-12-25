@@ -13,9 +13,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR;
 
 /**
- * 按照权重走的 配合nacos
+ * nacos加权随机
  */
-public class WeightBalanceRule implements IChooseRule {
+public class NacosWeightRandomRule implements IChooseRule {
 
     private static final Map<String, Integer> nextServerMap = new ConcurrentHashMap<>();
 
