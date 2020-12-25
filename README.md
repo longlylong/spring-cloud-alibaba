@@ -69,7 +69,7 @@ Plugins：
 	----ratelimit   (限流,2个可以选一个用,2个用也可以)
 	------bucket    (令牌桶,可本地配置,nacos上配置)
 	------nacos     (关联Sentinel,需要在Dashboard配置)
-	----loadbalance (自定义负载 按照权重走的 配合nacos)
+	----loadbalance (自定义负载 NacosWeightRandomRule加权随机)
 	--provider      (提供配置的类)
 
 	ThatDay             (项目业务代码)

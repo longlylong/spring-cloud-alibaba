@@ -70,14 +70,14 @@ public class GlobalAuthorFilter implements GlobalFilter, Ordered {
         if (mediaType != null
                 && MediaType.APPLICATION_JSON.getType().equalsIgnoreCase(mediaType.getType())
                 && MediaType.APPLICATION_JSON.getSubtype().equalsIgnoreCase(mediaType.getSubtype())) {
-            //POST json 请求处理
-            return handlePost(exchange, chain, headerToken);
+            //application/json 请求处理 一般POST PUT PATCH DELETE
+            return handleJsonRequest(exchange, chain, headerToken);
         } else {
             return chain.filter(exchange);
         }
     }
 
-    private Mono<Void> handlePost(ServerWebExchange exchange, GatewayFilterChain chain, String headerToken) {
+    private Mono<Void> handleJsonRequest(ServerWebExchange exchange, GatewayFilterChain chain, String headerToken) {
         ServerHttpRequest request = exchange.getRequest();
 
         // read & modify body
@@ -85,7 +85,7 @@ public class GlobalAuthorFilter implements GlobalFilter, Ordered {
                 .flatMap(body -> {
                     MediaType mediaType = request.getHeaders().getContentType();
                     if (MediaType.APPLICATION_JSON.isCompatibleWith(mediaType)) {
-                        String newBody = addPostUserInfo(headerToken, body);
+                        String newBody = addJsonUserInfo(headerToken, body);
                         log.info("请求参数:");
                         log.info(newBody);
                         log.info("----------------------------------\n");
@@ -184,7 +184,7 @@ public class GlobalAuthorFilter implements GlobalFilter, Ordered {
         query.append(userInfo.getExpireTime());
     }
 
-    private String addPostUserInfo(String headerToken, String bodyStr) {
+    private String addJsonUserInfo(String headerToken, String bodyStr) {
         StringBuilder sb = new StringBuilder(bodyStr);
         //鉴权过后就往请求body里面加入用户信息,方便后面的接口使用
         UserInfo userInfo = TokenUtil.getUserInfo(headerToken);
