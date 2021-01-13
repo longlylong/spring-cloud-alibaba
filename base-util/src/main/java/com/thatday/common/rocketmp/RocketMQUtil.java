@@ -17,7 +17,7 @@ import java.util.List;
 
 public class RocketMQUtil {
 
-    private static final String DefaultRocketMQGroup = "DefaultRocketMQGroup" ;
+    private static final String DefaultGroup = "Default" ;
     public static String DefaultNameSrvAddr = "127.0.0.1:9876" ;
     private static DefaultMQProducer producer;
 
@@ -25,7 +25,7 @@ public class RocketMQUtil {
      * 用默认的参数
      */
     public static void initDefaultProducer() {
-        initProducer(DefaultRocketMQGroup, DefaultNameSrvAddr);
+        initProducer(DefaultGroup, DefaultNameSrvAddr);
     }
 
     public static void initProducer(String producerGroup, String nameSrvAddr) {
@@ -43,9 +43,8 @@ public class RocketMQUtil {
      * 用默认的参数
      * 不同的消费者producerGroup也需要不一样
      */
-    public static void initConsumer(int port, String topic, String tags,
-                                    MessageListenerConcurrently listener) {
-        initConsumer(port, DefaultRocketMQGroup + topic + tags, DefaultNameSrvAddr, topic, tags, listener);
+    public static void initConsumer(int port, String topic, String tags, MessageListenerConcurrently listener) {
+        initConsumer(port, DefaultGroup, DefaultNameSrvAddr, topic, tags, listener);
     }
 
     /**
@@ -58,7 +57,7 @@ public class RocketMQUtil {
         try {
             DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(producerGroup);
             consumer.setNamesrvAddr(nameSrvAddr);
-            consumer.setInstanceName(port + "-" + producerGroup + "-" + topic + "-" + tags);
+            consumer.setInstanceName(port + "-" + producerGroup + "-" + topic);
             consumer.subscribe(topic, tags);
             consumer.registerMessageListener(listener);
             consumer.start();
