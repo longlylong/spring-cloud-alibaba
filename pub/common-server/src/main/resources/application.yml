@@ -12,9 +12,6 @@ spring:
   application:
     name: common-server-v1
 
-  profiles:
-    active: local
-
 #配置Dubbo
 dubbo:
   application:

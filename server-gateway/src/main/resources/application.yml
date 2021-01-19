@@ -9,8 +9,6 @@ nacos-config:
 spring:
   application:
     name: server-gateway-a
-  profiles:
-    active: local
   main:
     allow-bean-definition-overriding: true
 
@@ -70,12 +68,6 @@ spring:
             fallbackUri: forward:/globalFallback
       #路由配置
       routes:
-        - id: api-v1
-          uri: lb://api-v1
-          predicates:
-            - Path=/v1/api/**
-          filters:
-            - StripPrefix=2
         #socket服务
         #        - id: socket
         #          uri: lb:ws://user-v1
@@ -83,6 +75,18 @@ spring:
         #            - Path=/v1/user-ss/**
         #          filters:
         #            - StripPrefix=2
+        - id: es-v1
+          uri: lb://es-v1
+          predicates:
+            - Path=/v1/es/**
+          filters:
+            - StripPrefix=2
+        - id: api-v1
+          uri: lb://api-v1
+          predicates:
+            - Path=/v1/api/**
+          filters:
+            - StripPrefix=2
         - id: common-server-v1
           uri: lb://common-server-v1
           predicates:

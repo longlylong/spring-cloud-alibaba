@@ -1,6 +1,11 @@
 spring:
     datasource:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://192.168.220.130:3306/that_day?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false
-      username: that_day
-      password: 123456
+      url: jdbc:mysql://192.168.220.130:3307/that_day?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false
+      username: root
+      password: root
+
+nacos-config:
+  addr: 192.168.220.130:8848,192.168.220.130:8849,192.168.220.130:8850
+  user: nacos
+  psw: nacos

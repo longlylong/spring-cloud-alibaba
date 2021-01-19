@@ -11,8 +11,6 @@ nacos-config:
 spring:
   application:
     name: api-v1
-  profiles:
-    active: local
 
 #  redis:
 #    database: 0

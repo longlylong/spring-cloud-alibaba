@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: local
   cloud:
     nacos:
       #这个一定更要在bootstrap中配置不然读取不到

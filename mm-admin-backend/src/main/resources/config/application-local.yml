@@ -4,18 +4,23 @@ spring:
     druid:
       db-type: com.alibaba.druid.pool.DruidDataSource
       driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-      url: jdbc:log4jdbc:mysql://192.168.220.130:3306/that_day?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
-      username: that_day
-      password: 123456
+      url: jdbc:log4jdbc:mysql://192.168.220.130:3307/that_day?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
+      username: root
+      password: root
 
   redis:
     #数据库索引
     database: 0
-    host: 192.168.220.130
-    port: 6379
-    password: 123456789
+    #host: 192.168.220.130
+    #port: 6379
+    password: ""
     #连接超时时间
     timeout: 5000
+    cluster:
+      nodes:
+        - 192.168.220.130:7001
+        - 192.168.220.130:7002
+        - 192.168.220.130:7003
 
 #是否允许生成代码，生产环境设置为false
 generator:
