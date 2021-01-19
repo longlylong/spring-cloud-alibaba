@@ -1,0 +1,6 @@
+spring:
+  cloud:
+    nacos:
+      #这个一定更要在bootstrap中配置不然读取不到
+      #discovery与config的server-addr没配置默认是读取这个的
+      server-addr: 192.168.220.130:8848,192.168.220.130:8849,192.168.220.130:8850

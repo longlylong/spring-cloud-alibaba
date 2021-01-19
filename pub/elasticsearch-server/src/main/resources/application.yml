@@ -1,0 +1,60 @@
+server:
+  port: 7100
+  tomcat:
+    basedir: /home/temp
+
+nacos-config:
+  addr: 127.0.0.1:8848
+  user: nacos
+  psw: nacos
+
+spring:
+  application:
+    name: es-v1
+
+#配置Dubbo
+dubbo:
+  application:
+    name: dubbo-${spring.application.name}
+  registry:
+    id: dubbo-${spring.application.name}
+    timeout: 5000
+    address: ${nacos-config.addr}
+    protocol: nacos
+  consumer:
+    timeout: 5000
+    #启动不检查服务提供者,检查不到提供者,则启动不了项目
+    check: false
+    #负载均衡 默认是random随机的 现在这个是轮询
+    loadbalance: roundrobin
+  provider:
+    timeout: 5000
+    protocol: dubbo
+
+#分布式事务
+seata:
+  #默认是开启的 现在不需要先关闭
+  enabled: false
+  tx-service-group: admin-tx-group
+  service:
+    vgroup-mapping:
+      admin-tx-group: default  #key与上面的tx-service-group的值对应并与config的一致
+  config:
+    type: nacos
+    nacos:
+      namespace: seata
+      server-addr: ${nacos-config.addr}
+      username: ${nacos-config.user}
+      password: ${nacos-config.psw}
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: ${nacos-config.addr}
+      group: "SEATA_GROUP"
+      username: ${nacos-config.user}
+      password: ${nacos-config.psw}
+
+td:
+  swagger:
+    enable: true

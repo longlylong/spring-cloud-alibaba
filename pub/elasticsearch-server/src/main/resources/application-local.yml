@@ -1,0 +1,11 @@
+spring:
+    datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://192.168.220.130:3307/that_day?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false
+      username: root
+      password: root
+
+elasticsearch:
+  cluster:
+    -  192.168.220.130:9201
+    -  192.168.220.130:9202
