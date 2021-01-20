@@ -9,6 +9,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR;
 
@@ -17,7 +18,7 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.G
  */
 public class NacosWeightRandomRule implements IChooseRule {
 
-    private static final Map<String, Integer> nextServerMap = new ConcurrentHashMap<>();
+    private static final Map<String, AtomicInteger> nextServerMap = new ConcurrentHashMap<>();
 
     @Override
     public ServiceInstance choose(ServerWebExchange exchange, DiscoveryClient discoveryClient) {
@@ -29,13 +30,18 @@ public class NacosWeightRandomRule implements IChooseRule {
 
     //one by one
     private ServiceInstance defaultNext(String serverName, List<ServiceInstance> reachableServers) {
-        Integer pos = nextServerMap.get(serverName);
-        if (pos == null || pos >= reachableServers.size()) {
-            pos = 0;
+        AtomicInteger atomicInteger = nextServerMap.computeIfAbsent(serverName, (k) -> new AtomicInteger(0));
+        int next = incrementAndGetModulo(atomicInteger, reachableServers.size());
+        return reachableServers.get(next);
+    }
+
+    private static int incrementAndGetModulo(AtomicInteger nextServerCyclicCounter, int modulo) {
+        for (; ; ) {
+            int current = nextServerCyclicCounter.get();
+            int next = (current + 1) % modulo;
+            if (nextServerCyclicCounter.compareAndSet(current, next))
+                return next;
         }
-        ServiceInstance server = reachableServers.get(pos);
-        nextServerMap.put(serverName, pos + 1);
-        return server;
     }
 
     private ServiceInstance weightChooseRule(String key, List<ServiceInstance> reachableServers) {
