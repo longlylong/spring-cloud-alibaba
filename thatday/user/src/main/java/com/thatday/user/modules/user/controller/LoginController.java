@@ -40,7 +40,8 @@ public class LoginController {
     public Result<Object> testSeata() {
         //全局事务测试
         userService.addUser("nickname" + System.currentTimeMillis());
-        return Result.buildSuccess(commonService.dubboTest());
+        String s = commonService.dubboTest();
+        return Result.buildSuccess();
     }
 
     @GetMapping(value = "/testDLock")
