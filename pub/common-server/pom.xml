@@ -62,6 +62,13 @@
             <version>${sentinel-gateway.version}</version>
         </dependency>
 
+        <!-- 阿里流量防卫 Sentinel dubbo适配器 -->
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-dubbo-adapter</artifactId>
+            <version>${sentinel-gateway.version}</version>
+        </dependency>
+
         <!-- 阿里分布式事务 -->
         <dependency>
             <groupId>io.seata</groupId>
