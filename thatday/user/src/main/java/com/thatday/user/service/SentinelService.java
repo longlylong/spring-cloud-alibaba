@@ -1,6 +1,7 @@
 package com.thatday.user.service;
 
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.BlockExceptionHandler;
+import com.alibaba.csp.sentinel.slots.block.AbstractRule;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,8 +21,7 @@ public class SentinelService implements BlockExceptionHandler {
 
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, BlockException e) throws Exception {
-        String path = httpServletRequest.getRequestURI();
-        log.info(e.getClass().getSimpleName() + "---" + path);
+        AbstractRule rule = e.getRule();
         response(httpServletResponse, 429, "前方高能,请排队哦");
     }
 

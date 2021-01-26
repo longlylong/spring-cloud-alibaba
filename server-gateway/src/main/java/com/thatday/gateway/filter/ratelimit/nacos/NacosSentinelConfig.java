@@ -119,8 +119,8 @@ public class NacosSentinelConfig {
      * 网关API
      */
     @Bean("sentinel-json-gw-api-group-converter")
-    public JsonConverter apiDefinitionEntityDecoder() {
-        return new JsonConverter(objectMapper, ApiDefinition.class);
+    public JsonConverter<ApiDefinition> apiDefinitionEntityDecoder() {
+        return new JsonConverter<>(objectMapper, ApiDefinition.class);
     }
 
     /**
@@ -128,7 +128,7 @@ public class NacosSentinelConfig {
      * 网关flowRule
      */
     @Bean("sentinel-json-gw-flow-converter")
-    public JsonConverter gatewayFlowRuleEntityDecoder() {
-        return new JsonConverter(objectMapper, GatewayFlowRule.class);
+    public JsonConverter<GatewayFlowRule> gatewayFlowRuleEntityDecoder() {
+        return new JsonConverter<>(objectMapper, GatewayFlowRule.class);
     }
 }
