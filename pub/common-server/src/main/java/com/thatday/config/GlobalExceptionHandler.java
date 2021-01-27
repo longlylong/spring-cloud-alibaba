@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * 全局异常处理器
  */
+//这里会与sentinel的异常降级有冲突
+//这里抓了异常sentinel就统计不到了
+//可降级服务可以try来继续流程
 @ControllerAdvice
 @ResponseBody
 @Log4j2

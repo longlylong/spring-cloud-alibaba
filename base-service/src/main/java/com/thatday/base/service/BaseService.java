@@ -16,6 +16,7 @@ import java.util.function.BiConsumer;
 public interface BaseService<ENTITY extends BaseEntity, ID, DAO extends BaseDao<ENTITY, ID>> {
 
     //可自己定义id
+    //自增返回空 id字段需要加上注解@GeneratedValue(strategy = GenerationType.IDENTITY)
     ID customDatabaseId();
 
     DAO getDao();
