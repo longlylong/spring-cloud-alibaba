@@ -1,5 +1,6 @@
 package com.thatday;
 
+import cn.hutool.extra.spring.EnableSpringUtil;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
@@ -13,10 +14,12 @@ import org.springframework.context.annotation.Primary;
 import java.text.SimpleDateFormat;
 
 
+
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableKnife4j
 @EnableDubbo
+@EnableSpringUtil
 public class CommonServerApplication {
 
     public static void main(String[] args) {
