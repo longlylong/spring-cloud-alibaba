@@ -69,12 +69,13 @@ spring:
       #路由配置
       routes:
         #socket服务
-        #        - id: socket
-        #          uri: lb:ws://user-v1
-        #          predicates:
-        #            - Path=/v1/user-ss/**
-        #          filters:
-        #            - StripPrefix=2
+        - id: socket
+          uri: lb:ws://api-v1
+          predicates:
+            - Path=/v1/api-ws/**
+          filters:
+            - StripPrefix=2
+        #api服务
         - id: es-v1
           uri: lb://es-v1
           predicates:

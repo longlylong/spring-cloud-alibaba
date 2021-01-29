@@ -47,7 +47,14 @@ public class GlobalAuthorFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         final ServerHttpRequest request = exchange.getRequest();
+
+        //判断是否WebSocket的连接是就直接转到微服务去
+        if (isWebSocketConnect(request)) {
+            return chain.filter(exchange);
+        }
+
         String path = request.getURI().getPath();
+        //判断是否跳过授权验证
         if (AuthorSkipProvider.isSkip(path)) {
             return chain.filter(exchange);
         }
@@ -75,6 +82,15 @@ public class GlobalAuthorFilter implements GlobalFilter, Ordered {
         } else {
             return chain.filter(exchange);
         }
+    }
+
+    private boolean isWebSocketConnect(ServerHttpRequest request) {
+        for (String header : request.getHeaders().keySet()) {
+            if (header.toLowerCase().contains("websocket") && request.getURI().getPath().contains("/websocket")) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private Mono<Void> handleJsonRequest(ServerWebExchange exchange, GatewayFilterChain chain, String headerToken) {
