@@ -14,7 +14,7 @@ spring:
 
 #  redis:
 #    database: 0
-#    host: 192.168.220.130
+#    host: 192.168.224.129
 #    port: 6379
 #    password: 123456789
 #    timeout: 5000

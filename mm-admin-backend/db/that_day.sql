@@ -3,7 +3,7 @@ Navicat MySQL Data Transfer
 
 Source Server         : that_day
 Source Server Version : 50632
-Source Host           : 192.168.220.130:3306
+Source Host           : 192.168.224.129:3306
 Source Database       : that_day
 
 Target Server Type    : MYSQL

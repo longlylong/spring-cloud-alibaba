@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.220.130:3307/that_day?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false
+    url: jdbc:mysql://192.168.224.129:3306/that_day?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false
     username: root
     password: root
 
@@ -9,19 +9,19 @@ spring:
   redis:
     #数据库索引
     database: 0
-    #host: 192.168.220.130
-    #port: 6379
-    password: ""
+    host: 192.168.224.129
+    port: 6379
+    password: "123456"
     #连接超时时间
     timeout: 5000
     #集群
-    cluster:
-      nodes:
-        - 192.168.220.130:7001
-        - 192.168.220.130:7002
-        - 192.168.220.130:7003
+#    cluster:
+#      nodes:
+#        - 192.168.224.129:7001
+#        - 192.168.224.129:7002
+#        - 192.168.224.129:7003
 
 nacos-config:
-  addr: 192.168.220.130:8848,192.168.220.130:8849,192.168.220.130:8850
+  addr: 192.168.224.129:8848,192.168.224.129:8849,192.168.224.129:8850
   user: nacos
   psw: nacos

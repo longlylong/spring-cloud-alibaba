@@ -44,7 +44,7 @@ store {
     ## mysql/oracle/postgresql/h2/oceanbase etc.
     dbType = "mysql"
     driverClassName = "com.mysql.jdbc.Driver"
-    url = "jdbc:mysql://192.168.220.130:3306/that_day"
+    url = "jdbc:mysql://192.168.224.129:3306/that_day"
     user = "root"
     password = "123456"
     minConn = 5
@@ -180,7 +180,7 @@ store.file.sessionReloadReadSize=100
 store.db.datasource=druid
 store.db.dbType=mysql
 store.db.driverClassName=com.mysql.jdbc.Driver
-store.db.url=jdbc:mysql://192.168.220.130:3306/that_day?useUnicode=true
+store.db.url=jdbc:mysql://192.168.224.129:3306/that_day?useUnicode=true
 store.db.user=root
 store.db.password=123456
 store.db.minConn=5
