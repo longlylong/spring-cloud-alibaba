@@ -45,7 +45,7 @@ public class UserInfo implements Serializable {
 
     public static UserInfo create(String userId, String role, Integer deviceId) {
         return create(userId, role, deviceId, TokenUtil.getAccessToken(userId, role, deviceId),
-                new Date().getTime() + TokenUtil.Token_Expires);
+                new Date().getTime() + TokenConstant.Token_Expires);
     }
 
     public static UserInfo create(String userId, String role, Integer deviceId, String accessToken, Long expireTime) {
