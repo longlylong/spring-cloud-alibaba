@@ -1,15 +1,16 @@
 package com.thatday.common.token;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTCreator;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thatday.common.exception.TDExceptionHandler;
-import org.apache.commons.codec.binary.Base64;
-import org.springframework.util.Base64Utils;
-import org.springframework.util.StringUtils;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,16 +18,17 @@ import java.util.Map;
 public class TokenUtil {
 
     public static void main(String[] args) {
-        System.out.println(getAccessToken("1"));
+        String token = getAccessToken("1", "", 0);
+        System.out.println(token);
+        System.out.println(checkToken(token));
+        System.out.println(getUserInfo(token));
     }
 
-    public static final long Token_Expires = 2 * 24 * 60 * 60 * 1000L;
-    private static final String Secret = "hds##hsh55578*&1";
     private static Algorithm algorithm;
 
     static {
         try {
-            algorithm = Algorithm.HMAC256(Secret);
+            algorithm = Algorithm.HMAC256(TokenConstant.Secret);
         } catch (Exception ignored) {
         }
     }
@@ -48,54 +50,22 @@ public class TokenUtil {
         map.put(TokenConstant.USER_ID, uid);
         map.put(TokenConstant.ROLE, role);
         map.put(TokenConstant.DEVICE_ID, deviceId);
-        map.put(TokenConstant.EXPIRES_TIME, new Date().getTime() + Token_Expires);
         map.put(TokenConstant.CREATE_TIME, new Date().getTime());
         return makeToken(map);
     }
 
     public static boolean checkToken(String token) {
-        if (StringUtils.isEmpty(token)) {
+        JWTVerifier jwtVerifier = JWT.require(algorithm).build();
+        try {
+            jwtVerifier.verify(token);
+            return true;
+        } catch (JWTVerificationException e) {
             return false;
         }
-
-        String[] tokens = token.split("\\.");
-        if (tokens.length != 2) {
-            return false;
-        }
-
-        UserInfo map = getUserInfo(token);
-        if (map == null || map.getCreateTime() == null || map.getExpireTime() == null) {
-            return false;
-        }
-
-        if (System.currentTimeMillis() > map.getExpireTime()
-                || System.currentTimeMillis() > map.getCreateTime() + Token_Expires) {
-            return false;
-        }
-
-        return tokens[1].equals(getSign(tokens[0]));
     }
 
     public static void checkTokenAndThrowException(String token) {
-        if (StringUtils.isEmpty(token)) {
-            throw TDExceptionHandler.throwTokenException();
-        }
-
-        String[] tokens = token.split("\\.");
-        if (tokens.length != 2) {
-            throw TDExceptionHandler.throwTokenException();
-        }
-
-        UserInfo map = getUserInfo(token);
-        if (map == null) {
-            throw TDExceptionHandler.throwTokenException();
-        }
-
-        if (System.currentTimeMillis() > map.getExpireTime()) {
-            throw TDExceptionHandler.throwTokenException();
-        }
-
-        if (!tokens[1].equals(getSign(tokens[0]))) {
+        if (!checkToken(token)) {
             throw TDExceptionHandler.throwTokenException();
         }
     }
@@ -103,43 +73,30 @@ public class TokenUtil {
     private static String makeToken(Map<String, Object> map) {
         try {
             ObjectMapper mapper = new ObjectMapper();
-
             String payloadJson = mapper.writeValueAsString(map);
-            String base64Payload = Base64.encodeBase64URLSafeString(payloadJson.getBytes());
-
-            byte[] signatureBytes = algorithm.sign(base64Payload.getBytes(StandardCharsets.UTF_8));
-            String signature = Base64.encodeBase64URLSafeString(signatureBytes);
-
-            return String.format("%s.%s", base64Payload, signature);
-
+            JWTCreator.Builder builder = JWT.create().withClaim("payload", payloadJson);
+            builder.withExpiresAt(new Date(new Date().getTime() + TokenConstant.Token_Expires));
+            return builder.sign(algorithm);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        return "" ;
-    }
-
-    private static String getSign(String base64Payload) {
-        byte[] signatureBytes = algorithm.sign(base64Payload.getBytes(StandardCharsets.UTF_8));
-        return Base64.encodeBase64URLSafeString(signatureBytes);
+        return "";
     }
 
     /**
      * 从token取得用户信息
      */
     public static UserInfo getUserInfo(String token) {
-        if (StringUtils.isEmpty(token)) {
-            throw TDExceptionHandler.throwTokenException();
-        }
+        checkTokenAndThrowException(token);
 
-        String[] tokens = token.split("\\.");
-        if (tokens.length != 2) {
-            throw TDExceptionHandler.throwTokenException();
-        }
+        DecodedJWT decode = JWT.decode(token);
+        String payloadJson = decode.getClaim("payload").asString();
 
-        String payloadJson = new String(Base64Utils.decodeFromUrlSafeString(tokens[0]), StandardCharsets.UTF_8);
         try {
             ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(payloadJson, UserInfo.class);
+            UserInfo userInfo = mapper.readValue(payloadJson, UserInfo.class);
+            userInfo.setExpireTime(decode.getExpiresAt().getTime());
+            return userInfo;
         } catch (IOException e) {
             throw TDExceptionHandler.throwGlobalException("getUserInfo", e);
         }
