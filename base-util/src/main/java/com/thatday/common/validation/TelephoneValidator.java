@@ -6,8 +6,8 @@ import javax.validation.ConstraintValidatorContext;
 /**
  * 自定义手机号校验规则
  */
+public class TelephoneValidator implements ConstraintValidator<TelephoneValid, String> {
 
-public class TelephoneValidtor implements ConstraintValidator<TelephoneValid, String> {
     @Override
     public void initialize(TelephoneValid constraintAnnotation) {
     }

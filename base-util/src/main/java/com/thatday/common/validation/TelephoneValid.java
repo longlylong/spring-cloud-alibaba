@@ -9,7 +9,7 @@ import java.lang.annotation.*;
  */
 
 @Documented
-@Constraint(validatedBy = {TelephoneValidtor.class})
+@Constraint(validatedBy = {TelephoneValidator.class})
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface TelephoneValid {
