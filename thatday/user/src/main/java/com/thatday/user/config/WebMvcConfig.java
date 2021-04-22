@@ -26,7 +26,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
         }
     }
 
-    @Bean
+//    @Bean
+//    跨域配置 网关配置了微服务就不需要配置了 否则不生效的
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
