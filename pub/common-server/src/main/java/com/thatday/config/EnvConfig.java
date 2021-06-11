@@ -4,6 +4,9 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import java.util.TimeZone;
+
 
 @Data
 @Component
@@ -20,5 +23,10 @@ public class EnvConfig {
 
     public boolean isLocal() {
         return "local".equals(profile);
+    }
+
+    @PostConstruct
+    void init() {
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"));
     }
 }
