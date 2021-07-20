@@ -6,7 +6,7 @@ module.exports = {
   /**
    * @description 是否显示 tagsView
    */
-  tagsView: true,
+  tagsView: false,
   /**
    * @description 固定头部
    */
