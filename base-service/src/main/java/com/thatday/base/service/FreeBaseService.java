@@ -26,6 +26,8 @@ public interface FreeBaseService<ENTITY, ID, DAO extends BaseDao<ENTITY, ID>> {
 
     ENTITY getLastOneById();
 
+    ENTITY getLastOneById(SpecificationListener specificationListener);
+
     void saveOrUpdate(ENTITY entity);
 
     <S extends ENTITY> List<S> saveAll(Iterable<S> list);

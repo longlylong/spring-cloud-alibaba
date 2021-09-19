@@ -49,8 +49,13 @@ public abstract class FreeBaseServiceImpl<ENTITY, ID, DAO extends BaseDao<ENTITY
 
     @Override
     public ENTITY getLastOneById() {
+        return getLastOneById(null);
+    }
+
+    @Override
+    public ENTITY getLastOneById(SpecificationListener specificationListener) {
         PageRequest pageRequest = JPAUtil.prIdDesc(0, 1);
-        Page<ENTITY> page = getPage(pageRequest, null);
+        Page<ENTITY> page = getPage(pageRequest, specificationListener);
         if (page.getContent().isEmpty()) {
             return null;
         }
