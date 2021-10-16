@@ -44,6 +44,8 @@ public interface FreeBaseService<ENTITY, ID, DAO extends BaseDao<ENTITY, ID>> {
      */
     List<ENTITY> getAll(SpecificationListener otherConditionListener);
 
+    List<ENTITY> getAll(PageRequest pageRequest,SpecificationListener otherConditionListener);
+
     /**
      * 获取TARGET全部列表
      */

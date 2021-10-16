@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.validation.constraints.NotNull;
@@ -95,12 +96,20 @@ public abstract class FreeBaseServiceImpl<ENTITY, ID, DAO extends BaseDao<ENTITY
 
     @Override
     public List<ENTITY> getAll(SpecificationListener otherConditionListener) {
+        return getAll(null, otherConditionListener);
+    }
+
+    @Override
+    public List<ENTITY> getAll(PageRequest pageRequest, SpecificationListener otherConditionListener) {
         Specification<ENTITY> specification = JPAUtil.makeSpecification((root, criteriaQuery, builder, predicates) -> {
             if (otherConditionListener != null) {
                 otherConditionListener.addSpecification(root, criteriaQuery, builder, predicates);
             }
         });
-        return dao.findAll(specification);
+        if (pageRequest == null) {
+            pageRequest = PageRequest.of(0, Integer.MAX_VALUE, Sort.by(Sort.Direction.DESC, "id"));
+        }
+        return dao.findAll(specification, pageRequest).getContent();
     }
 
     @Override
