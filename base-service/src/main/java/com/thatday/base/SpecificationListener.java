@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface SpecificationListener {
 
-    void addSpecification(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder builder, List<Predicate> predicates);
+    void addSpecification(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder builder, List<Predicate> plist);
 }

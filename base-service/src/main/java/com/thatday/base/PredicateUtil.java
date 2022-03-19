@@ -1,5 +1,6 @@
 package com.thatday.base;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.querydsl.core.types.dsl.EnumPath;
 import com.querydsl.core.types.dsl.StringPath;
@@ -7,6 +8,7 @@ import com.querydsl.core.types.dsl.StringPath;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.Collection;
 import java.util.List;
 
 public class PredicateUtil {
@@ -53,5 +55,23 @@ public class PredicateUtil {
             return;
         }
         predicates.add(builder.like(root.get(field), "%" + params + "%"));
+    }
+
+    public static void ifAddIn(List<Predicate> predicates, Root<?> root, EnumPath field, Collection<?> params) {
+        ifAddIn(predicates, root, field.getMetadata().getName(), params);
+    }
+
+    public static void ifAddIn(List<Predicate> predicates, Root<?> root, StringPath field, Collection<?> params) {
+        ifAddIn(predicates, root, field.getMetadata().getName(), params);
+    }
+
+    public static void ifAddIn(List<Predicate> predicates, Root<?> root, String field, Collection<?> params) {
+        if (params == null) {
+            return;
+        }
+        if (CollUtil.isEmpty(params)) {
+            return;
+        }
+        predicates.add(root.get(field).in(params));
     }
 }
