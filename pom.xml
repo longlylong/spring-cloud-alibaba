@@ -31,7 +31,7 @@
         <log4j-version>2.17.1</log4j-version>
 
         <hibernate-types-version>2.14.0</hibernate-types-version>
-        <jackson-version>2.13.1</jackson-version>
+        <jackson-version>2.13.2.1</jackson-version>
         <fastjson-version>1.2.75</fastjson-version>
 
         <knife4j-version>3.0.2</knife4j-version>
