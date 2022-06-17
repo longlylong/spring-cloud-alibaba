@@ -32,7 +32,7 @@
 
         <hibernate-types-version>2.14.0</hibernate-types-version>
         <jackson-version>2.13.1</jackson-version>
-        <fastjson-version>1.2.75</fastjson-version>
+        <fastjson-version>1.2.83</fastjson-version>
 
         <knife4j-version>3.0.2</knife4j-version>
         <mysql-connector.version>8.0.22</mysql-connector.version>
